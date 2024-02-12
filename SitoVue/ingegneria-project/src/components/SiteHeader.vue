@@ -1,22 +1,34 @@
 <template>
    <header>
     <nav class="container">
+      <RouterLink to="/">
         <div class="branding">
             <img src="../assets/Logo sito web [Optimized].svg" alt="">
             <h1>Deals24</h1>  
             <h2>RRL</h2>  
         </div>
+      </RouterLink>
         <ul class="nav-routes">
-            <RouterLink to="/">Home</RouterLink>
-            <router-link :to="{ name : 'about'}">About</router-link>
+            <router-link :to="{ name : 'about'}">Ciao {{profilo}}</router-link>
+            
+            <Categorie title="Categorie"/>
+
+            <router-link :to="{ name : 'astePersonali'}">Le tue Aste</router-link>
+            <router-link :to="{ name : 'notifiche'}">Notifiche</router-link>
         </ul>
 
     </nav>
    </header>
+   
 </template>
 
 <script setup>
 import { RouterLink } from 'vue-router';
+import Categorie from '@/components/Categorie.vue'
+
+
+let profilo = "Utente";
+
 </script>
 
 
@@ -31,9 +43,11 @@ header {
  
 
   nav {
+    color: #000;
     display: flex;
     align-items: center;
-    padding: 5px 10px;
+    text-align: left;
+    padding: 5px 20px;
     
     .branding {
       display: flex;
