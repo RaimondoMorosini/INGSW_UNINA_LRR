@@ -10,10 +10,18 @@ const routes = [
   },
 
   {
-    path: '/about-us',
+    path: '/about',
     name: 'about',
     component: AboutView
+  },
+
+  // 404 page catch all
+  {
+    path: '/:catchAll(.*)',
+    name: 'not-found',
+    component: () => import('../views/NotFoundView.vue')
   }
+
 ]
 
 const router = createRouter({
