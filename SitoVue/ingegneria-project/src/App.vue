@@ -1,4 +1,10 @@
+<script setup>
+import { RouterLink,RouterView } from "vue-router";
+import SiteHeader from "./components/SiteHeader.vue";
+</script>
+
 <template>
+  <SiteHeader />
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link :to="{ name : 'about'}">About</router-link>
