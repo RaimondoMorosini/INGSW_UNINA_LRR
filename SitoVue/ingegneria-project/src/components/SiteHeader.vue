@@ -11,7 +11,7 @@
         <ul class="nav-routes">
             <router-link :to="{ name : 'about'}">Ciao {{profilo}}</router-link>
             
-            <Categorie title="Categorie"/>
+            <Categorie class="flex" title="Categorie"/>
 
             <router-link :to="{ name : 'astePersonali'}">Le tue Aste</router-link>
             <router-link :to="{ name : 'notifiche'}">Notifiche</router-link>
