@@ -10,11 +10,16 @@ const routes = [
   },
 
   {
-    path: '/about',
+    path: '/about-us',
     name: 'about',
     component: AboutView
   },
 
+  {
+    path: '/testRai',
+    name: 'testRai',
+    component: () => import('../views/TestRAi.vue')
+  },
   // 404 page catch all
   {
     path: '/:catchAll(.*)',

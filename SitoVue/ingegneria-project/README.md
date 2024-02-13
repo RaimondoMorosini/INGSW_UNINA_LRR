@@ -3,6 +3,9 @@
 ## Project setup
 ```
 npm install
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init
+
 ```
 
 ### Compiles and hot-reloads for development
