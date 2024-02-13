@@ -9,7 +9,7 @@
   
   <style scoped>
   .icon {
-    fill:black;
+    @apply fill-current;
     width: 24px;
     height: 24px;
   }
