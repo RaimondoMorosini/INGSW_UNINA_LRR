@@ -1,4 +1,12 @@
+<script setup>
+import { RouterLink,RouterView } from "vue-router";
+import SiteHeader from "./components/SiteHeader.vue";
+
+
+</script>
+
 <template>
+  <SiteHeader />
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link :to="{ name : 'about'}">About</router-link>
@@ -13,7 +21,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #000;
 }
 
 nav {
@@ -22,10 +30,11 @@ nav {
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #000;
+  text-decoration: none;
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color:  #000;;
 }
 </style>
