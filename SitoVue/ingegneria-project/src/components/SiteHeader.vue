@@ -1,5 +1,5 @@
 <template>
-   <header>
+   <header :class="{'sticky-header': isSticky}">
     <nav class="container">
       <RouterLink to="/">
         <div class="branding">
@@ -22,12 +22,35 @@
    
 </template>
 
-<script setup>
+<script>
 import { RouterLink } from 'vue-router';
 import Categorie from '@/components/Categorie.vue'
 
 
-let profilo = "Utente";
+export default {
+  name: 'SiteHeader',
+  components: {
+    RouterLink,
+    Categorie
+  },
+  data() {
+    return {
+      isSticky: false,
+      profilo: "Utente"
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+  methods: {
+    handleScroll() {
+      this.isSticky = window.scrollY > 0;
+    }
+  }
+}
 
 </script>
 
@@ -39,7 +62,8 @@ header {
   top: 0;
   left: 0;
   right: 0;
-
+  width: 100%;
+  z-index: 999;
  
 
   nav {
@@ -68,7 +92,7 @@ header {
         font-size: 10px;
         line-height: 120.83%;
         font-weight: 800; 
-        margin-top: 20px;
+        margin-top: 10px;
       }
     }
 

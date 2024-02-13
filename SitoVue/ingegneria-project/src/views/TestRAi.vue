@@ -25,11 +25,14 @@ import icona from '../components/Icone/icona.vue';
         <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Categoria</div>
         <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Titolo dell'articolo</a>
         <p class="mt-2 text-gray-500">Questo è un breve riepilogo dell'articolo. Tailwind CSS rende incredibilmente semplice stilizzare i tuoi componenti Vue.</p>
+        <p class=""></p>
       </div>
     </div>
   </div>
 
-
+<div class="text-white bg-black">
+test
+</div>
 
 </template>
 
