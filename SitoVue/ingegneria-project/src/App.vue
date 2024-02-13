@@ -1,21 +1,29 @@
-<script setup>
+<script >
 import { RouterLink,RouterView } from "vue-router";
 import SiteHeader from "./components/SiteHeader.vue";
+import { DropDownListComponent } from "@syncfusion/ej2-vue-dropdowns";
 
+export default {
+  name: "App",
+  components: {
+    SiteHeader,
+    RouterLink,
+    RouterView,
+    
+  }
+};
 
 </script>
 
 <template>
   <SiteHeader />
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link :to="{ name : 'about'}">About</router-link>
-  </nav>
   <router-view/>
+  
 </template>
 
 
 <style>
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
