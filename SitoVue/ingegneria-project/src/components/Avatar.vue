@@ -9,13 +9,13 @@ const props = defineProps({
     initials: String,
     size:{
         type :String,
-        validator: (value) => ['sm', 'base', 'lg'].includes(value)    ,
+        validator: (value) => ['small', 'base', 'large'].includes(value)    ,
         default: 'base',
     },
     shape:{
         type: String,
-        validator: (value) => ['circle', 'square'].includes(value),
-        default: 'circle',
+        validator: (value) => ['cerchio', 'square'].includes(value),
+        default: 'cerchio',
     },
 
 });
@@ -37,28 +37,31 @@ const fallback= computed(() => {
 
 const containerClass = computed(()=>{
     return cva(
-        "relative inline-flex items-center justify-center font-bold text-slate-700 select-none shrink-0 bg-indigo-300 overflow-hidden",{
+        "relative inline-flex items-center justify-center font-bold text-slate-700 select-none shrink-0 bg-indigo-300 overflow-hidden",
+        {
             variants:{
                 size: {
-                    sm: "h-8 w-8 text-xs",
-                    base: "h-12 w-12 text-xl",
-                    lg: "h-28 w-28 text-5xl"
+                    small: "h-12 w-12 text-xs",
+                    base: "h-16 w-16 text-xl",
+                    large: "h-28 w-28 text-5xl"
                     },
-                },
+                
                 shape: {
-                    circle: "rounded-full",
+                    cerchio: "rounded-full",
                     square: "rounded",
                 },
-            }
+            },
+        }
         )({size: props.size, shape: props.shape});
     });
 
-    const innerBorder = computed(() => {
+    const innerBorderClass = computed(() => {
         return cva(
-            "absolute inset-0 border border-black/5",{
+            "absolute inset-0 border border-black/5",
+            {
                 variants: {
                     shape: {
-                        circle: "rounded-full",
+                        cerchio: "rounded-full",
                         square: "rounded",
                     },
                 },
@@ -75,7 +78,7 @@ const containerClass = computed(()=>{
        v-if="verifiedSrc" :src="verifiedSrc" :alt="props.name" />
 
        <template v-else>{{ fallback }}</template>
-        <span :class="innerBorder"></span>
+        <span :class="innerBorderClass"></span>
     </span>
 
 </template>
