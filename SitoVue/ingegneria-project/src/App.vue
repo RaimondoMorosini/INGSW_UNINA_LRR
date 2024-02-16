@@ -1,12 +1,14 @@
 <script >
 import { RouterLink,RouterView } from "vue-router";
 import SiteHeader from "./components/SiteHeader.vue";
+import Carosello from "./components/Carosello.vue";
 import { DropDownListComponent } from "@syncfusion/ej2-vue-dropdowns";
 
 export default {
   name: "App",
   components: {
     SiteHeader,
+    Carosello,
     RouterLink,
     RouterView,
     
