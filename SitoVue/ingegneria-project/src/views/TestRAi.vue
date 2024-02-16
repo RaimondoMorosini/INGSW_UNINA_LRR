@@ -18,8 +18,6 @@ import rai from '../components/rai.vue';
   <div class="center">
     <rai />
     <icona />
-        
-    
   </div>
 </template>
 
