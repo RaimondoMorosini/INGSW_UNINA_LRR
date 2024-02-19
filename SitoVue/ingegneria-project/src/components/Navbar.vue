@@ -37,17 +37,16 @@ import InvetoryDropDown from './InventoryDropDown.vue'
 
 export default {
 
-    props:['profilo'],
+    props:{
+        'profilo':{type:String, default:'Utente'}
+    },
     name: 'SiteHeader',
     components: {
         RouterLink,
         InvetoryDropDown
     },
-    data() {
-        return {
-            profilo: "Utente"
-            }
-    }
+    
+    
 }
 </script>
 
