@@ -6,6 +6,7 @@ import './components/menuItem.vue';
 
 
 
+
 // Crea l'istanza dell'app Vue e usa il router
 const app = createApp(App).use(router);
 
