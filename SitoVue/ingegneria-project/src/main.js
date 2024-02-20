@@ -7,6 +7,7 @@ import './components/menuItem.vue';
 import axios from 'axios';
 
 
+
 // Crea l'istanza dell'app Vue e usa il router
 const app = createApp(App).use(router);
 
