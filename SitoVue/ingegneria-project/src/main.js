@@ -3,7 +3,8 @@ import App from './App.vue';
 import router from './router';
 import './assets/css/tailwind.css';
 import './components/menuItem.vue';
-
+//da mettere nei file dove si vuole usare axios
+import axios from 'axios';
 
 
 
