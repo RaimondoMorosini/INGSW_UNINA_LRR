@@ -139,8 +139,8 @@ function aggiornaSelezioneCategoria(nuovoValore) {
 }
 
 </script>
-<template>
-  <div class="p-4 mx-auto max-w-2xl">
+<template >
+  <div class="mx-auto  max-w-max ">
     <form class="flex flex-col space-y-6">
       <BaseListbox
         placeholder="Seleziona persona"
@@ -156,26 +156,18 @@ function aggiornaSelezioneCategoria(nuovoValore) {
         :options="ruoli"
         multiple
       />
-    </form>
-  
-<<<<<<< Updated upstream
-  <icona />
 
-  <div class="center">
-    <rai />
-    <icona />
-=======
-    <div class="p-4 mx-auto max-w-2xl min-w-[200px]">
-    <BaseListbox
+      <BaseListbox
       placeholder="Seleziona categoria"
       v-model="idCategoriaSelezionata"
       :options="opzioniCategorie"
       @update:modelValue="aggiornaSelezioneCategoria"
       multiple
     />
-  </div>  
->>>>>>> Stashed changes
-  </div>
+    </form>
+  
+
+</div>
 
 
 </template>
