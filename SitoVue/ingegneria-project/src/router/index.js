@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
-import TestRAi from '../views/TestRAi.vue'
+import TestRAi from '../views/TestRai.vue'
 import TestCategorie from '../views/TestCategorie.vue'
+import AuthLogin from '@/components/AuthLogin'
 
 const routes = [
 
@@ -21,7 +22,7 @@ const routes = [
   {
     path: '/testRai',
     name: 'testRai',
-    component : TestRAi
+    component : TestRai
   },
 
   {
@@ -78,6 +79,11 @@ const routes = [
     path: '/profilo',
     name: 'profilo',
     component: AboutView
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: AuthLogin
   },
 
   // 404 page catch all
