@@ -1,5 +1,9 @@
 <template>
-    <div class="barraCategorie">
+    <div class="contenitoreEtichetta">
+        <p :style="{ color: colorEtichetta }">IN QUALE CATEGORIA?</p>
+    </div>
+    <div class="barraCategorie" :style="{ border: coloreBordo }" @mouseover="hoverBarra(true)"
+        @mouseleave="hoverBarra(false)">
         <div class="outputBarra" @click="gestioneTendina">
             <img src="../assets/Icon/TutteLeCategorie.svg" class="iconaTutteCategorie" />
             <label class="labelCategoria">{{ testoBarra }}</label>
@@ -9,7 +13,7 @@
             <div class="navigazione">
                 <label v-if="padreCategoria === ''" @click="updateTestoBarra('Tutte le categorie', -1)">Tutte le
                     categorie</label>
-                <div v-else class="indietro" @click="updateTestoBarra(padreCategoria, -2)" >
+                <div v-else class="indietro" @click="updateTestoBarra(padreCategoria, -2)">
                     <img src="../assets/Icon/frecciaSinistra.svg" class="iconaFrecciaSinistra" />
                 </div>
                 <div class="lineaSeparatoria"></div>
@@ -41,7 +45,9 @@ export default {
             testoBarra: 'Categorie',
             tendina: false,
             categorie: categorie,
-            padreCategoria: ''
+            padreCategoria: '',
+            colorEtichetta: 'black',
+            coloreBordo: '2px solid black'
         };
     },
 
@@ -64,6 +70,8 @@ export default {
                 } else {
 
                     this.tendina = !this.tendina
+                    this.colorEtichetta = 'black'
+                    this.coloreBordo = '2px solid black'
                 }
 
             } else if (index === -1) {
@@ -71,10 +79,15 @@ export default {
                 this.tendina = !this.tendina
                 this.categorie = categorie
                 this.padreCategoria = ''
+                this.colorEtichetta = 'black'
+                this.coloreBordo = '2px solid black'
 
             } else if (index === -3) {
 
                 this.tendina = !this.tendina
+                this.colorEtichetta = 'black'
+                this.coloreBordo = '2px solid black'
+
             } else {
 
                 this.categorie = trovaGenitore(categorie, this.padreCategoria)
@@ -88,6 +101,20 @@ export default {
                 }
             }
 
+        },
+
+        hoverBarra(stato) {
+
+            if (stato) {
+
+                this.colorEtichetta = '#0071fe'
+                this.coloreBordo = '2px solid #0071fe'
+
+            } else {
+
+                this.colorEtichetta = 'black'
+                this.coloreBordo = '2px solid black'
+            }
         }
     }
 }
@@ -100,7 +127,7 @@ export default {
     color: rgb(215, 14, 14);
     width: 16rem;
     height: 3rem;
-    margin-top: 20rem;
+    margin-top: 0.1rem;
     margin-left: auto;
     margin-right: auto;
     border-radius: 1rem;
@@ -114,6 +141,12 @@ export default {
     padding: 1rem;
     width: 100%;
     height: 100%;
+    color: #9E9E9E
+}
+
+.outputBarra:hover {
+
+    color: black;
 }
 
 .iconaTutteCategorie {
@@ -127,7 +160,7 @@ export default {
 
     font-size: 70%;
     font: Inter;
-    color: #9E9E9E;
+    /*color: #9E9E9E;*/
 }
 
 .iconaFrecciaGiu {
@@ -165,7 +198,7 @@ export default {
     color: black;
 }
 
-.indietro{
+.indietro {
 
     width: 100%;
     height: 100%;
@@ -216,5 +249,20 @@ label {
     width: 1rem;
     height: 1rem;
     margin-left: auto;
+}
+
+.contenitoreEtichetta {
+
+    width: 16rem;
+    height: 3rem;
+    margin-top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
+p {
+
+    margin-top: auto;
 }
 </style>
