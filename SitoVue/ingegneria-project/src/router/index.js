@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
-import TestRAi from '../views/TestRai.vue'
+import TestRai from '../views/TestRai.vue'
 import TestCategorie from '../views/TestCategorie.vue'
 import AuthLogin from '@/components/AuthLogin'
 
