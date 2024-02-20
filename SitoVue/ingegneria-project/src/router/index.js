@@ -5,6 +5,7 @@ import TestRAi from '../views/TestRAi.vue'
 import TestCategorie from '../views/TestCategorie.vue'
 
 const routes = [
+
   {
     path: '/',
     name: 'home',
