@@ -1,12 +1,13 @@
 <script >
 import { RouterLink,RouterView } from "vue-router";
+import Carosello from "./components/Carosello.vue";
 import Navbar from "./components/Navbar.vue";
-import { DropDownListComponent } from "@syncfusion/ej2-vue-dropdowns";
 
 export default {
   name: "App",
   components: {
     Navbar,
+    Carosello,
     RouterLink,
     RouterView,
     
@@ -17,6 +18,7 @@ export default {
 
 <template>
   <Navbar />
+ 
   <router-view/>
   
 </template>
