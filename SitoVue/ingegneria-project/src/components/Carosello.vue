@@ -5,7 +5,7 @@
             <img v-if="countImg == 1" src="../assets/img/carosello/hobby.png" class="immagine" />
             <img v-else-if="countImg == 2" src="../assets/img/carosello/elettronica.png" class="immagine" />
             <img v-else src="../assets/img/carosello/casaPersona.png" class="immagine" />
-            <div class="contenitoreOpzioni">
+            <div class="contenitoreOpzioni absolute inset-x-0 bottom-0 mx-auto">
                 <div v-if="countImg != 1" class="opzione" @click="updatePhoto(1)"></div>
                 <div v-else class="opzioneSelected" @click="updatePhoto(1)"></div>
                 <div v-if="countImg != 2" class="opzione" @click="updatePhoto(2)"></div>
@@ -134,8 +134,7 @@ export default {
 <style scoped>
 .contenitoreCarosello {
 
-    width: 90%;
-    height: 25rem;
+    @apply w-full h-fit;
     background-color: rgba(128, 128, 128, 0.15);
     position: absolute;
     top: 50%;
@@ -145,9 +144,7 @@ export default {
 }
 
 .contenitoreImg {
-
-    width: 90%;
-    height: 100%;
+    @apply resize;
     margin-left: auto;
     margin-right: auto;
 }
@@ -176,16 +173,10 @@ export default {
 }
 
 .contenitoreOpzioni {
-
-    width: 18rem;
+    @apply w-1/6 ; 
     height: 3rem;
     border-radius: 2rem;
     background-color: rgba(128, 128, 128, 0.5);
-    margin-bottom: 30rem;
-    position: absolute;
-    top: 92%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     display: flex;
     padding: 1rem;
     text-align: center;
@@ -196,7 +187,7 @@ export default {
 
     width: 1rem;
     height: 1rem;
-    border-radius: 2rem;
+    border-radius: 9999px;
     background-color: #d3b0ff;
     margin: 0.2rem;
     cursor: pointer;
@@ -206,7 +197,7 @@ export default {
 
     width: 1rem;
     height: 1rem;
-    border-radius: 2rem;
+    border-radius: 9999px;
     background-color: #6953a9;
     margin: 0.2rem;
     cursor: pointer;
