@@ -1,5 +1,5 @@
 <script setup>
-import BaseListbox from "./BaseListBoxstatic.vue";
+import BaseListbox from "./BaseListBoxStatic.vue";
 import {ref} from "vue";
 
 const people = [
