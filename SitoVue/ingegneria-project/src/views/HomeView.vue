@@ -2,9 +2,8 @@
 <template>
   
   
-   <div class="carosello">
-    <Carosello />
-  </div>
+  <Carosello />
+  
   <div class="areaRicerca">
 
     <div class="barraOpzioneAsta">
@@ -30,13 +29,6 @@ export default {
 
 <style scoped>
 
-.carosello{
-
-  width: 100%;
-  height: 30rem;
-  background-color: #EEEEEE;
-  position: relative;
-}
 
 .areaRicerca{
 
