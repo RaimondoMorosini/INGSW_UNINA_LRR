@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
-import TestRai from '../views/TestRai.vue'
+import TestRAi from '../views/TestRAi.vue'
 import TestCategorie from '../views/TestCategorie.vue'
 import AuthLogin from '@/components/AuthLogin'
 
@@ -20,9 +20,9 @@ const routes = [
   },
 
   {
-    path: '/testRai',
-    name: 'testRai',
-    component : TestRai
+    path: '/TestRAi',
+    name: 'TestRAi',
+    component : TestRAi
   },
 
   {
