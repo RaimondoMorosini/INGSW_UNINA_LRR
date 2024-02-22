@@ -1,5 +1,5 @@
 <template>
-    <div class="contenitoreCarosello" :style="{ backgroundColor: sfondo }">
+    <div class="contenitoreCarosello z-0" :style="{ backgroundColor: sfondo }">
         <img src="../assets/Icon/frecciaSinistra2.svg" class="frecciaSinistra" @click="updatePhotoFreccia('sinistra')" />
         <div class="contenitoreImg">
             <img v-if="countImg == 1" src="../assets/img/carosello/hobby.png" class="immagine" />
