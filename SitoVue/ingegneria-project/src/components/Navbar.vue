@@ -1,9 +1,9 @@
 <template>
-    <header class="sticky top-0 shadow-lg min-w-full ">
-        <nav class="w-fill bg-indigo-300 flex flex-col sm:flex-row  gap-5 py-1 	">
-            <div class="px-2 pt-2 sm:flex ">
+    <header class="sticky top-0 shadow-lg min-w-full z-50">
+        <nav class="w-fill bg-indigo-300 md:flex flex-col sm:flex-row justify-between gap-5 py-1">
+            <div class="px-2 pt-2 flex md:items-center md:px-0 md:pb-1 ">
             <RouterLink to="/">
-                <div class="content-evenly flex hover:bg-indigo-500 rounded mt-1 block px-2 py-1">
+                <div class="content-evenly hover:bg-indigo-500 rounded mt-1 flex block px-2 py-1">
                     <img src="../assets/Logo sito web [Optimized].svg" alt="">
                     <h1 class="text-2xl">Deals24</h1>  
                     <h2 class="text-xs mx-12px">RRL</h2>  
@@ -11,19 +11,34 @@
             </RouterLink>
             </div>
 
+            <span @click="MenuOpen()" class="absolute md:hidden right-6 top-1.5 hover:bg-indigo-500 rounded text-4xl">
+                <i :class="[open ? 'bi bi-x ' : 'bi bi-filter-left' ]"></i>    
+            </span>
+
             <div>
-            <ul class="px-2 pt-2 sm:flex">
-                <RouterLink :to="{name:'about'}">
-                    <p class=" mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Ciao {{ profilo }}</p>
-                </RouterLink>
-                <RouterLink :to="{name:'about'}">
-                    <p class="mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Le tue Aste</p>
-                </RouterLink>
-                <router-link :to="{ name : 'notifiche'}">
-                    <p class="mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Notifiche</p>
-                </router-link>
-                <InvetoryDropDown />
-                <p class="bg-indigo-400 mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Crea Asta</p>
+            <ul class="px-6 pt-2 md:flex md:items-center md:px-0 md:pb-1 md:static absolute bg-indigo-300 md:w-auto w-full top-14 duration-500 ease-in"
+            :class="[open ? 'left-0' : 'left-[-100%]']">
+               <li class="md:mx-4 md:my-0 my-6"> 
+                    <RouterLink :to="{name:'about'}">
+                    <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Ciao {{ profilo }}</p>
+                    </RouterLink> 
+                </li>
+                <li class="md:mx-4 md:my-0 my-6">    
+                    <RouterLink :to="{name:'about'}">
+                    <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Tue Aste</p>
+                    </RouterLink>
+                </li>
+                <li class="md:mx-4 md:my-0 my-6">
+                    <router-link :to="{ name : 'notifiche'}">
+                    <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Notifiche</p>
+                    </router-link>
+                </li>
+                <li class="md:mx-4 md:my-0 my-6">
+                    <InvetoryDropDown/>
+                </li>
+                <li class="md:mx-4 md:my-0 my-6">
+                <p class="bg-indigo-400 md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Crea Asta</p>
+                </li>
             </ul>
             </div>
         </nav>
@@ -33,9 +48,22 @@
 <script >
 import { RouterLink } from 'vue-router'
 import InvetoryDropDown from './InventoryDropDown.vue'
+import { ref } from 'vue'
 
 
 export default {
+
+    setup(){
+    let open = ref(false);
+    
+    function MenuOpen(){
+        open.value = !open.value
+    };
+
+    return {open,MenuOpen}
+    },
+
+   
 
     props:{
         'profilo':{type:String, default:'Utente'}
