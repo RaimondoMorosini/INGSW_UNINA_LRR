@@ -1,6 +1,9 @@
 <script setup>
 import BaseListbox from "../components/BaseListBox.vue";
+import dropdownCategoria from "../components/CategoriaListBox.vue";
+
 import { watch, ref } from "vue";
+
 
 const persone = ref([
   { value: 1, label: "Wade Cooper", hasChild: false },
@@ -19,7 +22,7 @@ const ruoli = ref([
 ]);
 
 const modulo = ref({
-  person_id: [],
+  person_id: null,
   role_ids: [],
 });
 
@@ -41,19 +44,22 @@ const categorie = ref([
     figlie: [
       { nome: 'Smartphone', figlie: [] },
       { nome: 'Laptop', figlie: [] },
-      { nome: 'Accessori', figlie: [
+      {
+        nome: 'Accessori', figlie: [
           { nome: 'Custodie', figlie: [] },
           { nome: 'Caricatori', figlie: [] }
         ]
       },
     ],
   },
-  { nome: 'Libri', figlie: [
+  {
+    nome: 'Libri', figlie: [
       { nome: 'Fantascienza', figlie: [] },
       { nome: 'Storici', figlie: [] }
     ]
   },
-  { nome: 'Abbigliamento', figlie: [
+  {
+    nome: 'Abbigliamento', figlie: [
       { nome: 'Uomo', figlie: [] },
       { nome: 'Donna', figlie: [] },
       { nome: 'Bambini', figlie: [] }
@@ -65,6 +71,8 @@ const categorie = ref([
 const opzioniCategorie = ref(categorie.value.map(categoria => ({
   label: categoria.nome,
   value: categoria.nome,
+  hasChild: categoria.figlie.length > 0,
+  hasFather: false,
 })));
 
 const idCategoriaSelezionata = ref([]);
@@ -92,7 +100,7 @@ function trovaCategoria(nome, categorie) {
 }
 
 const storicoOpzioni = ref([]);
-
+const categoriaPadre = ref([]);
 function aggiornaSelezioneCategoria(nuovoValore) {
   if (nuovoValore.length === 0) {
     // Se non ci sono selezioni, non fare nulla
@@ -102,11 +110,13 @@ function aggiornaSelezioneCategoria(nuovoValore) {
   const ultimaSelezione = nuovoValore.at(-1);
   console.log("nuovo VAlore:", nuovoValore); // Visualizza la selezione corrente
   console.log("Ultima selezione:", ultimaSelezione); // Visualizza l'ultima selezione
-  if (storicoOpzioni&& ultimaSelezione === "indietro" &&storicoOpzioni.value.length > 0) {
+
+  if (storicoOpzioni && ultimaSelezione === "indietro" && storicoOpzioni.value.length > 0) {
     // Rimuove e ottiene l'ultimo stato delle opzioni salvato nello storico
     const ultimeOpzioni = storicoOpzioni.value.pop();
+    categoriaPadre.value.pop();
 
-    idCategoriaSelezionata.value=[];
+    idCategoriaSelezionata.value = [];
     console.log("idCategoriaSelezionata:", idCategoriaSelezionata.value); // Visualizza la categoria selezionata
     console.log("Opzioni storico:", ultimeOpzioni); // Visualizza le opzioni storico
     // Aggiorna le opzioni correnti con l'ultimo stato
@@ -116,58 +126,53 @@ function aggiornaSelezioneCategoria(nuovoValore) {
 
   idCategoriaSelezionata.value = [ultimaSelezione];// associa al model solo l'ultima selezione
   console.log("idCategoriaSelezionata:", idCategoriaSelezionata.value); // Visualizza la categoria selezionata
-  const categoriaCorrispondente = trovaCategoria(idCategoriaSelezionata.value[0],categorie.value);
+  const categoriaCorrispondente = trovaCategoria(idCategoriaSelezionata.value[0], categorie.value);
   console.log("Categoria corrispondente:", categoriaCorrispondente); // Visualizza la categoria corrispondente
-  
+
   if (categoriaCorrispondente && categoriaCorrispondente.figlie.length > 0) {
-    // Salva lo stato attuale delle opzioni nello storico prima di aggiornarlo
-  storicoOpzioni.value.push([...opzioniCategorie.value]);
-    // Aggiorna le opzioni
-    opzioniCategorie.value = [{ label: "indietro", value: "indietro" },
-      { label: categoriaCorrispondente.nome, value: categoriaCorrispondente.nome },
-      ...categoriaCorrispondente.figlie.map(figlio => ({
-        label: figlio.nome,
-        value: figlio.nome,
-      }))
-    ];
-    console.log("Nuove opzioniCategorie:", opzioniCategorie.value); // Visualizza le nuove opzioni
-  } else {
-      // Se non ci sono figli  
-       
+    if (categoriaPadre.value.at(-1)?.nome !== categoriaCorrispondente.nome) {
+      categoriaPadre.value.push(categoriaCorrispondente);
+      console.log("categoriaPadre:", categoriaPadre.value); // Visualizza la categoria corrispondente
+          //salva
+          storicoOpzioni.value.push([...opzioniCategorie.value]);
+          // Aggiorna le opzioni
+          opzioniCategorie.value = [{ label: "indietro", value: "indietro" },
+          { label: categoriaCorrispondente.nome, value: categoriaCorrispondente.nome, hasChild: true},
+          ...categoriaCorrispondente.figlie.map(figlio => ({
+            label: figlio.nome,
+            value: figlio.nome,
+            hasChild: figlio.figlie.length > 0,
+          }))
+          ];
+          console.log("Nuove opzioniCategorie:", opzioniCategorie.value); // Visualizza le nuove opzioni
+    } else {
+      console.log("stessa categoria");
     }
   
+} else {
+  // Se non ci sono figli  
+
 }
+
+}
+
 
 </script>
 <template >
   <div class="mx-auto  max-w-max ">
+
     <form class="flex flex-col space-y-6">
-      <BaseListbox
-        placeholder="Seleziona persona"
-        v-model="modulo.person_id"
-        :options="persone"
-        :keepOpenOnSelect="true"
-        multiple
-        @update:modelValue="gestisciSelezionePersona"
-      />
-      <BaseListbox
-        placeholder="Seleziona ruoli"
-        v-model="modulo.role_ids"
-        :options="ruoli"
-        multiple
-      />
+      <BaseListbox placeholder="Seleziona persona" v-model="modulo.person_id" :options="persone" />
+      <BaseListbox placeholder="Seleziona ruoli" v-model="modulo.role_ids" :options="ruoli" multiple />
 
-      <BaseListbox
-      placeholder="Seleziona categoria"
-      v-model="idCategoriaSelezionata"
-      :options="opzioniCategorie"
-      @update:modelValue="aggiornaSelezioneCategoria"
-      multiple
-    />
-    </form>
-  
+      <BaseListbox placeholder="Seleziona categoria" v-model="idCategoriaSelezionata" :options="opzioniCategorie"
+        @update:modelValue="aggiornaSelezioneCategoria" multiple />
+        <dropdownCategoria placeholder="Seleziona categoria" v-model="idCategoriaSelezionata" :options="opzioniCategorie"
+        @update:modelValue="aggiornaSelezioneCategoria" multiple />
+    
+      </form>
 
-</div>
 
+  </div>
 
 </template>
