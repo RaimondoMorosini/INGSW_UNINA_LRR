@@ -1,7 +1,7 @@
 <script setup>
 import BaseListbox from "../components/BaseListBox.vue";
 import dropdownCategoria from "../components/CategoriaListBox.vue";
-
+import LogoSito from "../components/LogoSito.vue";
 import { watch, ref } from "vue";
 
 
@@ -174,5 +174,9 @@ function aggiornaSelezioneCategoria(nuovoValore) {
 
 
   </div>
+
+  <div class="pl-5"><LogoSito /></div>
+  
+
 
 </template>
