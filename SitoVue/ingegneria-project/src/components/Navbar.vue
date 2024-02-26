@@ -1,15 +1,18 @@
 <template>
     <header class="sticky top-0 shadow-lg min-w-full z-50">
         <nav class="w-fill bg-indigo-300 md:flex flex-col sm:flex-row justify-between gap-5 py-1">
-            <div class="px-2 pt-2 flex md:items-center md:px-0 md:pb-1 ">
+            
             <RouterLink to="/">
-                <div class="content-evenly hover:bg-indigo-500 rounded mt-1 flex block px-2 py-1">
+                <div class="font-bold content-evenly w-40 bg-indigo-300 hover:bg-indigo-500 rounded mt-1 flex px-2 pl-3 py-1 pt-2 md:items-center md:px-0 md:pb-1">
                     <img src="../assets/Logo sito web [Optimized].svg" alt="">
-                    <h1 class="text-2xl">Deals24</h1>  
-                    <h2 class="text-xs mx-12px">RRL</h2>  
+                    <h1 class="text-2xl ">Deals24</h1>  
+                    <h1 class="text-xs pt-4 ">RRL</h1>
                 </div>
             </RouterLink>
-            </div>
+           
+            
+            
+
 
             <span @click="MenuOpen()" class="absolute md:hidden right-6 top-1.5 hover:bg-indigo-500 rounded text-4xl">
                 <i :class="[open ? 'bi bi-x ' : 'bi bi-filter-left' ]"></i>    
@@ -49,7 +52,7 @@
 import { RouterLink } from 'vue-router'
 import InvetoryDropDown from './InventoryDropDown.vue'
 import { ref } from 'vue'
-
+import LogoSito from './LogoSito.vue'
 
 export default {
 
