@@ -1,14 +1,11 @@
 <script setup>
-import ContenitoreCategorie from '../components/ContenitoreCategorie.vue';
-import BarraRicerca from '../components/BarraRicerca.vue';
-import BarraTipoAsta from '../components/BarraTipoAsta.vue';
-
+const callback = (response) => {
+  // This callback will be triggered when the user selects or login to
+  // his Google account from the popup
+  console.log("Handle the response", response)
+}
 </script>
 
 <template>
-    <ContenitoreCategorie />
-    <BarraRicerca />
-    <BarraTipoAsta />
+  <GoogleLogin :callback="callback"/>
 </template>
-
-<style scoped></style>

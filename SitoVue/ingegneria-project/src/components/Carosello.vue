@@ -134,7 +134,8 @@ export default {
 <style scoped>
 .contenitoreCarosello {
 
-    @apply w-full h-fit;
+    width: 80%;
+    height: auto;
     background-color: rgba(128, 128, 128, 0.15);
     position: absolute;
     top: 50%;
@@ -144,7 +145,7 @@ export default {
 }
 
 .contenitoreImg {
-    @apply resize;
+    width: auto;
     margin-left: auto;
     margin-right: auto;
 }
@@ -159,7 +160,8 @@ export default {
 
     width: 3rem;
     height: 3rem;
-    margin: auto;
+    margin-top: auto;
+    margin-bottom: auto;
     cursor: pointer;
 }
 
@@ -167,7 +169,9 @@ export default {
 
     width: 3rem;
     height: 3rem;
-    margin: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 1px;
     cursor: pointer;
 
 }
