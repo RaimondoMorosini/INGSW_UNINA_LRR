@@ -5,7 +5,6 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
@@ -19,7 +18,8 @@
     "core-js": "^3.8.3",
     "glob": "^10.3.10",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.3"
+    "vue-router": "^4.0.3",
+    "vue3-google-login": "^2.0.25"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
