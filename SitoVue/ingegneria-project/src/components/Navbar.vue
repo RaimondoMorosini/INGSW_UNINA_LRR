@@ -2,15 +2,7 @@
     <header class="sticky top-0 shadow-lg min-w-full z-50">
         <nav class="w-fill bg-indigo-300 md:flex flex-col sm:flex-row justify-between gap-5 py-1">
             
-            <RouterLink to="/">
-                <div class="font-bold content-evenly w-40 bg-indigo-300 hover:bg-indigo-500 rounded mt-1 flex px-2 pl-3 py-1 pt-2 md:items-center md:px-0 md:pb-1">
-                    <img src="../assets/Logo sito web [Optimized].svg" alt="">
-                    <h1 class="text-2xl ">Deals24</h1>  
-                    <h1 class="text-xs pt-4 ">RRL</h1>
-                </div>
-            </RouterLink>
-           
-            
+            <Logo/>
             
 
 
@@ -52,7 +44,8 @@
 import { RouterLink } from 'vue-router'
 import InvetoryDropDown from './InventoryDropDown.vue'
 import { ref } from 'vue'
-import LogoSito from './LogoSito.vue'
+import Logo from "./LogoSito.vue";
+
 
 export default {
 
@@ -73,9 +66,10 @@ export default {
     },
     name: 'SiteHeader',
     components: {
-        RouterLink,
-        InvetoryDropDown
-    },
+    RouterLink,
+    InvetoryDropDown,
+    Logo,
+},
     
     
 }
