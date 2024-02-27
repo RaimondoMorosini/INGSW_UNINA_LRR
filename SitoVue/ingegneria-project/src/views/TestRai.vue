@@ -161,7 +161,7 @@ function aggiornaSelezioneCategoria(nuovoValore) {
 
 </script>
 <template >
-  <div class="mx-auto  max-w-max ">
+  <div class="mx-auto  w-3col">
 
     <form class="flex flex-col space-y-6">
       <BaseListbox placeholder="Seleziona persona" v-model="modulo.person_id" :options="persone" />
@@ -176,6 +176,11 @@ function aggiornaSelezioneCategoria(nuovoValore) {
       <logoIcon></logoIcon>
       <LogoSito/>
       
+
+      <div class="flex justify-between ...">
+  <div>01</div>
+  <div>02</div>
+</div>
   </div>
 
 </template>
