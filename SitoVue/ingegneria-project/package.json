@@ -9,14 +9,17 @@
   },
   "dependencies": {
     "@auth0/auth0-vue": "^2.3.3",
+    "@floating-ui/vue": "^1.0.6",
     "@headlessui/vue": "^1.7.19",
     "@heroicons/vue": "^1.0.6",
     "@syncfusion/ej2-vue-dropdowns": "^24.2.5",
     "@types/glob": "^8.1.0",
     "axios": "^1.6.7",
+    "bootstrap": "^5.3.3",
     "class-variance-authority": "^0.7.0",
     "core-js": "^3.8.3",
     "glob": "^10.3.10",
+    "portal-vue": "^3.0.0-beta.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vue3-google-login": "^2.0.25"
