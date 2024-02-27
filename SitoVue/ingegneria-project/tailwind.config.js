@@ -72,6 +72,21 @@ module.exports = {
           900: '#994d00',
         },
       },
+      spacing: {
+        '1col': '74px',
+        '2col': '172px',
+        '3col': '270px',
+        '4col': '368px',
+        '5col': '466px',
+        '6col': '564px',
+        '7col': '662px',
+        '8col': '760px',
+        '9col': '858px',
+        '10col': '956px',
+        '11col': '1054px',
+        '12col': '1152px',
+      },
+      
     },
   },
   plugins: [
