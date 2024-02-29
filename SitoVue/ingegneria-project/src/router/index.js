@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import TestRai from '../views/TestRai.vue'
+import TestLorenzo from '../views/TestLorenzo.vue'
 import TestCategorie from '../views/TestCategorie.vue'
 import AuthLogin from '@/components/AuthLogin'
 
@@ -17,18 +18,6 @@ const routes = [
     path: '/about-us',
     name: 'about',
     component: AboutView
-  },
-
-  {
-    path: '/TestRai',
-    name: 'TestRai',
-    component : TestRai
-  },
-
-  {
-    path: '/testCategorie',
-    name: 'testCategorie',
-    component : TestCategorie
   },
   
   {
@@ -84,6 +73,26 @@ const routes = [
     path: '/login',
     name: 'login',
     component: AuthLogin
+  },
+
+  {
+    path: '/TestRai',
+    name: 'TestRai',
+    component : TestRai
+  },
+
+  // testing pages TODO: remove
+
+  {
+    path: '/TestLorenzo',
+    name: 'TestLorenzo',
+    component : TestLorenzo
+  },
+
+  {
+    path: '/testCategorie',
+    name: 'testCategorie',
+    component : TestCategorie
   },
 
   // 404 page catch all

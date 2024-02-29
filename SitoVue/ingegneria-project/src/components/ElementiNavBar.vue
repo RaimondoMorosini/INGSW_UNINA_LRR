@@ -38,4 +38,6 @@ function MenuOpen(){
         open.value = !open.value
     };
 
+const profilo = ref('Utente');
+
 </script>
