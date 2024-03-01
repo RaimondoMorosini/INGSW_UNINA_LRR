@@ -12,63 +12,50 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { ref } from 'vue';
 
-export default {
+    cliccato= ref(false);
+    bordoBarra=ref('2px solid black');
+    bordoBarraBottom=ref( '2px solid black');
+    coloreEtichetta=ref( 'black');
 
-    data() {
+    function    hoverBarra(stato) {
+        if (stato) {
 
-        return {
-
-            cliccato: false,
-            bordoBarra: '2px solid black',
-            bordoBarraBottom: '2px solid black',
-            coloreEtichetta: 'black'
-        };
-    },
-
-    methods: {
-
-        hoverBarra(stato) {
-
-            if (stato) {
-
-                if (!this.cliccato) {
-
-                    this.bordoBarra = '2px solid #0071fe'
-                    this.bordoBarraBottom = '2px solid #0071fe'
-                    this.coloreEtichetta = '#0071fe'
-                }
-            } else {
-
-                if (!this.cliccato) {
-
-                    this.bordoBarra = '2px solid black'
-                    this.bordoBarraBottom = '2px solid black'
-                    this.coloreEtichetta = 'black'
-                }
-            }
-        },
-
-        focusBarra() {
-
-            this.cliccato = !this.cliccato
-
-            if (this.cliccato) {
+            if (!this.cliccato) {
 
                 this.bordoBarra = '2px solid #0071fe'
-                this.bordoBarraBottom = '4px solid #0071fe'
+                this.bordoBarraBottom = '2px solid #0071fe'
                 this.coloreEtichetta = '#0071fe'
+            }
+        } else {
 
-            } else {
+            if (!this.cliccato) {
 
-                this.bordoBarra = '2Px solid black'
+                this.bordoBarra = '2px solid black'
                 this.bordoBarraBottom = '2px solid black'
                 this.coloreEtichetta = 'black'
             }
         }
-    }
-}
+    };
+
+    function focusBarra() {
+        this.cliccato = !this.cliccato
+
+        if (this.cliccato) {
+
+            this.bordoBarra = '2px solid #0071fe'
+            this.bordoBarraBottom = '4px solid #0071fe'
+            this.coloreEtichetta = '#0071fe'
+
+        } else {
+
+            this.bordoBarra = '2Px solid black'
+            this.bordoBarraBottom = '2px solid black'
+            this.coloreEtichetta = 'black'
+        }
+    };
 
 </script>
 

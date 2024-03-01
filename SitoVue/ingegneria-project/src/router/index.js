@@ -58,6 +58,11 @@ const routes = [
     name: 'hobby',
     component: AboutView
   },
+  {
+    path: '/categorie/altro',
+    name: 'altro',
+    component: AboutView
+  },
 
   {
     path: '/profilo/notifiche',

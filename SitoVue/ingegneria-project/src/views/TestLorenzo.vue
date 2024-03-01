@@ -1,38 +1,56 @@
 <template>
-   <Swiper :modules="[EffectCube,Pagination,Keyboard]" 
-   :slides-per-view="3"
-   :pagination="{ clickable: true }"
-   :keyboard="{ enabled: true }"
-   effect="cube"
-   :grabCursor="true" 
+   <Swiper :modules="[Autoplay,Pagination,Keyboard,Navigation]" 
+    :slidesPerView="1"
+    :breakpoints="{
+      '640': {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      '768': {
+        slidesPerView: 3,
+        spaceBetween: 40,
+      },
+      '1024': {
+        slidesPerView: 3,
+        spaceBetween: 50,
+      },
+    }"
+    :centeredSlides="true"
+    :spaceBetween="40"
+    :autoplay="{
+      delay: 3500,
+      disableOnInteraction: false,
+    }"
+    :pagination="{
+      clickable: true,
+    }"
    :loop="true"
-   :cubeEffect="{
-    shadow:true,
-    slideShadow:true,
-    shadowOffset:20,
-    shadowScale:0.94
-   }"
-   class="h-5col w-full bg-indigo-200">
-        <SwiperSlide v-for="photo in photos" :key="photo">
-             <img :src="require(`@/assets/${photo}`)" alt="" class="w-[100%] h-[100%]"/>
+   :navigation="true"
+   :keyboard="true"
+
+   class="bg-indigo-200 py-6 px-10">
+        <SwiperSlide v-for="(photo,index) in slides.photo" :key="index">
+            <RouterLink :to="{name : slides.links[index] }">
+                <img :src="require(`@/assets/${photo}`)" alt="" />
+           
+           </RouterLink>
+            
         </SwiperSlide>
     </Swiper>
-    <div class="flex justify-center items-center">
-    test</div>
-    <ColorPicker class="pl-5 " v-model="color" inputId="cp-hex" format="hex"></ColorPicker>
-        <Button label="Save" class=" hover:bg-green-400" />
 </template>
 
 
 <script setup>
-    import ColorPicker from 'primevue/colorpicker';
-    import Button from 'primevue/button';
-    import { ref } from 'vue';
+    import { RouterLink } from 'vue-router';
     import { Swiper, SwiperSlide } from 'swiper/vue';
-    import {EffectCube,Pagination,Keyboard} from 'swiper/modules'; 
+    import {Autoplay,Pagination,Keyboard,Navigation} from 'swiper/modules'; 
     // Import Swiper styles
     import 'swiper/css';
+    import 'swiper/css/navigation';
+    import 'swiper/css/pagination';
     import "swiper/css/effect-cube"
-    const photos = ["bg1.jpg","bg2.jpg","bg3.jpg","bg4.jpg"];
-    const color = ref();
+    const slides = {
+        photo : ["bg1.jpg","bg2.jpg","bg3.jpg","bg4.jpg","bg5.jpg","bg6.jpg"],
+        links : ["hobby","perLaCasa","elettronica","altro","abbigliamento","sports"],
+    } ;
 </script>
