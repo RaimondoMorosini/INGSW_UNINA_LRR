@@ -2,9 +2,9 @@
     <div class="contenitoreCarosello z-0" :style="{ backgroundColor: sfondo }">
         <img src="../assets/Icon/frecciaSinistra2.svg" class="frecciaSinistra" @click="updatePhotoFreccia('sinistra')" />
         <div class="contenitoreImg">
-            <img v-if="countImg == 1" src="../assets/img/carosello/hobby.png" class="immagine" />
-            <img v-else-if="countImg == 2" src="../assets/img/carosello/elettronica.png" class="immagine" />
-            <img v-else src="../assets/img/carosello/casaPersona.png" class="immagine" />
+            <img v-if="countImg == 1" src="../assets/img/carosello/carousel1.png" class="immagine" />
+            <img v-else-if="countImg == 2" src="../assets/img/carosello/carousel2.png" class="immagine" />
+            <img v-else src="../assets/img/carosello/carousel3.png" class="immagine" />
             <div class="contenitoreOpzioni absolute inset-x-0 bottom-0 mx-auto">
                 <div v-if="countImg != 1" class="opzione" @click="updatePhoto(1)"></div>
                 <div v-else class="opzioneSelected" @click="updatePhoto(1)"></div>

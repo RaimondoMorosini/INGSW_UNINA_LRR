@@ -12,14 +12,10 @@
     </div>
 </template>
 
-<script >
-export default {
-  data() {
-    return {
-      isOpen: false
-    }
-  },
-  created() {
+<script setup>
+import { ref } from "vue";
+isOpen = ref (false); 
+function created() {
     const handleEscape = e => {
       if (e.key === "Esc" || e.key === "Escape") {
         this.isOpen = false
@@ -27,5 +23,4 @@ export default {
     }
     document.addEventListener("keydown", handleEscape)
   }
-}
 </script>
