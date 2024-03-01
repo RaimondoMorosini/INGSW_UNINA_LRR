@@ -20,49 +20,35 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { ref } from 'vue';
 
-export default {
+    testoBarra = ref('Seleziona l\'asta');
+    tendina = ref(false);
+    colorEtichetta = ref('');
+    coloreBordo= ref('2px solid black');
 
-    data() {
+    function gestioneTendina() {
+        this.tendina = !this.tendina;
+    };
 
-        return {
+    function opzioneSelected(opzione) {
+        this.testoBarra = opzione;
+        this.colorEtichetta = 'black';
+        this.coloreBordo = '2px solid black';
+    };
 
-            testoBarra: 'Seleziona l\'asta',
-            tendina: false,
-            colorEtichetta: '',
-            coloreBordo: '2px solid black'
+    function hoverBarra(stato) {
+        if (stato) {
+            this.colorEtichetta = '#0071fe';
+            this.coloreBordo = '2px solid #0071fe';
+
+        } else {
+            this.colorEtichetta = 'black';
+            this.coloreBordo = '2px solid black';
         }
-    },
+    };
 
-    methods: {
-
-        gestioneTendina() {
-
-            this.tendina = !this.tendina
-        },
-        opzioneSelected(opzione) {
-
-            this.testoBarra = opzione
-            this.colorEtichetta = 'black'
-            this.coloreBordo = '2px solid black'
-        },
-
-        hoverBarra(stato) {
-
-            if (stato) {
-
-                this.colorEtichetta = '#0071fe'
-                this.coloreBordo = '2px solid #0071fe'
-
-            } else {
-
-                this.colorEtichetta = 'black'
-                this.coloreBordo = '2px solid black'
-            }
-        }
-    }
-}
 
 </script>
 

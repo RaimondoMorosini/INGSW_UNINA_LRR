@@ -15,29 +15,21 @@
     </form>
 </template>
 
-<script>
-    export default {
-    name: 'LoginView',
-    data(){
-        return{
-            input:{
-                username: "",
-                password: ""
-            }
-        }
-    },
-    methods: {
-        login(){
+<script setup>
+input = ref (
+    {
+        username: "",
+        password: ""
+    }
+);
+
+    function login(){
         // Add a semicolon at the end of the line
-        
             if(this.input.username != ""|| this.input.password != ""){
                 console.log("autenticated")
             }else{
                 console.log("not autenticatedUsername and Password cannot be empty")
             }
         }
-    }
-    }
-
    
 </script>

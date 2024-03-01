@@ -1,8 +1,7 @@
 
 <template>
   
-  
-  <Carosello />
+  <SwipeCarosello />
   
   <div class="areaRicerca">
 
@@ -14,17 +13,10 @@
   
 </template>
 
-<script>
-import Carosello from '../components/Carosello.vue';
-import BarraRicerca from '../components/BarraRicerca.vue';
-import BarraCategorie from '../components/ContenitoreCategorie.vue';
+<script setup>
 import BarraOpzioneAsta from '../components/BarraTipoAsta.vue';
+import SwipeCarosello from '../components/SwipeCarosello.vue'
 
-export default {
-  name: 'HomeView',
-  components: { Carosello, BarraRicerca, BarraCategorie, BarraOpzioneAsta},
-  
-}
 </script>
 
 <style scoped>
