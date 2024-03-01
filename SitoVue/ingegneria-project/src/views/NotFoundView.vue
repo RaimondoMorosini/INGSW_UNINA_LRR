@@ -6,10 +6,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "NotFoundView",
-};
+<script setup>
+import { RouterLink } from 'vue-router'
 </script>
 
 <style scoped>

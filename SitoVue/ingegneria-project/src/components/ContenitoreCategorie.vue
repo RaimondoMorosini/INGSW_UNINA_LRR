@@ -30,94 +30,78 @@
     </div>
 </template>
 
-<script>
+<script setup lang="js">
+import ref from 'vue';
 import categorie from '../script/getCategorie.js';
 import { trovaGenitore } from '../script/getCategorie.js';
 import { trovaStringaGenitore } from '../script/getCategorie.js';
 
+testoBarra=ref( 'Categorie')
+tendina=ref (false);
+categorie= ref(categorie);
+padreCategoria=ref('');
+colorEtichetta=ref( 'black');
+coloreBordo= ref('2px solid black');
 
+function gestioneTendina() {
+    this.tendina = !this.tendina
+};
 
+function updateTestoBarra(categoriaSelected, index) {
+    this.testoBarra = categoriaSelected
+    if (index >= 0) {
 
-export default {
+        if (this.categorie[index].figlie.length > 0) {
 
-    data() {
-        return {
-            testoBarra: 'Categorie',
-            tendina: false,
-            categorie: categorie,
-            padreCategoria: '',
-            colorEtichetta: 'black',
-            coloreBordo: '2px solid black'
-        };
-    },
-
-    methods: {
-
-        gestioneTendina() {
+            this.categorie = this.categorie[index].figlie
+            this.padreCategoria = categoriaSelected
+        } else {
 
             this.tendina = !this.tendina
-        },
+            this.colorEtichetta = 'black'
+            this.coloreBordo = '2px solid black'
+        }
 
-        updateTestoBarra(categoriaSelected, index) {
+    } else if (index === -1) {
 
-            this.testoBarra = categoriaSelected
-            if (index >= 0) {
+        this.tendina = !this.tendina
+        this.categorie = categorie
+        this.padreCategoria = ''
+        this.colorEtichetta = 'black'
+        this.coloreBordo = '2px solid black'
 
-                if (this.categorie[index].figlie.length > 0) {
+    } else if (index === -3) {
 
-                    this.categorie = this.categorie[index].figlie
-                    this.padreCategoria = categoriaSelected
-                } else {
+        this.tendina = !this.tendina
+        this.colorEtichetta = 'black'
+        this.coloreBordo = '2px solid black'
 
-                    this.tendina = !this.tendina
-                    this.colorEtichetta = 'black'
-                    this.coloreBordo = '2px solid black'
-                }
+    } else {
 
-            } else if (index === -1) {
+        this.categorie = trovaGenitore(categorie, this.padreCategoria)
+        let risultatoPadre = trovaStringaGenitore(categorie, this.padreCategoria)
+        if (risultatoPadre !== null) {
 
-                this.tendina = !this.tendina
-                this.categorie = categorie
-                this.padreCategoria = ''
-                this.colorEtichetta = 'black'
-                this.coloreBordo = '2px solid black'
+            this.padreCategoria = risultatoPadre
+        } else {
 
-            } else if (index === -3) {
-
-                this.tendina = !this.tendina
-                this.colorEtichetta = 'black'
-                this.coloreBordo = '2px solid black'
-
-            } else {
-
-                this.categorie = trovaGenitore(categorie, this.padreCategoria)
-                let risultatoPadre = trovaStringaGenitore(categorie, this.padreCategoria)
-                if (risultatoPadre !== null) {
-
-                    this.padreCategoria = risultatoPadre
-                } else {
-
-                    this.padreCategoria = ''
-                }
-            }
-
-        },
-
-        hoverBarra(stato) {
-
-            if (stato) {
-
-                this.colorEtichetta = '#0071fe'
-                this.coloreBordo = '2px solid #0071fe'
-
-            } else {
-
-                this.colorEtichetta = 'black'
-                this.coloreBordo = '2px solid black'
-            }
+            this.padreCategoria = ''
         }
     }
-}
+};
+
+function hoverBarra(stato) {
+    if (stato) {
+
+        this.colorEtichetta = '#0071fe'
+        this.coloreBordo = '2px solid #0071fe'
+
+    } else {
+
+        this.colorEtichetta = 'black'
+        this.coloreBordo = '2px solid black'
+    }
+};
 
 </script>
 

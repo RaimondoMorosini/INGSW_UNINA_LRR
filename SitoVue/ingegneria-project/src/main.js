@@ -1,11 +1,14 @@
 import '@babel/polyfill'
 import 'mutationobserver-shim'
-import './plugins/bootstrap-vue'
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import './assets/css/tailwind.css';
-import './components/menuItem.vue';
+import "primevue/resources/themes/saga-blue/theme.css"; //theme
+import "primevue/resources/primevue.min.css"; //core CSS
+import "primeicons/primeicons.css"; //icons
+import PrimeVue from 'primevue/config'; // here
+import wind from './presets/wind'
 //da mettere nei file dove si vuole usare axios
 import { createAuth0 } from '@auth0/auth0-vue';
 
@@ -24,6 +27,11 @@ const app = createApp(App).use(router);
     }
   })
 );*/
+
+app.use(PrimeVue,{
+  unstyled: true,
+  pt: wind
+}); // here
 
 app.use(vue3GoogleLogin,{
     clientId: '523712309350-64ooftdu5bto8ln30pbkfjtr88fjpp15.apps.googleusercontent.com'

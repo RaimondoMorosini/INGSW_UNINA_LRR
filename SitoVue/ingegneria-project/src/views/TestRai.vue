@@ -2,7 +2,7 @@
 import BaseListbox from "../components/BaseListBox.vue";
 import dropdownCategoria from "../components/CategoriaListBox.vue";
 import LogoSito from "../components/LogoSito.vue";
-import { watch, ref } from "vue";
+import { ref } from "vue";
 import logoIcon from "../components/Icone/logo.vue";
 
 
@@ -113,7 +113,7 @@ function aggiornaSelezioneCategoria(nuovoValore) {
   console.log("nuovo VAlore:", nuovoValore); // Visualizza la selezione corrente
   console.log("Ultima selezione:", ultimaSelezione); // Visualizza l'ultima selezione
 
-  if (storicoOpzioni && ultimaSelezione === "indietro" && storicoOpzioni.value.length > 0) {
+  if (storicoOpzioni.value && ultimaSelezione.value === "indietro" && storicoOpzioni.value.length > 0) {
     // Rimuove e ottiene l'ultimo stato delle opzioni salvato nello storico
     const ultimeOpzioni = storicoOpzioni.value.pop();
     categoriaPadre.value.pop();
@@ -161,13 +161,13 @@ function aggiornaSelezioneCategoria(nuovoValore) {
 
 </script>
 <template >
-  <div class="mx-auto  w-3col">
+  <div class="mx-auto w-3col">
 
     <form class="flex flex-col space-y-6">
-      <BaseListbox placeholder="Seleziona persona" v-model="modulo.person_id" :options="persone" />
-      <BaseListbox placeholder="Seleziona ruoli" v-model="modulo.role_ids" :options="ruoli" multiple />
+      <BaseListbox v-model="modulo.person_id" :options="persone" placeholder="Seleziona persona"/>
+      <BaseListbox v-model="modulo.role_ids" :options="ruoli" multiple placeholder="Seleziona ruoli" />
 
-      <BaseListbox placeholder="Seleziona categoria" v-model="idCategoriaSelezionata" :options="opzioniCategorie"
+      <BaseListbox placeholder="Seleziona categoria" v-model="idCategoriaSelezionata" :options="opzioniCategorie" 
         @update:modelValue="aggiornaSelezioneCategoria" multiple />
         <dropdownCategoria placeholder="Seleziona categoria" v-model="idCategoriaSelezionata" :options="opzioniCategorie"
         @update:modelValue="aggiornaSelezioneCategoria" multiple />
@@ -177,10 +177,9 @@ function aggiornaSelezioneCategoria(nuovoValore) {
       <LogoSito/>
       
 
-      <div class="flex justify-between ...">
-  <div>01</div>
-  <div>02</div>
-</div>
+      
   </div>
+
+ 
 
 </template>
