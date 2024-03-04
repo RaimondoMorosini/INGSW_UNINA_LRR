@@ -28,7 +28,7 @@
     :navigation="true"
     :keyboard="true"
  
-    class="bg-indigo-200 py-6 px-10">
+    class="bg-indigo-200 py-6 px-10 lg:h-6col">
          <SwiperSlide v-for="(photo,index) in slides.photo" :key="index">
              <RouterLink :to="{name : slides.links[index] }">
                  <img :src="require(`@/assets/${photo}`)" alt="" />
