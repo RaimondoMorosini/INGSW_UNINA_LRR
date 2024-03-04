@@ -28,6 +28,10 @@
         </template>
         </Dropdown>
   </div>
+
+  <div>
+    <Vetrina/>  
+  </div>
   
 </template>
 
@@ -37,10 +41,9 @@ import Dropdown from 'primevue/dropdown';
 import TreeSelect from 'primevue/treeselect';
 import InputText from 'primevue/inputtext';
 
-import { ref, onMounted } from 'vue';
+import Vetrina from '@/components/Vetrina.vue';
 
-import Categorie from '../script/getCategorie.js'
-import Categorie2 from '../scripts/categoriaLib.js'
+import { ref, onMounted } from 'vue';
 
 const value = ref(null);
 const selectedCategory = ref();
