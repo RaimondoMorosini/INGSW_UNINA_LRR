@@ -5,6 +5,7 @@ import TestRai from '../views/TestRai.vue'
 import TestLorenzo from '../views/TestLorenzo.vue'
 import TestCategorie from '../views/TestCategorie.vue'
 import AuthLogin from '@/components/AuthLogin'
+import LoginView from '@/views/LoginView'
 
 const routes = [
 
@@ -18,6 +19,12 @@ const routes = [
     path: '/about-us',
     name: 'about',
     component: AboutView
+  },
+
+  {
+    path: '/loginTest',
+    name: 'loginTest',
+    component: LoginView
   },
   
   {

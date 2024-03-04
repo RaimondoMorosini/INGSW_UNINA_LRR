@@ -16,6 +16,8 @@
 </template>
 
 <script setup>
+import ref from 'vue';
+
 input = ref (
     {
         username: "",
