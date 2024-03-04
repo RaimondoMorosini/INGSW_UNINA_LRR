@@ -8,7 +8,7 @@ import "primevue/resources/themes/saga-blue/theme.css"; //theme
 import "primevue/resources/primevue.min.css"; //core CSS
 import "primeicons/primeicons.css"; //icons
 import PrimeVue from 'primevue/config'; // here
-import wind from './presets/wind'
+
 //da mettere nei file dove si vuole usare axios
 import { createAuth0 } from '@auth0/auth0-vue';
 
@@ -18,7 +18,7 @@ import vue3GoogleLogin from 'vue3-google-login';
 
 // Crea l'istanza dell'app Vue e usa il router
 const app = createApp(App).use(router);
-/*app.use(
+app.use(
   createAuth0({
     domain: "dev-16vw3v8k1jpn1obn.us.auth0.com",
     clientId: "v61nKLi01o3tIHfJivJOsgdJk1PYit1L",
@@ -26,13 +26,8 @@ const app = createApp(App).use(router);
       redirect_uri: window.location.origin
     }
   })
-);*/
+);
 
-
-/* ,{
-  unstyled: true,
-  pt: wind
-}*/
 app.use(PrimeVue); 
 
 app.use(vue3GoogleLogin,{

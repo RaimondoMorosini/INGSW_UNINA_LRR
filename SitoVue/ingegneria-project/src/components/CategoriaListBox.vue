@@ -6,7 +6,7 @@ import {
     ListboxOption,
     ListboxOptions,
 } from "@headlessui/vue";
-import { CheckIcon, SelectorIcon, ArrowLeftIcon , ChevronRightIcon, ChevronDownIcon } from "@heroicons/vue/solid";
+import { CheckIcon, SelectorIcon, ArrowLeftIcon , ChevronRightIcon } from "@heroicons/vue/solid";
 
 
 const props = defineProps({

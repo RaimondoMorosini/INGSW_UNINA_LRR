@@ -1,6 +1,6 @@
 <template>
     <header class="sticky top-0 shadow-lg min-w-full z-50">
-        <nav class="w-fill bg-indigo-300 flex  justify-between gap-5 py-1">
+        <nav class="w-fill bg-indigo-300 flex justify-between gap-5 py-1">
             
             <Logo class="min-w-1col"/>
                    
