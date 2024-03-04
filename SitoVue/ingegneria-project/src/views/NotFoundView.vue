@@ -1,8 +1,11 @@
 <template>
   <div class="not-found">
-    <h1>404 Not Found</h1>
-    <p>The page you are looking for does not exist.</p>
-    <router-link :to="{name : 'home'}">Back to home</router-link>
+    <h1>Errore 404</h1>
+    <p>La pagina che stai cercando non esiste.</p>
+    <div class="pt-4">
+      <router-link :to="{name : 'home'}" class="bg-indigo-300 rounded px-2 py-1 max-w-1col hover:bg-indigo-400">Back to home</router-link>
+    </div>
+    
   </div>
 </template>
 

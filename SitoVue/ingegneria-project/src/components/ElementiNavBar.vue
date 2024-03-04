@@ -7,15 +7,15 @@
                         <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Ciao {{ profilo }}</p>
                         </RouterLink> 
                     </li>
-                    <li class="md:mx-4 md:my-0 my-6">    
-                        <RouterLink :to="{name:'about'}">
-                        <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Tue Aste</p>
-                        </RouterLink>
-                    </li>
                     <li class="md:mx-4 md:my-0 my-6">
                         <router-link :to="{ name : 'notifiche'}">
                         <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Notifiche</p>
                         </router-link>
+                    </li>
+                    <li class="md:mx-4 md:my-0 my-6">    
+                        <RouterLink :to="{name:'about'}">
+                        <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Tue Aste</p>
+                        </RouterLink>
                     </li>
                     <li class="md:mx-4 md:my-0 my-6">
                     <p class="bg-indigo-400 md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Crea Asta</p>
