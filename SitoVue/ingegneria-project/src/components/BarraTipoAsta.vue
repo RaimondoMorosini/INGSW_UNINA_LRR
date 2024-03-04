@@ -23,10 +23,10 @@
 <script setup>
     import { ref } from 'vue';
 
-    testoBarra = ref('Seleziona l\'asta');
-    tendina = ref(false);
-    colorEtichetta = ref('');
-    coloreBordo= ref('2px solid black');
+    const testoBarra = ref('Seleziona l\'asta');
+    const tendina = ref(false);
+    const colorEtichetta = ref('');
+    
 
     function gestioneTendina() {
         this.tendina = !this.tendina;

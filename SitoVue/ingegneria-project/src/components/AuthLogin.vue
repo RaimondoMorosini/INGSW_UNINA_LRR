@@ -3,18 +3,19 @@
       <button @click="login">Log in</button>
     </div>
   </template>
-  <script>
+
+
+  <script setup>
     import { useAuth0 } from '@auth0/auth0-vue';
   
-    export default {
-      setup() {
-        const { loginWithRedirect } = useAuth0();
   
-        return {
-          login: () => {
+    const { loginWithRedirect } = useAuth0();
+
+      
+    function login() {
+            console.log("autenticated");
             loginWithRedirect();
-          }
-        };
-      }
-    };
+       
+    }
+  
   </script>
