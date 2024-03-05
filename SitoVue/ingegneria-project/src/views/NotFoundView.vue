@@ -3,7 +3,7 @@
     <h1>Errore 404</h1>
     <p>La pagina che stai cercando non esiste.</p>
     <div class="pt-4">
-      <router-link :to="{name : 'home'}" class="bg-indigo-300 rounded px-2 py-1 max-w-1col hover:bg-indigo-400">Back to home</router-link>
+      <router-link :to="{name : 'home'}" class="bg-primario-300 rounded px-2 py-1 max-w-1col hover:bg-primario-400">Back to home</router-link>
     </div>
     
   </div>

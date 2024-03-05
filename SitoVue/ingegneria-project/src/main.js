@@ -7,6 +7,7 @@ import './assets/css/tailwind.css';
 import "primevue/resources/themes/saga-blue/theme.css"; //theme
 import "primevue/resources/primevue.min.css"; //core CSS
 import "primeicons/primeicons.css"; //icons
+import ToastService from 'primevue/toastservice';
 import PrimeVue from 'primevue/config'; // here
 
 //da mettere nei file dove si vuole usare axios
@@ -28,7 +29,9 @@ app.use(
   })
 );
 
+//inizializazione primevue
 app.use(PrimeVue); 
+app.use(ToastService);
 
 app.use(vue3GoogleLogin,{
     clientId: '523712309350-64ooftdu5bto8ln30pbkfjtr88fjpp15.apps.googleusercontent.com'
