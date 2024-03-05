@@ -1,7 +1,7 @@
 <template>
     <div >
-        <ul class="border-t-2 border-b-2 border-slate-300 px-6 pt-2 md:flex md:items-center md:px-0 md:pb-1 md:static absolute md:bg-transparent  md:w-auto w-full top-14 duration-500 ease-in"
-        :class="[open ? 'left-0 bg-primario-100': 'left-[-100%] bg-primario-100']">
+        <ul class="border-t-2 border-b-2 border-slate-300 bg-primario-100 md:border-transparent px-6 pt-2 md:flex md:items-center md:px-0 md:pb-1 md:static absolute md:bg-transparent  md:w-auto w-full top-14 duration-500 ease-in"
+        :class="[open ? 'left-0 ': 'left-[-100%] ']">
             <li class="md:mx-4 md:my-0 my-6"> 
                 <RouterLink :to="{name:'about'}">
                     <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-400">Ciao {{ profilo }}</p>
