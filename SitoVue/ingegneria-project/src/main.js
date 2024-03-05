@@ -28,10 +28,7 @@ const app = createApp(App).use(router);
   })
 );*/
 
-app.use(PrimeVue,{
-  unstyled: true,
-  pt: wind
-}); // here
+app.use(PrimeVue); // here
 
 app.use(vue3GoogleLogin,{
     clientId: '523712309350-64ooftdu5bto8ln30pbkfjtr88fjpp15.apps.googleusercontent.com'
