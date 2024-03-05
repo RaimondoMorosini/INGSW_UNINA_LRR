@@ -3,7 +3,7 @@
                 <ul class="px-6 pt-2 md:flex md:items-center md:px-0 md:pb-1 md:static absolute bg-indigo-300 md:w-auto w-full top-14 duration-500 ease-in"
                 :class="[open ? 'left-0' : 'left-[-100%]']">
                 <li class="md:mx-4 md:my-0 my-6"> 
-                        <RouterLink :to="{name:'about'}">
+                        <RouterLink :to="{name:'profilo'}">
                         <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Ciao {{ profilo }}</p>
                         </RouterLink> 
                     </li>
@@ -20,7 +20,16 @@
                     <li class="md:mx-4 md:my-0 my-6">
                     <p class="bg-indigo-400 md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-indigo-500">Crea Asta</p>
                     </li>
+                    
+                
                 </ul>
+                <template v-if="!isAuthenticated">
+      <SignupButton />
+      <LoginButton />
+    </template>
+    <template v-if="isAuthenticated">
+      <LogoutButton />
+    </template>
             </div>
             
             <span @click="MenuOpen()" class="absolute md:hidden right-6 top-1.5 hover:bg-indigo-500 rounded text-4xl">
@@ -32,6 +41,13 @@
 <script setup>
 import {ref} from 'vue';
 import { RouterLink } from 'vue-router'
+import LoginButton from "@/components/buttons/LoginButtom.vue";
+import LogoutButton from "@/components/buttons/LogOut.vue";
+import SignupButton from "@/components/buttons/SignUp.vue";
+import { useAuth0 } from "@auth0/auth0-vue";
+
+const { isAuthenticated } = useAuth0();
+
 
 const open = ref(false);
 function MenuOpen(){
