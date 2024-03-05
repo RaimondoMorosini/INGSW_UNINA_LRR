@@ -1,11 +1,17 @@
-<script setup>
-const callback = (response) => {
-  // This callback will be triggered when the user selects or login to
-  // his Google account from the popup
-  console.log("Handle the response", response)
+<template>
+    <div></div>
+</template>
+  
+<script>
+import axios from 'axios'
+
+export default {
+    mounted() {
+        axios
+            .get('http://localhost:8080/testModel/api')
+            .then((response) => {
+                console.log(response.data)
+            })
+    }
 }
 </script>
-
-<template>
-  <GoogleLogin :callback="callback"/>
-</template>
