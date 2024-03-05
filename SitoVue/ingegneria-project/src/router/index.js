@@ -6,6 +6,8 @@ import TestLorenzo from '../views/TestLorenzo.vue'
 import TestCategorie from '../views/TestCategorie.vue'
 import AuthLogin from '@/components/AuthLogin'
 import LoginView from '@/views/LoginView'
+import Callback from '../views/CallbackView.vue'
+import Profilo from '../views/ProfiloView.vue'
 
 const routes = [
 
@@ -13,6 +15,18 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+
+  {
+    path: '/profilo',
+    name: 'profilo',
+    component: Profilo
+  },
+
+  {
+    path: '/callback',
+    name: 'callback',
+    component: Callback
   },
 
   {
@@ -76,15 +90,11 @@ const routes = [
     name: 'notifiche',
     component: AboutView
   },
-  {
-    path: '/profilo',
-    name: 'profilo',
-    component: AboutView
-  },
+  
   {
     path: '/login',
     name: 'login',
-    component: AuthLogin
+    component: LoginView
   },
 
   {
