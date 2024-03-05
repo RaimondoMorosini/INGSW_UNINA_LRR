@@ -50,7 +50,7 @@ const label = computed(() => {
 <template>
   <Listbox v-model="props.modelValue" :multiple="props.multiple" @update:modelValue="value => emit('update:modelValue', value)">
     <div class="relative mt-1">
-      <ListboxButton class="relative py-2 pr-10 pl-3 w-full text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+      <ListboxButton class="relative py-2 pr-10 pl-3 w-full text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-primario-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
         <span v-if="label" class="block truncate">{{ label }}</span>
         <span v-else class="text-gray-500">{{ props.placeholder }}</span>
         <span class="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none">

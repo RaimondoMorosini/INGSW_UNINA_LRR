@@ -37,7 +37,7 @@ const fallback= computed(() => {
 
 const containerClass = computed(()=>{
     return cva(
-        "relative inline-flex items-center justify-center font-bold text-slate-700 select-none shrink-0 bg-indigo-300 overflow-hidden",
+        "relative inline-flex items-center justify-center font-bold text-slate-700 select-none shrink-0 bg-primario-300 overflow-hidden",
         {
             variants:{
                 size: {
