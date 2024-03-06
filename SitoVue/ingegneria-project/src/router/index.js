@@ -1,4 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+import AboutView from '../views/AboutView.vue'
+import TestRai from '../views/TestRai.vue'
+import TestLorenzo from '../views/TestLorenzo.vue'
+import TestCategorie from '../views/TestCategorie.vue'
+import AuthLogin from '@/components/AuthLogin'
+import LoginView from '@/views/LoginView'
+import Callback from '../views/CallbackView.vue'
+import Profilo from '../views/ProfiloView.vue'
 
 const routes = [
 
@@ -6,6 +15,18 @@ const routes = [
     path: '/',
     name: 'home',
     component: () => import('@/views/HomeView.vue')
+  },
+
+  {
+    path: '/profilo',
+    name: 'profilo',
+    component: () => import('@/views/ProfiloView.vue')
+  },
+
+  {
+    path: '/callback',
+    name: 'callback',
+    component: () => import ('@/views/CallbackView.vue')
   },
 
   {
@@ -74,10 +95,12 @@ const routes = [
     name: 'profilo',
     component: () => import('@/views/AboutView.vue')
   },
+  
   {
     path: '/login',
     name: 'login',
     component: () => import ('@/components/AuthLogin.vue')
+    component: LoginView
   },
 
   // testing pages TODO: remove

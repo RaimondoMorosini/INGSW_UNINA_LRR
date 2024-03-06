@@ -9,8 +9,6 @@ import "primevue/resources/primevue.min.css"; //core CSS
 import "primeicons/primeicons.css"; //icons
 import ToastService from 'primevue/toastservice';
 import PrimeVue from 'primevue/config'; // here
-
-//da mettere nei file dove si vuole usare axios
 import { createAuth0 } from '@auth0/auth0-vue';
 
 //da mettere per il login google
@@ -21,10 +19,10 @@ import vue3GoogleLogin from 'vue3-google-login';
 const app = createApp(App).use(router);
 app.use(
   createAuth0({
-    domain: "dev-16vw3v8k1jpn1obn.us.auth0.com",
-    clientId: "v61nKLi01o3tIHfJivJOsgdJk1PYit1L",
+    domain: "dev-bmqxc24leqwhyhec.eu.auth0.com",
+    clientId: "YR70390mlpskaBwBrMYclzGmkCLAXfaB",
     authorizationParams: {
-      redirect_uri: window.location.origin
+      redirect_uri: "http://localhost:8080/callback",
     }
   })
 );
