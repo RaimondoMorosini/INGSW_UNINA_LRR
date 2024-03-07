@@ -1,33 +1,45 @@
 <template>
       <div>
-        <ul class="border-t-2 border-b-2 border-slate-300 bg-primario-100 md:border-transparent px-6 pt-2 md:flex md:items-center md:px-0 md:pb-1 md:static absolute md:bg-transparent  md:w-auto w-full top-14 duration-500 ease-in"
+        <ul class="border-t-2 border-b-2 border-slate-300 bg-primario-100 md:border-transparent px-6 pt-2 md:flex md:items-center md:px-0 md:pb-1 md:static absolute md:bg-inherit md:w-auto w-full top-14 duration-500 ease-in"
         :class="[open ? 'left-0 ': 'left-[-100%] ']">
-            <li class="md:mx-4 md:my-0 my-6"> 
-                <RouterLink :to="{name:'profilo'}">
-                    <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-400">Ciao {{ profilo }}</p>
-                </RouterLink> 
-            </li>
-            <li class="md:mx-4 md:my-0 my-6">
-                <router-link :to="{ name : 'notifiche'}">
-                    <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-400">Notifiche</p>
-                </router-link>
-            </li>
-            <li class="md:mx-4 md:my-0 my-6">    
-                <RouterLink :to="{name:'about'}">
-                    <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-400">Tue Aste</p>
-                </RouterLink>
-            </li>
-            <li class="md:mx-4 md:my-0 my-6">
-                <p class="bg-primario-400 md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-400">Crea Asta</p>
-            </li>
-            </ul>
+            
             <template v-if="!isAuthenticated">
-      <SignupButton />
-      <LoginButton />
-    </template>
-    <template v-if="isAuthenticated">
-      <LogoutButton />
-    </template>
+                <li class="md:mx-4 md:my-0 my-6">
+                    <SignupButton class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-400 !sm:w-[100%]"/>
+                </li>
+                <li class="md:mx-4 md:my-0 my-6">
+                    <LoginButton class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-400 !sm:w-[100%] "/>
+                </li>    
+            </template>
+
+            <template v-if="isAuthenticated">
+                <li class="md:mx-4 md:my-0 my-6"> 
+                    <RouterLink :to="{name:'profilo'}">
+                        <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-400 !sm:w-[100%]">Ciao {{ profilo }}</p>
+                    </RouterLink> 
+                </li>
+                <li class="md:mx-4 md:my-0 my-6">
+                    <router-link :to="{ name : 'notifiche'}">
+                        <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-400 !sm:w-[100%]">Notifiche</p>
+                    </router-link>
+                </li>
+                <li class="md:mx-4 md:my-0 my-6">    
+                    <RouterLink :to="{name:'about'}">
+                        <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-400 !sm:w-[100%]">Tue Aste</p>
+                    </RouterLink>
+                </li>
+                <li class="md:mx-4 md:my-0 my-6">
+                <LogoutButton class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-400 !sm:w-[100%]"/>
+                </li>
+                <li class="md:mx-4 md:my-0 my-6">
+                    <p class="bg-primario-400 md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-400 !sm:w-[100%]">Crea Asta</p>
+                </li>
+                
+            </template>
+
+            </ul>
+            
+    
             </div>
             
             <span @click="MenuOpen()" class="absolute md:hidden right-6 top-1.5 hover:bg-primario-400 rounded text-4xl">
@@ -38,7 +50,6 @@
 
 <script setup>
 import {ref} from 'vue';
-import { RouterLink } from 'vue-router'
 import LoginButton from "@/components/buttons/LoginButtom.vue";
 import LogoutButton from "@/components/buttons/LogOut.vue";
 import SignupButton from "@/components/buttons/SignUp.vue";
