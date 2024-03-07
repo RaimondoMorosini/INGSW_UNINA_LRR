@@ -10,8 +10,8 @@
 </template>
 
 <script setup>
-import ElementiNavBar from './ElementiNavBar.vue';
-import Logo from "./LogoSito.vue";
+import ElementiNavBar from './SubComponenti/Navbar/ElementiNavBar.vue';
+import Logo from "./SubComponenti/Navbar/LogoSito.vue";
 </script>
 
 
