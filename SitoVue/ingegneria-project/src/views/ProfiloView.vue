@@ -2,8 +2,8 @@
   
     <div  class="content-layout">
       <div class="content__body">
-        < class="profile-grid flex">
-          <div class="min-w-3colflex-row">
+        <div class="profile-grid flex">
+          <div class="min-w-3col  h-screen border-r-2 border-slate-300">
             <ul class="border-b-2 border-slate-300 text-2xl">
               <li v-for="(pagina,index) in pagine" v-bind:key="index" class="hover:bg-primario-300 rounded py-2 px-2">
                 {{ pagina }}
@@ -17,7 +17,7 @@
             
           </div>
           
-        
+        </div >
       </div>
     </div>
 
