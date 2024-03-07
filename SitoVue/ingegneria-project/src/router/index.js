@@ -82,11 +82,6 @@ const routes = [
     name: 'notifiche',
     component: () => import('@/views/AboutView.vue')
   },
-  {
-    path: '/profilo',
-    name: 'profilo',
-    component: () => import('@/views/AboutView.vue')
-  },
   
   {
     path: '/login',

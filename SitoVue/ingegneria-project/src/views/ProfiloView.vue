@@ -15,7 +15,7 @@
         </p>
         <div class="profile-grid">
           <div class="profile__header">
-            <img :src="user.picture" alt="Profile" class="profile__avatar" />
+            <img :src="user.picture" alt="" class="profile__avatar rounded overflow-hidden min-h-1col min-w-1col border-2 border-primario-100" />
             <div class="profile__headline">
               <h2 class="profile__title">{{ user.name }}</h2>
               <span class="profile__description">{{ user.email }}</span>
