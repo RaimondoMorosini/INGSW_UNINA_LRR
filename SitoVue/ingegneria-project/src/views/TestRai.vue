@@ -1,9 +1,8 @@
 <script setup>
 import BaseListbox from "../components/BaseListBox.vue";
 import dropdownCategoria from "../components/CategoriaListBox.vue";
-import LogoSito from "../components/LogoSito.vue";
 import { ref } from "vue";
-import logoIcon from "../components/Icone/logo.vue";
+
 
 
 
@@ -173,8 +172,6 @@ function aggiornaSelezioneCategoria(nuovoValore) {
         @update:modelValue="aggiornaSelezioneCategoria" multiple />
     
       </form>
-      <logoIcon></logoIcon>
-      <LogoSito/>
       
 
       
@@ -183,3 +180,4 @@ function aggiornaSelezioneCategoria(nuovoValore) {
  
 
 </template>
+../components/SubComponenti/Navbar/LogoSito.vue
