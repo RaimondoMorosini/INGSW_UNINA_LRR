@@ -111,7 +111,7 @@ const label = computed(() => {
           </ListboxOption>
         </ListboxOptions>
       </transition>
-      <div class="text-xs text-red-400 mt-1" v-if="props.error">{{ props.error }}</div>
+      <div class="text-xs text-danger-400 mt-1" v-if="props.error">{{ props.error }}</div>
     </div>
   </Listbox>
 </template>
