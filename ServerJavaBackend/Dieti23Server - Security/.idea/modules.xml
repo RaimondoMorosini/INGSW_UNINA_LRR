@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Dieti23Server.iml" filepath="$PROJECT_DIR$/Dieti23Server.iml" />
       <module fileurl="file://$PROJECT_DIR$/Dieti23Server - Security.iml" filepath="$PROJECT_DIR$/Dieti23Server - Security.iml" />
     </modules>
   </component>
