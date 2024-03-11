@@ -1,4 +1,4 @@
-package com.lrr.Dieti23Server.service;
+package com.lrr.Dieti23Server.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
