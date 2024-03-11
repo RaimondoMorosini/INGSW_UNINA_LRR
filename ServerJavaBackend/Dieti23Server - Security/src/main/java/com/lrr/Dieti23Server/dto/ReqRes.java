@@ -3,7 +3,6 @@ package com.lrr.Dieti23Server.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.lrr.Dieti23Server.model.TestModel;
-import com.lrr.Dieti23Server.model.UserTest;
 import lombok.Data;
 
 import java.util.List;

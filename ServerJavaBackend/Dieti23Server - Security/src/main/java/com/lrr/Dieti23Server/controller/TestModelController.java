@@ -1,4 +1,4 @@
-package com.lrr.Dieti23Server.controller.api;
+package com.lrr.Dieti23Server.controller;
 
 import com.lrr.Dieti23Server.model.TestModel;
 import com.lrr.Dieti23Server.service.ITestService;
