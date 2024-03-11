@@ -1,6 +1,5 @@
 package com.lrr.Dieti23Server.repository;
 
-import com.lrr.Dieti23Server.model.UserTest;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

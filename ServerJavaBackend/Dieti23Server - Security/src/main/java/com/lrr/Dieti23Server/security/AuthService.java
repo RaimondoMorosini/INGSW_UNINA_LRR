@@ -1,7 +1,6 @@
-package com.lrr.Dieti23Server.service;
+package com.lrr.Dieti23Server.security;
 
 import com.lrr.Dieti23Server.dto.ReqRes;
-import com.lrr.Dieti23Server.model.UserTest;
 import com.lrr.Dieti23Server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

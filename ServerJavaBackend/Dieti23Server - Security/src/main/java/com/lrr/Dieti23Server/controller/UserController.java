@@ -1,4 +1,4 @@
-package com.lrr.Dieti23Server.controller.api;
+package com.lrr.Dieti23Server.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

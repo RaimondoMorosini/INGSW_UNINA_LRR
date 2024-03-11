@@ -1,7 +1,7 @@
 package com.lrr.Dieti23Server.configuration;
 
-import com.lrr.Dieti23Server.service.JWTUtils;
-import com.lrr.Dieti23Server.service.MockUserDetailsService;
+import com.lrr.Dieti23Server.security.JWTUtils;
+import com.lrr.Dieti23Server.service.utenteService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ public class JWTAuthFIlter extends OncePerRequestFilter {
     @Autowired
     private JWTUtils jwtUtils;
     @Autowired
-    private MockUserDetailsService mockUserDetailsService;
+    private utenteService utenteService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class JWTAuthFIlter extends OncePerRequestFilter {
         jwtToken = authHeader.substring(7);
         userEmail = jwtUtils.extractUsername(jwtToken);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = mockUserDetailsService.loadUserByUsername(userEmail);
+            UserDetails userDetails = utenteService.loadUserByUsername(userEmail);
 
             if (jwtUtils.isTokenValid(jwtToken, userDetails)) {
                 SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
