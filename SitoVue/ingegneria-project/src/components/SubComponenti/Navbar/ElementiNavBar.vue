@@ -36,7 +36,6 @@
                 <li class="md:mx-4 md:my-0 my-6">
                     <p class="bg-primario-300 md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-300 !sm:w-[100%] text-center">Crea Asta</p>
                 </li>
-                
             </template>
 
             </ul>
