@@ -1,6 +1,6 @@
 <template>
     <RouterLink to="/">
-    <div class="font-bold content-evenly  bg-inherit hover:bg-primario-300 rounded mt-1 flex px-5 md:items-center md:px-0 md:pb-2">
+    <div class="font-bold content-evenly bg-inherit hover:ring-2 hover:ring-slate-300/80 hover:bg-primario-100 rounded mt-1 flex px-3 md:items-center md:px-0 md:pb-2">
         
         <img src="../../assets/Icon/LogoSVGSito.svg" alt="Logo" class="w-1col  h-1col" />
         <div class="flex pt-[1.1rem] md:pt-0">
