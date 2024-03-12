@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul
-      class="absolute top-[85px] w-full border-b-2 border-t-2 border-slate-300 bg-primario-100 px-6 pt-2 duration-500 ease-in md:static md:flex md:w-auto md:items-center md:border-transparent md:bg-inherit md:px-0 md:pb-1"
+      class="absolute top-[90px] w-full border-b-2 border-t-2 border-slate-300 bg-primario-100 px-6 py-6 text-xl duration-500 ease-in md:static md:flex md:w-auto md:items-center md:border-transparent md:bg-inherit md:px-0 md:pb-1"
       :class="[open ? 'left-0 ' : 'left-[-100%] ']"
     >
       <template v-if="!isAuthenticated">
