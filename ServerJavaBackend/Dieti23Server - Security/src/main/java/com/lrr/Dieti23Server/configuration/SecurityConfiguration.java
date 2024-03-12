@@ -13,9 +13,11 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -23,6 +25,9 @@ import org.springframework.web.client.RestTemplate;
 @EnableWebSecurity
 public class SecurityConfiguration{
 
+    public static final String[] endPointNonProtetti = {
+            "/auth/**"
+    };
     @Autowired
     private utenteService utenteService;
     @Autowired
@@ -33,17 +38,12 @@ public class SecurityConfiguration{
         httpSecurity
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request.requestMatchers( "/verificaGoogle/**", "/oauth2/**", "/auth/**", "/public/**", "/testModel/**", "/api/images/**").permitAll()
-                        .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
-                        .requestMatchers("/user/**").hasAnyAuthority("USER")
-                        .requestMatchers("/adminuser/**","/").hasAnyAuthority( "ADMIN")
-                        .anyRequest().authenticated());
-                //.sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                /*.authenticationProvider(authenticationProvider()).addFilterBefore(
+                .authorizeHttpRequests(request -> request.requestMatchers(endPointNonProtetti).permitAll()
+                        .anyRequest().authenticated())
+                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider()).addFilterBefore(
                         jwtAuthFIlter, UsernamePasswordAuthenticationFilter.class
-                )*/
-                //.oauth2Login(withDefaults())
-                //.formLogin(withDefaults());
+                );
         return httpSecurity.build();
     }
 
