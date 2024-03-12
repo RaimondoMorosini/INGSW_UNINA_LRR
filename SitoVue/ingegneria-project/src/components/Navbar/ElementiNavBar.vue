@@ -5,43 +5,43 @@
             
             <template v-if="!isAuthenticated">
                 <li class="md:mx-4 md:my-0 my-6">
-                    <SignupButton class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-300 w-[100%]"/>
+                    <SignupButton class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-100   w-[100%]"/>
                 </li>
                 <li class="md:mx-4 md:my-0 my-6">
-                    <LoginButton class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-300 w-[100%] "/>
+                    <LoginButton class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded  hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80  w-[100%] "/>
                 </li>    
             </template>
 
             <template v-if="isAuthenticated">
                 <li class="md:mx-4 md:my-0 my-6"> 
                     <RouterLink :to="{name:'profilo'}">
-                        <p class="text-center md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-300 !sm:w-[100%]">
+                        <p class="text-center md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 !sm:w-[100%]">
                                 Ciao {{ user.name }}
                             </p>
                     </RouterLink> 
                 </li>
                 <li class="md:mx-4 md:my-0 my-6">
-                    <router-link :to="{ name : 'notifiche'}">
-                        <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-300 !sm:w-[100%] text-center">Notifiche</p>
+                    <router-link to="/profilo/notifiche">
+                        <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 text-center">Notifiche</p>
                     </router-link>
                 </li>
                 <li class="md:mx-4 md:my-0 my-6">    
                     <RouterLink :to="{name:'about'}">
-                        <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded itemss-center hover:bg-primario-300 !sm:w-[100%] text-center">Tue Aste</p>
+                        <p class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80  !sm:w-[100%] text-center">Tue Aste</p>
                     </RouterLink>
                 </li>
                 <li class="md:mx-4 md:my-0 my-6">
-                <LogoutButton class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-300 w-[100%] text-center"/>
+                <LogoutButton class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80  w-[100%] text-center"/>
                 </li>
                 <li class="md:mx-4 md:my-0 my-6">
-                    <p class="bg-primario-300 md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-300 !sm:w-[100%] text-center">Crea Asta</p>
+                    <p class="bg-primario-200 ring-2 ring-slate-300/80 md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-100   !sm:w-[100%] text-center">Crea Asta</p>
                 </li>
             </template>
 
             </ul>
             </div>
             
-            <span @click="MenuOpen()" class="absolute md:hidden right-6 top-5 hover:bg-primario-300 rounded text-4xl">
+            <span @click="MenuOpen()" class="absolute md:hidden right-6 top-5 hover:bg-primario-100   rounded text-4xl">
                 <i :class="[open ? 'bi bi-x ' : 'bi bi-filter-left' ]"></i>    
             </span>
 

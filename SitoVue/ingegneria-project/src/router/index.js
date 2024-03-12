@@ -12,7 +12,13 @@ const routes = [
   {
     path: '/profilo',
     name: 'profilo',
-    component: () => import('@/views/ProfiloView.vue')
+    component: () => import('@/views/ProfiloView.vue'),
+    children: [
+      { path: '', component: () => import('@/components/Profilo/InformazioniProfilo.vue') },
+      { path: 'astePersonali', component: () => import('@/components/Profilo/AstePersonaliProfilo.vue') },
+      { path: 'notifiche', component: () => import('@/components/Profilo/MessaggiProfilo.vue') },
+      { path: 'impostazioni', component: () => import('@/components/Profilo/ImpostazioniProfilo.vue') }
+    ]
   },
 
   {
@@ -34,7 +40,7 @@ const routes = [
   },
   
   {
-    path: '/profilo/astePersonali',
+    path: '/astePersonali',
     name: 'astePersonali',
     component: () => import('@/views/AboutView.vue')
   },
