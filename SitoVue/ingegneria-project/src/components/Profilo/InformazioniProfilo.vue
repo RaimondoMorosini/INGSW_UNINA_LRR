@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-3 px-3">
+  <div class="flex flex-col gap-3 px-3 py-3">
     <div
       class="user-info-photo flex w-full flex-row items-center justify-between space-x-5 rounded bg-slate-100 px-3 py-3"
     >
