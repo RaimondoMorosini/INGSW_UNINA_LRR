@@ -24,7 +24,7 @@ const form = ref({
 </script>
 
 <template>
-  <div class="p-4 mx-auto max-w-2xl">
+  <div class="mx-auto max-w-2xl p-4">
     <form action="#" class="flex flex-col space-y-6">
       <BaseListbox placeholder="Select person" v-model="form.person_id" :options="people" />
 

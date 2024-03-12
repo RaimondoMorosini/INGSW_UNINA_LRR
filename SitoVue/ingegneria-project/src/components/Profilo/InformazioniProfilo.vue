@@ -1,16 +1,16 @@
 <template>
   <div class="flex flex-col gap-3 px-3">
     <div
-      class="user-info-photo flex w-full flex-row justify-between items-center bg-slate-100 rounded px-3 py-3 space-x-5"
+      class="user-info-photo flex w-full flex-row items-center justify-between space-x-5 rounded bg-slate-100 px-3 py-3"
     >
       <div class="flex flex-row space-x-1">
         <img
           :src="user.picture"
           alt="Profile Picture"
-          class="rounded-full w-20 h-20 border-primario-200"
+          class="h-20 w-20 rounded-full border-primario-200"
         />
         <div class="User info">
-          <h2 class="text-2xl font-semibold mt-4">{{ user.name }}</h2>
+          <h2 class="mt-4 text-2xl font-semibold">{{ user.name }}</h2>
           <h2 class="text-sm text-gray-500">{{ user.email }}</h2>
         </div>
       </div>
@@ -18,7 +18,7 @@
       <EditButton />
     </div>
 
-    <div class="Bio bg-slate-100 rounded px-3">
+    <div class="Bio rounded bg-slate-100 px-3">
       <h1 class="text-xl">Bio:</h1>
       <p>
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime ex delectus obcaecati!
@@ -27,12 +27,12 @@
       </p>
     </div>
 
-    <div class="Indirizzo px-3 rounded bg-slate-100">
+    <div class="Indirizzo rounded bg-slate-100 px-3">
       <h1 class="text-xl">Indirizzo:</h1>
       {{ user.address }}
     </div>
 
-    <ul class="LinkAssociati px-3 rounded bg-slate-100">
+    <ul class="LinkAssociati rounded bg-slate-100 px-3">
       <h1 class="text-xl">Collegamenti</h1>
       <li v-for="(link, index) in linkUtili" v-bind:key="index">
         {{ link }}

@@ -2,7 +2,7 @@
   <div class="relative inline-block">
     <button
       @click="toggleDropdown"
-      class="dropdown-button px-4 py-2 bg-blue-500 text-white rounded-md"
+      class="dropdown-button rounded-md bg-blue-500 px-4 py-2 text-white"
     >
       Menu
     </button>

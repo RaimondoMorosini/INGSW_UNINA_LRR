@@ -28,11 +28,11 @@
     :loop="true"
     :navigation="true"
     :keyboard="true"
-    class="bg-primario-100 !py-6 !px-10 lg:h-6col"
+    class="bg-primario-100 !px-10 !py-6 lg:h-6col"
   >
     <SwiperSlide v-for="(photo, index) in slides.photo" :key="index">
       <RouterLink :to="{ name: slides.links[index] }">
-        <img :src="require(`@/assets/${photo}`)" alt="" class="border-slate-400 border-2" />
+        <img :src="require(`@/assets/${photo}`)" alt="" class="border-2 border-slate-400" />
       </RouterLink>
     </SwiperSlide>
   </Swiper>

@@ -5,7 +5,7 @@
     <div class="pt-4">
       <router-link
         :to="{ name: 'home' }"
-        class="bg-primario-300 rounded px-2 py-1 max-w-1col hover:bg-primario-400"
+        class="max-w-1col rounded bg-primario-300 px-2 py-1 hover:bg-primario-400"
         >Back to home</router-link
       >
     </div>

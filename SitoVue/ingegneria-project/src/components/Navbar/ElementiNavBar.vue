@@ -1,58 +1,58 @@
 <template>
   <div>
     <ul
-      class="border-t-2 border-b-2 border-slate-300 bg-primario-100 md:border-transparent px-6 pt-2 md:flex md:items-center md:px-0 md:pb-1 md:static absolute md:bg-inherit md:w-auto w-full top-[85px] duration-500 ease-in"
+      class="absolute top-[85px] w-full border-b-2 border-t-2 border-slate-300 bg-primario-100 px-6 pt-2 duration-500 ease-in md:static md:flex md:w-auto md:items-center md:border-transparent md:bg-inherit md:px-0 md:pb-1"
       :class="[open ? 'left-0 ' : 'left-[-100%] ']"
     >
       <template v-if="!isAuthenticated">
-        <li class="md:mx-4 md:my-0 my-6">
+        <li class="my-6 md:mx-4 md:my-0">
           <SignupButton
-            class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-100 w-[100%]"
+            class="mt-1 block w-[100%] rounded px-2 py-1 font-semibold hover:bg-primario-100 md:mx-4"
           />
         </li>
-        <li class="md:mx-4 md:my-0 my-6">
+        <li class="my-6 md:mx-4 md:my-0">
           <LoginButton
-            class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 w-[100%]"
+            class="mt-1 block w-[100%] rounded px-2 py-1 font-semibold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 md:mx-4"
           />
         </li>
       </template>
 
       <template v-if="isAuthenticated">
-        <li class="md:mx-4 md:my-0 my-6">
+        <li class="my-6 md:mx-4 md:my-0">
           <RouterLink :to="{ name: 'profilo' }">
             <p
-              class="text-center md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 !sm:w-[100%]"
+              class="!sm:w-[100%] mt-1 block rounded px-2 py-1 text-center font-semibold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 md:mx-4"
             >
               Ciao {{ user.name }}
             </p>
           </RouterLink>
         </li>
-        <li class="md:mx-4 md:my-0 my-6">
+        <li class="my-6 md:mx-4 md:my-0">
           <router-link to="/profilo/notifiche">
             <p
-              class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 text-center"
+              class="mt-1 block rounded px-2 py-1 text-center font-semibold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 md:mx-4"
             >
               Notifiche
             </p>
           </router-link>
         </li>
-        <li class="md:mx-4 md:my-0 my-6">
+        <li class="my-6 md:mx-4 md:my-0">
           <RouterLink :to="{ name: 'about' }">
             <p
-              class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 !sm:w-[100%] text-center"
+              class="!sm:w-[100%] mt-1 block rounded px-2 py-1 text-center font-semibold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 md:mx-4"
             >
               Tue Aste
             </p>
           </RouterLink>
         </li>
-        <li class="md:mx-4 md:my-0 my-6">
+        <li class="my-6 md:mx-4 md:my-0">
           <LogoutButton
-            class="md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 w-[100%] text-center"
+            class="mt-1 block w-[100%] rounded px-2 py-1 text-center font-semibold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 md:mx-4"
           />
         </li>
-        <li class="md:mx-4 md:my-0 my-6">
+        <li class="my-6 md:mx-4 md:my-0">
           <p
-            class="bg-primario-200 ring-2 ring-slate-300/80 md:mx-4 mt-1 block px-2 py-1 font-semibold rounded hover:bg-primario-100 !sm:w-[100%] text-center"
+            class="!sm:w-[100%] mt-1 block rounded bg-primario-200 px-2 py-1 text-center font-semibold ring-2 ring-slate-300/80 hover:bg-primario-100 md:mx-4"
           >
             Crea Asta
           </p>
@@ -63,7 +63,7 @@
 
   <span
     @click="MenuOpen()"
-    class="absolute md:hidden right-6 top-5 hover:bg-primario-100 rounded text-4xl"
+    class="absolute right-6 top-5 rounded text-4xl hover:bg-primario-100 md:hidden"
   >
     <i :class="[open ? 'bi bi-x ' : 'bi bi-filter-left']"></i>
   </span>

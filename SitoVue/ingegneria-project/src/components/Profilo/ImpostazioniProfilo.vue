@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-3 px-3 py-1 rounded">
-    <p class="bg-slate-100 rounded">impostazioni</p>
+  <div class="flex flex-col gap-3 rounded px-3 py-1">
+    <p class="rounded bg-slate-100 px-3">impostazioni</p>
   </div>
 </template>
