@@ -1,24 +1,24 @@
-import {reactive} from "vue";
+import { reactive } from 'vue'
 
 export default function useForm(fields) {
   return reactive({
     fields,
     processing: false,
     error: null,
-    
-    async submit(submitter) {
-      if (this.processing) return;
 
-      this.error = null;
-      this.processing = true;
+    async submit(submitter) {
+      if (this.processing) return
+
+      this.error = null
+      this.processing = true
 
       try {
-        await submitter(this.fields);
+        await submitter(this.fields)
       } catch (err) {
-        this.error = err;
+        this.error = err
       }
 
-      this.processing = false;
-    },
-  });
+      this.processing = false
+    }
+  })
 }
