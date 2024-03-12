@@ -1,6 +1,9 @@
 <template>
   <div class="relative inline-block">
-    <button @click="toggleDropdown" class="dropdown-button px-4 py-2 bg-blue-500 text-white rounded-md">
+    <button
+      @click="toggleDropdown"
+      class="dropdown-button px-4 py-2 bg-blue-500 text-white rounded-md"
+    >
       Menu
     </button>
   </div>
@@ -9,46 +12,42 @@
     <ul>
       <Ricorsione :categorie="categorie" />
     </ul>
-    
   </div>
 </template>
-  
-  
-<script setup>
-import { ref, onMounted, onUnmounted, defineProps, defineEmits } from 'vue';
-import categorie from '../script/getCategorie.js';
 
-const isDropdownVisible = ref(false);
+<script setup>
+import { ref, onMounted, onUnmounted, defineProps, defineEmits } from 'vue'
+import categorie from '../script/getCategorie.js'
+
+const isDropdownVisible = ref(false)
 
 function toggleDropdown() {
-  isDropdownVisible.value = !isDropdownVisible.value;
+  isDropdownVisible.value = !isDropdownVisible.value
 }
 
 function closeDropdown() {
-  isDropdownVisible.value = false;
+  isDropdownVisible.value = false
 }
 
 function handleClickOutside(event) {
   if (!event.target.closest('.relative')) {
-    closeDropdown();
+    closeDropdown()
   }
 }
 
 onMounted(() => {
-  document.addEventListener('click', handleClickOutside);
-});
+  document.addEventListener('click', handleClickOutside)
+})
 
 onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside);
-});
+  document.removeEventListener('click', handleClickOutside)
+})
 
 ////////////////codice per le categorie//////////////////////////////////////////////////////////////////
-
 </script>
 
 <script>
-
-import Ricorsione from './Ricorsione.vue';
+import Ricorsione from './Ricorsione.vue'
 
 export default {
   name: 'App',
@@ -56,9 +55,8 @@ export default {
     Ricorsione
   }
 }
-
 </script>
-  
+
 <style>
 .dropdown-content {
   display: none;
@@ -76,11 +74,10 @@ export default {
   display: block;
 }
 
-.dropdown-button:focus+.dropdown-content,
+.dropdown-button:focus + .dropdown-content,
 .dropdown-content:hover {
   display: block;
 }
 
 /*Menu a tendina-----------------------------------------------*/
 </style>
-  
