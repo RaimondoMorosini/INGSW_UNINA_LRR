@@ -12,19 +12,19 @@
             <EditButton/>
         </div>
 
-        <div class="Bio bg-slate-100 rounded">
+        <div class="Bio bg-slate-100 rounded px-3">
               <h1 class="text-xl">Bio:</h1>
               <p>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime ex delectus obcaecati! Molestiae, dicta in error cupiditate, soluta similique cumque deleniti impedit sapiente ex itaque mollitia amet dolores perspiciatis. Provident?
               </p>
             </div>
 
-            <div class="Indirizzo rounded bg-slate-100">
+            <div class="Indirizzo  px-3 rounded bg-slate-100">
               <h1 class="text-xl">Indirizzo:</h1>
                 {{user.address}}
             </div>
 
-            <ul class="LinkAssociati rounded bg-slate-100">
+            <ul class="LinkAssociati px-3 rounded bg-slate-100">
               <h1 class="text-xl">Collegamenti</h1>
               <li v-for="(link,index) in linkUtili" v-bind:key="index" >
                 {{ link }}
