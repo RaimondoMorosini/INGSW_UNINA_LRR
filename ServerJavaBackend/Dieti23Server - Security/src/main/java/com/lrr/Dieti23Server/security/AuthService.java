@@ -1,6 +1,9 @@
 package com.lrr.Dieti23Server.security;
 
+import com.lrr.Dieti23Server.dto.CredenzialiUtenteDTO;
+import com.lrr.Dieti23Server.dto.DatiUtentePerTokenDTO;
 import com.lrr.Dieti23Server.dto.ReqRes;
+import com.lrr.Dieti23Server.model.Utente;
 import com.lrr.Dieti23Server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,13 +11,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-
 @Service
 public class AuthService {
 
     @Autowired
-    private UserRepository userRepo;
+    private UserRepository utenteRepo;
     @Autowired
     private JWTUtils jwtUtils;
     @Autowired
@@ -25,13 +26,12 @@ public class AuthService {
     public ReqRes signUp(ReqRes registrationRequest){
         ReqRes resp = new ReqRes();
         try {
-            UserTest userTest = new UserTest();
-            userTest.setEmail(registrationRequest.getEmail());
-            userTest.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
-            userTest.setRole(registrationRequest.getRole());
-            UserTest userResult = userRepo.save(userTest);
-            if (userResult != null && userResult.getId()>0) {
-                resp.setUserTest(userResult);
+            Utente utenteModel = new Utente();
+            utenteModel.setEmail(registrationRequest.getEmail());
+            utenteModel.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
+            Utente userResult = utenteRepo.save(utenteModel);
+            if (userResult != null) {
+                resp.setUtenteModel(userResult);
                 resp.setMessage("User Saved Successfully");
                 resp.setStatusCode(200);
             }
@@ -42,32 +42,29 @@ public class AuthService {
         return resp;
     }
 
-    public ReqRes signIn(ReqRes signinRequest){
+    public ReqRes login(CredenzialiUtenteDTO credenzialiUtenteDTO){
         ReqRes response = new ReqRes();
 
         try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(signinRequest.getEmail(),signinRequest.getPassword()));
-            var user = userRepo.findByEmail(signinRequest.getEmail()).orElseThrow();
+
+            Utente utenteTrovatobyEmail = utenteRepo.findByEmail(credenzialiUtenteDTO.email()).get();
+
+            if(!utenteTrovatobyEmail.getPassword().equals(credenzialiUtenteDTO.password())){
+                //lancia un eccezione
+                return null;
+            }
+
+
             System.out.println("USER IS: "+ user);
-            var jwt = jwtUtils.generateToken(user);
-            var refreshToken = jwtUtils.generateRefreshToken(new HashMap<>(), user);
-            response.setStatusCode(200);
-            response.setToken(jwt);
-            response.setRefreshToken(refreshToken);
-            response.setExpirationTime("24Hr");
-            response.setMessage("Successfully Signed In");
-        }catch (Exception e){
-            response.setStatusCode(500);
-            response.setError(e.getMessage());
-        }
+            var token = jwtUtils.generateToken(new DatiUtentePerTokenDTO.fromUserModel(utenteTrovatobyEmail));
+
         return response;
     }
 
     public ReqRes refreshToken(ReqRes refreshTokenReqiest){
         ReqRes response = new ReqRes();
         String ourEmail = jwtUtils.extractUsername(refreshTokenReqiest.getToken());
-        UserTest users = userRepo.findByEmail(ourEmail).orElseThrow();
+        UserTest users = utenteRepo.findByEmail(ourEmail).orElseThrow();
         if (jwtUtils.isTokenValid(refreshTokenReqiest.getToken(), users)) {
             var jwt = jwtUtils.generateToken(users);
             response.setStatusCode(200);
