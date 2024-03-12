@@ -6,7 +6,7 @@
       @change="updateInput"
       :value="value"
       type="radio"
-      class="focus:ring-0 h-4 w-4"
+      class="h-4 w-4 focus:ring-0"
     />
     <label class="ml-2 block text-sm text-gray-900">
       {{ label }}

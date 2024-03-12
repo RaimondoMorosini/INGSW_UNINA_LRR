@@ -65,12 +65,12 @@ const label = computed(() => {
   >
     <div class="relative mt-1">
       <ListboxButton
-        class="relative py-2 pr-10 pl-3 w-full text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-primario-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+        class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-primario-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
       >
         <span v-if="label" class="block truncate">{{ label }}</span>
         <span v-else class="text-gray-500">{{ props.placeholder }}</span>
-        <span class="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none">
-          <SelectorIcon aria-hidden="true" class="w-5 h-5 text-gray-400" />
+        <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+          <SelectorIcon aria-hidden="true" class="h-5 w-5 text-gray-400" />
         </span>
       </ListboxButton>
       <transition
@@ -80,7 +80,7 @@ const label = computed(() => {
       >
         <ListboxOptions
           v-show="isOpen"
-          class="overflow-auto absolute z-10 py-1 mt-1 w-full max-h-60 text-base bg-white rounded-md ring-1 ring-black ring-opacity-5 shadow-lg focus:outline-none sm:text-sm"
+          class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
         >
           <ListboxOption
             v-for="option in props.options"
@@ -100,15 +100,15 @@ const label = computed(() => {
               }}</span>
               <span
                 v-if="selected"
-                class="flex absolute inset-y-0 left-0 items-center pl-3 text-amber-600"
+                class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
               >
-                <CheckIcon aria-hidden="true" class="w-5 h-5" />
+                <CheckIcon aria-hidden="true" class="h-5 w-5" />
               </span>
             </li>
           </ListboxOption>
         </ListboxOptions>
       </transition>
-      <div class="text-xs text-red-400 mt-1" v-if="props.error">{{ props.error }}</div>
+      <div class="mt-1 text-xs text-red-400" v-if="props.error">{{ props.error }}</div>
     </div>
   </Listbox>
 </template>

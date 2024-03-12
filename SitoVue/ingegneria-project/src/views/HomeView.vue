@@ -1,9 +1,9 @@
 <template>
   <SwipeCarosello />
   <div
-    class="card md:space-x-2 space-x-0 space-y-3 md:space-y-0 md:flex-row flex-col sm:static flex md:items-center justify-content-center justify-between py-5 lg:px-6col md:px-[100px] px-4"
+    class="card justify-content-center flex flex-col justify-between space-x-0 space-y-3 px-4 py-5 sm:static md:flex-row md:items-center md:space-x-2 md:space-y-0 md:px-[100px] lg:px-6col"
   >
-    <div class="card flex flex-column md:flex-row gap-3">
+    <div class="card flex-column flex gap-3 md:flex-row">
       <InputGroup>
         <InputGroupAddon class="bg-primario-100">
           <i class="pi pi-search"></i>
@@ -11,7 +11,7 @@
         <InputText
           v-model="value"
           placeholder="Search"
-          class="rounded-r border-transparent hover:ring-primario-300 focus:ring-primario-200 bg-primario-100/50 md:w-14rem min-w-2col"
+          class="md:w-14rem min-w-2col rounded-r border-transparent bg-primario-100/50 hover:ring-primario-300 focus:ring-primario-200"
         >
           <template #imputtexticon>
             <i class="pi pi-search"></i>
@@ -28,7 +28,7 @@
           :options="cities"
           optionLabel="name"
           placeholder="Seleziona Categoria"
-          class="rounded-r !hover:ring-primario-300 !focus:ring-primario-300 bg-primario-100/50 text-black md:w-14rem min-w-2col"
+          class="!hover:ring-primario-300 !focus:ring-primario-300 md:w-14rem min-w-2col rounded-r bg-primario-100/50 text-black"
         />
       </InputGroup>
 
@@ -48,7 +48,7 @@
           :options="cities"
           optionLabel="name"
           placeholder="Seleziona Città"
-          class="rounded-r !hover:ring-primario-300 !focus:ring-primario-300 bg-primario-100/50 text-black md:w-14rem min-w-2col"
+          class="!hover:ring-primario-300 !focus:ring-primario-300 md:w-14rem min-w-2col rounded-r bg-primario-100/50 text-black"
         />
       </InputGroup>
     </div>

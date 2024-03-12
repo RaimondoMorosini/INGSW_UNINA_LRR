@@ -1,12 +1,12 @@
 <template>
   <SwipeCarosello />
   <div
-    class="card md:space-x-2 space-x-0 space-y-3 md:space-y-0 md:flex-row flex-col sm:static flex md:items-center justify-content-center justify-between py-5 lg:px-6col md:px-[100px] px-4"
+    class="card justify-content-center flex flex-col justify-between space-x-0 space-y-3 px-4 py-5 sm:static md:flex-row md:items-center md:space-x-2 md:space-y-0 md:px-[100px] lg:px-6col"
   >
     <InputText
       v-model="value"
       placeholder="Search"
-      class="rounded border-transparent hover:ring-indigo-300 !focus:ring-indigo-300 bg-indigo-200 text-black md:w-14rem min-w-2col"
+      class="!focus:ring-indigo-300 md:w-14rem min-w-2col rounded border-transparent bg-indigo-200 text-black hover:ring-indigo-300"
     >
       <template #imputtexticon>
         <i class="pi pi-search"></i>
@@ -18,7 +18,7 @@
       :options="cities"
       optionLabel="name"
       placeholder="Seleziona Categoria"
-      class="rounded !hover:ring-indigo-300 !focus:ring-indigo-300 bg-indigo-200 text-black md:w-14rem min-w-2col"
+      class="!hover:ring-indigo-300 !focus:ring-indigo-300 md:w-14rem min-w-2col rounded bg-indigo-200 text-black"
     >
       <template #treeselecticon>
         <span><i class="pi pi-th-large"></i></span>
@@ -30,7 +30,7 @@
       :options="cities"
       optionLabel="name"
       placeholder="Seleziona tipo di Asta"
-      class="rounded !hover:ring-indigo-300 !foucus:border-indigo-300 bg-indigo-200 text-black md:w-14rem min-w-2col"
+      class="!hover:ring-indigo-300 !foucus:border-indigo-300 md:w-14rem min-w-2col rounded bg-indigo-200 text-black"
     >
       <template #dropdownicon>
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
