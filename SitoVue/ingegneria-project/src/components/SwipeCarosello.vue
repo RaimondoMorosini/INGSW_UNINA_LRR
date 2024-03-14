@@ -1,41 +1,41 @@
 <template>
-    <Swiper
-        :modules="[Autoplay, Pagination, Keyboard, Navigation]"
-        :slidesPerView="1"
-        :breakpoints="{
-            '640': {
-                slidesPerView: 2,
-                spaceBetween: 20
-            },
-            '768': {
-                slidesPerView: 3,
-                spaceBetween: 40
-            },
-            '1024': {
-                slidesPerView: 3,
-                spaceBetween: 20
-            }
-        }"
-        :centered-slides="true"
-        :space-between="40"
-        :autoplay="{
-            delay: 3500,
-            disableOnInteraction: false
-        }"
-        :pagination="{
-            clickable: true
-        }"
-        :loop="true"
-        :navigation="true"
-        :keyboard="true"
-        class="bg-primario-100 !px-10 !py-6"
-    >
-        <SwiperSlide v-for="(photo, index) in slides.photo" :key="index">
-            <RouterLink :to="{ name: slides.links[index] }">
-                <img :src="require(`@/assets/${photo}`)" alt="" class="border-2 border-slate-400" />
-            </RouterLink>
-        </SwiperSlide>
-    </Swiper>
+  <Swiper
+    :modules="[Autoplay, Pagination, Keyboard, Navigation]"
+    :slidesPerView="1"
+    :breakpoints="{
+      '640': {
+        slidesPerView: 2,
+        spaceBetween: 20
+      },
+      '768': {
+        slidesPerView: 3,
+        spaceBetween: 40
+      },
+      '1024': {
+        slidesPerView: 3,
+        spaceBetween: 20
+      }
+    }"
+    :centered-slides="true"
+    :space-between="40"
+    :autoplay="{
+      delay: 3500,
+      disableOnInteraction: false
+    }"
+    :pagination="{
+      clickable: true
+    }"
+    :loop="true"
+    :navigation="true"
+    :keyboard="true"
+    class="bg-primario-100 !px-10 !py-6"
+  >
+    <SwiperSlide v-for="(photo, index) in slides.photo" :key="index">
+      <RouterLink :to="{ name: slides.links[index] }">
+        <img :src="require(`@/assets/${photo}`)" alt="" class="border-2 border-slate-400" />
+      </RouterLink>
+    </SwiperSlide>
+  </Swiper>
 </template>
 
 <script setup>
