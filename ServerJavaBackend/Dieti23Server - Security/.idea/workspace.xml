@@ -4,29 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac6a7e3a-66e2-436f-b489-5c7b90e2c4da" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/AdminApiController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/AuthController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/GoogleTokenVerifier.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/ImageController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/TestModelController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/tamplate/AdminController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/tamplate/HomeController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/dto/GoogleTokenInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/model/UserTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/AuthService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/JWTUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/MockUserDetailsService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/configuration/JWTAuthFIlter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/configuration/JWTAuthFIlter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/controller/api/AuthController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/controller/api/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/security/AuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/security/AuthService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/service/JWTUtils.class" beforeDir="false" />
-    </list>
+    <list default="true" id="ac6a7e3a-66e2-436f-b489-5c7b90e2c4da" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -135,7 +113,7 @@
       <updated>1709819652482</updated>
       <workItem from="1709819655415" duration="5366000" />
       <workItem from="1710160909016" duration="2785000" />
-      <workItem from="1710419526079" duration="7888000" />
+      <workItem from="1710419526079" duration="8331000" />
     </task>
     <servers />
   </component>
