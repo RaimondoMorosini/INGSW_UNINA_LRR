@@ -5,24 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac6a7e3a-66e2-436f-b489-5c7b90e2c4da" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/intellij-javadocs-4.0.1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/dto/CredenzialiUtenteDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/dto/DatiUtentePerTokenDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/dto/UserDetailsDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/exceptions/ApiException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8faa5b58-dc90-470f-b5bd-2057777e726d.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/configuration/JWTAuthFIlter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/configuration/JWTAuthFIlter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/configuration/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/configuration/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/TestModelController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/dto/ReqRes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/dto/ReqRes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/model/TestModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/repository/TestDAO.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/security/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/security/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/security/JWTUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/security/JWTUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/security/JWTUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/JWTUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/ITestService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/TestService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/implementazioneTestDAO.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/utenteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/utenteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/Dieti23ServerApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/Dieti23ServerApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/configuration/JWTAuthFIlter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/configuration/JWTAuthFIlter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/configuration/SecurityConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/configuration/SecurityConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/controller/api/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/controller/api/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/controller/api/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/controller/api/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/dto/ReqRes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/dto/ReqRes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/model/TestModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/model/TestModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/repository/TestDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/repository/TestDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/service/AuthService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/service/ITestService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/service/JWTUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/service/JWTUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/service/TestService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/service/implementazioneTestDAO.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +46,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Record" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -42,13 +56,6 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -64,6 +71,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -75,18 +86,23 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.lrr.Dieti23Server.exceptions" />
       <recent name="com.lrr.Dieti23Server.dto" />
     </key>
     <key name="IntroduceConstantDialog.RECENTS_KEY">
       <recent name="com.lrr.Dieti23Server.configuration.SecurityConfiguration" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.lrr.Dieti23Server.controller.api" />
       <recent name="com.lrr.Dieti23Server.controller" />
       <recent name="com.lrr.Dieti23Server.security" />
     </key>
@@ -130,6 +146,7 @@
       <updated>1709819652482</updated>
       <workItem from="1709819655415" duration="5366000" />
       <workItem from="1710160909016" duration="2785000" />
+      <workItem from="1710419526079" duration="7277000" />
     </task>
     <servers />
   </component>
@@ -146,5 +163,20 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.springframework.context.annotation.ConflictingBeanDefinitionException" package="org.springframework.context.annotation" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/Dieti23ServerApplication.java</url>
+          <line>9</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

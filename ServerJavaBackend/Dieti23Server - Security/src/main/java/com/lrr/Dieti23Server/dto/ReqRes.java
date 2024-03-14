@@ -2,7 +2,6 @@ package com.lrr.Dieti23Server.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.lrr.Dieti23Server.model.TestModel;
 import com.lrr.Dieti23Server.model.Utente;
 import lombok.Data;
 
@@ -23,6 +22,5 @@ public class ReqRes {
     private String email;
     private String role;
     private String password;
-    private List<TestModel> prove;
     private Utente utenteModel;
 }

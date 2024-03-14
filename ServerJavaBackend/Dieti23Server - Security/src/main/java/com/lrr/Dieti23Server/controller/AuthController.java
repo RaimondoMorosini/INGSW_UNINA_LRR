@@ -1,5 +1,6 @@
 package com.lrr.Dieti23Server.controller;
 
+import com.lrr.Dieti23Server.dto.CredenzialiUtenteDTO;
 import com.lrr.Dieti23Server.dto.ReqRes;
 import com.lrr.Dieti23Server.security.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,8 @@ public class AuthController {
     public ResponseEntity<ReqRes> signUp(@RequestBody ReqRes signUpRequest){
         return ResponseEntity.ok(authService.signUp(signUpRequest));
     }
-    @PostMapping("/signin")
-    public ResponseEntity<ReqRes> signIn(@RequestBody ReqRes signInRequest){
-        return ResponseEntity.ok(authService.login(signInRequest));
-    }
-    @PostMapping("/refresh")
-    public ResponseEntity<ReqRes> refreshToken(@RequestBody ReqRes refreshTokenRequest){
-        return ResponseEntity.ok(authService.refreshToken(refreshTokenRequest));
+    @PostMapping("/login")
+    public String loginGenToken(@RequestBody CredenzialiUtenteDTO credenzialiInserite){
+        return (authService.login(credenzialiInserite));
     }
 }
