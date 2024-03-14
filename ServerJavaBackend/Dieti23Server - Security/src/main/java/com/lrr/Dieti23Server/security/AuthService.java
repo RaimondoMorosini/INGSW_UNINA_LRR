@@ -3,11 +3,12 @@ package com.lrr.Dieti23Server.security;
 import com.lrr.Dieti23Server.dto.CredenzialiUtenteDTO;
 import com.lrr.Dieti23Server.dto.DatiUtentePerTokenDTO;
 import com.lrr.Dieti23Server.dto.ReqRes;
+import com.lrr.Dieti23Server.exceptions.ApiException;
 import com.lrr.Dieti23Server.model.Utente;
 import com.lrr.Dieti23Server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,38 +43,31 @@ public class AuthService {
         return resp;
     }
 
-    public ReqRes login(CredenzialiUtenteDTO credenzialiUtenteDTO){
-        ReqRes response = new ReqRes();
+    /**
+     *
+     * @param credenzialiUtenteDTO credenziali dell'utente
+     * @return restituisce il token in caso di successo
+     */
+    public String login(CredenzialiUtenteDTO credenzialiUtenteDTO){
 
+        Utente utenteRecuperatoTramiteEmail;
         try {
 
-            Utente utenteTrovatobyEmail = utenteRepo.findByEmail(credenzialiUtenteDTO.email()).get();
-
-            if(!utenteTrovatobyEmail.getPassword().equals(credenzialiUtenteDTO.password())){
-                //lancia un eccezione
-                return null;
+            String email = credenzialiUtenteDTO.email();
+            utenteRecuperatoTramiteEmail = utenteRepo.findById(email).orElseThrow();
+            String passwordutente = utenteRecuperatoTramiteEmail.getPassword();
+            if (!passwordEncoder.matches(credenzialiUtenteDTO.password(), passwordutente)) {
+                throw new ApiException("Password errata", HttpStatus.UNAUTHORIZED);
             }
+            DatiUtentePerTokenDTO datiUtentePerTokenDTO = DatiUtentePerTokenDTO.fromUserModel(utenteRecuperatoTramiteEmail);
+             return jwtUtils.generateToken(datiUtentePerTokenDTO);
 
-
-            System.out.println("USER IS: "+ user);
-            var token = jwtUtils.generateToken(new DatiUtentePerTokenDTO.fromUserModel(utenteTrovatobyEmail));
-
-        return response;
-    }
-
-    public ReqRes refreshToken(ReqRes refreshTokenReqiest){
-        ReqRes response = new ReqRes();
-        String ourEmail = jwtUtils.extractUsername(refreshTokenReqiest.getToken());
-        UserTest users = utenteRepo.findByEmail(ourEmail).orElseThrow();
-        if (jwtUtils.isTokenValid(refreshTokenReqiest.getToken(), users)) {
-            var jwt = jwtUtils.generateToken(users);
-            response.setStatusCode(200);
-            response.setToken(jwt);
-            response.setRefreshToken(refreshTokenReqiest.getToken());
-            response.setExpirationTime("24Hr");
-            response.setMessage("Successfully Refreshed Token");
+        } catch (Exception e) {
+            throw new ApiException("Utente non trovato", HttpStatus.NOT_FOUND);
         }
-        response.setStatusCode(500);
-        return response;
-    }
+
+        }
+
+
+
 }

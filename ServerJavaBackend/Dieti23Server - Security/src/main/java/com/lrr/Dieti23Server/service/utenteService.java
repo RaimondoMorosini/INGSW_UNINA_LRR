@@ -1,9 +1,11 @@
 package com.lrr.Dieti23Server.service;
 
 import com.lrr.Dieti23Server.dto.UserDetailsDto;
+import com.lrr.Dieti23Server.exceptions.ApiException;
 import com.lrr.Dieti23Server.model.Utente;
 import com.lrr.Dieti23Server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +19,7 @@ public class utenteService{
 
     public UserDetailsDto getUserDetails(String email) {
 
-        Utente utenteModel = userRepository.findByEmail(email).get();
+        Utente utenteModel = userRepository.findById(email).orElseThrow(() -> new ApiException("Utente non trovato", HttpStatus.NOT_FOUND));
         return UserDetailsDto.fromUserModel(utenteModel);
     }
 }
