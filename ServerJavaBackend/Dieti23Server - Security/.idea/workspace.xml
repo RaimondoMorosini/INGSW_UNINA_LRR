@@ -5,38 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac6a7e3a-66e2-436f-b489-5c7b90e2c4da" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/exceptions/ApiException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/configuration/JWTAuthFIlter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/configuration/JWTAuthFIlter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/configuration/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/configuration/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/TestModelController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/dto/ReqRes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/dto/ReqRes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/model/TestModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/repository/TestDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/security/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/security/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/security/JWTUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/JWTUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/ITestService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/TestService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/implementazioneTestDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/utenteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/utenteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/Dieti23ServerApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/Dieti23ServerApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/AdminApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/AuthController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/GoogleTokenVerifier.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/ImageController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/TestModelController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/api/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/tamplate/AdminController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/controller/tamplate/HomeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/dto/GoogleTokenInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/model/UserTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/AuthService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/JWTUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lrr/Dieti23Server/service/MockUserDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/configuration/JWTAuthFIlter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/configuration/JWTAuthFIlter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/configuration/SecurityConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/configuration/SecurityConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/controller/api/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/controller/api/AuthController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/controller/api/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/controller/api/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/dto/ReqRes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/dto/ReqRes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/model/TestModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/model/TestModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/repository/TestDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/repository/TestDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/service/AuthService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/service/ITestService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/service/JWTUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/service/JWTUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/service/TestService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/service/implementazioneTestDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/controller/api/AuthController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/controller/api/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/security/AuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/security/AuthService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/lrr/Dieti23Server/service/JWTUtils.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,8 +91,8 @@
       <recent name="com.lrr.Dieti23Server.configuration.SecurityConfiguration" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.lrr.Dieti23Server.controller.api" />
       <recent name="com.lrr.Dieti23Server.controller" />
+      <recent name="com.lrr.Dieti23Server.controller.api" />
       <recent name="com.lrr.Dieti23Server.security" />
     </key>
   </component>
@@ -146,7 +135,7 @@
       <updated>1709819652482</updated>
       <workItem from="1709819655415" duration="5366000" />
       <workItem from="1710160909016" duration="2785000" />
-      <workItem from="1710419526079" duration="7277000" />
+      <workItem from="1710419526079" duration="7888000" />
     </task>
     <servers />
   </component>
