@@ -1,38 +1,38 @@
 <script setup>
-import { computed } from 'vue'
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue'
-import { CheckIcon, SelectorIcon, ArrowLeftIcon, ChevronRightIcon } from '@heroicons/vue/solid'
+import { computed } from 'vue';
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue';
+import { CheckIcon, SelectorIcon, ArrowLeftIcon, ChevronRightIcon } from '@heroicons/vue/solid';
 
 const props = defineProps({
   options: Array,
   modelValue: [String, Number, Array],
   placeholder: {
     type: String,
-    default: 'Select option'
+    default: 'Select option',
   },
   multiple: Boolean,
   error: String,
 
   as: {
     type: [String, Object],
-    default: 'template'
-  }
-})
+    default: 'template',
+  },
+});
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue']);
 
 const label = computed(() => {
   return props.options
     .filter((option) => {
       if (Array.isArray(props.modelValue)) {
-        return props.modelValue.includes(option.value)
+        return props.modelValue.includes(option.value);
       }
 
-      return props.modelValue === option.value
+      return props.modelValue === option.value;
     })
     .map((option) => option.label)
-    .join(', ')
-})
+    .join(', ');
+});
 </script>
 <template>
   <Listbox
@@ -70,7 +70,7 @@ const label = computed(() => {
               :class="[
                 active ? 'bg-primario-100/30 text-primario-900' : 'text-gray-900',
                 'relative cursor-default select-none py-2 pl-10 pr-4',
-                option.label === 'indietro' ? 'border-b border-gray-200 ' : ''
+                option.label === 'indietro' ? 'border-b border-gray-200 ' : '',
               ]"
             >
               <span :class="[selected ? 'font-medium' : 'font-normal', 'block truncate']">{{

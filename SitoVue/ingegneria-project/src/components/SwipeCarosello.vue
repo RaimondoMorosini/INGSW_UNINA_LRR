@@ -5,25 +5,25 @@
     :breakpoints="{
       '640': {
         slidesPerView: 2,
-        spaceBetween: 20
+        spaceBetween: 20,
       },
       '768': {
         slidesPerView: 3,
-        spaceBetween: 40
+        spaceBetween: 40,
       },
       '1024': {
         slidesPerView: 3,
-        spaceBetween: 20
-      }
+        spaceBetween: 20,
+      },
     }"
     :centered-slides="true"
     :space-between="40"
     :autoplay="{
       delay: 3500,
-      disableOnInteraction: false
+      disableOnInteraction: false,
     }"
     :pagination="{
-      clickable: true
+      clickable: true,
     }"
     :loop="true"
     :navigation="true"
@@ -39,16 +39,16 @@
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Autoplay, Pagination, Keyboard, Navigation } from 'swiper/modules'
+import { RouterLink } from 'vue-router';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Autoplay, Pagination, Keyboard, Navigation } from 'swiper/modules';
 // Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import 'swiper/css/effect-cube'
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-cube';
 const slides = {
   photo: ['bg1.jpg', 'bg2.jpg', 'bg3.jpg', 'bg4.jpg', 'bg5.jpg', 'bg6.jpg'],
-  links: ['hobby', 'perLaCasa', 'elettronica', 'altro', 'abbigliamento', 'sports']
-}
+  links: ['hobby', 'perLaCasa', 'elettronica', 'altro', 'abbigliamento', 'sports'],
+};
 </script>

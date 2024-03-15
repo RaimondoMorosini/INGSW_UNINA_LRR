@@ -71,18 +71,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import LoginButton from '@/components/buttons/LoginButtom.vue'
-import LogoutButton from '@/components/buttons/LogOut.vue'
-import SignupButton from '@/components/buttons/SignUp.vue'
-import { useAuth0 } from '@auth0/auth0-vue'
+import { ref } from 'vue';
+import LoginButton from '@/components/buttons/LoginButtom.vue';
+import LogoutButton from '@/components/buttons/LogOut.vue';
+import SignupButton from '@/components/buttons/SignUp.vue';
+import { useAuth0 } from '@auth0/auth0-vue';
 
-const { isAuthenticated } = useAuth0()
+const { isAuthenticated } = useAuth0();
 
-const { user } = useAuth0()
+const { user } = useAuth0();
 
-const open = ref(false)
+const open = ref(false);
 function MenuOpen() {
-  open.value = !open.value
+  open.value = !open.value;
 }
 </script>

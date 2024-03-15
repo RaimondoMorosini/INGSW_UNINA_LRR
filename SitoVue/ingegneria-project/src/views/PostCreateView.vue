@@ -1,20 +1,20 @@
 <script setup>
-import axios from '@/lib/axios'
-import useForm from '@/composables/form'
-import { useRouter } from 'vue-router'
+import axios from '@/lib/axios';
+import useForm from '@/composables/form';
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
+const router = useRouter();
 
 const form = useForm({
   title: '',
-  content: ''
-})
+  content: '',
+});
 
 async function handleSubmit() {
   await form.submit(async (fields) => {
-    await axios.post('/api/posts', fields)
-    await router.push('/')
-  })
+    await axios.post('/api/posts', fields);
+    await router.push('/');
+  });
 }
 </script>
 
