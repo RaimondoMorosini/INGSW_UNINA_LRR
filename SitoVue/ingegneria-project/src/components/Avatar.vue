@@ -1,6 +1,6 @@
 <script setup>
-import { cva } from 'class-variance-authority'
-import { computed, ref, defineProps, watchEffect } from 'vue'
+import { cva } from 'class-variance-authority';
+import { computed, ref, defineProps, watchEffect } from 'vue';
 
 const props = defineProps({
   name: String,
@@ -9,31 +9,31 @@ const props = defineProps({
   size: {
     type: String,
     validator: (value) => ['small', 'base', 'large'].includes(value),
-    default: 'base'
+    default: 'base',
   },
   shape: {
     type: String,
     validator: (value) => ['cerchio', 'square'].includes(value),
-    default: 'cerchio'
-  }
-})
+    default: 'cerchio',
+  },
+});
 
-const verifiedSrc = ref(null)
+const verifiedSrc = ref(null);
 watchEffect(() => {
-  const img = new Image()
-  img.src = props.src
+  const img = new Image();
+  img.src = props.src;
   img
     .decode()
     .then(() => (verifiedSrc.value = props.src))
     .catch((e) => {
-      verifiedSrc.value = null
-      throw e
-    })
-})
+      verifiedSrc.value = null;
+      throw e;
+    });
+});
 
 const fallback = computed(() => {
-  return props.initials || props.name?.charAt(0) || '?'
-})
+  return props.initials || props.name?.charAt(0) || '?';
+});
 
 const containerClass = computed(() => {
   return cva(
@@ -43,28 +43,28 @@ const containerClass = computed(() => {
         size: {
           small: 'h-12 w-12 text-xs',
           base: 'h-16 w-16 text-xl',
-          large: 'h-28 w-28 text-5xl'
+          large: 'h-28 w-28 text-5xl',
         },
 
         shape: {
           cerchio: 'rounded-full',
-          square: 'rounded'
-        }
-      }
+          square: 'rounded',
+        },
+      },
     }
-  )({ size: props.size, shape: props.shape })
-})
+  )({ size: props.size, shape: props.shape });
+});
 
 const innerBorderClass = computed(() => {
   return cva('absolute inset-0 border border-black/5', {
     variants: {
       shape: {
         cerchio: 'rounded-full',
-        square: 'rounded'
-      }
-    }
-  })({ shape: props.shape })
-})
+        square: 'rounded',
+      },
+    },
+  })({ shape: props.shape });
+});
 </script>
 
 <template>

@@ -2,8 +2,8 @@ export default {
   root: {
     class: [
       // Flexbox
-      'flex'
-    ]
+      'flex',
+    ],
   },
   controls: {
     class: [
@@ -11,8 +11,8 @@ export default {
       'flex flex-col justify-center gap-2',
 
       // Spacing
-      'p-3'
-    ]
+      'p-3',
+    ],
   },
   moveupbutton: {
     root: ({ context }) => ({
@@ -45,8 +45,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -54,9 +54,9 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   movedownbutton: {
     root: ({ context }) => ({
@@ -89,8 +89,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -98,9 +98,9 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   movetopbutton: {
     root: ({ context }) => ({
@@ -133,8 +133,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -142,9 +142,9 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   movebottombutton: {
     root: ({ context }) => ({
@@ -177,8 +177,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -186,12 +186,12 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   container: {
-    class: ['flex-auto']
+    class: ['flex-auto'],
   },
   header: {
     class: [
@@ -206,8 +206,8 @@ export default {
       // Color
       'text-surface-800 dark:text-white/80',
       'bg-surface-0 dark:bg-surface-800',
-      'border-surface-200 dark:border-surface-700 border-b'
-    ]
+      'border-surface-200 dark:border-surface-700 border-b',
+    ],
   },
   list: {
     class: [
@@ -232,8 +232,8 @@ export default {
       'outline-none',
 
       // Misc
-      'overflow-auto'
-    ]
+      'overflow-auto',
+    ],
   },
   item: ({ context }) => ({
     class: [
@@ -260,7 +260,7 @@ export default {
       'hover:bg-surface-100 dark:hover:bg-surface-700',
 
       // Misc
-      'cursor-pointer overflow-hidden'
-    ]
-  })
-}
+      'cursor-pointer overflow-hidden',
+    ],
+  }),
+};

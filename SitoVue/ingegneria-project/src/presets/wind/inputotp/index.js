@@ -3,8 +3,8 @@ export default {
     class: [
       // Alignment
       'flex items-center',
-      'gap-2'
-    ]
+      'gap-2',
+    ],
   },
   input: {
     root: ({ props, context, parent }) => ({
@@ -13,13 +13,13 @@ export default {
         'font-sans leading-6',
 
         // Flex & Alignment
-        { 'flex-1 w-[1%]': parent.instance.$name == 'InputGroup' },
+        { 'flex-1 w-[1%]': parent.instance.$name === 'InputGroup' },
         'text-center',
 
         // Spacing
         'm-0',
         {
-          'py-1.5 px-3 sm:text-sm': props.size == null
+          'py-1.5 px-3 sm:text-sm': props.size === null,
         },
 
         // Size
@@ -40,24 +40,25 @@ export default {
         // Shape
         { 'rounded-md': parent.instance.$name !== 'InputGroup' },
         {
-          'first:rounded-l-md rounded-none last:rounded-r-md': parent.instance.$name == 'InputGroup'
+          'first:rounded-l-md rounded-none last:rounded-r-md':
+            parent.instance.$name === 'InputGroup',
         },
         {
           'border-0 border-y border-l last:border-r border-surface-300 dark:border-surface-600':
-            parent.instance.$name == 'InputGroup'
+            parent.instance.$name === 'InputGroup',
         },
-        { 'first:ml-0 ml-[-1px]': parent.instance.$name == 'InputGroup' && !props.showButtons },
+        { 'first:ml-0 ml-[-1px]': parent.instance.$name === 'InputGroup' && !props.showButtons },
         'appearance-none',
 
         // Interactions
         {
           'outline-none focus:ring-primary-500 dark:focus:ring-primary-400': !context.disabled,
-          'opacity-60 select-none pointer-events-none cursor-default': context.disabled
+          'opacity-60 select-none pointer-events-none cursor-default': context.disabled,
         },
 
         // Filled State *for FloatLabel
-        { filled: parent.instance?.$name == 'FloatLabel' && context.filled }
-      ]
-    })
-  }
-}
+        { filled: parent.instance?.$name === 'FloatLabel' && context.filled },
+      ],
+    }),
+  },
+};

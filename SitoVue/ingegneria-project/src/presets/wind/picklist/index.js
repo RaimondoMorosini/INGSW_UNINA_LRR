@@ -2,8 +2,8 @@ export default {
   root: {
     class: [
       // Flexbox
-      'flex lg:flex-row flex-col'
-    ]
+      'flex lg:flex-row flex-col',
+    ],
   },
   sourcecontrols: {
     class: [
@@ -11,8 +11,8 @@ export default {
       'flex lg:flex-col justify-center gap-2',
 
       // Spacing
-      'p-3'
-    ]
+      'p-3',
+    ],
   },
   sourcemoveupbutton: {
     root: ({ context }) => ({
@@ -45,8 +45,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -54,9 +54,9 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   sourcemovetopbutton: {
     root: ({ context }) => ({
@@ -89,8 +89,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -98,9 +98,9 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   sourcemovedownbutton: {
     root: ({ context }) => ({
@@ -133,8 +133,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -142,9 +142,9 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   sourcemovebottombutton: {
     root: ({ context }) => ({
@@ -177,8 +177,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -186,12 +186,12 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   sourcewrapper: {
-    class: 'grow shrink basis-2/4'
+    class: 'grow shrink basis-2/4',
   },
   sourceheader: {
     class: [
@@ -206,8 +206,8 @@ export default {
       // Color
       'text-surface-800 dark:text-white/80',
       'bg-surface-0 dark:bg-surface-800',
-      'border-surface-200 dark:border-surface-700 border-b'
-    ]
+      'border-surface-200 dark:border-surface-700 border-b',
+    ],
   },
   sourcelist: {
     class: [
@@ -232,8 +232,8 @@ export default {
       'outline-none',
 
       // Misc
-      'overflow-auto'
-    ]
+      'overflow-auto',
+    ],
   },
   item: ({ context }) => ({
     class: [
@@ -260,11 +260,11 @@ export default {
       'hover:bg-surface-100 dark:hover:bg-surface-700',
 
       // Misc
-      'cursor-pointer overflow-hidden'
-    ]
+      'cursor-pointer overflow-hidden',
+    ],
   }),
   buttons: {
-    class: 'flex lg:flex-col justify-center gap-2 p-3'
+    class: 'flex lg:flex-col justify-center gap-2 p-3',
   },
   movetotargetbutton: {
     root: ({ context }) => ({
@@ -297,8 +297,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -306,9 +306,9 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   movealltotargetbutton: {
     root: ({ context }) => ({
@@ -341,8 +341,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -350,9 +350,9 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   movetosourcebutton: {
     root: ({ context }) => ({
@@ -385,8 +385,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -394,9 +394,9 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   movealltosourcebutton: {
     root: ({ context }) => ({
@@ -429,8 +429,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -438,12 +438,12 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   targetcontrols: {
-    class: 'flex lg:flex-col justify-center gap-2 p-3'
+    class: 'flex lg:flex-col justify-center gap-2 p-3',
   },
   targetmoveupbutton: {
     root: ({ context }) => ({
@@ -476,8 +476,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -485,9 +485,9 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   targetmovetopbutton: {
     root: ({ context }) => ({
@@ -520,8 +520,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -529,9 +529,9 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   targetmovedownbutton: {
     root: ({ context }) => ({
@@ -564,8 +564,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -573,9 +573,9 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   targetmovebottombutton: {
     root: ({ context }) => ({
@@ -608,8 +608,8 @@ export default {
         { 'cursor-default pointer-events-none opacity-60': context.disabled },
 
         // Interactivity
-        'cursor-pointer user-select-none'
-      ]
+        'cursor-pointer user-select-none',
+      ],
     }),
     label: {
       class: [
@@ -617,12 +617,12 @@ export default {
         'flex-initial',
 
         // Size
-        'w-0'
-      ]
-    }
+        'w-0',
+      ],
+    },
   },
   targetwrapper: {
-    class: 'grow shrink basis-2/4'
+    class: 'grow shrink basis-2/4',
   },
   targetheader: {
     class: [
@@ -637,8 +637,8 @@ export default {
       // Color
       'text-surface-800 dark:text-white/80',
       'bg-surface-0 dark:bg-surface-800',
-      'border-surface-200 dark:border-surface-700 border-b'
-    ]
+      'border-surface-200 dark:border-surface-700 border-b',
+    ],
   },
   targetlist: {
     class: [
@@ -663,13 +663,13 @@ export default {
       'outline-none',
 
       // Misc
-      'overflow-auto'
-    ]
+      'overflow-auto',
+    ],
   },
   transition: {
     enterFromClass: '!transition-none',
     enterActiveClass: '!transition-none',
     leaveActiveClass: '!transition-none',
-    leaveToClass: '!transition-none'
-  }
-}
+    leaveToClass: '!transition-none',
+  },
+};

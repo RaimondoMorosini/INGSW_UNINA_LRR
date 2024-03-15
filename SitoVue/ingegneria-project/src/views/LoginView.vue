@@ -5,17 +5,17 @@
 </template>
 <script>
 // Composition API
-import { useAuth0 } from '@auth0/auth0-vue'
+import { useAuth0 } from '@auth0/auth0-vue';
 
 export default {
   setup() {
-    const auth0 = useAuth0()
+    const auth0 = useAuth0();
 
     return {
       login() {
-        auth0.loginWithRedirect()
-      }
-    }
-  }
-}
+        auth0.loginWithRedirect();
+      },
+    };
+  },
+};
 </script>

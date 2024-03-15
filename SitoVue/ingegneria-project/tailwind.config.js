@@ -1,18 +1,18 @@
-import typography from '@tailwindcss/typography'
-import form from '@tailwindcss/forms'
-import aspectRatio from '@tailwindcss/aspect-ratio'
+import typography from '@tailwindcss/typography';
+import form from '@tailwindcss/forms';
+import aspectRatio from '@tailwindcss/aspect-ratio';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: 'jit',
-  //purge:['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  content:['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  // purge:['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   media: false, // or 'media' or 'class'
 
-  //content: [
+  // content: [
   //  "index.html",
   //  "./src/**/*.{vue,js,ts,jsx,tsx}",
-  //],
+  // ],
   theme: {
     extend: {
       colors: {
@@ -49,9 +49,9 @@ module.exports = {
           700: '#673883',
           800: '#522d69',
           900: '#3e214e',
-          
-        }, 
-        secondario: { // Esempio: Blu
+        },
+        secondario: {
+          // Esempio: Blu
           100: '#b3d4ff',
           200: '#80b3ff',
           300: '#4d91ff',
@@ -62,7 +62,8 @@ module.exports = {
           800: '#002859',
           900: '#00182c',
         },
-        successo: { // Esempio: Verde
+        successo: {
+          // Esempio: Verde
           100: '#e9fac8',
           200: '#d0f5a1',
           300: '#b7ef8e',
@@ -73,7 +74,8 @@ module.exports = {
           800: '#3ac22d',
           900: '#21b91a',
         },
-        danger: { // Esempio: Rosso
+        danger: {
+          // Esempio: Rosso
           100: '#fcd1d1',
           200: '#f8a3a3',
           300: '#f47575',
@@ -84,7 +86,8 @@ module.exports = {
           800: '#b30c0c',
           900: '#a00b0b',
         },
-        warning: { // Esempio: Arancione
+        warning: {
+          // Esempio: Arancione
           100: '#ffe5cc',
           200: '#ffcc99',
           300: '#ffb266',
@@ -110,13 +113,7 @@ module.exports = {
         '11col': '1054px',
         '12col': '1152px',
       },
-      
     },
   },
-  plugins: [
-    typography,
-    form,
-    aspectRatio,
-  ],
-}
-
+  plugins: [typography, form, aspectRatio],
+};

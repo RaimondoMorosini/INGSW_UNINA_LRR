@@ -42,10 +42,10 @@
 </template>
 
 <script setup>
-import { useAuth0 } from '@auth0/auth0-vue'
-import EditButton from '@/components/buttons/EditButton.vue'
+import { useAuth0 } from '@auth0/auth0-vue';
+import EditButton from '@/components/buttons/EditButton.vue';
 
-const linkUtili = ['GitHub', 'LinkedIn', 'Twitter', 'Facebook']
+const linkUtili = ['GitHub', 'LinkedIn', 'Twitter', 'Facebook'];
 
-const { user } = useAuth0()
+const { user } = useAuth0();
 </script>

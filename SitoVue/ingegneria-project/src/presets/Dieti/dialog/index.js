@@ -27,9 +27,9 @@ export default {
         '!h-screen': state.maximized,
         '!max-h-full': state.maximized,
         '!top-0': state.maximized,
-        '!left-0': state.maximized
-      }
-    ]
+        '!left-0': state.maximized,
+      },
+    ],
   }),
   header: {
     class: [
@@ -46,14 +46,14 @@ export default {
 
       // Colors
       'bg-surface-0 dark:bg-surface-800',
-      'text-surface-700 dark:text-surface-0/80'
-    ]
+      'text-surface-700 dark:text-surface-0/80',
+    ],
   },
   title: {
-    class: ['font-semibold text-base leading-6']
+    class: ['font-semibold text-base leading-6'],
   },
   icons: {
-    class: ['flex items-center']
+    class: ['flex items-center'],
   },
   closeButton: {
     class: [
@@ -85,8 +85,8 @@ export default {
       'focus:ring-primary-500 dark:focus:ring-primary-400',
 
       // Misc
-      'overflow-hidden'
-    ]
+      'overflow-hidden',
+    ],
   },
   maximizablebutton: {
     class: [
@@ -118,8 +118,8 @@ export default {
       'focus:ring-primary-500 dark:focus:ring-primary-400',
 
       // Misc
-      'overflow-hidden'
-    ]
+      'overflow-hidden',
+    ],
   },
   closeButtonIcon: {
     class: [
@@ -128,8 +128,8 @@ export default {
 
       // Size
       'w-3',
-      'h-3'
-    ]
+      'h-3',
+    ],
   },
   maximizableicon: {
     class: [
@@ -138,8 +138,8 @@ export default {
 
       // Size
       'w-3',
-      'h-3'
-    ]
+      'h-3',
+    ],
   },
   content: ({ state, instance }) => ({
     class: [
@@ -154,7 +154,7 @@ export default {
       {
         grow: state.maximized,
         'rounded-bl-lg': !instance.$slots.footer,
-        'rounded-br-lg': !instance.$slots.footer
+        'rounded-br-lg': !instance.$slots.footer,
       },
 
       // Colors
@@ -162,8 +162,8 @@ export default {
       'text-surface-600 dark:text-surface-0/70',
 
       // Misc
-      'overflow-y-auto'
-    ]
+      'overflow-y-auto',
+    ],
   }),
   footer: {
     class: [
@@ -183,8 +183,8 @@ export default {
 
       // Colors
       'bg-surface-50 dark:bg-surface-700',
-      'text-surface-700 dark:text-surface-0/80'
-    ]
+      'text-surface-700 dark:text-surface-0/80',
+    ],
   },
   mask: ({ props }) => ({
     class: [
@@ -197,9 +197,9 @@ export default {
       {
         'has-[.mask-active]:bg-transparent dark:has-[.mask-active]:bg-transparent bg-surface-500/70 dark:bg-surface-700/70':
           props.modal,
-        'has-[.mask-active]:backdrop-blur-none backdrop-blur-sm': props.modal
-      }
-    ]
+        'has-[.mask-active]:backdrop-blur-none backdrop-blur-sm': props.modal,
+      },
+    ],
   }),
   transition: ({ props }) => {
     return props.position === 'top'
@@ -209,7 +209,7 @@ export default {
           enterActiveClass: 'transition-all duration-200 ease-out',
           leaveActiveClass: 'transition-all duration-200 ease-out',
           leaveToClass:
-            'opacity-0 scale-75 translate-x-0 -translate-y-full translate-z-0 mask-active'
+            'opacity-0 scale-75 translate-x-0 -translate-y-full translate-z-0 mask-active',
         }
       : props.position === 'bottom'
         ? {
@@ -217,7 +217,7 @@ export default {
             enterActiveClass: 'transition-all duration-200 ease-out',
             leaveActiveClass: 'transition-all duration-200 ease-out',
             leaveToClass:
-              'opacity-0 scale-75 translate-x-0 translate-y-full translate-z-0 mask-active'
+              'opacity-0 scale-75 translate-x-0 translate-y-full translate-z-0 mask-active',
           }
         : props.position === 'left' ||
             props.position === 'topleft' ||
@@ -228,7 +228,7 @@ export default {
               enterActiveClass: 'transition-all duration-200 ease-out',
               leaveActiveClass: 'transition-all duration-200 ease-out',
               leaveToClass:
-                'opacity-0 scale-75  -translate-x-full translate-y-0 translate-z-0 mask-active'
+                'opacity-0 scale-75  -translate-x-full translate-y-0 translate-z-0 mask-active',
             }
           : props.position === 'right' ||
               props.position === 'topright' ||
@@ -239,13 +239,13 @@ export default {
                 enterActiveClass: 'transition-all duration-200 ease-out',
                 leaveActiveClass: 'transition-all duration-200 ease-out',
                 leaveToClass:
-                  'opacity-0 scale-75 opacity-0 scale-75 translate-x-full translate-y-0 translate-z-0 mask-active'
+                  'opacity-0 scale-75 opacity-0 scale-75 translate-x-full translate-y-0 translate-z-0 mask-active',
               }
             : {
                 enterFromClass: 'opacity-0 scale-75 mask-active',
                 enterActiveClass: 'transition-all duration-200 ease-out',
                 leaveActiveClass: 'transition-all duration-200 ease-out',
-                leaveToClass: 'opacity-0 scale-75 mask-active'
-              }
-  }
-}
+                leaveToClass: 'opacity-0 scale-75 mask-active',
+              };
+  },
+};

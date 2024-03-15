@@ -28,33 +28,33 @@
 </template>
 
 <script setup>
-import DataView from 'primevue/dataview'
+import DataView from 'primevue/dataview';
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
 
-const products = ref()
-const sortKey = ref()
-const sortOrder = ref()
-const sortField = ref()
+const products = ref();
+const sortKey = ref();
+const sortOrder = ref();
+const sortField = ref();
 const sortOptions = ref([
   { label: 'Price High to Low', value: '!price' },
-  { label: 'Price Low to High', value: 'price' }
-])
+  { label: 'Price Low to High', value: 'price' },
+]);
 
 const onSortChange = (event) => {
-  const value = event.value.value
-  const sortValue = event.value
+  const value = event.value.value;
+  const sortValue = event.value;
 
   if (value.indexOf('!') === 0) {
-    sortOrder.value = -1
-    sortField.value = value.substring(1, value.length)
-    sortKey.value = sortValue
+    sortOrder.value = -1;
+    sortField.value = value.substring(1, value.length);
+    sortKey.value = sortValue;
   } else {
-    sortOrder.value = 1
-    sortField.value = value
-    sortKey.value = sortValue
+    sortOrder.value = 1;
+    sortField.value = value;
+    sortKey.value = sortValue;
   }
-}
+};
 
 /*
     onMounted(async () => {

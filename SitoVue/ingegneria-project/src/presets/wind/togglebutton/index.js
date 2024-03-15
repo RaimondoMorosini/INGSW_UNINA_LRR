@@ -9,8 +9,8 @@ export default {
 
       // Misc
       'cursor-pointer',
-      'select-none'
-    ]
+      'select-none',
+    ],
   },
   box: ({ props }) => ({
     class: [
@@ -30,7 +30,7 @@ export default {
       { 'ring-surface-200 dark:ring-surface-700': !props.invalid },
       {
         'bg-surface-0 dark:bg-surface-900 ': !props.modelValue,
-        'bg-surface-100 dark:bg-surface-700': props.modelValue
+        'bg-surface-100 dark:bg-surface-700': props.modelValue,
       },
 
       // Invalid State
@@ -40,7 +40,7 @@ export default {
       'peer-hover:bg-surface-200 dark:peer-hover:bg-surface-600/80',
       {
         'peer-focus-visible:ring-2 peer-focus-visible:ring-inset peer-focus-visible:ring-primary-500 dark:peer-focus-visible:ring-primary-400':
-          !props.disabled
+          !props.disabled,
       },
 
       // Transitions
@@ -49,12 +49,12 @@ export default {
       // Misc
       {
         'cursor-pointer': !props.disabled,
-        'opacity-60 select-none pointer-events-none cursor-default': props.disabled
-      }
-    ]
+        'opacity-60 select-none pointer-events-none cursor-default': props.disabled,
+      },
+    ],
   }),
   label: {
-    class: 'font-semibold text-center w-full'
+    class: 'font-semibold text-center w-full',
   },
   input: {
     class: [
@@ -81,10 +81,10 @@ export default {
 
       // Misc
       'appearance-none',
-      'cursor-pointer'
-    ]
+      'cursor-pointer',
+    ],
   },
   icon: {
-    class: [' mr-2', 'text-surface-700 dark:text-white/80']
-  }
-}
+    class: [' mr-2', 'text-surface-700 dark:text-white/80'],
+  },
+};

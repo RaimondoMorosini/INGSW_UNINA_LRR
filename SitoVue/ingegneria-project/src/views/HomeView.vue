@@ -60,31 +60,31 @@
 </template>
 
 <script setup>
-import SwipeCarosello from '../components/SwipeCarosello.vue'
+import SwipeCarosello from '../components/SwipeCarosello.vue';
 
-import TreeSelect from 'primevue/treeselect'
-import InputText from 'primevue/inputtext'
+import TreeSelect from 'primevue/treeselect';
+import InputText from 'primevue/inputtext';
 
-import InputGroup from 'primevue/inputgroup'
-import InputGroupAddon from 'primevue/inputgroupaddon'
+import InputGroup from 'primevue/inputgroup';
+import InputGroupAddon from 'primevue/inputgroupaddon';
 
-import Vetrina from '@/components/Vetrina.vue'
+import Vetrina from '@/components/Vetrina.vue';
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
 
-const value = ref(null)
-const selectedCategory = ref()
-const selectedCity1 = ref()
+const value = ref(null);
+const selectedCategory = ref();
+const selectedCity1 = ref();
 
 onMounted(() => {
   //TODO aggiugere dati per TreeSelect
-})
+});
 
 const cities = ref([
   { name: 'New York', code: 'NY' },
   { name: 'Rome', code: 'RM' },
   { name: 'London', code: 'LDN' },
   { name: 'Istanbul', code: 'IST' },
-  { name: 'Paris', code: 'PRS' }
-])
+  { name: 'Paris', code: 'PRS' },
+]);
 </script>

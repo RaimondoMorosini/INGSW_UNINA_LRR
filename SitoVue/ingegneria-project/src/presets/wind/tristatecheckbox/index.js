@@ -1,6 +1,6 @@
 export default {
   root: {
-    class: ['cursor-pointer inline-flex relative select-none align-bottom', 'w-4 h-4']
+    class: ['cursor-pointer inline-flex relative select-none align-bottom', 'w-4 h-4'],
   },
   box: ({ props, context }) => ({
     class: [
@@ -23,12 +23,12 @@ export default {
         'border-surface-300 bg-surface-0 dark:border-surface-700 dark:bg-surface-900':
           !context.active && !props.invalid,
         'border-primary-500 bg-primary-500 dark:border-primary-400 dark:bg-primary-400':
-          context.active
+          context.active,
       },
 
       {
         'ring-2 ring-primary-500 dark:ring-primary-400': !props.disabled && context.focused,
-        'cursor-default opacity-60': props.disabled
+        'cursor-default opacity-60': props.disabled,
       },
 
       // Invalid State
@@ -38,13 +38,13 @@ export default {
       {
         'peer-focus-visible:ring-2 peer-focus-visible:ring-primary-500 dark:peer-focus-visible:ring-primary-400':
           !props.disabled,
-        'cursor-default opacity-60': props.disabled
+        'cursor-default opacity-60': props.disabled,
       },
 
       // Transitions
       'transition-colors',
-      'duration-200'
-    ]
+      'duration-200',
+    ],
   }),
   input: {
     class: [
@@ -74,8 +74,8 @@ export default {
       'border-2 border-surface-300 dark:border-surface-700',
 
       // Misc
-      'appearance-none'
-    ]
+      'appearance-none',
+    ],
   },
   checkicon: {
     class: [
@@ -91,8 +91,8 @@ export default {
 
       // Transitions
       'transition-all',
-      'duration-200'
-    ]
+      'duration-200',
+    ],
   },
   uncheckicon: {
     class: [
@@ -108,7 +108,7 @@ export default {
 
       // Transitions
       'transition-all',
-      'duration-200'
-    ]
-  }
-}
+      'duration-200',
+    ],
+  },
+};

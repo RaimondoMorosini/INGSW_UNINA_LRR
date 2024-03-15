@@ -14,30 +14,30 @@
 <script>
 export default {
   name: 'BaseRadioGroup',
-  inheritAttrs: false
-}
+  inheritAttrs: false,
+};
 </script>
 
 <script setup>
-import RadioButtonInput from './RadioButtonInput.vue'
-const emit = defineEmits(['update:modelValue'])
+import RadioButtonInput from './RadioButtonInput.vue';
+const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps({
   options: {
     type: Array,
-    required: true
+    required: true,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   modelValue: {
     type: [String, Number],
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
 const updateInput = ($event) => {
-  emit('update:modelValue', $event)
-}
+  emit('update:modelValue', $event);
+};
 </script>

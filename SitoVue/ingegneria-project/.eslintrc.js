@@ -1,19 +1,30 @@
 module.exports = {
-  root: true,
   env: {
     browser: true,
-    node: true
+    es2021: true,
+    node: true,
   },
-  extends: ['eslint:recommended', 'plugin:vue/vue3-recommended', 'prettier'],
-
-  plugins: ['prettier'],
+  extends: ['eslint:recommended', 'standard', 'plugin:vue/vue3-essential', 'prettier'],
+  overrides: [
+    {
+      env: {
+        node: true,
+      },
+      files: ['.eslintrc.{js,cjs}'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
+  ],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: ['vue', 'prettier'],
+  singleQuote: false,
+  printWidth: 120,
   rules: {
-    'prettier/prettier': ['error'],
-    'vue/require-default-prop': 0,
-    'vue/singleline-html-element-content-newline': 0,
-    'vue/component-name-in-template-casing': ['error', 'PascalCase']
+    'prettier/prettier': 'error',
+    'no-unused-vars': 'warn',  
   },
-  globals: {
-    _: true
-  }
-}
+};
