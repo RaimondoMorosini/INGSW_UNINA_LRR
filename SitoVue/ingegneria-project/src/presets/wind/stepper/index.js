@@ -1,6 +1,6 @@
 export default {
   root: ({ props }) => ({
-    class: ['flex-1', props.orientation === 'vertical' ? 'flex-col' : 'flex-row']
+    class: ['flex-1', props.orientation === 'vertical' ? 'flex-col' : 'flex-row'],
   }),
   nav: {
     class: [
@@ -20,15 +20,15 @@ export default {
       'list-none',
 
       // Overflow
-      'overflow-x-auto'
-    ]
+      'overflow-x-auto',
+    ],
   },
   stepperpanel: {
     panel: ({ context, parent }) => ({
       class: [
         context.active ? 'flex-1' : '',
-        parent.props.orientation === 'vertical' ? 'flex flex-col flex-initial' : ''
-      ]
+        parent.props.orientation === 'vertical' ? 'flex flex-col flex-initial' : '',
+      ],
     }),
     header: ({ parent, context }) => ({
       class: [
@@ -42,8 +42,8 @@ export default {
         parent.props.orientation === 'vertical' ? 'flex-initial' : '',
 
         // Spacing
-        'p-2'
-      ]
+        'p-2',
+      ],
     }),
     action: {
       class: [
@@ -70,8 +70,8 @@ export default {
         'bg-transparent',
 
         // Focus
-        'outline-none'
-      ]
+        'outline-none',
+      ],
     },
     number: ({ context }) => ({
       class: [
@@ -98,8 +98,8 @@ export default {
         'transition',
         'transition-colors',
         'transition-shadow',
-        'duration-200'
-      ]
+        'duration-200',
+      ],
     }),
     title: ({ context }) => ({
       class: [
@@ -123,8 +123,8 @@ export default {
         'transition',
         'transition-colors',
         'transition-shadow',
-        'duration-200'
-      ]
+        'duration-200',
+      ],
     }),
     separator: ({ context, state, parent }) => ({
       class: [
@@ -140,14 +140,14 @@ export default {
 
         // Transitions
         'transition-shadow',
-        'duration-200'
-      ]
+        'duration-200',
+      ],
     }),
     transition: {
       class: [
         'flex flex-1',
         'bg-surface-0 dark:bg-surface-800',
-        'text-surface-900 dark:text-surface-0'
+        'text-surface-900 dark:text-surface-0',
       ],
       enterFromClass: 'max-h-0',
       enterActiveClass:
@@ -156,11 +156,11 @@ export default {
       leaveFromClass: 'max-h-[1000px]',
       leaveActiveClass:
         'overflow-hidden transition-[max-height] duration-[450ms] ease-[cubic-bezier(0,1,0,1)]',
-      leaveToClass: 'max-h-0'
+      leaveToClass: 'max-h-0',
     },
     content: ({ parent }) => ({
-      class: [parent.props.orientation === 'vertical' ? 'w-full pl-4' : '']
-    })
+      class: [parent.props.orientation === 'vertical' ? 'w-full pl-4' : ''],
+    }),
   },
   panelcontainer: {
     class: [
@@ -169,7 +169,7 @@ export default {
       'text-surface-900 dark:text-surface-0',
 
       // Spacing
-      'p-4'
-    ]
-  }
-}
+      'p-4',
+    ],
+  },
+};

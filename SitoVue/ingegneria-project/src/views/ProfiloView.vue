@@ -34,9 +34,9 @@
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router'
+import { RouterView } from 'vue-router';
 
-import { useToast } from 'primevue/usetoast'
+import { useToast } from 'primevue/usetoast';
 
-const toast = useToast()
+const toast = useToast();
 </script>

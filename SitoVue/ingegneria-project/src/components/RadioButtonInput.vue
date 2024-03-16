@@ -15,24 +15,24 @@
 </template>
 
 <script setup>
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps({
   label: {
     type: String,
-    default: ''
+    default: '',
   },
   modelValue: {
     type: [String, Number],
-    default: ''
+    default: '',
   },
   value: {
     type: [String, Number],
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
 const updateInput = ($event) => {
-  emit('update:modelValue', $event.target.value)
-}
+  emit('update:modelValue', $event.target.value);
+};
 </script>

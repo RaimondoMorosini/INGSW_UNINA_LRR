@@ -19,9 +19,9 @@ export default {
 
       {
         'items-center px-2 sm:px-6': props.orientation == 'horizontal',
-        'flex-col justify-center sm:justify-start sm:w-48 px-2': props.orientation !== 'horizontal'
-      }
-    ]
+        'flex-col justify-center sm:justify-start sm:w-48 px-2': props.orientation !== 'horizontal',
+      },
+    ],
   }),
   menu: ({ props }) => ({
     class: [
@@ -54,17 +54,17 @@ export default {
       'bg-surface-0 dark:bg-surface-900 sm:bg-transparent dark:sm:bg-transparent',
 
       // Misc
-      'outline-none'
-    ]
+      'outline-none',
+    ],
   }),
   menuitem: ({ props }) => ({
     class: [
       'sm:relative static',
       {
         'sm:w-auto w-full': props.horizontal,
-        'w-full': !props.horizontal
-      }
-    ]
+        'w-full': !props.horizontal,
+      },
+    ],
   }),
   content: ({ props, context }) => ({
     class: [
@@ -79,20 +79,20 @@ export default {
         'text-surface-900 dark:text-surface-0/80 bg-surface-50 dark:bg-black/70':
           context.focused && context.active,
         'text-surface-900 dark:text-surface-0/80 bg-surface-50 dark:bg-black/70':
-          !context.focused && context.active
+          !context.focused && context.active,
       },
 
       // Hover States
       {
         'hover:bg-surface-50 dark:hover:bg-surface-800': !context.active,
         'hover:bg-surface-100 dark:hover:bg-black/40 text-surface-900 dark:text-surface-0/80':
-          context.active
+          context.active,
       },
 
       // Transitions
       'transition-all',
-      'duration-200'
-    ]
+      'duration-200',
+    ],
   }),
   action: {
     class: [
@@ -114,19 +114,19 @@ export default {
       'select-none',
       'cursor-pointer',
       'no-underline ',
-      'overflow-hidden'
-    ]
+      'overflow-hidden',
+    ],
   },
   icon: {
-    class: 'mr-2'
+    class: 'mr-2',
   },
   submenuicon: ({ props }) => ({
     class: [
       {
         'ml-auto sm:ml-2': props.horizontal,
-        'ml-auto': !props.horizontal
-      }
-    ]
+        'ml-auto': !props.horizontal,
+      },
+    ],
   }),
   panel: ({ props }) => ({
     class: [
@@ -148,18 +148,18 @@ export default {
       'static sm:absolute',
       'z-10',
       {
-        'sm:left-full top-0': !props.horizontal
-      }
-    ]
+        'sm:left-full top-0': !props.horizontal,
+      },
+    ],
   }),
   grid: {
-    class: 'flex flex-wrap sm:flex-nowrap'
+    class: 'flex flex-wrap sm:flex-nowrap',
   },
   column: {
-    class: 'w-full sm:w-1/2'
+    class: 'w-full sm:w-1/2',
   },
   submenu: {
-    class: ['m-0 list-none', 'py-1 px-2 w-full sm:min-w-[14rem]']
+    class: ['m-0 list-none', 'py-1 px-2 w-full sm:min-w-[14rem]'],
   },
   submenuheader: {
     class: [
@@ -175,11 +175,11 @@ export default {
 
       // Color
       'text-surface-700 dark:text-white/80',
-      'bg-surface-0 dark:bg-surface-900'
-    ]
+      'bg-surface-0 dark:bg-surface-900',
+    ],
   },
   separator: {
-    class: 'border-t border-surface-200 dark:border-surface-600 my-1'
+    class: 'border-t border-surface-200 dark:border-surface-600 my-1',
   },
   menubutton: {
     class: [
@@ -207,10 +207,10 @@ export default {
 
       // Misc
       'cursor-pointer',
-      'no-underline'
-    ]
+      'no-underline',
+    ],
   },
   end: {
-    class: 'ml-auto self-center'
-  }
-}
+    class: 'ml-auto self-center',
+  },
+};

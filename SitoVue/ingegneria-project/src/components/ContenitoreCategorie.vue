@@ -47,61 +47,61 @@
 </template>
 
 <script setup lang="js">
-import ref from 'vue'
-import categorie from '../script/getCategorie.js'
-import { trovaGenitore } from '../script/getCategorie.js'
-import { trovaStringaGenitore } from '../script/getCategorie.js'
+import ref from 'vue';
+import categorie from '../script/getCategorie.js';
+import { trovaGenitore } from '../script/getCategorie.js';
+import { trovaStringaGenitore } from '../script/getCategorie.js';
 
-testoBarra = ref('Categorie')
-tendina = ref(false)
-categorie = ref(categorie)
-padreCategoria = ref('')
-colorEtichetta = ref('black')
-coloreBordo = ref('2px solid black')
+testoBarra = ref('Categorie');
+tendina = ref(false);
+categorie = ref(categorie);
+padreCategoria = ref('');
+colorEtichetta = ref('black');
+coloreBordo = ref('2px solid black');
 
 function gestioneTendina() {
-  this.tendina = !this.tendina
+  this.tendina = !this.tendina;
 }
 
 function updateTestoBarra(categoriaSelected, index) {
-  this.testoBarra = categoriaSelected
+  this.testoBarra = categoriaSelected;
   if (index >= 0) {
     if (this.categorie[index].figlie.length > 0) {
-      this.categorie = this.categorie[index].figlie
-      this.padreCategoria = categoriaSelected
+      this.categorie = this.categorie[index].figlie;
+      this.padreCategoria = categoriaSelected;
     } else {
-      this.tendina = !this.tendina
-      this.colorEtichetta = 'black'
-      this.coloreBordo = '2px solid black'
+      this.tendina = !this.tendina;
+      this.colorEtichetta = 'black';
+      this.coloreBordo = '2px solid black';
     }
   } else if (index === -1) {
-    this.tendina = !this.tendina
-    this.categorie = categorie
-    this.padreCategoria = ''
-    this.colorEtichetta = 'black'
-    this.coloreBordo = '2px solid black'
+    this.tendina = !this.tendina;
+    this.categorie = categorie;
+    this.padreCategoria = '';
+    this.colorEtichetta = 'black';
+    this.coloreBordo = '2px solid black';
   } else if (index === -3) {
-    this.tendina = !this.tendina
-    this.colorEtichetta = 'black'
-    this.coloreBordo = '2px solid black'
+    this.tendina = !this.tendina;
+    this.colorEtichetta = 'black';
+    this.coloreBordo = '2px solid black';
   } else {
-    this.categorie = trovaGenitore(categorie, this.padreCategoria)
-    let risultatoPadre = trovaStringaGenitore(categorie, this.padreCategoria)
+    this.categorie = trovaGenitore(categorie, this.padreCategoria);
+    let risultatoPadre = trovaStringaGenitore(categorie, this.padreCategoria);
     if (risultatoPadre !== null) {
-      this.padreCategoria = risultatoPadre
+      this.padreCategoria = risultatoPadre;
     } else {
-      this.padreCategoria = ''
+      this.padreCategoria = '';
     }
   }
 }
 
 function hoverBarra(stato) {
   if (stato) {
-    this.colorEtichetta = '#0071fe'
-    this.coloreBordo = '2px solid #0071fe'
+    this.colorEtichetta = '#0071fe';
+    this.coloreBordo = '2px solid #0071fe';
   } else {
-    this.colorEtichetta = 'black'
-    this.coloreBordo = '2px solid black'
+    this.colorEtichetta = 'black';
+    this.coloreBordo = '2px solid black';
   }
 }
 </script>

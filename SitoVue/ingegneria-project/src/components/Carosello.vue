@@ -31,84 +31,84 @@ export default {
   data() {
     return {
       countImg: 1,
-      sfondo: '#e6818d'
-    }
+      sfondo: '#e6818d',
+    };
   },
   mounted() {
     this.intervallo = setInterval(() => {
       if (this.countImg == 3) {
-        this.countImg = 1
-        this.sfondo = '#e6818d'
+        this.countImg = 1;
+        this.sfondo = '#e6818d';
       } else {
-        this.countImg++
+        this.countImg++;
         if (this.countImg == 2) {
-          this.sfondo = '#fee782'
+          this.sfondo = '#fee782';
         } else {
-          this.sfondo = '#e9c9c6'
+          this.sfondo = '#e9c9c6';
         }
       }
-    }, 5000) // 5000 millisecondi = 5 secondi
+    }, 5000); // 5000 millisecondi = 5 secondi
   },
 
   methods: {
     updatePhotoFreccia(direzione) {
       if (direzione == 'sinistra') {
         if (this.countImg != 1) {
-          this.countImg--
+          this.countImg--;
 
           switch (this.countImg) {
             case 2:
-              this.sfondo = '#fee782'
-              break
+              this.sfondo = '#fee782';
+              break;
 
             case 1:
-              this.sfondo = '#e6818d'
-              break
+              this.sfondo = '#e6818d';
+              break;
 
             default:
-              break
+              break;
           }
         } else {
-          this.countImg = 3
-          this.sfondo = '#e9c9c6'
+          this.countImg = 3;
+          this.sfondo = '#e9c9c6';
         }
       } else {
         if (this.countImg != 3) {
-          this.countImg++
+          this.countImg++;
 
           switch (this.countImg) {
             case 2:
-              this.sfondo = '#fee782'
-              break
+              this.sfondo = '#fee782';
+              break;
 
             case 3:
-              this.sfondo = '#e9c9c6'
-              break
+              this.sfondo = '#e9c9c6';
+              break;
 
             default:
-              break
+              break;
           }
         } else {
-          this.countImg = 1
-          this.sfondo = '#e6818d'
+          this.countImg = 1;
+          this.sfondo = '#e6818d';
         }
       }
     },
 
     updatePhoto(opzione) {
       if (opzione == 1) {
-        this.countImg = 1
-        this.sfondo = '#e6818d'
+        this.countImg = 1;
+        this.sfondo = '#e6818d';
       } else if (opzione == 2) {
-        this.countImg = 2
-        this.sfondo = '#fee782'
+        this.countImg = 2;
+        this.sfondo = '#fee782';
       } else {
-        this.countImg = 3
-        this.sfondo = '#e9c9c6'
+        this.countImg = 3;
+        this.sfondo = '#e9c9c6';
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

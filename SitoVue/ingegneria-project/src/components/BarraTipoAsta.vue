@@ -26,29 +26,29 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const testoBarra = ref("Seleziona l'asta")
-const tendina = ref(false)
-const colorEtichetta = ref('')
+const testoBarra = ref("Seleziona l'asta");
+const tendina = ref(false);
+const colorEtichetta = ref('');
 
 function gestioneTendina() {
-  this.tendina = !this.tendina
+  this.tendina = !this.tendina;
 }
 
 function opzioneSelected(opzione) {
-  this.testoBarra = opzione
-  this.colorEtichetta = 'black'
-  this.coloreBordo = '2px solid black'
+  this.testoBarra = opzione;
+  this.colorEtichetta = 'black';
+  this.coloreBordo = '2px solid black';
 }
 
 function hoverBarra(stato) {
   if (stato) {
-    this.colorEtichetta = '#0071fe'
-    this.coloreBordo = '2px solid #0071fe'
+    this.colorEtichetta = '#0071fe';
+    this.coloreBordo = '2px solid #0071fe';
   } else {
-    this.colorEtichetta = 'black'
-    this.coloreBordo = '2px solid black'
+    this.colorEtichetta = 'black';
+    this.coloreBordo = '2px solid black';
   }
 }
 </script>
