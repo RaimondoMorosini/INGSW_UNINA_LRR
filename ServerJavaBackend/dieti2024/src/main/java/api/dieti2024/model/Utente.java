@@ -24,7 +24,7 @@ public class Utente {
     @Column(name = "cognome")
     private String cognome;
 
-    @Column(name = "siti", columnDefinition = "json")
+    @Column(name = "siti")
     private String siti;
 
     @Column(name = "area_geografica")

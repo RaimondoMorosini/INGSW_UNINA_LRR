@@ -39,7 +39,7 @@ public class JWTAuthFIlter extends OncePerRequestFilter {
 
         final String username = jwtUtils.getUsername(token);
 
-        // set user details on spring security context
+        // set user details in  spring security context
 
         // Carica gli user details
         UserDetailsDto userDetails = utenteService.getUserDetails(username);
@@ -57,11 +57,8 @@ public class JWTAuthFIlter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
-    private boolean isTokenNonVaido( String token) throws IOException, ServletException {
-        if (!jwtUtils.isTokenValid(token)) {
-            return true;
-        }
-        return false;
+    private boolean isTokenNonVaido( String token){
+        return !jwtUtils.isTokenValid(token);
     }
 
     private static String getToken(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -72,8 +69,7 @@ public class JWTAuthFIlter extends OncePerRequestFilter {
             return null;
         }
 
-        final String token = header.substring(7);
-        return token;
+        return header.substring(7);
     }
 
 
