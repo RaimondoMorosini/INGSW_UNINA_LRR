@@ -26,4 +26,11 @@ public class AuthController {
     public String GenTokenBylogin(@RequestBody CredenzialiUtenteDTO credenzialiInserite){
         return (authService.login(credenzialiInserite));
     }
+
+
+    @PostMapping("/SalvaTest")
+    public String salvaTest(){
+        authService.saveTest();
+        return "Test salvato";
+    }
 }
