@@ -9,8 +9,8 @@
 defineProps({
   as: {
     type: [String, Object],
-    default: 'button'
+    default: 'button',
   },
-  value: String
-})
+  value: String,
+});
 </script>

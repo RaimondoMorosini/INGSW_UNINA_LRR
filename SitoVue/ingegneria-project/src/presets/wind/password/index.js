@@ -3,9 +3,9 @@ export default {
     class: [
       'inline-flex relative',
       {
-        'opacity-60 select-none pointer-events-none cursor-default': props.disabled
-      }
-    ]
+        'opacity-60 select-none pointer-events-none cursor-default': props.disabled,
+      },
+    ],
   }),
   panel: {
     class: [
@@ -19,8 +19,8 @@ export default {
       // Colors
       'bg-surface-0 dark:bg-surface-900',
       'text-surface-700 dark:text-white/80',
-      'dark:border-surface-700'
-    ]
+      'dark:border-surface-700',
+    ],
   },
   meter: {
     class: [
@@ -37,8 +37,8 @@ export default {
       'mb-2',
 
       // Colors
-      'bg-surface-100 dark:bg-surface-700'
-    ]
+      'bg-surface-100 dark:bg-surface-700',
+    ],
   },
   meterlabel: ({ instance }) => ({
     class: [
@@ -49,18 +49,18 @@ export default {
       {
         'bg-red-500 dark:bg-red-400/50': instance?.meter?.strength == 'weak',
         'bg-orange-500 dark:bg-orange-400/50': instance?.meter?.strength == 'medium',
-        'bg-green-500 dark:bg-green-400/50': instance?.meter?.strength == 'strong'
+        'bg-green-500 dark:bg-green-400/50': instance?.meter?.strength == 'strong',
       },
 
       // Transitions
-      'transition-all duration-1000 ease-in-out'
-    ]
+      'transition-all duration-1000 ease-in-out',
+    ],
   }),
   showicon: {
-    class: ['absolute top-1/2 right-3 -mt-2', 'text-surface-600 dark:text-white/70']
+    class: ['absolute top-1/2 right-3 -mt-2', 'text-surface-600 dark:text-white/70'],
   },
   hideicon: {
-    class: ['absolute top-1/2 right-3 -mt-2', 'text-surface-600 dark:text-white/70']
+    class: ['absolute top-1/2 right-3 -mt-2', 'text-surface-600 dark:text-white/70'],
   },
   input: {
     root: ({ props, context, parent }) => ({
@@ -76,7 +76,7 @@ export default {
         {
           'py-3 px-4 text-lg sm:text-md': props.size == 'large',
           'py-1 px-2 sm:text-sm': props.size == 'small',
-          'py-1.5 px-3 sm:text-sm': props.size == null
+          'py-1.5 px-3 sm:text-sm': props.size == null,
         },
         'w-full',
 
@@ -95,11 +95,12 @@ export default {
         // Shape
         { 'rounded-md': parent.instance.$name !== 'InputGroup' },
         {
-          'first:rounded-l-md rounded-none last:rounded-r-md': parent.instance.$name == 'InputGroup'
+          'first:rounded-l-md rounded-none last:rounded-r-md':
+            parent.instance.$name == 'InputGroup',
         },
         {
           'border-0 border-y border-l last:border-r border-surface-300 dark:border-surface-600':
-            parent.instance.$name == 'InputGroup'
+            parent.instance.$name == 'InputGroup',
         },
         { 'first:ml-0 -ml-px': parent.instance.$name == 'InputGroup' && !props.showButtons },
         'appearance-none',
@@ -107,16 +108,16 @@ export default {
         // Interactions
         {
           'outline-none focus:ring-primary-500 dark:focus:ring-primary-400': !context.disabled,
-          'opacity-60 select-none pointer-events-none cursor-default': context.disabled
-        }
-      ]
-    })
+          'opacity-60 select-none pointer-events-none cursor-default': context.disabled,
+        },
+      ],
+    }),
   },
   transition: {
     enterFromClass: 'opacity-0 scale-y-[0.8]',
     enterActiveClass:
       'transition-[transform,opacity] duration-[120ms] ease-[cubic-bezier(0,0,0.2,1)]',
     leaveActiveClass: 'transition-opacity duration-100 ease-linear',
-    leaveToClass: 'opacity-0'
-  }
-}
+    leaveToClass: 'opacity-0',
+  },
+};

@@ -1,22 +1,22 @@
 <script setup>
-import { defineProps } from 'vue'
-import { computed } from 'vue'
-import { cva } from 'class-variance-authority'
+import { defineProps } from 'vue';
+import { computed } from 'vue';
+import { cva } from 'class-variance-authority';
 
 const props = defineProps({
   IconaSx: Object,
   IconaDx: Object,
   as: {
     type: [String, Object],
-    default: 'button'
+    default: 'button',
   },
   intent: {
     type: String,
     validator: (value) =>
       ['primario', 'secondario', 'successo', 'danger', 'warning', 'text'].includes(value),
-    default: 'secondario'
-  }
-})
+    default: 'secondario',
+  },
+});
 
 const menuItemClass = computed(() => {
   return cva(
@@ -29,12 +29,12 @@ const menuItemClass = computed(() => {
           successo: 'bg-successo-500 hover:bg-successo-600',
           danger: 'bg-danger-500 hover:bg-danger-600',
           warning: 'bg-warning-500 hover:bg-warning-600',
-          text: 'bg-transparent hover:bg-gray-500 !text-black'
-        }
-      }
+          text: 'bg-transparent hover:bg-gray-500 !text-black',
+        },
+      },
     }
-  )({ intent: props.intent })
-})
+  )({ intent: props.intent });
+});
 </script>
 
 <template>

@@ -5,12 +5,12 @@
 </template>
 
 <script setup>
-import { useAuth0 } from '@auth0/auth0-vue'
+import { useAuth0 } from '@auth0/auth0-vue';
 
-const { loginWithRedirect } = useAuth0()
+const { loginWithRedirect } = useAuth0();
 
 function login() {
-  console.log('autenticated')
-  loginWithRedirect()
+  console.log('autenticated');
+  loginWithRedirect();
 }
 </script>

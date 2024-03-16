@@ -2,8 +2,8 @@ export default {
   root: ({ props }) => ({
     class: [
       'shadow-sm',
-      { 'opacity-60 select-none pointer-events-none cursor-default': props.disabled }
-    ]
+      { 'opacity-60 select-none pointer-events-none cursor-default': props.disabled },
+    ],
   }),
   button: ({ context, props }) => ({
     class: [
@@ -28,7 +28,7 @@ export default {
       {
         'bg-surface-0 dark:bg-surface-900': !context.active,
         'text-surface-700 dark:text-white/80': !context.active,
-        'bg-surface-100 dark:bg-surface-700': context.active
+        'bg-surface-100 dark:bg-surface-700': context.active,
       },
 
       // Invalid State
@@ -43,10 +43,10 @@ export default {
       'transition duration-200',
 
       // Misc
-      'cursor-pointer select-none overflow-hidden'
-    ]
+      'cursor-pointer select-none overflow-hidden',
+    ],
   }),
   label: {
-    class: 'font-semibold'
-  }
-}
+    class: 'font-semibold',
+  },
+};

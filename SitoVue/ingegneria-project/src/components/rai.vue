@@ -16,45 +16,45 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, defineProps, defineEmits } from 'vue'
-import categorie from '../script/getCategorie.js'
+import { ref, onMounted, onUnmounted, defineProps, defineEmits } from 'vue';
+import categorie from '../script/getCategorie.js';
 
-const isDropdownVisible = ref(false)
+const isDropdownVisible = ref(false);
 
 function toggleDropdown() {
-  isDropdownVisible.value = !isDropdownVisible.value
+  isDropdownVisible.value = !isDropdownVisible.value;
 }
 
 function closeDropdown() {
-  isDropdownVisible.value = false
+  isDropdownVisible.value = false;
 }
 
 function handleClickOutside(event) {
   if (!event.target.closest('.relative')) {
-    closeDropdown()
+    closeDropdown();
   }
 }
 
 onMounted(() => {
-  document.addEventListener('click', handleClickOutside)
-})
+  document.addEventListener('click', handleClickOutside);
+});
 
 onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside)
-})
+  document.removeEventListener('click', handleClickOutside);
+});
 
 ////////////////codice per le categorie//////////////////////////////////////////////////////////////////
 </script>
 
 <script>
-import Ricorsione from './Ricorsione.vue'
+import Ricorsione from './Ricorsione.vue';
 
 export default {
   name: 'App',
   components: {
-    Ricorsione
-  }
-}
+    Ricorsione,
+  },
+};
 </script>
 
 <style>

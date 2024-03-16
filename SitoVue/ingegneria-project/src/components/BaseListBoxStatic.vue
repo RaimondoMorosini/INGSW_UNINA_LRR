@@ -1,38 +1,38 @@
 <script setup>
-import { computed, watch, ref, defineProps, defineEmits } from 'vue'
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue'
-import { CheckIcon, SelectorIcon } from '@heroicons/vue/solid'
+import { computed, watch, ref, defineProps, defineEmits } from 'vue';
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue';
+import { CheckIcon, SelectorIcon } from '@heroicons/vue/solid';
 
 const props = defineProps({
   options: Array,
   modelValue: [String, Number, Array],
   placeholder: {
     type: String,
-    default: 'Select option'
+    default: 'Select option',
   },
   multiple: Boolean,
   error: String,
   keepOpenOnSelect: Boolean, // Nuova prop per controllare lo stato aperto
   as: {
     type: [String, Object],
-    default: 'template'
-  }
-})
+    default: 'template',
+  },
+});
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue']);
 
 // Nuova variabile reattiva isOpen per controllare manualmente lo stato aperto delle opzioni
-const isOpen = ref(false)
+const isOpen = ref(false);
 
 // Osserva il modelValue per aggiornare isOpen quando keepOpenOnSelect è true
 watch(
   () => props.modelValue,
   () => {
     if (props.keepOpenOnSelect) {
-      isOpen.value = true
+      isOpen.value = true;
     }
   }
-)
+);
 
 // Opzionalmente, potresti voler chiudere il Listbox quando keepOpenOnSelect diventa false
 // o aggiungere logica specifica per gestire la chiusura in altri scenari
@@ -40,10 +40,10 @@ watch(
   () => props.keepOpenOnSelect,
   (newValue) => {
     if (!newValue) {
-      isOpen.value = false
+      isOpen.value = false;
     }
   }
-)
+);
 
 const label = computed(() => {
   return props.options
@@ -53,8 +53,8 @@ const label = computed(() => {
         : props.modelValue === option.value
     )
     .map((option) => option.label)
-    .join(', ')
-})
+    .join(', ');
+});
 </script>
 
 <template>
@@ -92,7 +92,7 @@ const label = computed(() => {
             <li
               :class="[
                 'relative cursor-default select-none py-2 pl-10 pr-4',
-                active ? 'bg-primario-100/30 text-primario-900' : 'text-gray-900'
+                active ? 'bg-primario-100/30 text-primario-900' : 'text-gray-900',
               ]"
             >
               <span :class="['block truncate', selected ? 'font-medium' : 'font-normal']">{{
