@@ -9,7 +9,7 @@
       },
       '768': {
         slidesPerView: 3,
-        spaceBetween: 40,
+        spaceBetween: 30,
       },
       '1024': {
         slidesPerView: 3,
@@ -32,21 +32,25 @@
   >
     <SwiperSlide v-for="(photo, index) in slides.photo" :key="index">
       <RouterLink :to="{ name: slides.links[index] }">
-        <img :src="require(`@/assets/${photo}`)" alt="" class="border-2 border-slate-400" />
+        <img
+          :src="require(`@/assets/${photo}`)"
+          alt=""
+          class="border-2 border-slate-400 lg:max-h-[80%] lg:max-w-[80%]"
+        />
       </RouterLink>
     </SwiperSlide>
   </Swiper>
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router';
+import { Autoplay, Keyboard, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Autoplay, Pagination, Keyboard, Navigation } from 'swiper/modules';
+import { RouterLink } from 'vue-router';
 // Import Swiper styles
 import 'swiper/css';
+import 'swiper/css/effect-cube';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import 'swiper/css/effect-cube';
 const slides = {
   photo: ['bg1.jpg', 'bg2.jpg', 'bg3.jpg', 'bg4.jpg', 'bg5.jpg', 'bg6.jpg'],
   links: ['hobby', 'perLaCasa', 'elettronica', 'altro', 'abbigliamento', 'sports'],
