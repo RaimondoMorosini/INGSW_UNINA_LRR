@@ -18,7 +18,7 @@ public class utenteService {
 
     public UserDetailsDto getUserDetails(String email) {
 
-        Utente utenteModel = utenteRepository.findById(email).orElseThrow(() -> new ApiException("Utente non trovato", HttpStatus.NOT_FOUND));
+        Utente utenteModel =getUtenteByEmail(email);
         return UserDetailsDto.fromUserModel(utenteModel);
     }
 
