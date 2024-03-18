@@ -1,18 +1,17 @@
-<!-- eslint-disable prettier/prettier -->
 <template>
   <SwipeCarosello />
 
   <div
-    class="AreaRicerca flex min-w-full flex-col items-center gap-3 px-5 py-3 duration-500 ease-in md:flex md:w-auto md:flex-row md:items-center"
+    class="AreaRicerca flex min-w-full flex-col justify-around gap-3 px-5 py-3 duration-500 ease-in md:flex md:w-auto md:flex-row md:px-20"
   >
-    <InputGroup>
+    <InputGroup class="h-14 min-w-2col md:w-[14rem]">
       <InputGroupAddon class="bg-primario-100">
         <i class="pi pi-search"></i>
       </InputGroupAddon>
       <InputText
         v-model="value"
         placeholder="Search"
-        class="md:w-14rem min-w-2col rounded-r border-transparent bg-primario-100/50 hover:ring-primario-300 focus:ring-primario-200"
+        class="rounded-r border-transparent bg-primario-100/50"
       >
         <template #imputtexticon>
           <i class="pi pi-search" style="color: #424242"></i>
@@ -20,7 +19,7 @@
       </InputText>
     </InputGroup>
 
-    <InputGroup>
+    <InputGroup class="h-14 min-w-2col md:w-[14rem]">
       <InputGroupAddon class="bg-primario-100">
         <i class="pi pi-th-large" style="color: #424242"></i>
       </InputGroupAddon>
@@ -29,11 +28,11 @@
         :options="cities"
         option-label="name"
         placeholder="Seleziona Categoria"
-        class="!hover:ring-primario-300 !focus:ring-primario-300 md:w-14rem min-w-2col rounded-r bg-primario-100/50 text-black"
+        class="rounded-r bg-primario-100/50 text-black"
       />
     </InputGroup>
 
-    <InputGroup>
+    <InputGroup class="h-14 min-w-2col md:w-[14rem]">
       <InputGroupAddon class="bg-primario-100">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
           <g id="asta">
@@ -49,7 +48,7 @@
         :options="cities"
         option-label="name"
         placeholder="Seleziona Città"
-        class="!hover:ring-primario-300 !focus:ring-primario-300 md:w-14rem min-w-2col rounded-r bg-primario-100/50 text-black"
+        class="rounded-r bg-primario-100/50 text-black"
       />
     </InputGroup>
   </div>
@@ -62,15 +61,15 @@
 <script setup>
 import SwipeCarosello from '../components/SwipeCarosello.vue';
 
-import TreeSelect from 'primevue/treeselect';
 import InputText from 'primevue/inputtext';
+import TreeSelect from 'primevue/treeselect';
 
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 
 import Vetrina from '@/components/Vetrina.vue';
 
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const value = ref(null);
 const selectedCategory = ref();
