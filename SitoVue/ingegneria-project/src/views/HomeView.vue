@@ -53,7 +53,7 @@
     </InputGroup>
   </div>
 
-  <div>
+  <div class="flex flex-row items-center bg-slate-100">
     <Vetrina />
   </div>
 </template>

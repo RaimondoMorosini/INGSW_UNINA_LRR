@@ -42,8 +42,8 @@
 </template>
 
 <script setup>
-import { useAuth0 } from '@auth0/auth0-vue';
 import EditButton from '@/components/buttons/EditButton.vue';
+import { useAuth0 } from '@auth0/auth0-vue';
 
 const linkUtili = ['GitHub', 'LinkedIn', 'Twitter', 'Facebook'];
 
