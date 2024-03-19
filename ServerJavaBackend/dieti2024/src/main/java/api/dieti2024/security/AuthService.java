@@ -110,8 +110,7 @@ public class AuthService {
          * @throws ApiException se la password non corrisponde
          **/
     private void matchPassword(String passwordRicevuta, String passworSalvataNelDatabase) {
-        passwordRicevuta = codificaPassword(passwordRicevuta);
-        if (!passwordRicevuta.equals(passworSalvataNelDatabase)){
+        if (!passwordEncoder.matches(passwordRicevuta, passworSalvataNelDatabase)){
                 throw new ApiException("Password errata", HttpStatus.UNAUTHORIZED);
         }
     }
