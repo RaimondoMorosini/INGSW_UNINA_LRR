@@ -1,21 +1,22 @@
-import '@babel/polyfill';
-import 'mutationobserver-shim';
-import { createApp } from 'vue';
-import App from './App.vue';
-import router from './router';
-import './assets/css/tailwind.css';
-import 'primevue/resources/themes/saga-blue/theme.css'; // theme
-import 'primevue/resources/primevue.min.css'; // core CSS
-import 'primeicons/primeicons.css'; // icons
-import ToastService from 'primevue/toastservice';
-import PrimeVue from 'primevue/config'; // here
-import { createAuth0 } from '@auth0/auth0-vue';
-
-// da mettere per il login google
-import vue3GoogleLogin from 'vue3-google-login';
+import { createAuth0 } from '@auth0/auth0-vue'; // auth0 
+import '@babel/polyfill'; // primevue e primeflex (richiedono babel)
+import 'mutationobserver-shim'; // primevue e primeflex (richiedono mutationobserver)
+import { createPinia } from "pinia"; // pinia 
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate"; // pinia 
+import 'primeicons/primeicons.css'; // primevue icons
+import PrimeVue from 'primevue/config'; // primevue config
+import 'primevue/resources/primevue.min.css'; // core CSS (primevue)
+import 'primevue/resources/themes/md-light-indigo/theme.css'; // theme (primevue)
+import ToastService from 'primevue/toastservice'; // toast (primevue)
+import { createApp } from 'vue'; // Vue 3 
+import App from './App.vue'; // App.vue 
+import './assets/css/tailwind.css'; // tailwindcss 
+import router from './router'; // router 
 
 // Crea l'istanza dell'app Vue e usa il router
 const app = createApp(App).use(router);
+
+// inizializzazione auth0
 app.use(
   createAuth0({
     domain: 'dev-bmqxc24leqwhyhec.eu.auth0.com',
@@ -30,9 +31,11 @@ app.use(
 app.use(PrimeVue);
 app.use(ToastService);
 
-app.use(vue3GoogleLogin, {
-  clientId: '523712309350-64ooftdu5bto8ln30pbkfjtr88fjpp15.apps.googleusercontent.com',
-});
+// inizializzazione pinia
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
+app.use(createPinia());
+app.use(pinia);
 
 // Monta l'app Vue
 app.mount('#app');
