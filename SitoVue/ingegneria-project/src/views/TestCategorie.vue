@@ -1,20 +1,13 @@
-<script setup>
-import { decodeCredential, googleLogout, googleTokenLogin } from 'vue3-google-login';
-const callback = (response) => {
-  // decodeCredential will retrive the JWT payload from the credential
-  const userData = decodeCredential(response.credential);
-  console.log('Handle the userData', userData);
-};
-
-const getToken = () => {
-  googleTokenLogin().then((response) => {
-    console.log('token:', response);
-  });
-};
-</script>
-
 <template>
-  <GoogleLogin :callback="callback" />
-
-  <button @click="getToken">stampa token</button>
+  <div class="container">
+    <div>
+      <label>File
+        <input type="file" ref="fileInput" accept="image/*,.pdf" @change="handleFileUpload($event)"/>
+      </label>
+      <br/>
+      <br/>
+      <button v-on:click="submitFile()">Submit</button>
+    </div>
+  </div>
 </template>
+
