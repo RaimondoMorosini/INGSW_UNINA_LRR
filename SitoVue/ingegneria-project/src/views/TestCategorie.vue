@@ -1,6 +1,7 @@
 <script setup>
-import { inserisciDato, checkEsisteDato ,eliminaDato} from '../scripts/DatiUtils';
+import { inserisciDato, checkEsisteDato ,eliminaDato, getDato} from '../scripts/DatiUtils';
 import { ref } from "vue";
+import { login } from "../scripts/auth/Login";
 
 let datoEsiste = false;
 let messaggio = ref ("Il dato non esiste!"); 
@@ -23,6 +24,20 @@ const controllaDato = async () => {
 };
 
 
+
+const token = ref(null);
+const loginTest = async (email, password, ruolo) => {
+  const effettuatoLogin = await login(email, password, ruolo);
+if (effettuatoLogin) {
+  console.log('Login effettuato con successo!');
+  token.value = getDato('token');
+} else {
+  console.error('Login fallito.');
+}
+
+}
+
+
 </script>
 <template>
   
@@ -32,6 +47,10 @@ const controllaDato = async () => {
     <br>
     <button class="hover:bg-slate-400 "@click="eliminaDato(nomeDato) ">elimina Dato</button>
     <p >{{ messaggio }}</p>
-  
+    <button class="hover:bg-slate-400" @click='loginTest("3roby3@gmail.com","123","dieti")'>Login</button>
+    <p>
+      token: {{ token }}
+    </p>  
+
 </template>
 
