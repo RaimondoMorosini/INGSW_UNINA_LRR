@@ -1,22 +1,18 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia';
 
-export const useTokenStore = defineStore({
-  persist: true,
-  id: "token",
+export const useTokenStore = defineStore('token', {
   state: () => ({
-    token: JSON.parse(localStorage.getItem("token")) || "",
+    token: null,
   }),
   actions: {
-    persistToLocalStorage() {
-      localStorage.setItem("token", JSON.stringify(this.token));
+    getToken() {
+      return this.token;
     },
-    setToken(token) {
-      this.token = token;4 
-       
+    setAccessToken(token) {
+      this.token = token;
     },
-    deleteToken() {
-      this.token = "";
-       
+    clearAccessToken() {
+      this.token = null;
     },
   },
 });

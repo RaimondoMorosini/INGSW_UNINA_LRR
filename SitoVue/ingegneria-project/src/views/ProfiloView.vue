@@ -31,12 +31,16 @@
   </ul>
 
   <RouterView />
+  <p>{{ token }}</p>
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router';
-
 import { useToast } from 'primevue/usetoast';
+import { RouterView } from 'vue-router';
+import useTokenStore from '../stores/tokenStore.js';
 
 const toast = useToast();
+
+const tokenStore = useTokenStore();
+const token = tokenStore.getToken();
 </script>

@@ -19,5 +19,12 @@
 </template>
 
 <script setup>
+import { getTokenSilently } from '@auth0/auth0-spa-js';
 import Skeleton from 'primevue/skeleton';
+import useTokenStore from '../stores/tokenStore.js';
+
+const tokenStore = useTokenStore();
+
+const token = await getTokenSilently();
+tokenStore.setToken(token);
 </script>
