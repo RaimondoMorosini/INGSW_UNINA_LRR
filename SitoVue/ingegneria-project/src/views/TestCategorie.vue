@@ -1,13 +1,25 @@
 <template>
-  <div class="container">
-    <div>
-      <label>File
-        <input type="file" ref="fileInput" accept="image/*,.pdf" @change="handleFileUpload($event)"/>
-      </label>
-      <br/>
-      <br/>
-      <button v-on:click="submitFile()">Submit</button>
-    </div>
-  </div>
+  <div></div>
 </template>
 
+<script>
+import axios from 'axios'
+
+export default {
+  mounted() {
+
+    axios.post('http://localhost:8081/auth/login', {
+      email: '3roby3@gmail.com',
+      password: '123',
+      metodoDiRegistrazione: 'Dieti'
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error('Errore durante la richiesta:', error);
+      });
+
+  }
+}
+</script>
