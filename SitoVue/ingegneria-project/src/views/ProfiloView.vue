@@ -37,10 +37,8 @@
 <script setup>
 import { useToast } from 'primevue/usetoast';
 import { RouterView } from 'vue-router';
-import useTokenStore from '../stores/tokenStore.js';
 
 const toast = useToast();
 
-const tokenStore = useTokenStore();
-const token = tokenStore.getToken();
+const token = localStorage.getItem('token');
 </script>

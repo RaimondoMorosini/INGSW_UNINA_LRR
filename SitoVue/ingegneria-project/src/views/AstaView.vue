@@ -1,4 +1,6 @@
 <template>
+  <aside></aside>
+
   <div>
     <h1>{{ auction.title }}</h1>
     <p>{{ auction.description }}</p>
@@ -9,6 +11,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import Avatar from ;
 const auction = ref({
   title: 'Sample Auction',
   description: 'This is a sample auction',

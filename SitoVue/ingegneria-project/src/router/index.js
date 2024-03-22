@@ -1,5 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+const token = localStorage.getItem('token');
+
+const ifAuthenticated = (to, from, next) => {
+  if (localStorage.getItem(token)) {
+    next();
+    return;
+  }
+  router.push({ 
+    name: 'login',
+    params: {
+      returnTo: to.path,
+      query: to.query,
+    },
+  });
+ };
+
 const routes = [
   {
     path: '/',
@@ -10,6 +26,7 @@ const routes = [
   {
     path: '/profilo',
     name: 'profilo',
+    beforeEnter: ifAuthenticated,
     component: () => import('@/views/ProfiloView.vue'),
     children: [
       { path: '', component: () => import('@/components/Profilo/InformazioniProfilo.vue') },
@@ -96,7 +113,13 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/components/AuthLogin.vue'),
+    component: () => import('@/views/LoginView.vue'),
+  },
+
+  {
+    path: '/asta/:id',
+    name: 'asta',
+    component: () => import('@/views/AstaView.vue'),
   },
 
   // testing pages TODO: remove
@@ -131,5 +154,7 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
+
 
 export default router;
