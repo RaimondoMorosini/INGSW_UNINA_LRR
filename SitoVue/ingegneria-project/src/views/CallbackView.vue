@@ -19,12 +19,9 @@
 </template>
 
 <script setup>
-import { getTokenSilently } from '@auth0/auth0-spa-js';
+import { useAuth0 } from '@auth0/auth0-vue';
 import Skeleton from 'primevue/skeleton';
-import useTokenStore from '../stores/tokenStore.js';
+import { onMounted } from 'vue';
 
-const tokenStore = useTokenStore();
-
-const token = await getTokenSilently();
-tokenStore.setToken(token);
+const { getTokenSilently } = useAuth0();
 </script>
