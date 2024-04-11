@@ -30,7 +30,7 @@ public class CategoriaService {
 
             CategoriaDTO categoriaRadiceDTO = new CategoriaDTO(categoriaRadice);
 
-            if( (categoriaRepository.getNumeroFigli(categoriaRadice)) > 0 ){
+            if( haDeifigli(categoriaRadiceDTO) ){
 
                 figli = categoriaRepository.getCategorieFiglie(categoriaRadice);
 
@@ -55,7 +55,7 @@ public class CategoriaService {
 
     private void costruisciGerarchiaRicorsivamente(CategoriaDTO categoriaParametro){
 
-        if( (categoriaRepository.getNumeroFigli(categoriaParametro.getLabel())) > 0 ){
+        if(haDeifigli(categoriaParametro)){
 
             List<String> figli = categoriaRepository.getCategorieFiglie(categoriaParametro.getLabel());
 
@@ -68,6 +68,10 @@ public class CategoriaService {
                 categoriaParametro.getChildren().add(figlioDTO);
             }
         }
+    }
+
+    private boolean haDeifigli(CategoriaDTO categoriaParametro) {
+        return categoriaRepository.getNumeroFigli(categoriaParametro.getLabel()) > 0;
     }
 
 }

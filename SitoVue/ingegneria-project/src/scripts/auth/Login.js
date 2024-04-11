@@ -11,14 +11,8 @@ function login(emailInput, passwordInput , metodoDiRegistrazioneInPut) {
       .then((response) => {
         console.log("Token: ",response.data);
         // Salva il token JWT come cookie
-        inserisciDato('token', token);
-        
-      })
-
-    //const { token } = risposta;
-    //console.log("risposta login axios:  ",token);
-
-
+        inserisciDato('token', response.data);
+      });
 
     // Restituisce true se il login è andato a buon fine
     return true;

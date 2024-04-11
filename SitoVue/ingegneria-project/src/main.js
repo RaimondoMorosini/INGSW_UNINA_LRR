@@ -13,8 +13,16 @@ import App from './App.vue'; // App.vue
 import './assets/css/tailwind.css'; // tailwindcss 
 import router from './router'; // router 
 
+import axios from "axios";
+
+
 // Crea l'istanza dell'app Vue e usa il router
 const app = createApp(App).use(router);
+
+// inizializzazione axios
+axios.defaults.baseURL = "localhost:8081/";
+axios.defaults.headers.common['Authorization']= 'Bearer ' + localStorage.getItem('token');
+
 
 // inizializzazione auth0
 app.use(

@@ -1,10 +1,10 @@
 package api.dieti2024.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
-
-import java.util.List;
-
 
 @Data
 @Entity
@@ -12,10 +12,9 @@ import java.util.List;
 public class Categoria {
 
     @Id
+    @Column(name = "nome")
     private String nome;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "padre")
-    private Categoria padre;
-
+    @Column(name = "padre")
+    private String padre;
 }
