@@ -71,7 +71,7 @@ import Vetrina from '@/components/Vetrina.vue';
 
 import { onMounted, ref } from 'vue';
 
-import axios from 'axios';
+import {getCategorieRest} from "../scripts/categorie.js";
 
 const value = ref(null);
 const selectedCategory = ref();
@@ -81,11 +81,9 @@ const nodes = ref([]);
 
 const getCategorie = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/getGerarchiaCategorie');
-        console.log(response.data)
-        nodes.value = response.data; // Assuming the response contains an array
+        nodes.value =await getCategorieRest(); // Assuming the response contains an array
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error categorie non trovate:', error);
       }
     };
 

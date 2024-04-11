@@ -1,25 +1,24 @@
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import {getRest} from"./RestUtils.js";
 
-export default {
-  setup() {
-    const nodes = ref([]);
+// Funzione per ottenere tutte le categorie dal server
 
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8081/categorie');
-        nodes.value = response.data; // Assuming the response contains an array
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+async function getCategorieRest() {
+    try {
+      let data= null;
+        if (sessionStorage.getItem('categorie') === null) {
+          const response = await getRest('getGerarchiaCategorie');
+           data = response.data;
+          sessionStorage.setItem('categorie', JSON.stringify(data));
 
-    onMounted(() => {
-      fetchData();
-    });
+        }else{
+            data= JSON.parse(localStorage.getItem('categorie'));
+        }
+        return data;
 
-    return {
-      nodes
-    };
-  }
-};
+    } catch (error) {
+        console.error(error);
+        throw new Error('Impossibile ottenere le categorie dal server');
+    }
+}
+
+export { getCategorieRest };
