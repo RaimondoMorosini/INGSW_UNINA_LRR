@@ -24,6 +24,9 @@ function checkEsisteDato(nomeDato) {
 function eliminaDato(nomeCookie) {
     document.cookie = nomeCookie + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
   }
-  
+  //dataScadenza deve essere un oggetto Date
+function setScadenza(nomeCookie,dataScadenza){
+    document.cookie = nomeCookie + "=; expires="+dataScadenza.toUTCString();  
+}
   export { checkEsisteDato, inserisciDato, getDato,eliminaDato };
   

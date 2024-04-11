@@ -11,7 +11,7 @@ async function getRest(path) {
         return response;
     } catch (error) {
         console.error(error);
-        throw new Error('Impossibile ottenere l\'elemento dal server');
+        throw new Error('Impossibile ottenere l\'elemento dal server' + error);
     }
 }
 
