@@ -1,21 +1,23 @@
 import axios from 'axios';
 import {inserisciDato} from "../DatiUtils";
-// Funzione per effettuare il login
-async function login(email, password , metodoDiRegistrazione) {
+// Funzione per effettuare il login 
+function login(emailInput, passwordInput , metodoDiRegistrazioneInPut) {
   try {
-    const risposta = await axios.post('http://localhost:8081/auth/login', {
-      "email":"3roby3@gmail.com",
-      "password":"123",
-      "metodoDiRegistrazione":"dieti"
-  });
+    axios.post('http://localhost:8081/auth/login', {
+      email: emailInput,
+      password: passwordInput,
+      metodoDiRegistrazione: metodoDiRegistrazioneInPut
+    })
+      .then((response) => {
+        console.log("Token: ",response.data);
+        // Salva il token JWT come cookie
+        inserisciDato('token', token);
+        
+      })
 
-    const { token } = risposta.data;
-    console.log("risposta login axios:  ",token);
+    //const { token } = risposta;
+    //console.log("risposta login axios:  ",token);
 
-    // Salva il token JWT come cookie
-    document.cookie = `token=${token};path=/`;
-
-    //inserisciDato('token', token);
 
 
     // Restituisce true se il login è andato a buon fine
