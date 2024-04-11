@@ -1,6 +1,6 @@
 <template>
-  <div class="inline-flex">
-    <aside class="mx-5 my-5 max-w-[40%] bg-slate-100">
+  <div class="w-fill mx-5 my-3 flex flex-col justify-between gap-3 md:flex-row">
+    <aside class="bg-slate-100 ring-2 ring-black md:w-[25%]">
       <Galleria
         :value="images"
         :responsiveOptions="responsiveOptions"
@@ -16,14 +16,14 @@
       </Galleria>
     </aside>
 
-    <div class="mx-5 my-5">
+    <div class="bg-slate-100 ring-2 ring-black md:w-[75%]">
       <h1>{{ auction.title }}</h1>
       <p>{{ auction.description }}</p>
       <p>Current Price: {{ auction.currentPrice }}</p>
-      <button @click="placeOffer">Place Offer</button>
+      <button @click="placeOffer" class="mx-1 my-1 ring-2 ring-black">Place Offer</button>
     </div>
 
-    <div class="mx-5 my-5 bg-slate-100">
+    <div class="bg-slate-100 ring-2 ring-black md:w-[25%]">
       <h2>Offers</h2>
       <ul>
         <li>Offer 1</li>
@@ -32,6 +32,7 @@
       </ul>
     </div>
   </div>
+  <div class="mx-5 my-3 ring-2 ring-black">timer</div>
 </template>
 
 <script setup>
