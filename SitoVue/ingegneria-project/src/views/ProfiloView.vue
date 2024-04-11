@@ -31,7 +31,6 @@
   </ul>
 
   <RouterView />
-  <p>{{ token }}</p>
 </template>
 
 <script setup>
@@ -39,6 +38,4 @@ import { useToast } from 'primevue/usetoast';
 import { RouterView } from 'vue-router';
 
 const toast = useToast();
-
-const token = localStorage.getItem('token');
 </script>
