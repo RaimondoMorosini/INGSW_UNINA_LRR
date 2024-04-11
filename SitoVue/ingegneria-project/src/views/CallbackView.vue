@@ -23,5 +23,14 @@ import { useAuth0 } from '@auth0/auth0-vue';
 import Skeleton from 'primevue/skeleton';
 import { onMounted } from 'vue';
 
-const { getTokenSilently } = useAuth0();
+const {idTokenClaims,getAccessTokenSilently  } = useAuth0();
+onMounted(async () => {
+  try {
+    console.log('Getting token');
+    console.log("idtoken",idTokenClaims);
+    console.log("token ", getAccessTokenSilently.toString());
+  } catch (error) {
+    console.error('errore getting token ',error);
+  }
+});
 </script>
