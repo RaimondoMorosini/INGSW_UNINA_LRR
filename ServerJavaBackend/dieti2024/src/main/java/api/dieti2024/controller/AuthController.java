@@ -2,6 +2,7 @@ package api.dieti2024.controller;
 
 import api.dieti2024.dto.CredenzialiUtenteDTO;
 import api.dieti2024.dto.ReqRes;
+import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.security.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,13 @@ public class AuthController {
         return "Hello";
     }
     @PostMapping("/signup")
-    public String genTokenAfterSingUp(@RequestBody CredenzialiUtenteDTO signUpRequest){
-        return authService.registrazione(signUpRequest);
+    public ResponseEntity<String> genTokenAfterSingUp(@RequestBody CredenzialiUtenteDTO signUpRequest){
+        try {
+            String token = authService.registrazione(signUpRequest);
+            return ResponseEntity.ok(token);
+        }catch (ApiException e){
+            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
+        }
     }
     @PostMapping("/login")
     public String GenTokenBylogin(@RequestBody CredenzialiUtenteDTO credenzialiInserite){

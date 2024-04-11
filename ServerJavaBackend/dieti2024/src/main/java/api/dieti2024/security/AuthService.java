@@ -37,6 +37,10 @@ public class AuthService {
 
     public String registrazione(CredenzialiUtenteDTO credenzialiUtenteDTO) {
         try{
+        //verifica se l'utente è già presente nel database
+        if (utenteRepo.existsById(credenzialiUtenteDTO.email()) && credenzialiUtenteDTO.metodoDiRegistrazione().equals("dieti") ) {
+            throw new ApiException("Utente già presente", HttpStatus.CONFLICT);
+        }
 
         Utente utenteModel = new Utente();
         utenteModel.setEmail(credenzialiUtenteDTO.email());
@@ -49,7 +53,10 @@ public class AuthService {
         }
 
         utenteRepo.save(utenteModel);
+
         return jwtUtils.generateToken(DatiUtentePerTokenDTO.fromUserModel(utenteModel));
+        }catch (ApiException e){
+            throw e;
         }catch (Exception e){
             throw new ApiException("Errore nella registrazione", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -62,6 +69,11 @@ public class AuthService {
      */
     public String login(final CredenzialiUtenteDTO credenzialiUtenteDTO){
         try {
+
+            //se l'utente non è presente nel database lo registra
+            if (!utenteRepo.existsById(credenzialiUtenteDTO.email()) && credenzialiUtenteDTO.metodoDiRegistrazione().equals("auth0") ) {
+               return registrazione(credenzialiUtenteDTO);
+            }
             Utente utenteRecuperatoTramiteEmail = VerificaUtente(credenzialiUtenteDTO);
 
             DatiUtentePerTokenDTO datiUtentePerTokenDTO = DatiUtentePerTokenDTO.fromUserModel(utenteRecuperatoTramiteEmail);
