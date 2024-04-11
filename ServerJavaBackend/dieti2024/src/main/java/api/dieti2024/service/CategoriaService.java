@@ -30,7 +30,7 @@ public class CategoriaService {
 
             CategoriaDTO categoriaRadiceDTO = new CategoriaDTO(categoriaRadice);
 
-            if( (categoriaRepository.getNumeroFigli(categoriaRadice)) > 0 ){
+            if( haDeifigli(categoriaRadiceDTO) ){
 
                 figli = categoriaRepository.getCategorieFiglie(categoriaRadice);
 
