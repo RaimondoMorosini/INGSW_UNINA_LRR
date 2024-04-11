@@ -1,28 +1,68 @@
 <template>
-  <aside></aside>
+  <div class="inline-flex">
+    <aside class="mx-5 my-5 max-w-[40%] bg-slate-100">
+      <Galleria
+        :value="images"
+        :responsiveOptions="responsiveOptions"
+        :numVisible="5"
+        containerStyle="max-width: 100%"
+      >
+        <template #item="slotProps">
+          <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%" />
+        </template>
+        <template #thumbnail="slotProps">
+          <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt" />
+        </template>
+      </Galleria>
+    </aside>
 
-  <div>
-    <h1>{{ auction.title }}</h1>
-    <p>{{ auction.description }}</p>
-    <p>Current Price: {{ auction.currentPrice }}</p>
-    <button @click="placeOffer">Place Offer</button>
+    <div class="mx-5 my-5">
+      <h1>{{ auction.title }}</h1>
+      <p>{{ auction.description }}</p>
+      <p>Current Price: {{ auction.currentPrice }}</p>
+      <button @click="placeOffer">Place Offer</button>
+    </div>
+
+    <div class="mx-5 my-5 bg-slate-100">
+      <h2>Offers</h2>
+      <ul>
+        <li>Offer 1</li>
+        <li>Offer 2</li>
+        <li>Offer 3</li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import Avatar from ;
+import { onMounted, ref } from 'vue';
+import { PhotoService } from '../scripts/PhotoService';
+
+import Galleria from 'primevue/galleria';
+
 const auction = ref({
   title: 'Sample Auction',
   description: 'This is a sample auction',
   currentPrice: 100,
 });
 
+onMounted(() => {
+  PhotoService.getImages().then((data) => (images.value = data));
+});
+
+const images = ref();
+const responsiveOptions = ref([
+  {
+    breakpoint: '1300px',
+    numVisible: 4,
+  },
+  {
+    breakpoint: '575px',
+    numVisible: 1,
+  },
+]);
+
 function placeOffer() {
   // Add your logic to place an offer here
 }
 </script>
-
-<style scoped>
-/* Add your custom styles here */
-</style>
