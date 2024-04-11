@@ -32,14 +32,48 @@
       </ul>
     </div>
   </div>
-  <div class="mx-5 my-3 ring-2 ring-black">timer</div>
+  <div class="mx-5 my-3 ring-2 ring-black">
+    <div>
+      <h1>vue-timer-hook</h1>
+      <p>Timer Demo</p>
+      <div>
+        <span>{{ timer.days }}</span
+        >:<span>{{ timer.hours }}</span
+        >:<span>{{ timer.minutes }}</span
+        >:<span>{{ timer.seconds }}</span>
+      </div>
+      <p>{{ timer.isRunning ? 'Running' : 'Not running' }}</p>
+      <button @click="timer.start()" class="hover:bg-indigo-100">Start</button>
+      <button @click="timer.pause()" class="hover:bg-indigo-100">Pause</button>
+      <button @click="timer.resume()" class="hover:bg-indigo-100">Resume</button>
+      <button @click="restartFive()" class="hover:bg-indigo-100">Restart</button>
+    </div>
+  </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watchEffect } from 'vue';
+import { useTimer } from 'vue-timer-hook';
 import { PhotoService } from '../scripts/PhotoService';
 
 import Galleria from 'primevue/galleria';
+
+const time = new Date();
+time.setSeconds(time.getSeconds() + 600); // 10 minutes timer
+const timer = useTimer(time);
+const restartFive = () => {
+  // Restarts to 5 minutes timer
+  const time = new Date();
+  time.setSeconds(time.getSeconds() + 300);
+  timer.restart(time);
+};
+onMounted(() => {
+  watchEffect(async () => {
+    if (timer.isExpired.value) {
+      console.warn('IsExpired');
+    }
+  });
+});
 
 const auction = ref({
   title: 'Sample Auction',
@@ -67,3 +101,55 @@ function placeOffer() {
   // Add your logic to place an offer here
 }
 </script>
+
+<style scoped>
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+#app {
+  text-align: center;
+}
+
+body {
+  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+}
+#app {
+  padding: 10px;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+input[type='number'] {
+  padding: 10px;
+  font-size: inherit;
+  width: 100%;
+}
+
+button {
+  padding: 10px;
+}
+
+[v-cloak] {
+  opacity: 0;
+}
+
+label {
+  width: 20%;
+  padding: 10px 0;
+  display: inline-block;
+}
+
+.timer {
+  font-size: 2em;
+  margin: 20px;
+}
+</style>

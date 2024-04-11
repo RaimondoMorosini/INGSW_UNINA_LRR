@@ -21,7 +21,6 @@
 <script setup>
 import { useAuth0 } from '@auth0/auth0-vue';
 import Skeleton from 'primevue/skeleton';
-import { onMounted } from 'vue';
 
 const { getTokenSilently } = useAuth0();
 </script>
