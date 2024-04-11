@@ -26,7 +26,7 @@ const routes = [
   {
     path: '/profilo',
     name: 'profilo',
-    beforeEnter: ifAuthenticated,
+    
     component: () => import('@/views/ProfiloView.vue'),
     children: [
       { path: '', component: () => import('@/components/Profilo/InformazioniProfilo.vue') },
@@ -101,12 +101,6 @@ const routes = [
   {
     path: '/categorie/altro',
     name: 'altro',
-    component: () => import('@/views/AboutView.vue'),
-  },
-
-  {
-    path: '/profilo/notifiche',
-    name: 'notifiche',
     component: () => import('@/views/AboutView.vue'),
   },
 
