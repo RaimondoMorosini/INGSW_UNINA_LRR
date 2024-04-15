@@ -8,7 +8,7 @@ async function getCategorieRest() {
       let data= getDato('categorie');
       
         if (data === null) {
-          const response = await getRest('getGerarchiaCategorie');
+          const response = await getRest('public/getGerarchiaCategorie');
            data = response.data;
           inserisciDato('categorie', JSON.stringify(data));
         }
