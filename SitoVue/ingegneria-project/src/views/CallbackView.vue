@@ -21,15 +21,18 @@
 <script setup>
 import { useAuth0 } from '@auth0/auth0-vue';
 import Skeleton from 'primevue/skeleton';
+import { onMounted } from 'vue';
 
-const {idTokenClaims,getAccessTokenSilently  } = useAuth0();
+const { idTokenClaims, getAccessTokenSilently, isAuthenticated } = useAuth0();
+
 onMounted(async () => {
   try {
     console.log('Getting token');
-    console.log("idtoken",idTokenClaims);
-    console.log("token ", getAccessTokenSilently.toString());
+    console.log('isAuthenticated', isAuthenticated.value);
   } catch (error) {
-    console.error('errore getting token ',error);
+    console.error('errore getting token ', error);
   }
 });
+
+console.log('isAuthenticated', isAuthenticated.value);
 </script>

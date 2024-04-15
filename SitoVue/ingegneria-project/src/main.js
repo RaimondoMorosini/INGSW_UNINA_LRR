@@ -1,5 +1,6 @@
 import { createAuth0 } from '@auth0/auth0-vue'; // auth0 
 import '@babel/polyfill'; // primevue e primeflex (richiedono babel)
+import axios from "axios";
 import 'mutationobserver-shim'; // primevue e primeflex (richiedono mutationobserver)
 import { createPinia } from "pinia"; // pinia 
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate"; // pinia 
@@ -9,11 +10,10 @@ import 'primevue/resources/primevue.min.css'; // core CSS (primevue)
 import 'primevue/resources/themes/md-light-indigo/theme.css'; // theme (primevue)
 import ToastService from 'primevue/toastservice'; // toast (primevue)
 import { createApp } from 'vue'; // Vue 3 
+import CircularCountDownTimer from 'vue-circular-count-down-timer'; // circular count down timer
 import App from './App.vue'; // App.vue 
 import './assets/css/tailwind.css'; // tailwindcss 
 import router from './router'; // router 
-
-import axios from "axios";
 
 
 // Crea l'istanza dell'app Vue e usa il router
@@ -23,6 +23,8 @@ const app = createApp(App).use(router);
 axios.defaults.baseURL = "localhost:8081/";
 axios.defaults.headers.common['Authorization']= 'Bearer ' + localStorage.getItem('token');
 
+// inizializzazione circular count down timer
+app.use(CircularCountDownTimer);
 
 // inizializzazione auth0
 app.use(

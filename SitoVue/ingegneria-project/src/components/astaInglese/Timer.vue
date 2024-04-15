@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h1>vue-timer-hook</h1>
-    <p>Timer Demo</p>
+  <div class="px-3 py-3">
     <div class="text-2xl">
       <span class="rounded bg-slate-200 px-1 py-1">{{ timer.days }}</span
       >:<span class="rounded bg-slate-200 px-1 py-1">{{ timer.hours }}</span
