@@ -7,7 +7,7 @@ axios.defaults.headers.common['Authorization']= 'Bearer ' + localStorage.getItem
 async function getRest(path) {
     try {
         const response = await axios.get(`${path}`);
-        console.log(response.data);
+        console.log("Get path:",path," response.data:",response.data);
         return response;
     } catch (error) {
         console.error(error);
@@ -15,6 +15,18 @@ async function getRest(path) {
     }
 }
 
+async function postRest(path, data) {
+    try {
+        console.log("Post path:",path," dati body: ",JSON.stringify(data));
+        const response = await axios.post(`${path}`, data );
+        console.log(" response.data:",response.data);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Impossibile inviare l\'elemento al server' + error);
+    }
+}
+
 export {
-    getRest
+    getRest, postRest
 };
