@@ -7,7 +7,7 @@ import piniaPluginPersistedstate from "pinia-plugin-persistedstate"; // pinia
 import 'primeicons/primeicons.css'; // primevue icons
 import PrimeVue from 'primevue/config'; // primevue config
 import 'primevue/resources/primevue.min.css'; // core CSS (primevue)
-import 'primevue/resources/themes/aura-light-pink/theme.css'; // theme (primevue)
+import 'primevue/resources/themes/aura-light-primary/theme.css'; // theme (primevue)
 import ToastService from 'primevue/toastservice'; // toast (primevue)
 import { createApp } from 'vue'; // Vue 3 
 import App from './App.vue'; // App.vue 

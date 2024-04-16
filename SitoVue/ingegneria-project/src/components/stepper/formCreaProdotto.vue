@@ -1,13 +1,10 @@
 <template>
-  <div>
-    <h1>Form Crea Prodotto</h1>
-  </div>
   <div class="flex flex-col justify-between gap-4 lg:flex-row">
     <!--TODO: rimuovere i ring di supporto a pagina finita-->
     <div
-      class="contenitore-form jusify-center flex w-[100%] flex-col justify-between gap-4 ring-2 ring-black lg:w-[55%]"
+      class="contenitore-form jusify-center flex w-[100%] flex-col justify-between gap-4 lg:w-[55%]"
     >
-      <div class="nome-prodotto">
+      <div class="nome-prodotto flex">
         <label for="nomeProdotto">Nome Prodotto</label>
         <InputText class="w-[100%] md:w-[60%]" id="nomeProdotto" v-model="nomeProdotto" />
       </div>
