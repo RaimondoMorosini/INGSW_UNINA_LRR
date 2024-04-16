@@ -79,7 +79,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
+
+        <!-- Dipedenza per blob azure -->
+
+        <dependency>
+            <groupId>com.azure.spring</groupId>
+            <artifactId>spring-cloud-azure-starter-storage-blob</artifactId>
+        </dependency>
+
+
     </dependencies>
+
 
     <build>
         <plugins>
