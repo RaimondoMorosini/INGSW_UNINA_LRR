@@ -125,6 +125,12 @@ const routes = [
   },
 
   {
+    path: '/TestRoberto',
+    name: 'TestRoberto',
+    component: () => import('@/views/TestRoberto.vue'),
+  },
+
+  {
     path: '/TestLorenzo',
     name: 'TestLorenzo',
     component: () => import('@/views/TestLorenzo.vue'),
