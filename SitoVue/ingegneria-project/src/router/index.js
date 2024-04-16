@@ -116,12 +116,24 @@ const routes = [
     component: () => import('@/views/AstaView.vue'),
   },
 
+  {
+    path: '/creaAsta',
+    name: 'creaAsta', 
+    component: () => import('@/views/CreazioneAstaView.vue'),
+  },
+
   // testing pages TODO: remove
 
   {
     path: '/TestRai',
     name: 'TestRai',
     component: () => import('@/views/TestRai.vue'),
+  },
+
+  {
+    path: '/TestRoberto',
+    name: 'TestRoberto',
+    component: () => import('@/views/TestRoberto.vue'),
   },
 
   {

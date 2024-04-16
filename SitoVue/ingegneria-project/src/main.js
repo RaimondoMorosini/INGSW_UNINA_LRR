@@ -1,19 +1,18 @@
 import { createAuth0 } from '@auth0/auth0-vue'; // auth0 
 import '@babel/polyfill'; // primevue e primeflex (richiedono babel)
+import axios from "axios";
 import 'mutationobserver-shim'; // primevue e primeflex (richiedono mutationobserver)
 import { createPinia } from "pinia"; // pinia 
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate"; // pinia 
 import 'primeicons/primeicons.css'; // primevue icons
 import PrimeVue from 'primevue/config'; // primevue config
 import 'primevue/resources/primevue.min.css'; // core CSS (primevue)
-import 'primevue/resources/themes/md-light-indigo/theme.css'; // theme (primevue)
+import 'primevue/resources/themes/aura-light-primary/theme.css'; // theme (primevue)
 import ToastService from 'primevue/toastservice'; // toast (primevue)
 import { createApp } from 'vue'; // Vue 3 
 import App from './App.vue'; // App.vue 
 import './assets/css/tailwind.css'; // tailwindcss 
 import router from './router'; // router 
-
-import axios from "axios";
 
 
 // Crea l'istanza dell'app Vue e usa il router

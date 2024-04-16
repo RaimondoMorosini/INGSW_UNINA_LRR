@@ -1,4 +1,3 @@
-<!-- eslint-disable prettier/prettier -->
 <template>
   <div class="px-3">
     <ul
@@ -52,11 +51,13 @@
           />
         </li>
         <li class="my-6 md:mx-4 md:my-0">
-          <p
-            class="!sm:w-[100%] mt-1 block rounded bg-primario-200 px-2 py-1 text-center font-semibold ring-2 ring-slate-300/80 hover:bg-primario-100 md:mx-4"
-          >
-            Crea Asta
-          </p>
+          <RouterLink :to="{ name: 'creaAsta' }">
+            <p
+              class="!sm:w-[100%] mt-1 block rounded bg-primario-200 px-2 py-1 text-center font-semibold ring-2 ring-slate-300/80 hover:bg-primario-100 md:mx-4"
+            >
+              Crea Asta
+            </p>
+          </RouterLink>
         </li>
       </template>
     </ul>
@@ -71,11 +72,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import LoginButton from '@/components/buttons/LoginButtom.vue';
 import LogoutButton from '@/components/buttons/LogOut.vue';
+import LoginButton from '@/components/buttons/LoginButtom.vue';
 import SignupButton from '@/components/buttons/SignUp.vue';
 import { useAuth0 } from '@auth0/auth0-vue';
+import { ref } from 'vue';
 
 const { isAuthenticated } = useAuth0();
 
