@@ -11,12 +11,7 @@
     :nextText="`Avanti`"
     :finalizeText="`Conferma`"
   >
-    <template #1
-      >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tincidunt hendrerit risus
-      nec vehicula. Etiam in aliquet velit. Nunc in bibendum ligula, quis vehicula ante. Nullam
-      placerat massa ante, non dapibus lacus interdum vitae. Donec eu leo at elit efficitur vehicula
-      in at velit. Fusce nec ante nec erat pellentesque fringilla. Sed mollis, ante at faucibus
-      aliquam, turpis ante molestie lectus, sit amet mollis nisi velit sit amet ligula.
+    <template #1>
       <CreaProdotto />
     </template>
     <template #2
@@ -42,7 +37,7 @@ import { ref } from 'vue';
 import { Steppy } from 'vue3-steppy';
 import CreaProdotto from '../components/stepper/formCreaProdotto.vue';
 
-const coloreBG = '#f1f5f9';
+//const coloreBG = '#f1f5f9';
 const coloreMain = '#cd87f6';
 const coloreSecondario = '#f1f5f9';
 
