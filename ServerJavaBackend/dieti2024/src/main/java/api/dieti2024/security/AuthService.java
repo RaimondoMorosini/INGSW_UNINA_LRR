@@ -25,7 +25,6 @@ public class AuthService {
         utente.setEmail("prova");
         utente.setPassword("prova");
         utente.setMetodoDiRegistrazione("prova");
-        //utente=utenteRepo.findById("roby@gmail.com").orElseThrow();
         try {
             utenteRepo.save(utente);
         }catch (Exception e){

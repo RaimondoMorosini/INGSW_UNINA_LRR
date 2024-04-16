@@ -33,7 +33,7 @@ public class ProdottoAstaController {
     }
 
 
-    @PostMapping("/CreaAsta")
+    @PostMapping("/creaasta")
     public ResponseEntity addProdottoAsta(@RequestBody CreaAstaDTO datiPerCreazioneDtoInput){
         try {
             astaFacadeService.creaAsta(datiPerCreazioneDtoInput);
