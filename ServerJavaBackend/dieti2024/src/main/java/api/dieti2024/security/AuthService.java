@@ -1,7 +1,7 @@
 package api.dieti2024.security;
 
-import api.dieti2024.dto.CredenzialiUtenteDTO;
-import api.dieti2024.dto.DatiUtentePerTokenDTO;
+import api.dieti2024.dto.auth.CredenzialiUtenteDTO;
+import api.dieti2024.dto.auth.DatiUtentePerTokenDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Utente;
 import api.dieti2024.repository.UserRepository;

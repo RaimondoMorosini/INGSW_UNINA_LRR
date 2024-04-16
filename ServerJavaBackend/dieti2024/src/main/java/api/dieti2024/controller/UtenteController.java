@@ -1,6 +1,6 @@
 package api.dieti2024.controller;
 
-import api.dieti2024.dto.DatiProfiloUtenteDTO;
+import api.dieti2024.dto.utente.ProfiloUtentePublicoDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.util.ControllerRestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +16,17 @@ public class UtenteController {
     @Autowired
     private api.dieti2024.service.utenteService utenteService;
     @GetMapping("/datiProfilo")
-      public DatiProfiloUtenteDTO getDatiProfilo(@RequestParam String email){
+      public ProfiloUtentePublicoDTO getDatiProfilo(@RequestParam String email){
         return utenteService.getDatiProfilo(email);
     }
     @PutMapping("/datiProfilo")
-    public ResponseEntity updateDatiProfilo( @RequestBody DatiProfiloUtenteDTO datiProfiloUtenteDTO){
+    public ResponseEntity updateDatiProfilo( @RequestBody ProfiloUtentePublicoDTO profiloUtentePublicoDTO){
 
         String email = controllerUtil.getEmailOfUtenteCorrente();
 
         try{
-            utenteService.updateDatiProfilo(email,datiProfiloUtenteDTO);
-            ResponseEntity resp = ResponseEntity.status(HttpStatus.OK).body("Dati aggiornati\n"+datiProfiloUtenteDTO);
+            utenteService.updateDatiProfilo(email, profiloUtentePublicoDTO);
+            ResponseEntity resp = ResponseEntity.status(HttpStatus.OK).body("Dati aggiornati\n"+ profiloUtentePublicoDTO);
             return resp;
         }catch (ApiException e) {
             String message = e.getMessage();

@@ -1,7 +1,7 @@
 package api.dieti2024.service;
 
-import api.dieti2024.dto.DatiProfiloUtenteDTO;
-import api.dieti2024.dto.UserDetailsDto;
+import api.dieti2024.dto.utente.ProfiloUtentePublicoDTO;
+import api.dieti2024.dto.auth.UserDetailsDto;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Utente;
 import api.dieti2024.repository.UserRepository;
@@ -33,20 +33,20 @@ public class utenteService {
         return utente;
     }
 
-    public DatiProfiloUtenteDTO getDatiProfilo(String email){
+    public ProfiloUtentePublicoDTO getDatiProfilo(String email){
         Utente utente = getUtenteByEmail(email);
-        DatiProfiloUtenteDTO datiProfiloUtenteDTO = DatiProfiloUtenteDTO.fromUserModel(utente);
-        return datiProfiloUtenteDTO;
+        ProfiloUtentePublicoDTO profiloUtentePublicoDTO = ProfiloUtentePublicoDTO.fromUserModel(utente);
+        return profiloUtentePublicoDTO;
     }
-    public void updateDatiProfilo(String email,  DatiProfiloUtenteDTO datiProfiloUtenteDTO){
+    public void updateDatiProfilo(String email,  ProfiloUtentePublicoDTO profiloUtentePublicoDTO){
         try {
             Utente utente = getUtenteByEmail(email);
 
-            utente.setNome(datiProfiloUtenteDTO.nome());
-            utente.setCognome(datiProfiloUtenteDTO.cognome());
-            utente.setBio(datiProfiloUtenteDTO.bio());
-            utente.setSiti(datiProfiloUtenteDTO.siti());
-            utente.setAreaGeografica(datiProfiloUtenteDTO.areaGeografica());
+            utente.setNome(profiloUtentePublicoDTO.nome());
+            utente.setCognome(profiloUtentePublicoDTO.cognome());
+            utente.setBio(profiloUtentePublicoDTO.bio());
+            utente.setSiti(profiloUtentePublicoDTO.siti());
+            utente.setAreaGeografica(profiloUtentePublicoDTO.areaGeografica());
             utenteRepository.save(utente);
         }catch (ApiException e) {
             throw e;

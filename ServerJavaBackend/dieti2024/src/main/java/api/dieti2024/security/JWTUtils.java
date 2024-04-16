@@ -7,8 +7,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import api.dieti2024.dto.DatiUtentePerTokenDTO;
-import com.okta.jwt.AccessTokenVerifier;
+import api.dieti2024.dto.auth.DatiUtentePerTokenDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

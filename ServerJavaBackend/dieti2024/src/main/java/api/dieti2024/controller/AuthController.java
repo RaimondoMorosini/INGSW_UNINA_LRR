@@ -1,7 +1,6 @@
 package api.dieti2024.controller;
 
-import api.dieti2024.dto.CredenzialiUtenteDTO;
-import api.dieti2024.dto.ReqRes;
+import api.dieti2024.dto.auth.CredenzialiUtenteDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.security.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;

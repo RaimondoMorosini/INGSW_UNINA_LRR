@@ -1,6 +1,6 @@
 package api.dieti2024.configuration;
 
-import api.dieti2024.dto.UserDetailsDto;
+import api.dieti2024.dto.auth.UserDetailsDto;
 import api.dieti2024.security.JWTUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

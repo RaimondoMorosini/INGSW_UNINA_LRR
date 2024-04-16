@@ -1,4 +1,4 @@
-package api.dieti2024.dto;
+package api.dieti2024.dto.auth;
 
 import api.dieti2024.model.Utente;
 

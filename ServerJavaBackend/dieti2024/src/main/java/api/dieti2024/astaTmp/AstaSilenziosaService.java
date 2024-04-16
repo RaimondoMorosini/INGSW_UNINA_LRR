@@ -2,14 +2,8 @@ package api.dieti2024.astaTmp;
 
 import api.dieti2024.dto.DatiCreazioneAstaDTODEPRECATO;
 import api.dieti2024.model.Offerta;
-import api.dieti2024.repository.ProdottoService;
-import org.springframework.stereotype.Component;
 
-@Component
-public class AstaIngleseService implements AstaStrategy{
-
-private ProdottoService prodottoService;
-
+public class AstaSilenziosaService implements AstaStrategy {
     @Override
     public void creaAsta(DatiCreazioneAstaDTODEPRECATO datiPerCreazioneDtoInput) {
 

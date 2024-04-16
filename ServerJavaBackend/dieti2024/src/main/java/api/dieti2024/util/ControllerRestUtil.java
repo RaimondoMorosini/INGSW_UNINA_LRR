@@ -1,6 +1,6 @@
 package api.dieti2024.util;
 
-import api.dieti2024.dto.UserDetailsDto;
+import api.dieti2024.dto.auth.UserDetailsDto;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class ControllerRestUtil {

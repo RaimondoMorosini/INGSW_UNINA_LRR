@@ -23,7 +23,7 @@ public class Offerta {
     @Column(name = "utente")
     private String emailUtente;
 
-    @Column(name = "prodotto")
+    @Column(name = "asta")
     private int prodottoId;
 
 }

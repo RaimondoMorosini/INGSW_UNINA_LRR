@@ -1,4 +1,4 @@
-package api.dieti2024.dto;
+package api.dieti2024.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

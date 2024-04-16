@@ -1,40 +1,49 @@
 package api.dieti2024.controller;
 
-import api.dieti2024.dto.DatiCreazioneAstaDTO;
-import api.dieti2024.model.ProdottoInAsta;
-import api.dieti2024.service.ProdottoAstaService;
+import api.dieti2024.dto.asta.CreaAstaDTO;
+import api.dieti2024.exceptions.ApiException;
+import api.dieti2024.model.Prodotto;
+import api.dieti2024.service.Asta.AstaFacadeService;
+import api.dieti2024.service.Asta.AstaService;
+import api.dieti2024.service.Asta.ProdottoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("ALL")
+
 @RestController
 @CrossOrigin
 @RequestMapping("/asta")
 public class ProdottoAstaController {
 
     @Autowired
-    ProdottoAstaService prodottoAstaService;
+    ProdottoService prodottoService;
+    @Autowired
+    AstaService astaService;
 
+    @Autowired
+    AstaFacadeService astaFacadeService;
     @GetMapping("/getAllAste")
-    public List<ProdottoInAsta> getAllAste(){
+    public List<Prodotto> getAllAste(){
 
-        return prodottoAstaService.getAllAste();
+        return prodottoService.getAllAste();
     }
 
-    @PostMapping("/addProdottoAsta")
-    public void addProdottoAsta(@RequestBody DatiCreazioneAstaDTO datiCreazioneDto){
-        double baseAsta;
-        double prezzo_attuale;
-        long data_scadenza;
-        long data_inizio;
-        String nome_prodotto  ;
-        String descrizione;
-        String categoria;
-        List<String> immagini = new ArrayList<>();
-        String tipoAsta;
+
+    @PostMapping("/CreaAsta")
+    public ResponseEntity addProdottoAsta(@RequestBody CreaAstaDTO datiPerCreazioneDtoInput){
+        try {
+            astaFacadeService.creaAsta(datiPerCreazioneDtoInput);
+            return ResponseEntity.ok().build();
+        }catch(ApiException e){
+            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore interno al server");
+        }
 
 
     }

@@ -12,11 +12,17 @@ import lombok.Data;
 public class DatiAstaInglese {
 
     @Column(name = "tempo_estensione")
-    private Long TempoEstensione;
+    private Long tempoEstensione;
     @Column(name = "quota_puntata")
-    private double quotaPuntata;
+    private double quotaFissaPerLaPuntata;
+
     @Column(name= "prodotto")
     @Id
     private int prodottoId;
 
+    public DatiAstaInglese(Long tempoEstensione, double quotaFissaPerLaPuntata, int prodottoId) {
+        this.tempoEstensione = tempoEstensione;
+        this.quotaFissaPerLaPuntata = quotaFissaPerLaPuntata;
+        this.prodottoId = prodottoId;
+    }
 }
