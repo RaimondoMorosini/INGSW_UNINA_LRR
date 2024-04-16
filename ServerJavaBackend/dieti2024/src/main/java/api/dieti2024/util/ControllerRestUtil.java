@@ -10,7 +10,7 @@ public class ControllerRestUtil {
      *
      * @return email dell'utente
      */
-    public String getEmailOfUtenteCorrente() {
+    public static String getEmailOfUtenteCorrente() {
         UserDetailsDto dettagliUser = (UserDetailsDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return dettagliUser.email();
     }
