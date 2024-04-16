@@ -27,8 +27,10 @@
     "pinia-plugin-persistedstate": "^3.2.1",
     "primeicons": "^6.0.1",
     "primevue": "^3.49.1",
+    "spinkit": "^2.0.1",
     "swiper": "^11.0.7",
     "vue": "^3.2.13",
+    "vue-circular-count-down-timer": "^2.0.0",
     "vue-cookies": "^1.8.3",
     "vue-router": "^4.0.3",
     "vue-timer-hook": "^1.0.84"

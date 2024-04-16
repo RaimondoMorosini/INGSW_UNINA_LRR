@@ -19,25 +19,25 @@
 </template>
 
 <script setup>
-import { onUnmounted } from 'vue';
 import { useAuth0 } from '@auth0/auth0-vue';
 import Skeleton from 'primevue/skeleton';
-import { useRoute ,useRouter  } from 'vue-router';
+import { onUnmounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { inserisciDato } from '../scripts/DatiUtils';
 import { postRest } from '../scripts/RestUtils';
-import {inserisciDato} from '../scripts/DatiUtils';
 
-const {idTokenClaims,isAuthenticated,user } = useAuth0();
+const { idTokenClaims, isAuthenticated, user } = useAuth0();
 const router = useRouter();
 const route = useRoute();
 onUnmounted(async () => {
   try {
     if (!isAuthenticated.value) {
-      console.error('User is not authenticated'); 
-      router.push({name:'home' })
+      console.error('User is not authenticated');
+      router.push({ name: 'home' });
     }
     //chiamata post per ottenere il token dati richiesti: public record CredenzialiUtenteDTO(String email, String password,String metodoDiRegistrazione) {
     const bodyData = {
-      email:  idTokenClaims.value.email,
+      email: idTokenClaims.value.email,
       password: idTokenClaims.value.__raw,
       metodoDiRegistrazione: 'auth0',
     };
@@ -46,16 +46,17 @@ onUnmounted(async () => {
     if (token) {
       console.log('token ottenuto', token);
       inserisciDato('token', token);
-    }else{
+    } else {
       console.error('token non ottenuto');
-      router.push({name:'home' })
+      router.push({ name: 'home' });
     }
 
-    console.log("access token",JSON.stringify(idTokenClaims.value.__raw));  
+    console.log('access token', JSON.stringify(idTokenClaims.value.__raw));
   } catch (error) {
-    console.error('errore getting token ',error);
-    router.push({name:'home' })
-
+    console.error('errore getting token ', error);
+    router.push({ name: 'home' });
   }
 });
+
+console.log('isAuthenticated', isAuthenticated.value);
 </script>
