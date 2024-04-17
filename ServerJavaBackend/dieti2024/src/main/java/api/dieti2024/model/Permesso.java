@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-package api.dieti2024.model;public class Permesso {
-=======
 package api.dieti2024.model;
 
 import jakarta.persistence.Column;
@@ -20,5 +17,4 @@ public class Permesso {
 
     @Column(name = "descrizione")
     private String descrizione;
->>>>>>> Stashed changes
 }
