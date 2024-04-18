@@ -23,32 +23,6 @@ public class ProdottoService {
         return prodottoRepository.findAll();
     }
 
-    public void creaAsta(DatiCreazioneAstaDTODEPRECATO datiPerCreazioneDtoInput) {
-
-        //salvataggio nel db del prodotto in asta
-        api.dieti2024.model.Prodotto prodottoInAsta = new api.dieti2024.model.Prodotto();
-
-
-
-        InputAstaDTO datiAstaDto = datiPerCreazioneDtoInput.datiAsta();
-        AstaStrategy astaService = setContextAsta(datiAstaDto.tipoAsta());
-        astaService.creaAsta(datiPerCreazioneDtoInput);
-
-    }
-
-    private AstaStrategy setContextAsta(String tipoAsta) {
-
-        switch (tipoAsta){
-            case TipoAsta.INGLESE:
-                return new AstaIngleseService();
-            case TipoAsta.SILENZIOSA:
-                return new AstaSilenziosaService();
-            case TipoAsta.APPALTO:
-                return new AstaAppaltoService();
-            default:
-                throw new ApiException("Tipo asta non valido", HttpStatus.BAD_REQUEST);
-        }
-    }
 
     public void checkDatiInputi(InfoProdottoPerCreazioneDTO datiDto) {
         if (datiDto == null) {
