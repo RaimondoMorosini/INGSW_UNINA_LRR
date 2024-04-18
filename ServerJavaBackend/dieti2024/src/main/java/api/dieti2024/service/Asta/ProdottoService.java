@@ -1,6 +1,5 @@
 package api.dieti2024.service.Asta;
 
-import api.dieti2024.astaTmp.*;
 import api.dieti2024.dto.asta.InfoProdottoPerCreazioneDTO;
 import api.dieti2024.dto.asta.InputAstaDTO;
 import api.dieti2024.dto.DatiCreazioneAstaDTODEPRECATO;
