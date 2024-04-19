@@ -5,6 +5,7 @@ import api.dieti2024.dto.asta.InputAstaDTO;
 import api.dieti2024.dto.DatiCreazioneAstaDTODEPRECATO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Prodotto;
+import api.dieti2024.model.ValoreSpecificoPerProdotto;
 import api.dieti2024.repository.ProdottoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,8 @@ public class ProdottoService {
 
     @Autowired
     private ProdottoRepository prodottoRepository;
+    @Autowired
+    private ValoreSpecificoService valoreSpecificoService;
     public List<Prodotto> getAllAste(){
 
         return prodottoRepository.findAll();
@@ -31,6 +34,9 @@ public class ProdottoService {
 
     public int salvaProdotto(InfoProdottoPerCreazioneDTO datiDTO) {
         Prodotto prodotto = datiDTO.toProdotto();
-        return prodottoRepository.save(prodotto).getId();
+        int idProdotto =prodottoRepository.save(prodotto).getId();
+        List<ValoreSpecificoPerProdotto> lista= datiDTO.toListValoreSpecificoPerProdotto(idProdotto);
+        valoreSpecificoService.saveAll(lista);
+        return idProdotto;
     }
 }

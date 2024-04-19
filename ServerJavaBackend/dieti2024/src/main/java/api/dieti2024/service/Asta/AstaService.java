@@ -41,10 +41,10 @@ public class AstaService {
         return TipoPermesso.haPermessoDiCreazione(tipoAsta, permessiUtente) ;
     }
 
-    public void salvaAsta (InputAstaDTO inputAstaDTO,int idProdotto){
+    public int salvaAsta (InputAstaDTO inputAstaDTO,int idProdotto){
         String emailUtenteCreatore = ControllerRestUtil.getEmailOfUtenteCorrente();
         Asta asta = inputAstaDTO.toAsta(idProdotto, emailUtenteCreatore);
-        astaRepository.save(asta);
+        return astaRepository.save(asta).getId();
     }
 
 }

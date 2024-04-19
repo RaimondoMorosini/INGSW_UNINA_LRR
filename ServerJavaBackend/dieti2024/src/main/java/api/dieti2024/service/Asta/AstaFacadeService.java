@@ -3,6 +3,7 @@ package api.dieti2024.service.Asta;
 import api.dieti2024.dto.asta.CreaAstaDTO;
 import api.dieti2024.dto.asta.InputAstaDTO;
 import api.dieti2024.exceptions.ApiException;
+import api.dieti2024.util.TipoAsta;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,17 +15,20 @@ public class AstaFacadeService {
     ProdottoService prodottoService;
     @Autowired
     AstaService astaService;
+    @Autowired
+    DatiAstaIngleseService datiAstaIngleseService;
     @Transactional
     public void creaAsta(CreaAstaDTO datiInput) {
             checkDatiInputValidi(datiInput);
             int idProdotto = prodottoService.salvaProdotto(datiInput.datiProdotto());
-            astaService.salvaAsta(datiInput.datiAsta(), idProdotto);
-//            saveDatiExtraAsta(datiInput.datiAsta());
+            int idAsta=astaService.salvaAsta(datiInput.datiAsta(), idProdotto);
+            saveDatiExtraAsta(datiInput.datiAsta(),idAsta);
         System.out.println("Asta creata con successo");
     }
 
-    private void saveDatiExtraAsta(InputAstaDTO inputAstaDTO) {
-        //TODO salvare dati extra asta se necessario
+    private void saveDatiExtraAsta(InputAstaDTO inputAstaDTO,int idAsta) {
+        if(!TipoAsta.INGLESE.equals(inputAstaDTO.tipoAsta())) return;
+        datiAstaIngleseService.salvaDatiAstaInglese(inputAstaDTO, idAsta);
     }
 
     private void checkDatiInputValidi(CreaAstaDTO datiInput) {

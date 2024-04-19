@@ -16,13 +16,8 @@ public class DatiAstaInglese {
     @Column(name = "quota_puntata")
     private double quotaFissaPerLaPuntata;
 
-    @Column(name= "prodotto")
+    @Column(name= "asta")
     @Id
-    private int prodottoId;
+    private int astaId;
 
-    public DatiAstaInglese(Long tempoEstensione, double quotaFissaPerLaPuntata, int prodottoId) {
-        this.tempoEstensione = tempoEstensione;
-        this.quotaFissaPerLaPuntata = quotaFissaPerLaPuntata;
-        this.prodottoId = prodottoId;
-    }
 }
