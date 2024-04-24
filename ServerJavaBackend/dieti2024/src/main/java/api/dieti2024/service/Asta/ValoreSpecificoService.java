@@ -9,14 +9,20 @@ import java.util.List;
 
 @Service
 public class ValoreSpecificoService {
-@Autowired
-private ValoreSpecificoRepository valoreSpecificoRepository;
+    @Autowired
+    private ValoreSpecificoRepository valoreSpecificoRepository;
 
 
     public void saveAll(List<ValoreSpecificoPerProdotto> lista) {
-        if(lista==null || lista.isEmpty()){
+        if (lista == null || lista.isEmpty()) {
             return;
         }
-        valoreSpecificoRepository.saveAll(lista);
+        for (ValoreSpecificoPerProdotto nodo : lista) {
+            try {
+                valoreSpecificoRepository.save(nodo);
+            } catch (Exception e) {
+                System.out.println("Errore nel salvataggio del valore specifico nodo: " + nodo.toString() + e.getMessage());
+            }
+        }
     }
 }

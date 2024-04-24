@@ -36,7 +36,12 @@ public class ProdottoService {
         Prodotto prodotto = datiDTO.toProdotto();
         int idProdotto =prodottoRepository.save(prodotto).getId();
         List<ValoreSpecificoPerProdotto> lista= datiDTO.toListValoreSpecificoPerProdotto(idProdotto);
-        valoreSpecificoService.saveAll(lista);
+        try{
+            valoreSpecificoService.saveAll(lista);
+        }catch (Exception e){
+            System.out.println("Errore nel salvataggio dei valori specifici per il prodotto "+e.getMessage());
+        }
+
         return idProdotto;
     }
 }
