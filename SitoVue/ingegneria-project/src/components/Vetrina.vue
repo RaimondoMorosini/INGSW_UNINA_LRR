@@ -1,29 +1,24 @@
 <template>
-  <div class="card">
-    <DataView
-      :value="products"
-      layout="grid"
-      :sortOrder="sortOrder"
-      :itemTemplate="itemTemplate"
-      :paginator="true"
-      :rows="9"
-      :paginatorPosition="'both'"
-    >
-      <template #itemTemplate="{ data }">
-        <div class="p-d-flex p-ai-center p-jc-between">
-          <div>
-            <img :src="data.image" :alt="data.name" class="product-image" />
-            <div class="product-detail">
-              <div class="product-name">{{ data.name }}</div>
-              <div class="product-description">{{ data.description }}</div>
+  <div class="flex flex-row items-center bg-slate-100">
+    <div class="card">
+      <DataView :value="products" layout="grid" :sortOrder="sortOrder" :itemTemplate="itemTemplate" :paginator="true"
+        :rows="9" :paginatorPosition="'both'">
+        <template #itemTemplate="{ data }">
+          <div class="p-d-flex p-ai-center p-jc-between">
+            <div>
+              <img :src="data.image" :alt="data.name" class="product-image" />
+              <div class="product-detail">
+                <div class="product-name">{{ data.name }}</div>
+                <div class="product-description">{{ data.description }}</div>
+              </div>
+            </div>
+            <div class="product-price">
+              <span class="product-badge p-text-uppercase">{{ data.price }}</span>
             </div>
           </div>
-          <div class="product-price">
-            <span class="product-badge p-text-uppercase">{{ data.price }}</span>
-          </div>
-        </div>
-      </template>
-    </DataView>
+        </template>
+      </DataView>
+    </div>
   </div>
 </template>
 
@@ -56,10 +51,12 @@ const onSortChange = (event) => {
   }
 };
 
-/*
+
     onMounted(async () => {
-        const response = await fetch('data/products.json');
+        const response = await fetch('http://localhost:8081/public/asta/getAllAste');
         const data = await response.json();
+        console.log(data);
         products.value = data;
-    });*/
+    });
+
 </script>

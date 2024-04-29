@@ -137,6 +137,12 @@ const routes = [
   },
 
   {
+    path: '/TestRoby2',
+    name: 'TestRoby2',
+    component: () => import('@/views/TestRoby2.vue'),
+  },
+
+  {
     path: '/TestLorenzo',
     name: 'TestLorenzo',
     component: () => import('@/views/TestLorenzo.vue'),
