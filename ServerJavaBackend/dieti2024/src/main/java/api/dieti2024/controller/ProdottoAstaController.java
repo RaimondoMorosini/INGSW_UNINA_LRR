@@ -1,6 +1,7 @@
 package api.dieti2024.controller;
 
 import api.dieti2024.dto.asta.CreaAstaDTO;
+import api.dieti2024.dto.asta.InfoDatiAstaDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Prodotto;
 import api.dieti2024.service.Asta.AstaFacadeService;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/asta")
+@RequestMapping
 public class ProdottoAstaController {
 
     @Autowired
@@ -26,14 +27,14 @@ public class ProdottoAstaController {
 
     @Autowired
     AstaFacadeService astaFacadeService;
-    @GetMapping("/getAllAste")
-    public List<Prodotto> getAllAste(){
+    @GetMapping("public/asta/getAllAste")
+    public List<InfoDatiAstaDTO> getAllAste(){
 
-        return prodottoService.getAllAste();
+        return astaService.getAllAstaProdotto();
     }
 
 
-    @PostMapping("/creaasta")
+    @PostMapping("/asta/creaasta")
     public ResponseEntity addProdottoAsta(@RequestBody CreaAstaDTO datiPerCreazioneDtoInput){
         try {
             astaFacadeService.creaAsta(datiPerCreazioneDtoInput);

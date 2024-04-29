@@ -20,7 +20,7 @@ public class ProdottoService {
     private ProdottoRepository prodottoRepository;
     @Autowired
     private ValoreSpecificoService valoreSpecificoService;
-    public List<Prodotto> getAllAste(){
+    public List<Prodotto> getAllPrdotti(){
 
         return prodottoRepository.findAll();
     }
