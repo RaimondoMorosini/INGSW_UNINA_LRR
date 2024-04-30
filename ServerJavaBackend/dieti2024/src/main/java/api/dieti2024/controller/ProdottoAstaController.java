@@ -1,9 +1,8 @@
 package api.dieti2024.controller;
 
 import api.dieti2024.dto.asta.CreaAstaDTO;
-import api.dieti2024.dto.asta.InfoDatiAstaDTO;
+import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.exceptions.ApiException;
-import api.dieti2024.model.Prodotto;
 import api.dieti2024.service.Asta.AstaFacadeService;
 import api.dieti2024.service.Asta.AstaService;
 import api.dieti2024.service.Asta.ProdottoService;
