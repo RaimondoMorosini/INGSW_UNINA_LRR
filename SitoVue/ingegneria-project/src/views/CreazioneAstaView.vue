@@ -1,52 +1,88 @@
 <template>
-  <Steppy
-    v-model:step="step"
-    :loading="loading"
-    :finalize="finalize"
-    :circleSize="35"
-    :backgroundColor="coloreBG"
-    :primaryColor1="coloreMain"
-    :primaryColor2="coloreSecondario"
-    :backText="`Indietro`"
-    :nextText="`Avanti`"
-    :finalizeText="`Conferma`"
-  >
-    <template #1>
-      <CreaProdotto />
-    </template>
-    <template #2
-      >Vivamus porttitor sodales ipsum in interdum. Proin suscipit ac nunc a tristique. Curabitur et
-      pharetra diam, nec porttitor risus. Curabitur vel mauris est. In tempor nibh sed dapibus
-      tincidunt. Donec id pharetra nunc, at rhoncus dui. Nulla in feugiat ante. Maecenas euismod
-      justo eget dignissim faucibus. Nam elementum dolor sit amet felis sodales luctus. Aenean et
-      lacus varius, mollis mi nec, posuere lectus. Pellentesque tempor sapien a magna fringilla
-      iaculis.</template
-    >
-    <template #3
-      >Etiam in turpis erat. Vestibulum auctor vel nibh eget vehicula. Integer finibus libero a ex
-      vehicula pharetra. Suspendisse dapibus ipsum elit, nec euismod sapien laoreet ac. Proin ex
-      arcu, commodo nec faucibus ac, pellentesque sed purus. Maecenas vitae ullamcorper nunc. Fusce
-      dapibus lacinia dolor non tristique. Sed eu volutpat enim. Donec nisi nulla, eleifend quis
-      mollis eu, posuere nec lorem. Donec id libero ex. Aliquam ut massa dolor.</template
-    >
-  </Steppy>
+  <Stepper linear v-model:activeStep="active">
+    <StepperPanel header="Descrizione Prodotto">
+      <template #content="{ nextCallback }">
+        <div><CreaProdotto /></div>
+        <div class="flex justify-between py-4">
+          <Button label="Successivo" @click="nextCallback" class="bottone" />
+        </div>
+      </template>
+    </StepperPanel>
+    <StepperPanel header="Selezione Categoria">
+      <template #content="{ prevCallback, nextCallback }">
+        <div>
+          <SelezionaCategorie />
+        </div>
+        <div class="flex justify-between gap-2 py-4">
+          <Button class="bottone" label="Precedente" severity="secondary" @click="prevCallback" />
+          <Button class="bottone" label="Successivo" @click="nextCallback" />
+        </div>
+      </template>
+    </StepperPanel>
+    <StepperPanel header="Dettagli Asta">
+      <template #content="{ prevCallback, nextCallback }">
+        <div>
+          <h2>Review Content</h2>
+        </div>
+        <div class="flex justify-between gap-2 py-4">
+          <Button class="bottone" label="Precedente" severity="secondary" @click="prevCallback" />
+          <Button class="bottone" label="Successivo" @click="nextCallback" />
+        </div>
+      </template>
+    </StepperPanel>
+
+    <StepperPanel header="Revisione Dati Inseriti">
+      <template #content="{ prevCallback }">
+        <div>
+          <h2>Final Content</h2>
+        </div>
+        <div class="flex justify-between gap-2 py-4">
+          <Button class="bottone" label="Precedente" severity="secondary" @click="prevCallback" />
+        </div>
+      </template>
+    </StepperPanel>
+  </Stepper>
 </template>
 
 <script setup>
+import Button from 'primevue/button';
+import Stepper from 'primevue/stepper';
+import StepperPanel from 'primevue/stepperpanel';
 import { ref } from 'vue';
-import { Steppy } from 'vue3-steppy';
+import SelezionaCategorie from '../components/stepper/CategorieCreaProdotto.vue';
 import CreaProdotto from '../components/stepper/formCreaProdotto.vue';
-
-//const coloreBG = '#f1f5f9';
-const coloreMain = '#cd87f6';
-const coloreSecondario = '#f1f5f9';
 
 const step = ref(1);
 const loading = ref(false);
 
+const asta = ref({
+  nomeProdotto: '',
+  descrizione: '',
+  prezzoBase: 0,
+  categorie: '[]',
+  immagini: '[]',
+  tipo: '',
+  scadenza: '',
+  estenzione: '',
+  incrementoMinimo: 0,
+});
+
+const ricevutoProdotto = (contenuto) => {};
 const finalize = () => {
   loading.value = true;
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.bottone {
+  background-color: #cc85f5;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.bottone:hover {
+  background-color: #7c3aed;
+}
+</style>

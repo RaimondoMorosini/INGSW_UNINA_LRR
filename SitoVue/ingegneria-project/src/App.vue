@@ -8,3 +8,10 @@ import Navbar from "./components/Navbar.vue";
   
   <router-view/>
 </template>
+
+<style>
+body{
+  margin: 0;
+  
+}
+</style>

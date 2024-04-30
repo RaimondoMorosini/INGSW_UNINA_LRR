@@ -73,7 +73,7 @@
 
 <script setup>
 import LogoutButton from '@/components/buttons/LogOut.vue';
-import LoginButton from '@/components/buttons/LoginButtom.vue';
+import LoginButton from '@/components/buttons/LoginButton.vue';
 import SignupButton from '@/components/buttons/SignUp.vue';
 import { useAuth0 } from '@auth0/auth0-vue';
 import { ref } from 'vue';
