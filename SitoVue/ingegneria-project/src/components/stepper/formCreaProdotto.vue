@@ -30,8 +30,10 @@
 import InputNumber from 'primevue/inputnumber';
 import InputText from 'primevue/inputtext';
 import { ref } from 'vue';
+import useAstaStore from '../../stores/astaStore';
 import ImageUpdater from '../ImageUpdater.vue';
 
+const store = useAstaStore();
 const descrizione = ref(null);
 const nomeProdotto = ref(null);
 const prezzoBase = ref(null);

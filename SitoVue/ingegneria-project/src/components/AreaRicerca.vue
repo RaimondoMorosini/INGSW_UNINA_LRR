@@ -1,5 +1,5 @@
 <template>
-    <div
+  <div
     class="AreaRicerca flex min-w-full flex-col justify-around gap-3 px-5 py-3 duration-500 ease-in md:flex md:w-auto md:flex-row md:px-20"
   >
     <InputGroup class="h-14 min-w-2col md:w-[14rem]">
@@ -61,7 +61,7 @@ import InputGroupAddon from 'primevue/inputgroupaddon';
 
 import { onMounted, ref } from 'vue';
 
-import {getCategorieRest} from "../scripts/categorie.js";
+import { getCategorieRest } from '../scripts/categorie.js';
 
 const value = ref(null);
 const selectedCategory = ref();
@@ -69,17 +69,14 @@ const selectedCategory = ref();
 const nodes = ref([]);
 
 const getCategorie = async () => {
-      try {
-        nodes.value =await getCategorieRest(); // Assuming the response contains an array
-      } catch (error) {
-        console.error('Error categorie non trovate:', error);
-      }
-    };
+  try {
+    nodes.value = await getCategorieRest(); // Assuming the response contains an array
+  } catch (error) {
+    console.error('Error categorie non trovate:', error);
+  }
+};
 
 onMounted(() => {
-  
   getCategorie();
-
 });
-
 </script>

@@ -1,15 +1,16 @@
 import axios from 'axios';
-import {inserisciDato} from "../DatiUtils";
-// Funzione per effettuare il login 
-function login(emailInput, passwordInput , metodoDiRegistrazioneInPut) {
+import { inserisciDato } from '../DatiUtils';
+// Funzione per effettuare il login
+function login(emailInput, passwordInput, metodoDiRegistrazioneInPut) {
   try {
-    axios.post('http://localhost:8081/auth/login', {
-      email: emailInput,
-      password: passwordInput,
-      metodoDiRegistrazione: metodoDiRegistrazioneInPut
-    })
+    axios
+      .post('http://localhost:8081/auth/login', {
+        email: emailInput,
+        password: passwordInput,
+        metodoDiRegistrazione: metodoDiRegistrazioneInPut,
+      })
       .then((response) => {
-        console.log("Token: ",response.data);
+        console.log('Token: ', response.data);
         // Salva il token JWT come cookie
         inserisciDato('token', response.data);
       });
@@ -22,4 +23,4 @@ function login(emailInput, passwordInput , metodoDiRegistrazioneInPut) {
   }
 }
 
-export { login};
+export { login };

@@ -7,14 +7,14 @@ const ifAuthenticated = (to, from, next) => {
     next();
     return;
   }
-  router.push({ 
+  router.push({
     name: 'login',
     params: {
       returnTo: to.path,
       query: to.query,
     },
   });
- };
+};
 
 const routes = [
   {
@@ -26,7 +26,7 @@ const routes = [
   {
     path: '/profilo',
     name: 'profilo',
-    
+
     component: () => import('@/views/ProfiloView.vue'),
     children: [
       { path: '', component: () => import('@/components/Profilo/InformazioniProfilo.vue') },
@@ -118,7 +118,7 @@ const routes = [
 
   {
     path: '/creaAsta',
-    name: 'creaAsta', 
+    name: 'creaAsta',
     component: () => import('@/views/CreazioneAstaView.vue'),
   },
 
@@ -166,7 +166,5 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-
-
 
 export default router;

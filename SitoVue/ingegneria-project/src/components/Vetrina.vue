@@ -1,8 +1,15 @@
 <template>
   <div class="flex flex-row items-center bg-slate-100">
     <div class="card">
-      <DataView :value="products" layout="grid" :sortOrder="sortOrder" :itemTemplate="itemTemplate" :paginator="true"
-        :rows="9" :paginatorPosition="'both'">
+      <DataView
+        :value="products"
+        layout="grid"
+        :sortOrder="sortOrder"
+        :itemTemplate="itemTemplate"
+        :paginator="true"
+        :rows="9"
+        :paginatorPosition="'both'"
+      >
         <template #itemTemplate="{ data }">
           <div class="p-d-flex p-ai-center p-jc-between">
             <div>
@@ -51,12 +58,10 @@ const onSortChange = (event) => {
   }
 };
 
-
-    onMounted(async () => {
-        const response = await fetch('http://localhost:8081/public/asta/getAllAste');
-        const data = await response.json();
-        console.log(data);
-        products.value = data;
-    });
-
+onMounted(async () => {
+  const response = await fetch('http://localhost:8081/public/asta/getAllAste');
+  const data = await response.json();
+  console.log(data);
+  products.value = data;
+});
 </script>
