@@ -10,4 +10,7 @@ import java.util.List;
 
 @Repository
 public interface AstaRepository extends JpaRepository<Asta, String> {
+
+    @Query(value = "SELECT * FROM asta_join_prodotto", nativeQuery = true)
+    List<InfoDatiAstaDTO> getAllAsteDTO();
 }

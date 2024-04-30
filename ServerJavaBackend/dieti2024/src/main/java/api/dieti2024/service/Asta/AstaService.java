@@ -66,7 +66,7 @@ public class AstaService {
 
             Prodotto prodotto = prodottoRepository.findById(idProdotto).get();
 
-            InfoDatiAstaDTO infoAsta = new InfoDatiAstaDTO(asta.getBaseAsta(),asta.getPrezzoAttuale(),asta.getDataScadenza(),asta.getDataInizio(),
+            InfoDatiAstaDTO infoAsta = new InfoDatiAstaDTO(asta.getIdProdotto(),asta.getBaseAsta(),asta.getPrezzoAttuale(),asta.getDataScadenza(),asta.getDataInizio(),
                     asta.getTipoAsta(),asta.getEmailUtenteCreatore(),prodotto.getNome(),prodotto.getImmagini(),prodotto.getDescrizione(),prodotto.getCategoria());
 
             listaDaRestituire.add(infoAsta);
