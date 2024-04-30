@@ -6,14 +6,14 @@
         <template #itemTemplate="{ data }">
           <div class="p-d-flex p-ai-center p-jc-between">
             <div>
-              <img :src="data.image" :alt="data.name" class="product-image" />
+              <img :src="data.immagini[0]" :alt="data.nome" class="product-image" />
               <div class="product-detail">
-                <div class="product-name">{{ data.name }}</div>
-                <div class="product-description">{{ data.description }}</div>
+                <div class="product-name">{{ data.nome }}</div>
+                <div class="product-description">{{ data.descrizione }}</div>
               </div>
             </div>
             <div class="product-price">
-              <span class="product-badge p-text-uppercase">{{ data.price }}</span>
+              <span class="product-badge p-text-uppercase">{{ data.prezzo }}</span>
             </div>
           </div>
         </template>
