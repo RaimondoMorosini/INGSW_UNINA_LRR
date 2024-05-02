@@ -1,9 +1,9 @@
 <template>
   <div>
-    <input type="file" ref="fileInput" @change="handleFileInputChange">
+    <input type="file" ref="fileInput" @change="handleFileInputChange" />
     <button @click="caricaImmagine">Carica</button>
     <div v-if="immagineCaricata">
-      <img :src="immagineCaricata" alt="Immagine Caricata">
+      <img :src="immagineCaricata" alt="Immagine Caricata" />
     </div>
   </div>
 </template>
@@ -35,47 +35,42 @@ const handleFileInputChange = (event) => {
 const caricaImmagine = () => {
   // In questo caso, potresti voler implementare il codice per inviare l'immagine al server
   // e gestire la risposta qui
-  console.log("Immagine caricata:", immagineCaricata.value);
+  console.log('Immagine caricata:', immagineCaricata.value);
 
-      if (immagineCaricata.value === null) {
-        alert("Seleziona un'immagine prima di caricare");
-        return;
+  if (immagineCaricata.value === null) {
+    alert("Seleziona un'immagine prima di caricare");
+    return;
+  }
 
-      }
-     
-      const formData = new FormData();
+  const formData = new FormData();
   formData.append('file', fileSelezionato.value);
 
-     let  inputAstaProdotto = {
-        datiProdotto: {
-          nomeProdotto: "Smartphone di VUE",
-          descrizioneProdotto: "Un potente smartphone con fotocamera migliorata",
-          immagini: [JSON.stringify(formData)],
-          categoriaProdotto: "Telefonia",
-          caratteristicheProdotto: [
-            {
-              idCaratteristica: 0,
-              valore: "android"
-            },
-            {
-              idCaratteristica: 2,
-              valore: "64GB"
-            }
-          ]
+  let inputAstaProdotto = {
+    datiProdotto: {
+      nomeProdotto: 'Smartphone di VUE',
+      descrizioneProdotto: 'Un potente smartphone con fotocamera migliorata',
+      immagini: [JSON.stringify(formData)],
+      categoriaProdotto: 'Telefonia',
+      caratteristicheProdotto: [
+        {
+          idCaratteristica: 0,
+          valore: 'android',
         },
-        datiAsta: {
-          baseAsta: 200.0,
-          dataScadenza: 1767170400000,
-          dataInizio: 1767084000000,
-          tipoAsta: "asta_inglese",
-          datiExtraJson: "{\"tempoEstensione\":10,\"quotaFissaPerLaPuntata\":1.0,\"astaId\":8}"
-        }
+        {
+          idCaratteristica: 2,
+          valore: '64GB',
+        },
+      ],
+    },
+    datiAsta: {
+      baseAsta: 200.0,
+      dataScadenza: 1767170400000,
+      dataInizio: 1767084000000,
+      tipoAsta: 'asta_inglese',
+      datiExtraJson: '{"tempoEstensione":10,"quotaFissaPerLaPuntata":1.0,"astaId":8}',
+    },
+  };
 
-      };
-
-      postRestWithtoken("asta/creaasta", inputAstaProdotto)
-      
-    
-    }
-
+  postRestWithtoken('asta/creaasta', inputAstaProdotto);
+};
 </script>

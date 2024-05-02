@@ -10,7 +10,11 @@ if (effettuatoLogin) {
 }
 
 // Esegui la registrazione
-const effettuataRegistrazione = await registrazione('Mario Rossi', 'mario.rossi@example.com', 'password123');
+const effettuataRegistrazione = await registrazione(
+  'Mario Rossi',
+  'mario.rossi@example.com',
+  'password123'
+);
 if (effettuataRegistrazione) {
   console.log('Registrazione effettuata con successo!');
 } else {

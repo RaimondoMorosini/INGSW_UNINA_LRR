@@ -2,6 +2,7 @@ package api.dieti2024.controller;
 
 import api.dieti2024.dto.CategoriaDTO;
 import api.dieti2024.service.CategoriaService;
+import com.azure.core.annotation.Get;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,5 +22,11 @@ public class CategoriaController {
     public List<CategoriaDTO> getGerarchiaCategorie(){
 
         return categoriaServizio.costruisciGerarchiaCategorie();
+    }
+
+    @GetMapping("/getGerarchiaCategorieV2")
+    public List<CategoriaDTO> getGerarchiaCategorieV2(){
+
+        return categoriaServizio.costruisciGerarchiaCategorieV2();
     }
 }
