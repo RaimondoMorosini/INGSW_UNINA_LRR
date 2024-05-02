@@ -11,7 +11,7 @@ import java.util.List;
 public interface AstaProdottoRepository extends JpaRepository<InfoDatiAstaDTO,Integer> {
 
     @Query(value = "SELECT * FROM asta_join_prodotto " +
-            "WHERE (:#{#filtro.tipoAsta().isEmpty()} OR tipo = ANY( ARRAY [:#{#filtro.tipoAsta().toString()}] )) " +
+            "WHERE (:#{#filtro.tipoAsta().isEmpty()} OR tipo = ANY( :#{#filtro.tipoAsta().toArray(new String[0])} )) " +
             "AND (:#{#filtro.categoria()} IS NULL OR categoria = :#{#filtro.categoria}) " +
             "AND (:#{#filtro.nomeProdotto()} IS NULL OR nome_prodotto LIKE CONCAT('%', :#{#filtro.nomeProdotto()}, '%')) " +
             "LIMIT :limit OFFSET :offset", nativeQuery = true)
