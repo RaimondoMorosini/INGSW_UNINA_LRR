@@ -1,7 +1,7 @@
 package api.dieti2024.service.Asta;
 
-import api.dieti2024.dto.asta.InfoDatiAstaDTO;
-import api.dieti2024.model.Prodotto;
+import api.dieti2024.dto.asta.ricerca.FiltroDto;
+import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.repository.AstaProdottoRepository;
 import api.dieti2024.repository.ProdottoRepository;
 import api.dieti2024.util.TipoPermesso;
@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -58,9 +57,10 @@ public class AstaService {
         return astaRepository.save(asta).getId();
     }
 
-    public List<InfoDatiAstaDTO> getAllAstaProdotto(){
+    public List<InfoDatiAstaDTO> getAllAstaProdotto(FiltroDto filtroDto){
+        List<InfoDatiAstaDTO> lista= astaProdottoRepository.findByCustomWhere(filtroDto, filtroDto.elementiPerPagina(), (filtroDto.pagina() - 1) * filtroDto.elementiPerPagina());
 
-        return astaProdottoRepository.findAll();
+        return lista;
     }
 
 }

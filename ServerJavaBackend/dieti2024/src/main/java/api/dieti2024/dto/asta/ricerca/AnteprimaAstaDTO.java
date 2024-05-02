@@ -1,4 +1,4 @@
-package api.dieti2024.dto.asta;
+package api.dieti2024.dto.asta.ricerca;
 
 public record AnteprimaAstaDTO(
         int idProdotto,
