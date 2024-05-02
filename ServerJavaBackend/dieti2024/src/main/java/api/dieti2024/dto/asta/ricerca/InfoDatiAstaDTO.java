@@ -1,7 +1,6 @@
 package api.dieti2024.dto.asta.ricerca;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;

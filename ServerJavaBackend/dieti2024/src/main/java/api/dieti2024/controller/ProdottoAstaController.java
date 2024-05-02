@@ -1,6 +1,7 @@
 package api.dieti2024.controller;
 
 import api.dieti2024.dto.asta.CreaAstaDTO;
+import api.dieti2024.dto.asta.ricerca.FiltroDto;
 import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.service.Asta.AstaFacadeService;
@@ -27,10 +28,14 @@ public class ProdottoAstaController {
     @Autowired
     AstaFacadeService astaFacadeService;
     @GetMapping("public/asta/getAllAste")
-    public List<InfoDatiAstaDTO> getAllAste(){
-
-        return astaService.getAllAstaProdotto();
+    public List<InfoDatiAstaDTO> getAllAste(@RequestBody FiltroDto filtroDto){
+        try {
+            return astaService.getAllAstaProdotto(filtroDto);
+        }catch (Exception e){
+            return null;
+        }
     }
+
 
 
     @PostMapping("/asta/creaasta")

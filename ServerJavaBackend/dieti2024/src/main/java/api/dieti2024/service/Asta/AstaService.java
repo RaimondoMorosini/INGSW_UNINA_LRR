@@ -1,5 +1,6 @@
 package api.dieti2024.service.Asta;
 
+import api.dieti2024.dto.asta.ricerca.FiltroDto;
 import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.repository.AstaProdottoRepository;
 import api.dieti2024.repository.ProdottoRepository;
@@ -56,9 +57,10 @@ public class AstaService {
         return astaRepository.save(asta).getId();
     }
 
-    public List<InfoDatiAstaDTO> getAllAstaProdotto(){
+    public List<InfoDatiAstaDTO> getAllAstaProdotto(FiltroDto filtroDto){
+        List<InfoDatiAstaDTO> lista= astaProdottoRepository.findByCustomWhere(filtroDto, filtroDto.elementiPerPagina(), (filtroDto.pagina() - 1) * filtroDto.elementiPerPagina());
 
-        return astaProdottoRepository.findAll();
+        return lista;
     }
 
 }

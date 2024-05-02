@@ -2,12 +2,17 @@ package api.dieti2024.service.Asta;
 
 import api.dieti2024.dto.asta.CreaAstaDTO;
 import api.dieti2024.dto.asta.InputAstaDTO;
+import api.dieti2024.dto.asta.ricerca.FiltroDto;
+import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.exceptions.ApiException;
+import api.dieti2024.repository.AstaProdottoRepository;
 import api.dieti2024.util.TipoAsta;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AstaFacadeService {
@@ -17,6 +22,8 @@ public class AstaFacadeService {
     AstaService astaService;
     @Autowired
     DatiAstaIngleseService datiAstaIngleseService;
+    @Autowired
+    AstaProdottoRepository astaProdottoRepository;
     @Transactional
     public void creaAsta(CreaAstaDTO datiInput) {
             checkDatiInputValidi(datiInput);
@@ -40,4 +47,5 @@ public class AstaFacadeService {
         prodottoService.checkDatiInputi(datiInput.datiProdotto());
 
     }
+
 }
