@@ -1,15 +1,16 @@
 <template>
   <div
-    class="AreaRicerca flex min-w-full flex-col justify-around gap-3 px-5 py-3 duration-500 ease-in md:flex md:w-auto md:flex-row md:px-20"
+    class="AreaRicerca flex min-w-full flex-col justify-around gap-3 px-5 py-3 duration-500 ease-in lg:flex lg:w-auto lg:flex-row lg:px-20"
   >
-    <InputGroup class="h-14 min-w-2col md:w-[14rem]">
+    <InputGroup class="h-14 w-[100%] lg:w-[33%]">
       <InputGroupAddon class="bg-primario-100">
         <i class="pi pi-search"></i>
       </InputGroupAddon>
       <InputText
+        id="cerca"
         v-model="value"
         placeholder="Search"
-        class="rounded-r border-transparent bg-primario-100/50"
+        class="rounde33%order-transparent w-[100%] bg-primario-100/50"
       >
         <template #imputtexticon>
           <i class="pi pi-search" style="color: #424242"></i>
@@ -17,20 +18,21 @@
       </InputText>
     </InputGroup>
 
-    <InputGroup class="h-14 min-w-2col md:w-[14rem]">
+    <InputGroup class="h-14 w-[100%] lg:w-[33%]">
       <InputGroupAddon class="bg-primario-100">
         <i class="pi pi-th-large" style="color: #424242"></i>
       </InputGroupAddon>
       <TreeSelect
+        id="cerca"
         v-model="selectedCategory"
         :options="nodes"
         option-label="name"
         placeholder="Seleziona Categoria"
-        class="rounded-r bg-primario-100/50 text-black"
+        class="w-[100%] rounded-r bg-primario-100/50 text-black"
       />
     </InputGroup>
 
-    <InputGroup class="h-14 min-w-2col md:w-[14rem]">
+    <InputGroup class="h-14 w-[100%] lg:w-[33%]">
       <InputGroupAddon class="bg-primario-100">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
           <g id="asta">
@@ -42,11 +44,12 @@
         </svg>
       </InputGroupAddon>
       <TreeSelect
+        id="cerca"
         v-model="selectedCity1"
         :options="cities"
         option-label="name"
         placeholder="Seleziona Asta"
-        class="rounded-r bg-primario-100/50 text-black"
+        class="min-[30%] rounded-r bg-primario-100/50 text-black"
       />
     </InputGroup>
   </div>
@@ -80,3 +83,10 @@ onMounted(() => {
   getCategorie();
 });
 </script>
+
+<style scoped>
+#cerca {
+  width: 100%;
+  color: #333;
+}
+</style>
