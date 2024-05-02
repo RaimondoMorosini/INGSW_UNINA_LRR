@@ -1,27 +1,39 @@
 <template>
   <!--TODO: rimuovere i ring di supporto a pagina finita-->
 
-  <form @submit.prevent="gestioneInvio" class="px-3 py-2">
-    <main class="flex justify-between">
+  <form @submit.prevent="gestioneInvio" class="relative">
+    <main class="flex h-4col flex-col justify-around gap-2 py-2 lg:flex-row">
       <div
-        class="flex w-[100%] min-w-4col justify-between gap-3 px-3 py-2 ring-2 ring-black md:flex md:flex-col lg:max-w-[40%]"
+        class="flex w-[100%] min-w-4col flex-col justify-around gap-3 px-3 py-2 ring-2 ring-black lg:max-w-[40%]"
       >
         <div class="formSpace px-5 lg:pr-9">
           <label for="nomeProdotto">Nome Prodotto</label>
-          <InputText id="nomeProdotto" v-model="nomeProdotto" />
+          <input
+            class="w-[60%] lg:w-max"
+            required
+            type="text"
+            id="nomeProdotto"
+            v-model="nomeProdotto"
+          />
         </div>
         <div class="formSpace px-5 lg:pr-9">
           <label for="descrizione">Descrizione Prodotto</label>
-          <Textarea id="descrizione" v-model="descrizione" autoResize variant="filled" rows="5" />
+          <textarea class="w-[60%] lg:w-max" required id="descrizione" v-model="descrizione" />
         </div>
         <div class="formSpace px-5 lg:pr-9">
           <label for="prezzoBase">Prezzo Base</label>
-          <InputNumber id="prezzoBase" v-model="prezzoBase" />
+          <input
+            class="w-[60%] lg:w-max"
+            required
+            type="number"
+            id="prezzoBase"
+            v-model="prezzoBase"
+          />
         </div>
       </div>
 
-      <div class="px-2 py-2 ring-2 ring-black">
-        <ImageUploader class="w-max" />
+      <div class="relative h-[100%] w-[100%] px-2 py-2 ring-2 ring-black lg:w-[60%]">
+        <ImageUploader class="absolute h-[100%]" />
       </div>
     </main>
     <button class="bottone" type="submit">Successivo</button>
@@ -29,8 +41,6 @@
 </template>
 
 <script setup>
-import InputNumber from 'primevue/inputnumber';
-import InputText from 'primevue/inputtext';
 import { ref } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
 import ImageUploader from '../ImageUploader.vue';
@@ -38,8 +48,9 @@ import ImageUploader from '../ImageUploader.vue';
 const storeInstance = useAstaStore();
 
 const emit = defineEmits(['update:active']);
-const descrizione = ref('');
+
 const nomeProdotto = ref('');
+const descrizione = ref('');
 const prezzoBase = ref('');
 
 const gestioneInvio = () => {

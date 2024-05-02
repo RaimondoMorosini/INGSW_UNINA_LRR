@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 export const useAstaStore = defineStore('asta', {
   state: () => ({
     asta: {
-      nameProdotto: '',
+      nomeProdotto: '',
       descrizione: '',
       prezzoBase: 0,
     },
