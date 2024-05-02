@@ -31,6 +31,7 @@ const goToPreviousForm = () => {
   border-radius: 5px;
   font-size: 1.1rem;
   font-weight: bold;
+  width: 100%;
 }
 .bottone:hover {
   background-color: #7c3aed;

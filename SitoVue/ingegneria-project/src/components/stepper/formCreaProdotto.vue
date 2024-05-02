@@ -1,7 +1,7 @@
 <template>
   <!--TODO: rimuovere i ring di supporto a pagina finita-->
 
-  <form @submit.prevent="gestioneInvio" class="relative">
+  <form @submit.prevent="gestioneInvio">
     <main class="flex h-4col flex-col justify-around gap-2 py-2 lg:flex-row">
       <div
         class="flex w-[100%] min-w-4col flex-col justify-around gap-3 px-3 py-2 ring-2 ring-black lg:max-w-[40%]"
@@ -32,11 +32,13 @@
         </div>
       </div>
 
-      <div class="relative h-[100%] w-[100%] px-2 py-2 ring-2 ring-black lg:w-[60%]">
-        <ImageUploader class="absolute h-[100%]" />
+      <div class="h-[100%] w-[100%] px-2 py-2 ring-2 ring-black lg:w-[60%]">
+        <ImageUploader class="h-[100%]" />
       </div>
     </main>
-    <button class="bottone" type="submit">Successivo</button>
+    <div class="absolute">
+      <button class="bottone relative top-20 lg:top-0" type="submit">Successivo</button>
+    </div>
   </form>
 </template>
 
@@ -98,6 +100,7 @@ button.bottone {
   font-weight: bold;
   width: 25%;
   margin: 0 auto;
+  width: 100%;
 }
 
 button.bottone:hover {
