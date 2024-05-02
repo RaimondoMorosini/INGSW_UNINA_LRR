@@ -1,59 +1,40 @@
 <template>
-  <Stepper linear v-model:activeStep="active">
-    <StepperPanel header="Descrizione Prodotto">
-      <template #content="{ nextCallback }">
-        <div><CreaProdotto /></div>
-        <div class="flex justify-between py-4">
-          <Button label="Successivo" @click="nextCallback" class="bottone" />
-        </div>
-      </template>
-    </StepperPanel>
-    <StepperPanel header="Selezione Categoria">
-      <template #content="{ prevCallback, nextCallback }">
-        <div>
-          <SelezionaCategorie />
-        </div>
-        <div class="flex justify-between gap-2 py-4">
-          <Button class="bottone" label="Precedente" severity="secondary" @click="prevCallback" />
-          <Button class="bottone" label="Successivo" @click="nextCallback" />
-        </div>
-      </template>
-    </StepperPanel>
-    <StepperPanel header="Dettagli Asta">
-      <template #content="{ prevCallback, nextCallback }">
-        <div>
-          <h2>Review Content</h2>
-        </div>
-        <div class="flex justify-between gap-2 py-4">
-          <Button class="bottone" label="Precedente" severity="secondary" @click="prevCallback" />
-          <Button class="bottone" label="Successivo" @click="nextCallback" />
-        </div>
-      </template>
-    </StepperPanel>
-
-    <StepperPanel header="Revisione Dati Inseriti">
-      <template #content="{ prevCallback }">
-        <div>
-          <h2>Final Content</h2>
-        </div>
-        <div class="flex justify-between gap-2 py-4">
-          <Button class="bottone" label="Precedente" severity="secondary" @click="prevCallback" />
-        </div>
-      </template>
-    </StepperPanel>
-  </Stepper>
+  <Steps class="py-2" :model="items" v-model:activeStep="active" />
+  <CreaProdotto
+    class="px-3 py-14 lg:py-2"
+    @update:active="updateCurrentForm($event)"
+    v-if="active === 0"
+  />
+  <SelezionaCategorie @update:active="updateCurrentForm($event)" v-if="active === 1" />
 </template>
 
 <script setup>
-import Button from 'primevue/button';
-import Stepper from 'primevue/stepper';
-import StepperPanel from 'primevue/stepperpanel';
+import Steps from 'primevue/steps';
 import { ref } from 'vue';
 import SelezionaCategorie from '../components/stepper/CategorieCreaProdotto.vue';
 import CreaProdotto from '../components/stepper/formCreaProdotto.vue';
 
-const step = ref(1);
+const active = ref(0);
 const loading = ref(false);
+
+const updateCurrentForm = (value) => {
+  active.value = value;
+};
+
+const items = ref([
+  {
+    label: 'Descrizione Prodotto',
+  },
+  {
+    label: 'Selezione Categorie',
+  },
+  {
+    label: 'Dettagli Asta',
+  },
+  {
+    label: 'Revisione Dati Inseriti',
+  },
+]);
 
 const asta = ref({
   nomeProdotto: '',
