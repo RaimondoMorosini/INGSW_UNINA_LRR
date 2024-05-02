@@ -1,9 +1,5 @@
 <script>
 import Timer from './Timer.vue';
-
-function placeOffer() {
-  // Add your logic to place an offer here
-}
 </script>
 
 <template>

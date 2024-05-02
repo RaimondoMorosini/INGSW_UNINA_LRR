@@ -3,7 +3,6 @@ import '@babel/polyfill'; // primevue e primeflex (richiedono babel)
 import axios from 'axios';
 import 'mutationobserver-shim'; // primevue e primeflex (richiedono mutationobserver)
 import { createPinia } from 'pinia'; // pinia
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'; // pinia
 import 'primeicons/primeicons.css'; // primevue icons
 import PrimeVue from 'primevue/config'; // primevue config
 import 'primevue/resources/primevue.min.css'; // core CSS (primevue)
@@ -28,6 +27,7 @@ app.use(
     clientId: 'YR70390mlpskaBwBrMYclzGmkCLAXfaB',
     authorizationParams: {
       redirect_uri: 'http://localhost:8080/callback',
+      //redirect_uri: 'http://www.dietideals.it/callback', 
     },
   })
 );
@@ -37,10 +37,7 @@ app.use(PrimeVue);
 app.use(ToastService);
 
 // inizializzazione pinia
-const pinia = createPinia();
-pinia.use(piniaPluginPersistedstate);
 app.use(createPinia());
-app.use(pinia);
 
 // Monta l'app Vue
 app.mount('#app');
