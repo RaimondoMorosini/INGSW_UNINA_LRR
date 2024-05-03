@@ -15,7 +15,7 @@ public class Offerta {
     private int id;
 
     @Column(name = "tempo_offerta")
-    private long tempoOfferta;
+    private String tempoOfferta;
 
     @Column(name = "prezzo_proposto")
     private double prezzoProposto;
