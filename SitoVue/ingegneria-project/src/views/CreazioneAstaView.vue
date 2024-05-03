@@ -6,11 +6,13 @@
     v-if="active === 0"
   />
   <SelezionaFiltri @update:active="updateCurrentForm($event)" v-if="active === 1" />
+  <SelezioneTipoAsta @update:active="updateCurrentForm($event)" v-if="active === 2" />
 </template>
 
 <script setup>
 import Steps from 'primevue/steps';
 import { ref } from 'vue';
+import SelezioneTipoAsta from '../components/stepper/dettagliCreaAsta.vue';
 import CreaProdotto from '../components/stepper/formCreaProdotto.vue';
 import SelezionaFiltri from '../components/stepper/impostaFiltriCreaProdotto.vue';
 

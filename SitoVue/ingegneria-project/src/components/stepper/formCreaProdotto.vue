@@ -8,27 +8,15 @@
       >
         <div class="formSpace px-2 lg:pr-9">
           <label for="nomeProdotto">Nome Prodotto</label>
-          <input
-            class="w-[60%] lg:w-max"
-            required
-            type="text"
-            id="nomeProdotto"
-            v-model="nomeProdotto"
-          />
+          <input class="w-[60%] lg:w-max" type="text" id="nomeProdotto" v-model="nomeProdotto" />
         </div>
         <div class="formSpace px-2 lg:pr-9">
           <label for="descrizione">Descrizione Prodotto</label>
-          <textarea class="w-[60%] lg:w-max" required id="descrizione" v-model="descrizione" />
+          <textarea class="w-[60%] lg:w-max" id="descrizione" v-model="descrizione" />
         </div>
         <div class="formSpace px-2 lg:pr-9">
           <label for="prezzoBase">Prezzo Base</label>
-          <input
-            class="w-[60%] lg:w-max"
-            required
-            type="number"
-            id="prezzoBase"
-            v-model="prezzoBase"
-          />
+          <input class="w-[60%] lg:w-max" type="number" id="prezzoBase" v-model="prezzoBase" />
         </div>
 
         <InputGroup class="categoriaSelector w-[100%] px-2">
@@ -90,6 +78,15 @@ const descrizione = ref('');
 const prezzoBase = ref('');
 
 const gestioneInvio = () => {
+  if (
+    !nomeProdotto.value.trim ||
+    !descrizione.value.trim ||
+    !prezzoBase.value.trim ||
+    !selectedCategory.value.trim
+  ) {
+    alert('Compila tutti i campi.');
+    return;
+  }
   storeInstance.updateAsta({
     nomeProdotto: nomeProdotto.value,
     descrizione: descrizione.value,
