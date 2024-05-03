@@ -23,10 +23,4 @@ public class CategoriaController {
 
         return categoriaServizio.costruisciGerarchiaCategorie();
     }
-
-    @GetMapping("/getGerarchiaCategorieV2")
-    public List<CategoriaDTO> getGerarchiaCategorieV2(){
-
-        return categoriaServizio.costruisciGerarchiaCategorieV2();
-    }
 }
