@@ -1,6 +1,6 @@
 import { getRest } from './RestUtils.js';
 
-import { getDato, inserisciDato, eliminaDato } from './DatiUtils.js';
+import { getDato, inserisciDato } from './DatiUtils.js';
 // Funzione per ottenere tutte le categorie dal server
 
 async function getCategorieRest() {
@@ -8,7 +8,7 @@ async function getCategorieRest() {
     let data = getDato('categorie');
 
     if (data === null) {
-      const response = await getRest('public/getGerarchiaCategorie');
+      const response = await getRest('public/getGerarchiaCategorieV2');
       data = response.data;
       inserisciDato('categorie', JSON.stringify(data));
     }
