@@ -5,14 +5,14 @@
     @update:active="updateCurrentForm($event)"
     v-if="active === 0"
   />
-  <SelezionaCategorie @update:active="updateCurrentForm($event)" v-if="active === 1" />
+  <SelezionaFiltri @update:active="updateCurrentForm($event)" v-if="active === 1" />
 </template>
 
 <script setup>
 import Steps from 'primevue/steps';
 import { ref } from 'vue';
-import SelezionaCategorie from '../components/stepper/CategorieCreaProdotto.vue';
 import CreaProdotto from '../components/stepper/formCreaProdotto.vue';
+import SelezionaFiltri from '../components/stepper/impostaFiltriCreaProdotto.vue';
 
 const active = ref(0);
 const loading = ref(false);
@@ -26,7 +26,7 @@ const items = ref([
     label: 'Descrizione Prodotto',
   },
   {
-    label: 'Selezione Categorie',
+    label: 'Selezione Filtri',
   },
   {
     label: 'Dettagli Asta',

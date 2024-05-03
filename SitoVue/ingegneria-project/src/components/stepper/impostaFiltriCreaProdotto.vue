@@ -1,40 +1,20 @@
 <template>
   <form @submit.prevent="gestioneInvio">
-    <InputGroup class="h-14 min-w-2col md:w-[14rem]">
-      <InputGroupAddon class="bg-primario-100">
-        <i class="pi pi-th-large" style="color: #424242"></i>
-      </InputGroupAddon>
-      <TreeSelect
-        id="categoria"
-        v-model="selectedCategory"
-        :options="nodes"
-        option-label="name"
-        placeholder="Seleziona Categoria"
-        class="rounded-r bg-primario-100/50 text-black"
-      />
-    </InputGroup>
+    <div class="mx-2 my-2 px-2 py-2 ring-2 ring-black">
+      TODO: trovare un modo per riempire questa sezione, passare i filtri come oggetto a pinia
+    </div>
 
-    <Chip class="chip" label="Eletronica" />
-    <Chip v-for="categoria in categorieSelezionate" v-bind:label="categoria" />
-    <!--TODO decommentare quando tutte le pagine form sono complete-->
-    <!--<button type="submit">Successivo</button> -->
     <div class="areaBottoni flex justify-around gap-5">
-      <button class="bottone w-[30%] px-5" type="submit">Successivo</button>
-
       <button class="previous bottone w-[30%] px-5" @click="goToPreviousForm" type="button">
         Precedente
       </button>
+      <button class="bottone w-[30%] px-5" type="submit">Successivo</button>
     </div>
   </form>
-  <button class="bottone w-[50%]" @click="selezioneCategoria">Seleziona Categoria</button>
 </template>
 
 <script setup>
 import Button from 'primevue/button';
-import Chip from 'primevue/chip';
-import InputGroup from 'primevue/inputgroup';
-import InputGroupAddon from 'primevue/inputgroupaddon';
-import TreeSelect from 'primevue/treeselect';
 
 import { defineEmits, onMounted, ref } from 'vue';
 
@@ -54,7 +34,7 @@ const emit = defineEmits(['update:active']);
 
 const gestioneInvio = () => {
   console.log('\ncategorie selezionate:', categorieSelezionate.value[1]);
-  emit('update:active', 0); //2
+  emit('update:active', 2);
 };
 const goToPreviousForm = () => {
   // Emit event to notify parent component to move to   the previous form section

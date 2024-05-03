@@ -66,6 +66,10 @@ import { onMounted, ref } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
 import ImageUploader from '../ImageUploader.vue';
 
+import { getCategorieRest } from '../../scripts/categorie.js';
+
+const nodes = ref([]);
+
 const getCategorie = async () => {
   try {
     nodes.value = await getCategorieRest(); // Assuming the response contains an array
