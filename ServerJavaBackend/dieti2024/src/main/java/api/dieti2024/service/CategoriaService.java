@@ -15,7 +15,9 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    public List<CategoriaDTO> costruisciGerarchiaCategorie(){
+
+    /* ---------------------------Versione vecchia da cancellare----------------------------------------------------------
+    public List<CategoriaDTO> costruisciGerarchiaCategorieDeprecato(){
 
         List<CategoriaDTO> listaCategorieDaRestituire = new ArrayList<>();
 
@@ -23,10 +25,10 @@ public class CategoriaService {
 
         List<String> figli;
 
-        /*
+
             Per ogni categoria radice estraiamo la lista dei suoi figli
 
-         */
+
         for(String categoriaRadice : categorieRadici){
 
             CategoriaDTO categoriaRadiceDTO = new CategoriaDTO(categoriaRadice);
@@ -35,9 +37,7 @@ public class CategoriaService {
 
                 figli = categoriaRepository.getCategorieFiglie(categoriaRadice);
 
-                /*
-                    Per ogni figlio della categoria Radice viene fatto la stessa cosa ricorsivamente
-                 */
+
                 for(String figlio : figli){
 
                     CategoriaDTO figlioDTO = new CategoriaDTO(figlio);
@@ -75,8 +75,10 @@ public class CategoriaService {
         return categoriaRepository.getNumeroFigli(categoriaParametro.getLabel()) > 0;
     }
 
+    */
+
     /////////////////////////////////////////////////v2////////////////////////////////////////////////////////////////////////////
-    public List<CategoriaDTO> costruisciGerarchiaCategorieV2(){
+    public List<CategoriaDTO> costruisciGerarchiaCategorie(){
 
         List<CategoriaDTO> gerarchiaDaRestituire = new ArrayList<>();
 

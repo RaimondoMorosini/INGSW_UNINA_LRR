@@ -58,10 +58,10 @@ const onSortChange = (event) => {
   }
 };
 
-onMounted(async () => {
+/*onMounted(async () => {
   const response = await fetch('http://localhost:8081/public/asta/getAllAste');
   const data = await response.json();
   console.log(data);
   products.value = data;
-});
+});*/
 </script>
