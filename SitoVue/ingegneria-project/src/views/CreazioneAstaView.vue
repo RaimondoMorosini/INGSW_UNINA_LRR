@@ -1,7 +1,7 @@
 <template>
   <Steps class="py-2" :model="items" v-model:activeStep="active" />
   <CreaProdotto
-    class="px-3 py-14 lg:py-2"
+    class="px-3 py-20 lg:py-2"
     @update:active="updateCurrentForm($event)"
     v-if="active === 0"
   />

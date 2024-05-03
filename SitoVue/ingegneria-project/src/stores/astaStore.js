@@ -6,6 +6,7 @@ export const useAstaStore = defineStore('asta', {
       nomeProdotto: '',
       descrizione: '',
       prezzoBase: 0,
+      categoria: '',
     },
   }),
   actions:{

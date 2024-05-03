@@ -13,7 +13,6 @@
         class="rounded-r bg-primario-100/50 text-black"
       />
     </InputGroup>
-    <button class="bottone" @click="selezioneCategoria">Seleziona</button>"
 
     <Chip class="chip" label="Eletronica" />
     <Chip v-for="categoria in categorieSelezionate" v-bind:label="categoria" />
@@ -21,18 +20,22 @@
     <!--<button type="submit">Successivo</button> -->
     <div class="areaBottoni flex justify-around gap-5">
       <button class="bottone w-[30%] px-5" type="submit">Successivo</button>
+
       <button class="previous bottone w-[30%] px-5" @click="goToPreviousForm" type="button">
         Precedente
       </button>
     </div>
   </form>
+  <button class="bottone w-[50%]" @click="selezioneCategoria">Seleziona Categoria</button>
 </template>
 
 <script setup>
+import Button from 'primevue/button';
 import Chip from 'primevue/chip';
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 import TreeSelect from 'primevue/treeselect';
+
 import { defineEmits, onMounted, ref } from 'vue';
 
 import { getCategorieRest } from '../../scripts/categorie.js';
@@ -42,12 +45,16 @@ const selectedCategory = ref(null);
 const categorieSelezionate = ref([]);
 
 const selezioneCategoria = () => {
-  categorieSelezionate.value.push(selectedCategory.value.name);
-  //console.log(categorieSelezionate.value);
+  if (selectedCategory.value) {
+    console.log('percorso giusto');
+    categorieSelezionate.value.push(selectedCategory.value.name);
+  }
 };
 const emit = defineEmits(['update:active']);
+
 const gestioneInvio = () => {
-  emit('update:active', 2);
+  console.log('\ncategorie selezionate:', categorieSelezionate.value[1]);
+  emit('update:active', 0); //2
 };
 const goToPreviousForm = () => {
   // Emit event to notify parent component to move to   the previous form section
