@@ -7,11 +7,12 @@ import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.service.Asta.AstaFacadeService;
 import api.dieti2024.service.Asta.AstaService;
 import api.dieti2024.service.Asta.ProdottoService;
+import api.dieti2024.util.ImageContainerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 
@@ -27,6 +28,9 @@ public class ProdottoAstaController {
 
     @Autowired
     AstaFacadeService astaFacadeService;
+    @Autowired
+    ImageContainerUtil imageContainerUtil;
+
     @GetMapping("public/asta/getAllAste")
     public List<InfoDatiAstaDTO> getAllAste(@RequestBody FiltroDto filtroDto){
         try {
@@ -52,5 +56,22 @@ public class ProdottoAstaController {
 
 
     }
+
+    @PostMapping("public/asta/uploadImage")
+    public String uploadImage(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return "Errore: Nessun file selezionato";
+        }
+
+        try {
+            imageContainerUtil.uploadImage(file,file.getOriginalFilename());
+
+            return "Immagine caricata con successo!";
+        } catch (Exception e) {
+            return "Errore durante il caricamento dell'immagine: " + e.getMessage();
+        }
+    }
+
+
 
 }
