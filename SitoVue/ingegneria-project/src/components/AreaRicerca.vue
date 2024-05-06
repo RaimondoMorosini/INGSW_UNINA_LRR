@@ -66,8 +66,10 @@ import { onMounted, ref } from 'vue';
 
 import { getCategorieRest } from '../scripts/categorie.js';
 
+import Vetrina from '../components/Vetrina.vue';
+
 const value = ref(null);
-const selectedCategory = ref();
+const selectedCategory = ref('tutte');
 
 const nodes = ref([]);
 
