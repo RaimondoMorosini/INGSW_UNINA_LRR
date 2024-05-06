@@ -28,8 +28,8 @@ public class ProdottoAstaController {
 
     @Autowired
     AstaFacadeService astaFacadeService;
-    /*@Autowired
-    ImageContainerUtil imageContainerUtil;*/
+    @Autowired
+    ImageContainerUtil imageContainerUtil;
 
     @PostMapping("public/asta/getAllAste")
     public List<InfoDatiAstaDTO> getAllAste(@RequestBody FiltroDto filtroDto){
@@ -57,7 +57,7 @@ public class ProdottoAstaController {
 
     }
 
-    /*@PostMapping("public/asta/uploadImage")
+    @PostMapping("public/asta/uploadImage")
     public String uploadImage(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return "Errore: Nessun file selezionato";
@@ -70,6 +70,6 @@ public class ProdottoAstaController {
         } catch (Exception e) {
             return "Errore durante il caricamento dell'immagine: " + e.getMessage();
         }
-    }*/
+    }
 
 }
