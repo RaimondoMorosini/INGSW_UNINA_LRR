@@ -11,10 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-@Component
+//@Component
 public class ImageContainerUtil {
 
-    @Value("${azure.connectionString}")
+    /*@Value("${azure.connectionString}")
     private  static String connectionString;
 
     @Value("${azure.containerName}")
@@ -31,5 +31,5 @@ public class ImageContainerUtil {
         // Get a BlobClient to upload the image file
         blob.upload(file.getInputStream(),file.getSize(),true);
 
-    }
+    }*/
 }

@@ -1,67 +1,91 @@
 <template>
-  <div class="flex flex-row items-center bg-slate-100">
-    <div class="card">
-      <DataView
-        :value="products"
-        layout="grid"
-        :sortOrder="sortOrder"
-        :itemTemplate="itemTemplate"
-        :paginator="true"
-        :rows="9"
-        :paginatorPosition="'both'"
-      >
-        <template #itemTemplate="{ data }">
-          <div class="p-d-flex p-ai-center p-jc-between">
-            <div>
-              <img :src="data.immagini[0]" :alt="data.nome" class="product-image" />
-              <div class="product-detail">
-                <div class="product-name">{{ data.nome }}</div>
-                <div class="product-description">{{ data.descrizione }}</div>
+  <div class="card">
+    <DataView :value="products">
+      <template #list="slotProps">
+        <div class="grid grid-nogutter">
+          <div v-for="(item, index) in slotProps.items" :key="index" class="col-12">
+            <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3"
+              :class="{ 'border-top-1 surface-border': index !== 0 }">
+              <div class="md:w-10rem relative">
+                <img class="block xl:block mx-auto border-round w-full"
+                  :src="`${item.immagini[0]}`" :alt="item.nome" />
+                <Tag :value="item.tipoAsta" :severity="danger" class="absolute"
+                  style="left: 4px; top: 4px"></Tag>
+              </div>
+              <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+                <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
+                  <div>
+                    <span class="font-medium text-secondary text-sm">{{ item.categoria }}</span>
+                    <div class="text-lg font-medium text-900 mt-2">{{ item.nome }}</div>
+                    <div>Venditore: {{item.emailUtenteCreatore}}</div>
+                    <span class="text-xl font-semibold text-900">BASE ASTA: EURO {{ item.baseAsta }}</span>
+                  </div>
+                </div>
+                <div class="flex flex-column md:align-items-end gap-5">
+                  <div class="contenitore-bottone flex flex-row-reverse md:flex-row gap-2">
+                    <Button icon="pi pi-shopping-cart" label="Partecipa all'asta"
+                      :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
+                      class="flex-auto md:flex-initial white-space-nowrap"></Button>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="product-price">
-              <span class="product-badge p-text-uppercase">{{ data.prezzo }}</span>
-            </div>
           </div>
-        </template>
-      </DataView>
-    </div>
+        </div>
+      </template>
+    </DataView>
   </div>
 </template>
 
 <script setup>
+import axios from 'axios';
 import DataView from 'primevue/dataview';
+import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'   // optional
+import Tag from 'primevue/tag';
+import Button from 'primevue/button';
+import "primeflex/primeflex.css";
+import "primevue/resources/themes/aura-light-green/theme.css";
+import "primeicons/primeicons.css";
+import { ref, onMounted } from "vue";
+import { ProductService } from '@/service/ProductService';
 
-import { ref, onMounted } from 'vue';
+onMounted(async () => {
+  //ProductService.getProductsSmall().then((data) => (products.value = data.slice(0, 5)));
+
+  axios.post('http://localhost:8081/public/asta/getAllAste', parametriBody)
+    .then(response => {
+      // Gestisci la risposta qui
+      console.log(response.data);
+      products.value = response.data;
+    })
+    .catch(error => {
+      // Gestisci gli errori qui
+      console.error('Si è verificato un errore:', error);
+    });
+
+});
 
 const products = ref();
-const sortKey = ref();
-const sortOrder = ref();
-const sortField = ref();
-const sortOptions = ref([
-  { label: 'Price High to Low', value: '!price' },
-  { label: 'Price Low to High', value: 'price' },
-]);
+const prova = 'tutte';
 
-const onSortChange = (event) => {
-  const value = event.value.value;
-  const sortValue = event.value;
 
-  if (value.indexOf('!') === 0) {
-    sortOrder.value = -1;
-    sortField.value = value.substring(1, value.length);
-    sortKey.value = sortValue;
-  } else {
-    sortOrder.value = 1;
-    sortField.value = value;
-    sortKey.value = sortValue;
-  }
+const parametriBody = {
+  pagina: 1,
+  elementiPerPagina: 5,
+  categoria: prova,
+  nomeProdotto: "",
+  tipoAsta: []
 };
 
-/*onMounted(async () => {
-  const response = await fetch('http://localhost:8081/public/asta/getAllAste');
-  const data = await response.json();
-  console.log(data);
-  products.value = data;
-});*/
 </script>
+
+<style scoped>
+.contenitore-bottone {
+
+  background-color: green;
+  border: 2px solid #c5c5c58a;
+  border-radius: 1rem;
+  padding: 1rem;
+  color: white;
+}
+</style>
