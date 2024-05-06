@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class AzureStorageConfig {
 
-    @Value("${azure.connectionString}")
+    /*@Value("${azure.connectionString}")
     private String connectionString;
 
     @Value("${azure.containerName}")
@@ -20,6 +20,6 @@ public class AzureStorageConfig {
                 .connectionString(connectionString)
                 .containerName(containerName)
                 .buildClient();
-    }
+    }*/
 }
 
