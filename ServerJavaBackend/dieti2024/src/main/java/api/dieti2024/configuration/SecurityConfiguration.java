@@ -34,6 +34,7 @@ public class SecurityConfiguration{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .cors(AbstractHttpConfigurer::disable)
                 .cors(corsConfigurationSource -> {})
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
@@ -46,15 +47,15 @@ public class SecurityConfiguration{
                 );
         return httpSecurity.build();
     }
-@Bean
+/*@Bean
 public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("http://localhost:8082")); // aggiungi qui le tue origini consentite
+    configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080")); // aggiungi qui le tue origini consentite
     configuration.setAllowedMethods(Arrays.asList("GET","POST"));
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
     return source;
-}
+}*/
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
