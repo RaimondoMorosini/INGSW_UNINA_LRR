@@ -23,6 +23,9 @@ export default {
       stompClient.connect({}, () => {
         console.log('Connesso al server WebSocket');
         // Aggiungi qui la logica per gestire gli eventi WebSocket
+        stompClient.subscribe('/asta', (message) => {
+          console.log('Messaggio ricevuto:', message.body);
+        });
       }, error => {
         console.error('Errore durante la connessione WebSocket:', error);
       });
