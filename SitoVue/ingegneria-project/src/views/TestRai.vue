@@ -1,25 +1,31 @@
 <script setup>
-import Stomp from "webstomp-client"
+import { ref, onMounted } from 'vue';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 
-console.log("CIAO, SONO IL TEST DI RAI");
-var socket = new WebSocket('ws://localhost:8081/websocket');
+const stompClient = ref(null);
 
-socket.onopen = function(event) {
-  console.log('Connected to WebSocket');
-};
+onMounted(() => {
+  connect();
+});
 
-socket.onmessage = function(event) {
-  console.log('Received message: ' + event.data);
-};
+function connect() {
+  const socket = new SockJS('http://localhost:8081/websocket');
+  stompClient.value = Stomp.over(socket);
 
-socket.onerror = function(error) {
-  console.log('WebSocket Error: ' + error);
-};
+  const onConnect = (frame) => {
+    console.log('Connected: ' + frame);
+    stompClient.value.subscribe('/asta', (message) => {
+      console.log('Received: ' + message.body);
+    });
+  };
 
-socket.onclose = function(event) {
-  console.log('WebSocket connection closed');
-};
+  const onError = (error) => {
+    console.log('Error: ' + error);
+  };
 
+  stompClient.value.connect({}, onConnect, onError);
+}
 </script>
 <template>
   <div class="mx-auto w-3col">
