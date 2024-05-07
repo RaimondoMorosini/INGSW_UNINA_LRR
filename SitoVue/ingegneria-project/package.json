@@ -20,6 +20,7 @@
     "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
     "core-js": "^3.8.3",
+    "express": "^4.19.2",
     "fs": "^0.0.1-security",
     "glob": "^10.3.10",
     "mutationobserver-shim": "^0.3.7",
@@ -36,7 +37,8 @@
     "vue-router": "^4.0.3",
     "vue-timer-hook": "^1.0.84",
     "vue3-steppy": "^1.5.1",
-    "webstomp-client": "^1.2.6"
+    "webstomp-client": "^1.2.6",
+    "ws": "^8.17.0"
   },
   "devDependencies": {
     "@prettier/plugin-php": "^0.22.2",

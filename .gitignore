@@ -1,12 +1,3 @@
 
 *.properties
-ServerJavaBackend/dieti2024/src/main/resources/application.properties
-ServerJavaBackend/dieti2024/src/main/resources/application.properties
-/ServerJavaBackend/dieti2024/src/main/resources
-/ServerJavaBackend/dieti2024/src/main
-/ServerJavaBackend/dieti2024/src
-/ServerJavaBackend/dieti2024
-/ServerJavaBackend
-*.properties
-ServerJavaBackend/dieti2024/src/main/resources/application.properties
-*.properties
+ServerJavaBackend/dieti2024/src/main/resources/application.properties.example
