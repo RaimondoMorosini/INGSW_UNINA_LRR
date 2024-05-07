@@ -28,14 +28,15 @@
     "primeflex": "^3.3.1",
     "primeicons": "^6.0.1",
     "primevue": "^3.51.0",
+    "sockjs-client": "^1.6.1",
     "spinkit": "^2.0.1",
     "swiper": "^11.0.7",
     "vue": "^3.2.13",
     "vue-cookies": "^1.8.3",
-    "vue-native-websocket": "^2.0.15",
     "vue-router": "^4.0.3",
     "vue-timer-hook": "^1.0.84",
-    "vue3-steppy": "^1.5.1"
+    "vue3-steppy": "^1.5.1",
+    "webstomp-client": "^1.2.6"
   },
   "devDependencies": {
     "@prettier/plugin-php": "^0.22.2",
@@ -66,7 +67,6 @@
     "prettier-plugin-tailwindcss": "^0.5.12",
     "sass": "^1.26.11",
     "sass-loader": "^14.1.1",
-    "tailwindcss": "^3.4.1",
-    "vue-cli-plugin-bootstrap-vue": "~0.8.2"
+    "tailwindcss": "^3.4.1"
   }
 }
