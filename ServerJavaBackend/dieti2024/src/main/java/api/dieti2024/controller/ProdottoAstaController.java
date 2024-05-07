@@ -62,14 +62,8 @@ public class ProdottoAstaController {
         if (file.isEmpty()) {
             return "Errore: Nessun file selezionato";
         }
-
-        try {
             imageContainerUtil.uploadImage(file,file.getOriginalFilename());
-
             return "Immagine caricata con successo!";
-        } catch (Exception e) {
-            return "Errore durante il caricamento dell'immagine: " + e.getMessage();
-        }
     }
 
 }
