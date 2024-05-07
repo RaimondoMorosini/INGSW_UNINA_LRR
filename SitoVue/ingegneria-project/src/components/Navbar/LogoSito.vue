@@ -1,7 +1,7 @@
 <template>
   <RouterLink to="/">
     <div
-      class="mt-1 flex content-evenly rounded bg-inherit px-3 font-bold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 md:items-center md:px-0 md:pb-2"
+      class="py-1 flex content-evenly rounded bg-inherit px-3 font-bold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 md:items-center md:px-0 md:pb-2"
     >
       <img src="../../assets/Icon/LogoSVGSito.svg" alt="Logo" class="h-1col w-1col" />
       <div class="flex pt-[1.1rem] md:pt-0">
