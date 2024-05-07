@@ -32,11 +32,11 @@ public class ProdottoAstaController {
     ImageContainerUtil imageContainerUtil;
 
     @PostMapping("public/asta/getAllAste")
-    public List<InfoDatiAstaDTO> getAllAste(@RequestBody FiltroDto filtroDto){
+    public ResponseEntity< List<InfoDatiAstaDTO>> getAllAste(@RequestBody FiltroDto filtroDto){
         try {
-            return astaService.getAllAstaProdotto(filtroDto);
+            return ResponseEntity.ok( astaService.getAllAstaProdotto(filtroDto));
         }catch (Exception e){
-            return null;
+            return ResponseEntity.badRequest().build();
         }
     }
 
