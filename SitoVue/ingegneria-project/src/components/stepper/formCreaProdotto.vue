@@ -75,15 +75,16 @@ const descrizione = ref('');
 const prezzoBase = ref('');
 
 const gestioneInvio = () => {
+  /** TODO da togliere quando il server è funzionante
   if (
     !nomeProdotto.value.trim ||
     !descrizione.value.trim ||
-    !prezzoBase.value.trim ||
-    !selectedCategory.value.trim
+    !prezzoBase.value.trim ||!selectedCategory.value.trim
   ) {
     alert('Compila tutti i campi.');
     return;
   }
+  */
   storeInstance.updateAsta({
     nomeProdotto: nomeProdotto.value,
     descrizione: descrizione.value,
