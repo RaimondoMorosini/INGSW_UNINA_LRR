@@ -5,15 +5,18 @@ import aspectRatio from '@tailwindcss/aspect-ratio';
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: 'jit',
-  // purge:['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   media: false, // or 'media' or 'class'
 
-  // content: [
-  //  "index.html",
-  //  "./src/**/*.{vue,js,ts,jsx,tsx}",
-  // ],
   theme: {
+    screen:{
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1000px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
     extend: {
       colors: {
         'primary-50': 'rgb(var(--primary-50))',

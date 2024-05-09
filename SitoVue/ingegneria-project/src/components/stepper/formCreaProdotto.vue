@@ -1,22 +1,19 @@
 <template>
-  <!--TODO: rimuovere i ring di supporto a pagina finita-->
-
   <form @submit.prevent="gestioneInvio">
-    <main class=" px-2 grid gap-2 grid-rows h-auto md:w-auto w-[100%] flex-col justify-around md:grid-cols-10 ">
+    <main class="px-5 gap-3 min-w-3col h-auto md:w-auto w-[100%] flex flex-col lg:flex-row justify-around ">
       <div
-        class="flex w-[100%] px-2 auto-rows-max flex-col justify-around gap-3   md:col-span-4 row-span-4"
-      >
-        <div class="formSpace  md:pr-9">
+        class="flex w-[100%] h-4col px-2 auto-rows-max flex-col justify-around gap-3  ">
+        <div class="formSpace  ">
           <label for="nomeProdotto">Nome Prodotto</label>
-          <input class="w-[60%] md:w-max rounded" type="text" id="nomeProdotto" v-model="nomeProdotto" />
+          <input class="w-[60%] md:w-[70%] rounded" type="text" id="nomeProdotto" v-model="nomeProdotto" />
         </div>
-        <div class="formSpace md:pr-9">
+        <div class="formSpace ">
           <label for="descrizione">Descrizione Prodotto</label>
-          <textarea class="w-[60%] md:w-max rounded" id="descrizione" v-model="descrizione" />
+          <textarea class="w-[60%] md:w-[70%] rounded" id="descrizione" v-model="descrizione" />
         </div>
-        <div class="formSpace  md:pr-9">
+        <div class="formSpace  ">
           <label for="prezzoBase">Prezzo Base</label>
-          <input class="w-[60%] md:w-max rounded" type="number" id="prezzoBase" v-model="prezzoBase" />
+          <input class="w-[60%] md:w-[70%] rounded" type="number" id="prezzoBase" v-model="prezzoBase" />
         </div>
 
         <InputGroup class="categoriaSelector w-[100%] ">
@@ -29,17 +26,17 @@
             :options="nodes"
             option-label="name"
             placeholder="Seleziona Categoria"
-            class="w-[100px] rounded-r bg-slate-100 ring-1 ring-black text-black"
+            class=" rounded-r bg-slate-100 ring-1 ring-black text-black"
           />
         </InputGroup>
       </div>
 
-      <div class="h-[100%] w-[100%] px-2  auto-rows-max md:col-span-6 row-span-7 flex ">
+      <div class="h-[100%] w-[100%] px-2  flex ">
         <ImageUploader class="h-[100%] flex" />
       </div>
     </main>
-    <div class="my-4">
-      <button class="bottone md:top-0" type="submit">Successivo</button>
+    <div class="my-4 px-10 items-end flex">
+      <button class="bottone" type="submit">Successivo</button>
     </div>
   </form>
 </template>
@@ -127,9 +124,9 @@ button.bottone {
   border-radius: 5px;
   font-size: 1.1rem;
   font-weight: bold;
-  width: 25%;
+  width: 50%;
   margin: 0 auto;
-  width: 100%;
+  
 }
 
 button.bottone:hover {
