@@ -65,12 +65,13 @@ onMounted(() => {
 }
 .bottone {
   background-color: #cc85f5;
+  margin: 10px;
   padding: 10px 20px;
   color: white;
   border-radius: 5px;
   font-size: 1.1rem;
   font-weight: bold;
-  width: 100%;
+  width: 50%;
 }
 .bottone:hover {
   background-color: #7c3aed;

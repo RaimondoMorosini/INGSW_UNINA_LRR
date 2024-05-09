@@ -9,7 +9,7 @@
         </div>
         <div class="formSpace ">
           <label for="descrizione">Descrizione Prodotto</label>
-          <textarea class="w-[60%] md:w-[70%] rounded" id="descrizione" v-model="descrizione" />
+          <textarea rows="5" class="w-[60%] md:w-[70%] rounded" id="descrizione" v-model="descrizione" />
         </div>
         <div class="formSpace  ">
           <label for="prezzoBase">Prezzo Base</label>
@@ -35,7 +35,7 @@
         <ImageUploader class="h-[100%] flex" />
       </div>
     </main>
-    <div class="my-4 px-10 items-end flex">
+    <div class="areaBottoni my-4 px-10">
       <button class="bottone" type="submit">Successivo</button>
     </div>
   </form>
@@ -63,9 +63,6 @@ const getCategorie = async () => {
   }
 };
 
-onMounted(() => {
-  getCategorie();
-});
 const storeInstance = useAstaStore();
 
 const emit = defineEmits(['update:active']);
@@ -73,6 +70,19 @@ const selectedCategory = ref('');
 const nomeProdotto = ref('');
 const descrizione = ref('');
 const prezzoBase = ref('');
+
+
+
+onMounted(() => {
+  storeInstance.updateAsta({
+    step : 0,
+  });
+  selectedCategory = storeInstance.asta?.categoria;
+  nomeProdotto = storeInstance.asta?.nomeProdotto;
+  descrizione = storeInstance.asta?.descrizione;
+  prezzoBase = storeInstance.asta?.prezzoBase;
+  getCategorie();
+});
 
 const gestioneInvio = () => {
   /** TODO da togliere quando il server è funzionante
@@ -86,6 +96,7 @@ const gestioneInvio = () => {
   }
   */
   storeInstance.updateAsta({
+    
     nomeProdotto: nomeProdotto.value,
     descrizione: descrizione.value,
     prezzoBase: prezzoBase.value,
@@ -126,11 +137,27 @@ button.bottone {
   font-size: 1.1rem;
   font-weight: bold;
   width: 50%;
-  margin: 0 auto;
+  margin: 10px;
   
 }
 
 button.bottone:hover {
   background-color: #7c3aed;
+}
+
+textarea {
+  resize: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 </style>
