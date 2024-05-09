@@ -77,10 +77,11 @@ onMounted(() => {
   storeInstance.updateAsta({
     step : 0,
   });
-  selectedCategory = storeInstance.asta?.categoria;
+  /** TODO controllare funzionamento e Permanenza dello store pinia
+   * selectedCategory = storeInstance.asta?.categoria;
   nomeProdotto = storeInstance.asta?.nomeProdotto;
   descrizione = storeInstance.asta?.descrizione;
-  prezzoBase = storeInstance.asta?.prezzoBase;
+  prezzoBase = storeInstance.asta?.prezzoBase;*/
   getCategorie();
 });
 

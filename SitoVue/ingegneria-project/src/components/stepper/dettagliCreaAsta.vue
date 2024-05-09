@@ -53,7 +53,6 @@ const scadenzaAsta = ref('');
 
 onMounted  (()  => {
   storeInstance.updateAsta  ({ step : 2 });
-
 });
 
 

@@ -1,20 +1,24 @@
 <template>
-    <div>
+    <div class="font-semibold text-xl">
         REVIEW
     </div>
+    
     <p>Categoria: {{ selectedCategory }}</p>
     <p>nomeProdotto: {{ nomeProdotto }}</p>
     <p>descrizione {{ descrizione }}</p>
 
     <p>prezzo Base: € {{ prezzoBase }}</p>
     <p>tipo Asta: {{ tipoAsta }}</p>
-    <p>incremento minimo: € {{ incrementoMinimo }}</p>
-    <p>durata estensione:   {{ durataEstensione }}</p>
-    <p> scadenza asta: {{ scadenzaAsta }}</p>
+    <div v-if="tipoAsta==='Inglese'">    
+        <p>incremento minimo: € {{ incrementoMinimo }}</p>
+        <p>durata estensione:   {{ durataEstensione }}</p>
+    </div>
+
+    <p> scadenza asta: {{ scadenzaAsta}}</p>
 
     <button class="previous bottone my-3 mx-3 px-5" @click="goToPreviousForm" type="button">
         Precedente
-      </button>
+    </button>
 </template>
 
 <script setup>
@@ -40,7 +44,7 @@ const scadenzaAsta = ref('');
 
 onMounted(() =>
 {
-    step = 3;
+    storeInstance.updateAsta  ({ step : 3 });
     nomeProdotto.value = storeInstance.asta.nomeProdotto;
     descrizione.value = storeInstance.asta.descrizione;
     prezzoBase.value = storeInstance.asta.prezzoBase;
@@ -48,7 +52,7 @@ onMounted(() =>
     tipoAsta.value = storeInstance.asta.tipo;
     incrementoMinimo.value = storeInstance.asta.incrementoMinimo;
     durataEstensione.value = storeInstance.asta.estenzione;
-    scadenzaAsta.value = storeInstance.asta.scadenza;
+    scadenzaAsta.value = storeInstance.asta?.scadenza.toString();
 });
 </script>
 
@@ -65,6 +69,16 @@ onMounted(() =>
 }
 .bottone:hover {
   background-color: #7c3aed;
+}
+
+label {
+  text-align: center;
+  display: block;
+  margin: 25px 0 15px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
 }
 
 </style>
