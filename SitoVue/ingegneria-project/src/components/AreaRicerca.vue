@@ -4,13 +4,13 @@
   >
     <InputGroup class="h-14 w-[100%] lg:w-[33%]">
       <InputGroupAddon class="bg-primario-100">
-        <i class="pi pi-search"></i>
+        <i class="pi pi-search" style="color: #424242"></i>
       </InputGroupAddon>
       <InputText
         id="cerca"
         v-model="value"
         placeholder="Search"
-        class="rounde33%order-transparent w-[100%] bg-primario-100/50"
+        class="rounded-r w-[100%] bg-primario-100/50 border-transparent text-black"
       >
         <template #imputtexticon>
           <i class="pi pi-search" style="color: #424242"></i>

@@ -2,24 +2,24 @@
   <!--TODO: rimuovere i ring di supporto a pagina finita-->
 
   <form @submit.prevent="gestioneInvio">
-    <main class="grid grid-rows-2 h-4col flex-col justify-around gap-2 py-4 lg:grid-cols-10 ">
+    <main class=" px-2 grid gap-2 grid-rows h-auto md:w-auto w-[100%] flex-col justify-around md:grid-cols-10 ">
       <div
-        class=" flex w-[100%] auto-rows-max min-w-4col flex-col justify-around gap-3 px-2 py-2 ring-2 ring-black lg:col-span-4 row-span-4"
+        class="flex w-[100%] px-2 auto-rows-max flex-col justify-around gap-3   md:col-span-4 row-span-4"
       >
-        <div class="formSpace px-2 lg:pr-9">
+        <div class="formSpace  md:pr-9">
           <label for="nomeProdotto">Nome Prodotto</label>
-          <input class="w-[60%] lg:w-max rounded" type="text" id="nomeProdotto" v-model="nomeProdotto" />
+          <input class="w-[60%] md:w-max rounded" type="text" id="nomeProdotto" v-model="nomeProdotto" />
         </div>
-        <div class="formSpace px-2 lg:pr-9">
+        <div class="formSpace md:pr-9">
           <label for="descrizione">Descrizione Prodotto</label>
-          <textarea class="w-[60%] lg:w-max rounded" id="descrizione" v-model="descrizione" />
+          <textarea class="w-[60%] md:w-max rounded" id="descrizione" v-model="descrizione" />
         </div>
-        <div class="formSpace px-2 lg:pr-9">
+        <div class="formSpace  md:pr-9">
           <label for="prezzoBase">Prezzo Base</label>
-          <input class="w-[60%] lg:w-max rounded" type="number" id="prezzoBase" v-model="prezzoBase" />
+          <input class="w-[60%] md:w-max rounded" type="number" id="prezzoBase" v-model="prezzoBase" />
         </div>
 
-        <InputGroup class="categoriaSelector w-[100%] px-2">
+        <InputGroup class="categoriaSelector w-[100%] ">
           <InputGroupAddon class="bg-slate-100 ring-1 ring-black">
             <i class="pi pi-th-large" style="color: #000"></i>
           </InputGroupAddon>
@@ -34,12 +34,12 @@
         </InputGroup>
       </div>
 
-      <div class="h-[100%] w-[100%] px-2 py-2 ring-2 ring-black auto-rows-max lg:col-span-6 row-span-7 flex">
+      <div class="h-[100%] w-[100%] px-2  auto-rows-max md:col-span-6 row-span-7 flex ">
         <ImageUploader class="h-[100%] flex" />
       </div>
     </main>
-    <div class="absolute py-5">
-      <button class="bottone relative top-24 lg:top-0" type="submit">Successivo</button>
+    <div class="my-4">
+      <button class="bottone md:top-0" type="submit">Successivo</button>
     </div>
   </form>
 </template>

@@ -11,8 +11,8 @@
 </template>
 
 <script setup>
-import ElementiNavBar from './Navbar/ElementiNavBar.vue';
-import Logo from './Navbar/LogoSito.vue';
+import ElementiNavBar from './ElementiNavBar.vue';
+import Logo from './LogoSito.vue';
 </script>
 
 <style>
