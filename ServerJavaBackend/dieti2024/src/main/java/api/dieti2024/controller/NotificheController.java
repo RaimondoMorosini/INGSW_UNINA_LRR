@@ -10,15 +10,14 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class NotificheController {
 
-
     @MessageMapping("/notifica")
     @SendTo("/topic/notifica")
-    public NotificaDTO inviaNotifica(@Payload NotificaDTO notificaDTO){
+    public NotificaDTO inviaNotifica(@Payload NotificaDTO notificaDTO) {
         return notificaDTO;
     }
 
-    public NotificaDTO addUtente(@Payload NotificaDTO notificaDTO, SimpMessageHeaderAccessor headerAccessor){
-        //aggiungo l'utente alla sessione tramite l'email per poterlo identificare
+    public NotificaDTO addUtente(@Payload NotificaDTO notificaDTO, SimpMessageHeaderAccessor headerAccessor) {
+        // aggiungo l'utente alla sessione tramite l'email per poterlo identificare
         headerAccessor.getSessionAttributes().put("email", notificaDTO.email());
         return notificaDTO;
     }

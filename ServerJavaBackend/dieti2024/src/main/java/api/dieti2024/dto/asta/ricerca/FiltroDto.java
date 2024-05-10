@@ -8,13 +8,13 @@ public record FiltroDto(
         List<String> tipoAsta,
         String nomeProdotto,
         int pagina,
-        int elementiPerPagina
-) {
+        int elementiPerPagina) {
 
     public String toWhere() {
         StringBuilder stringBuilder = new StringBuilder();
 
-        // Aggiungi condizioni per categoria, tipoAsta e nomeProdotto solo se non sono nulli o vuoti
+        // Aggiungi condizioni per categoria, tipoAsta e nomeProdotto solo se non sono
+        // nulli o vuoti
         if (categoria != null && !categoria.isEmpty()) {
             stringBuilder.append("categoria = '").append(categoria).append("' AND ");
         }

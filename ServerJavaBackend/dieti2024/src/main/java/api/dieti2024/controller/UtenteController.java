@@ -15,25 +15,28 @@ public class UtenteController {
     private final ControllerRestUtil controllerUtil = new ControllerRestUtil();
     @Autowired
     private api.dieti2024.service.utenteService utenteService;
+
     @GetMapping("/datiProfilo")
-      public ProfiloUtentePublicoDTO getDatiProfilo(@RequestParam String email){
+    public ProfiloUtentePublicoDTO getDatiProfilo(@RequestParam String email) {
         return utenteService.getDatiProfilo(email);
     }
+
     @PutMapping("/datiProfilo")
-    public ResponseEntity updateDatiProfilo( @RequestBody ProfiloUtentePublicoDTO profiloUtentePublicoDTO){
+    public ResponseEntity updateDatiProfilo(@RequestBody ProfiloUtentePublicoDTO profiloUtentePublicoDTO) {
 
         String email = controllerUtil.getEmailOfUtenteCorrente();
 
-        try{
+        try {
             utenteService.updateDatiProfilo(email, profiloUtentePublicoDTO);
-            ResponseEntity resp = ResponseEntity.status(HttpStatus.OK).body("Dati aggiornati\n"+ profiloUtentePublicoDTO);
+            ResponseEntity resp = ResponseEntity.status(HttpStatus.OK)
+                    .body("Dati aggiornati\n" + profiloUtentePublicoDTO);
             return resp;
-        }catch (ApiException e) {
+        } catch (ApiException e) {
             String message = e.getMessage();
             HttpStatus status = e.getStatus();
             return ResponseEntity.status(status).body(message);
-        }catch (Exception e){
-          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
     }

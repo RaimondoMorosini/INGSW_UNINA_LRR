@@ -18,8 +18,9 @@ public class CategoriaController {
 
     @Autowired
     CategoriaService categoriaServizio;
+
     @GetMapping("/getGerarchiaCategorie")
-    public List<CategoriaDTO> getGerarchiaCategorie(){
+    public List<CategoriaDTO> getGerarchiaCategorie() {
 
         return categoriaServizio.costruisciGerarchiaCategorie();
     }

@@ -16,7 +16,7 @@ public class CaratteristicaController {
     private CaratteristicaService caratteristicaService;
 
     @GetMapping("/getCaratteristicheDaCategoria")
-    public List<Caratteristica> getCaratteristicheDaCategoria(@RequestParam("categoria") String categoria){
+    public List<Caratteristica> getCaratteristicheDaCategoria(@RequestParam("categoria") String categoria) {
 
         return caratteristicaService.getCaratteristicaDaCategoria(categoria);
     }
