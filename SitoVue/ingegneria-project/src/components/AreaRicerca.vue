@@ -6,12 +6,8 @@
       <InputGroupAddon class="bg-primario-100">
         <i class="pi pi-search" style="color: #424242"></i>
       </InputGroupAddon>
-      <InputText
-        id="cerca"
-        v-model="value"
-        placeholder="Search"
-        class="rounded-r w-[100%] bg-primario-100/50 border-transparent text-black"
-      >
+      <InputText id="cerca" v-model="value" placeholder="Search"
+        class="rounded-r w-[100%] bg-primario-100/50 border-transparent text-black">
         <template #imputtexticon>
           <i class="pi pi-search" style="color: #424242"></i>
         </template>
@@ -45,7 +41,11 @@
 
   <Vetrina v-if="vetrina" />
 
-  <AstePerRicerca v-else :propAste="aste" :propLoading="isLoading" />
+  <AstePerRicerca v-else 
+  :propAste="aste" 
+  :propLoading="isLoading" 
+  :propNumeroAste="numeroAsteTotali"
+  :propCategoriaCercata="categoriaDaCercare"  />
 
 </template>
 
@@ -62,7 +62,6 @@ import { getCategorieRest } from '../scripts/categorie.js';
 
 import Vetrina from '../components/Vetrina.vue';
 import AstePerRicerca from '../components/AstePerRicerca.vue';
-import treeselect from '../presets/Dieti/treeselect';
 
 import axios from 'axios';
 
@@ -73,6 +72,7 @@ let vetrina = ref(true);
 let categoriaDaCercare = ref("tutte");
 let aste = ref();
 const isLoading = ref(true);
+const numeroAsteTotali = ref();
 
 
 
@@ -88,14 +88,21 @@ const setAsteRicercate = async () => {
 
   isLoading.value = true; // Imposta lo stato di caricamento su true prima di effettuare la richiesta
 
-  vetrina.value = false;
+  vetrina.value = false; //Disattiva il tamplate della vetrina e carica la componente che mostra il caricamento delle aste
 
-  if (selectedCategory.value != null && Object.keys(selectedCategory.value).length != 0) {
+  try{
 
+    //se la categoria è selezionata allora imposta come filtro di ricerca su categoria: la categoria selezionata
     categoriaDaCercare.value = Object.entries(selectedCategory.value)[0][0]
+
+  }catch(error){
+
+    //se la categoria non è selezionata allora imposta come filtro di riceca su categoria: "tutte"
+    categoriaDaCercare.value = "tutte"
   }
 
 
+  //impostazione dei parametri del body da amndare nella richiesta axios
   const parametriBody = {
     pagina: 1,
     elementiPerPagina: 5,
@@ -105,21 +112,29 @@ const setAsteRicercate = async () => {
   };
 
 
+  //tentativo di richesta axsios
   try {
 
-    const response = await axios.post('http://localhost:8081/public/asta/getAllAste', parametriBody);
+    let response;
 
-    aste.value = response.data; // Assegna il risultato a aste
+    response = await axios.post('http://localhost:8081/public/asta/getNumeroAste', parametriBody); //Otteniamo il numero totale delle aste in base al criterio di ricerca (questo numero serve per calcolare il numero totali di pagine)
+
+    numeroAsteTotali.value = response.data; //Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
+
+    response = await axios.post('http://localhost:8081/public/asta/getAllAste', parametriBody); //Otteniamo tutte le aste che corrispondono al criterio di ricerca
+
+    aste.value = response.data; // Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
 
   } catch (error) {
 
     console.error('Si è verificato un errore:', error);
+
   } finally {
 
-    isLoading.value = false; // Imposta lo stato di caricamento su false dopo che la richiesta è completata
+    isLoading.value = false; // Imposta lo stato di caricamento su false dopo che la richiesta è completata (in modo che carica la componente delle aste cercate)
   }
 
-  
+
 }
 
 

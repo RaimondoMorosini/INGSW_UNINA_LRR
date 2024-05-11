@@ -1,7 +1,7 @@
 <template>
 
-    <CaricamentoAste v-if="props.propLoading" />
-    
+    <CaricamentoAste v-if="caricamentoAste" />
+
     <div class="card" v-else>
         <DataView :value="products">
             <template #list="slotProps">
@@ -40,31 +40,82 @@
                 </div>
             </template>
         </DataView>
+
+        <Paginator :rows="5" :totalRecords="props.propNumeroAste" @page="onPage($event)">
+        </Paginator>
     </div>
 </template>
 
 <script setup>
-import axios from 'axios';
 import DataView from 'primevue/dataview';
-import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'   // optional
 import Tag from 'primevue/tag';
 import Button from 'primevue/button';
+import Paginator from 'primevue/paginator';
 import "primeflex/primeflex.css";
 import "primevue/resources/themes/aura-light-green/theme.css";
 import "primeicons/primeicons.css";
+
 import { ref, watch } from "vue";
 import CaricamentoAste from '../components/CaricamentoAste.vue';
 
-const props = defineProps(['propAste', 'propLoading']);
+import axios from 'axios';
+
+
+const props = defineProps(['propAste', 'propLoading', 'propNumeroAste', 'propCategoriaCercata']);
 
 
 const products = ref();
 products.value = props.propAste;
 
+const caricamentoAste = ref(true);
+
+
 watch(() => props.propAste, (newValue) => {
     // Aggiorna products.values quando props.propAste cambia
     products.value = newValue;
 });
+
+watch(() => props.propLoading, (newValue) => {
+    // Aggiorna caricamentoAste quando props.props.propLaoding cambia
+    caricamentoAste.value = newValue;
+});
+
+const onPage = (event) => {
+
+    setAstePerPagina(event.page+1);
+}
+
+const setAstePerPagina = async (paginaSelezionata) => {
+
+    caricamentoAste.value = true; // Imposta lo stato di caricamento su true prima di effettuare la richiesta
+
+
+    //impostazione dei parametri del body da amndare nella richiesta axios
+    const parametriBody = {
+        pagina: paginaSelezionata,
+        elementiPerPagina: 5,
+        categoria: props.propCategoriaCercata,
+        nomeProdotto: "",
+        tipoAsta: []
+    };
+
+
+    //tentativo di richesta axsios
+    try {
+
+        const response = await axios.post('http://localhost:8081/public/asta/getAllAste', parametriBody);
+
+        products.value = response.data; //Aggiorna i valori dei prodotti in asta
+
+    } catch (error) {
+
+        console.error('Si è verificato un errore:', error);
+
+    } finally {
+
+        caricamentoAste.value = false; // Imposta lo stato di caricamento su false dopo che la richiesta è completata (in modo che carica la componente delle aste cercate)
+    }
+}
 
 </script>
 
