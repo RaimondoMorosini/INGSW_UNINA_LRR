@@ -63,5 +63,10 @@ public class AstaService {
         return lista;
     }
 
+    public int getNumeroTotaleDiAstePerRicerca(FiltroDto filtroDto){
+
+        return astaProdottoRepository.numeroTotaleDiAstePerRicerca(filtroDto);
+    }
+
 }
 
