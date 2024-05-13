@@ -6,7 +6,7 @@
       <InputGroupAddon class="bg-primario-100">
         <i class="pi pi-search" style="color: #424242"></i>
       </InputGroupAddon>
-      <InputText id="cerca" v-model="value" placeholder="Search"
+      <InputText id="cerca" v-model="nomeProdottoCercato" placeholder="Search"
         class="rounded-r w-[100%] bg-primario-100/50 border-transparent text-black">
         <template #imputtexticon>
           <i class="pi pi-search" style="color: #424242"></i>
@@ -32,20 +32,23 @@
           </g>
         </svg>
       </InputGroupAddon>
-      <TreeSelect id="cerca" v-model="selectedCity1" :options="cities" option-label="name" placeholder="Seleziona Asta"
-        class="min-[30%] rounded-r bg-primario-100/50 text-black" />
+
+      <MultiSelect v-model="selectedAuction" :options="auctions" optionLabel="name" placeholder="Seleziona aste"
+        :maxSelectedLabels="3" class="w-[100%] rounded-r bg-primario-100/50 text-black" />
+
     </InputGroup>
 
-    <button @click="setAsteRicercate">prova</button>
+    <button class="btn_cerca h-14 w-[100%] lg:w-[10%]" @click="setAsteRicercate">Cerca aste</button>
   </div>
 
   <Vetrina v-if="vetrina" />
 
-  <AstePerRicerca v-else 
-  :propAste="aste" 
+  <AstePerRicerca v-else :propAste="aste" 
   :propLoading="isLoading" 
   :propNumeroAste="numeroAsteTotali"
-  :propCategoriaCercata="categoriaDaCercare"  />
+  :propCategoriaCercata="categoriaDaCercare" 
+  :propProdottoCercato="nomeProdottoCercato"
+  :propTipoAsteCercate="tipoAstaCercata"/>
 
 </template>
 
@@ -56,7 +59,7 @@ import TreeSelect from 'primevue/treeselect';
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 
-import { onMounted, ref } from 'vue';
+import { onMounted, ref} from 'vue';
 
 import { getCategorieRest } from '../scripts/categorie.js';
 
@@ -65,7 +68,20 @@ import AstePerRicerca from '../components/AstePerRicerca.vue';
 
 import axios from 'axios';
 
-const value = ref(null);
+import MultiSelect from 'primevue/multiselect';
+
+import {useVetrinaStore} from '../stores/vetrinaStore'
+
+const vetrinaInstance = useVetrinaStore();
+
+
+const selectedAuction = ref();
+const auctions = ref([
+  { name: 'Asta inglese', code: 'AI' },
+  { name: 'Asta silenziosa', code: 'AS' },
+  { name: 'Asta inversa', code: 'AIV' },
+]);
+
 const selectedCategory = ref();
 const nodes = ref([]);
 let vetrina = ref(true);
@@ -73,6 +89,8 @@ let categoriaDaCercare = ref("tutte");
 let aste = ref();
 const isLoading = ref(true);
 const numeroAsteTotali = ref();
+let tipoAstaCercata = ref([]);
+let nomeProdottoCercato = ref("");
 
 
 
@@ -90,15 +108,45 @@ const setAsteRicercate = async () => {
 
   vetrina.value = false; //Disattiva il tamplate della vetrina e carica la componente che mostra il caricamento delle aste
 
-  try{
+  try {
 
     //se la categoria è selezionata allora imposta come filtro di ricerca su categoria: la categoria selezionata
     categoriaDaCercare.value = Object.entries(selectedCategory.value)[0][0]
 
-  }catch(error){
+  } catch (error) {
 
     //se la categoria non è selezionata allora imposta come filtro di riceca su categoria: "tutte"
     categoriaDaCercare.value = "tutte"
+  }
+
+  try {
+
+    tipoAstaCercata = ref([]);
+
+    const asteSelezionate = selectedAuction.value;
+
+    asteSelezionate.forEach((asta) => {
+
+      switch (asta.name) {
+
+        case 'Asta inglese':
+          tipoAstaCercata.value.push("asta_inglese");
+          break;
+
+        case 'Asta silenziosa':
+          tipoAstaCercata.value.push("asta_silensiosa");
+          break;
+
+        case 'Asta inversa':
+          tipoAstaCercata.value.push("asta_inversa");
+          break;
+      }
+
+    });
+
+  } catch (error) {
+
+    tipoAstaCercata = ref([]);
   }
 
 
@@ -107,8 +155,8 @@ const setAsteRicercate = async () => {
     pagina: 1,
     elementiPerPagina: 5,
     categoria: categoriaDaCercare.value,
-    nomeProdotto: "",
-    tipoAsta: []
+    nomeProdotto: nomeProdottoCercato.value,
+    tipoAsta: tipoAstaCercata.value
   };
 
 
@@ -139,7 +187,9 @@ const setAsteRicercate = async () => {
 
 
 onMounted(() => {
+  this.vetrina = vetrinaInstance.getVetrina;
   getCategorie();
+  vetrina.value = true;
 });
 </script>
 
@@ -147,5 +197,12 @@ onMounted(() => {
 #cerca {
   width: 100%;
   color: #333;
+}
+
+.btn_cerca {
+
+  background-color: #CD87F6;
+  color: #ffffff;
+  text-align: center;
 }
 </style>

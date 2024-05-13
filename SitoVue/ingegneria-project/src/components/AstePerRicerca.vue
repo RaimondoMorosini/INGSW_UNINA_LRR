@@ -40,10 +40,9 @@
                 </div>
             </template>
         </DataView>
-
-        <Paginator :rows="5" :totalRecords="props.propNumeroAste" @page="onPage($event)">
-        </Paginator>
     </div>
+    <Paginator :rows="5" :totalRecords="props.propNumeroAste" @page="onPage($event)">
+    </Paginator>
 </template>
 
 <script setup>
@@ -61,14 +60,13 @@ import CaricamentoAste from '../components/CaricamentoAste.vue';
 import axios from 'axios';
 
 
-const props = defineProps(['propAste', 'propLoading', 'propNumeroAste', 'propCategoriaCercata']);
+const props = defineProps(['propAste', 'propLoading', 'propNumeroAste', 'propCategoriaCercata', 'propProdottoCercato', 'propTipoAsteCercate']);
 
 
 const products = ref();
 products.value = props.propAste;
 
 const caricamentoAste = ref(true);
-
 
 watch(() => props.propAste, (newValue) => {
     // Aggiorna products.values quando props.propAste cambia
@@ -80,9 +78,10 @@ watch(() => props.propLoading, (newValue) => {
     caricamentoAste.value = newValue;
 });
 
+
 const onPage = (event) => {
 
-    setAstePerPagina(event.page+1);
+    setAstePerPagina(event.page + 1);
 }
 
 const setAstePerPagina = async (paginaSelezionata) => {
@@ -95,8 +94,8 @@ const setAstePerPagina = async (paginaSelezionata) => {
         pagina: paginaSelezionata,
         elementiPerPagina: 5,
         categoria: props.propCategoriaCercata,
-        nomeProdotto: "",
-        tipoAsta: []
+        nomeProdotto: props.propProdottoCercato,
+        tipoAsta: props.propTipoAsteCercate
     };
 
 

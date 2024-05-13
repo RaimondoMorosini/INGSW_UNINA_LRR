@@ -14,6 +14,11 @@ export const useAstaStore = defineStore('asta', {
       scadenzaAsta: '',
     },
   }),
+  getters:{
+    getAsta(){
+      return asta;
+    }
+  },
   actions:{
     updateAsta(newData){
       this.asta = {...this.asta, ...newData};

@@ -25,34 +25,30 @@
 import { useAstaStore } from '../../stores/astaStore.js';
 import {ref,onMounted} from 'vue';
 
+const storeInstance = useAstaStore();
 const emit = defineEmits(['update:active']);
 
 const goToPreviousForm = () => {
   // Emit event to notify parent component to move to   the previous form section
   emit('update:active', 2);
 };
-const storeInstance = useAstaStore();
 
-const selectedCategory = ref('');
-const nomeProdotto = ref('');
-const descrizione = ref('');
-const prezzoBase = ref('');
-const tipoAsta = ref('');
-const incrementoMinimo = ref('');
-const durataEstensione = ref('');
-const scadenzaAsta = ref('');
+const astaReview = ref({
+    selectedCategory: '',
+    nomeProdotto: '',
+    descrizione : '',
+    prezzoBase: '',
+    tipoAsta: '',
+    incrementoMinimo: '',
+    durataEstensione:'',
+    scadenzaAsta:''
+});
 
 onMounted(() =>
 {
     storeInstance.updateAsta  ({ step : 3 });
-    nomeProdotto.value = storeInstance.asta.nomeProdotto;
-    descrizione.value = storeInstance.asta.descrizione;
-    prezzoBase.value = storeInstance.asta.prezzoBase;
-    selectedCategory.value = storeInstance.asta.categorie;
-    tipoAsta.value = storeInstance.asta.tipo;
-    incrementoMinimo.value = storeInstance.asta.incrementoMinimo;
-    durataEstensione.value = storeInstance.asta.estenzione;
-    scadenzaAsta.value = storeInstance.asta?.scadenza.toString();
+    this.astaReview = storeInstance.getAsta;
+    console.log(toString(this.astaReview));
 });
 </script>
 
