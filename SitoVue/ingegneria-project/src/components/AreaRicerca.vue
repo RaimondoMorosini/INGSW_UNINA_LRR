@@ -59,7 +59,7 @@ import TreeSelect from 'primevue/treeselect';
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 
-import { onMounted, ref} from 'vue';
+import { onMounted, ref, watch} from 'vue';
 
 import { getCategorieRest } from '../scripts/categorie.js';
 
@@ -74,7 +74,6 @@ import {useVetrinaStore} from '../stores/vetrinaStore'
 
 const vetrinaInstance = useVetrinaStore();
 
-
 const selectedAuction = ref();
 const auctions = ref([
   { name: 'Asta inglese', code: 'AI' },
@@ -84,13 +83,19 @@ const auctions = ref([
 
 const selectedCategory = ref();
 const nodes = ref([]);
-let vetrina = ref(true);
+const vetrina = ref(vetrinaInstance.vetrinaShare);
 let categoriaDaCercare = ref("tutte");
 let aste = ref();
 const isLoading = ref(true);
 const numeroAsteTotali = ref();
 let tipoAstaCercata = ref([]);
 let nomeProdottoCercato = ref("");
+
+watch(() => vetrinaInstance.vetrinaShare, (newValue) => {
+   
+    vetrina.value = newValue;
+});
+
 
 
 
@@ -106,7 +111,7 @@ const setAsteRicercate = async () => {
 
   isLoading.value = true; // Imposta lo stato di caricamento su true prima di effettuare la richiesta
 
-  vetrina.value = false; //Disattiva il tamplate della vetrina e carica la componente che mostra il caricamento delle aste
+  vetrinaInstance.setAccessVetrina(false); //Disattiva il tamplate della vetrina e carica la componente che mostra il caricamento delle aste
 
   try {
 
@@ -187,9 +192,8 @@ const setAsteRicercate = async () => {
 
 
 onMounted(() => {
-  this.vetrina = vetrinaInstance.getVetrina;
+  
   getCategorie();
-  vetrina.value = true;
 });
 </script>
 
