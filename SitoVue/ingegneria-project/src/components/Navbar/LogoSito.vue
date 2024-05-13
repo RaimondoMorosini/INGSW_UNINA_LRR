@@ -1,8 +1,7 @@
 <template>
-  <RouterLink to="/" >
-    <div @onClick="impostaVetrina"
-      class="mt-1 flex content-evenly rounded bg-inherit px-3 font-bold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 md:items-center md:px-0 md:pb-2"
-    >
+  <RouterLink to="/">
+    <div @click="impostaVetrina"
+      class="mt-1 flex content-evenly rounded bg-inherit px-3 font-bold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 md:items-center md:px-0 md:pb-2">
       <img src="../../assets/Icon/LogoSVGSito.svg" alt="Logo" class="h-1col w-1col" />
       <div class="flex pt-[1.1rem] md:pt-0">
         <h1 class="text-2xl text-slate-900">Deals24</h1>
@@ -14,12 +13,12 @@
 
 <script setup>
 import { RouterLink } from 'vue-router';
-import {ref,onMounted} from 'vue';
-import {useVetrinaStore} from '../../stores/vetrinaStore'
+import { ref, onMounted } from 'vue';
+import { useVetrinaStore } from '../../stores/vetrinaStore'
 
 const vetrinaInstance = useVetrinaStore();
 
-function impostaVetrina(){
+function impostaVetrina() {
   vetrinaInstance.setAccessVetrina(true);
 }
 </script>
