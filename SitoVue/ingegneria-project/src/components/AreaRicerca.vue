@@ -187,9 +187,11 @@ const setAsteRicercate = async () => {
 
 
 onMounted(() => {
-  this.vetrina = vetrinaInstance.getVetrina;
-  getCategorie();
+  
+  vetrina.value = vetrinaInstance.getVetrina;
   vetrina.value = true;
+  getCategorie();
+  
 });
 </script>
 

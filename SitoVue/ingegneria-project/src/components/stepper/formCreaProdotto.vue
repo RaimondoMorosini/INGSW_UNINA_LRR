@@ -66,10 +66,10 @@ const getCategorie = async () => {
 const storeInstance = useAstaStore();
 
 const emit = defineEmits(['update:active']);
-const selectedCategory = ref('');
-const nomeProdotto = ref('');
-const descrizione = ref('');
-const prezzoBase = ref('');
+const selectedCategory = ref(storeInstance.asta.categoria);
+const nomeProdotto = ref(storeInstance.asta.nomeProdotto);
+const descrizione = ref(storeInstance.asta.descrizione);
+const prezzoBase = ref(storeInstance.asta.prezzoBase);
 
 
 

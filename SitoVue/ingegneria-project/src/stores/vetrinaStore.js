@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 
 export const useVetrinaStore = defineStore('Vetrina', {
   state: () => ({
-    Vetrina: null,
+    Vetrina: true,
   }),
   getters:{
     getVetrina() {
@@ -11,12 +11,12 @@ export const useVetrinaStore = defineStore('Vetrina', {
   },
 
   actions: {
-    setAccessVetrina(Vetrina) {
+    setVetrina(Vetrina) {
       this.Vetrina = Vetrina;
     },
-    clearAccessVetrina() {
+    clearVetrina() {
       this.Vetrina = null;
     },
   },
-  persist : true,
+  
 });

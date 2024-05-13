@@ -1,20 +1,20 @@
 <template>
     <div class="font-semibold text-xl">
-        REVIEW
+        Revisione Dati Inseriti
     </div>
     
-    <p>Categoria: {{ selectedCategory }}</p>
-    <p>nomeProdotto: {{ nomeProdotto }}</p>
-    <p>descrizione {{ descrizione }}</p>
+    <p>Categoria: {{ storeInstance.asta.selectedCategory }}</p>
+    <p>nomeProdotto: {{ storeInstance.asta.nomeProdotto}}</p>
+    <p>descrizione {{ storeInstance.asta.descrizione }}</p>
 
-    <p>prezzo Base: € {{ prezzoBase }}</p>
-    <p>tipo Asta: {{ tipoAsta }}</p>
+    <p>prezzo Base: € {{ storeInstance.asta.prezzoBase }}</p>
+    <p>tipo Asta: {{ storeInstance.asta.tipoAsta }}</p>
     <div v-if="tipoAsta==='Inglese'">    
-        <p>incremento minimo: € {{ incrementoMinimo }}</p>
-        <p>durata estensione:   {{ durataEstensione }}</p>
+        <p>incremento minimo: € {{ storeInstance.asta.incrementoMinimo }}</p>
+        <p>durata estensione:   {{ storeInstance.asta.durataEstensione }}</p>
     </div>
 
-    <p> scadenza asta: {{ scadenzaAsta}}</p>
+    <p> scadenza asta: {{ storeInstance.asta.scadenzaAsta}}</p>
 
     <button class="previous bottone my-3 mx-3 px-5" @click="goToPreviousForm" type="button">
         Precedente
@@ -33,22 +33,12 @@ const goToPreviousForm = () => {
   emit('update:active', 2);
 };
 
-const astaReview = ref({
-    selectedCategory: '',
-    nomeProdotto: '',
-    descrizione : '',
-    prezzoBase: '',
-    tipoAsta: '',
-    incrementoMinimo: '',
-    durataEstensione:'',
-    scadenzaAsta:''
-});
+
 
 onMounted(() =>
 {
     storeInstance.updateAsta  ({ step : 3 });
-    this.astaReview = storeInstance.getAsta;
-    console.log(toString(this.astaReview));
+    
 });
 </script>
 

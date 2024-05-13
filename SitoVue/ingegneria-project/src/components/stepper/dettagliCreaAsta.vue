@@ -46,10 +46,10 @@ import { useAstaStore } from '../../stores/astaStore.js';
 
 const storeInstance = useAstaStore();
 
-const tipoAsta = ref('Inglese');
-const incrementoMinimo = ref('');
-const durataEstensione = ref('');
-const scadenzaAsta = ref('');
+const tipoAsta = ref(storeInstance.asta.tipoAsta);
+const incrementoMinimo = ref(storeInstance.asta.incrementoMinimo);
+const durataEstensione = ref(storeInstance.asta.durataEstensione);
+const scadenzaAsta = ref(storeInstance.asta.scadenzaAsta);
 
 onMounted  (()  => {
   storeInstance.updateAsta  ({ step : 2 });

@@ -20,6 +20,6 @@ import {useVetrinaStore} from '../../stores/vetrinaStore'
 const vetrinaInstance = useVetrinaStore();
 
 function impostaVetrina(){
-  vetrinaInstance.setAccessVetrina(true);
+  vetrinaInstance.setVetrina(true);
 }
 </script>

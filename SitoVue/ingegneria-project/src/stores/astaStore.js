@@ -4,13 +4,13 @@ export const useAstaStore = defineStore('asta', {
   state: () => ({
     asta: {
       step : 0,
-      tipoAsta: '',
+      tipoAsta: 'Inglese',
       nomeProdotto: '',
       descrizione: '',
-      prezzoBase: 0,
+      prezzoBase: '',
       categoria: '',
-      incrementoMinimo: 0,
-      durataEstensione: 0,
+      incrementoMinimo: '',
+      durataEstensione: '',
       scadenzaAsta: '',
     },
   }),
@@ -23,5 +23,7 @@ export const useAstaStore = defineStore('asta', {
     updateAsta(newData){
       this.asta = {...this.asta, ...newData};
     },
-  }
+  },
+
+  persist: true,
 });
