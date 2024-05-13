@@ -17,9 +17,14 @@ import { Stomp } from '@stomp/stompjs';
 
 
 
+import { plugin, defaultConfig } from '@formkit/vue' //formkit
+import config from '../formkit.config' //formkit config
 
 // Crea l'istanza dell'app Vue e usa il router
 const app = createApp(App).use(router);
+
+//iniziolizzazione formkit
+app.use(plugin, defaultConfig(config));
 
 // inizializzazione axios
 axios.defaults.baseURL = 'localhost:8081/';
