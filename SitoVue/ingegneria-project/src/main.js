@@ -12,11 +12,8 @@ import { createApp } from 'vue'; // Vue 3
 import App from './App.vue'; // App.vue
 import './assets/css/tailwind.css'; // tailwindcss
 import router from './router'; // router
-import SockJS from 'sockjs-client';
-import { Stomp } from '@stomp/stompjs';
-
-
-
+import SockJS from 'sockjs-client'; //modulo per socket
+import { Stomp } from '@stomp/stompjs'; //stomp canale 1 via per messaggi
 import { plugin, defaultConfig } from '@formkit/vue' //formkit
 import config from '../formkit.config' //formkit config
 

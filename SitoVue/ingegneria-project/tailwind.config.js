@@ -2,13 +2,15 @@ import typography from '@tailwindcss/typography';
 import form from '@tailwindcss/forms';
 import aspectRatio from '@tailwindcss/aspect-ratio';
 
+
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+module.exports = {  
   mode: 'jit',
   
-  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  media: false, // or 'media' or 'class'
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}','formkit.theme.mjs'],
 
+  media: false, // or 'media' or 'class'
   theme: {
     screen:{
       'sm': '640px',
