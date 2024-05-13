@@ -59,7 +59,7 @@ import TreeSelect from 'primevue/treeselect';
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 
-import { onMounted, ref } from 'vue';
+import { onMounted, ref} from 'vue';
 
 import { getCategorieRest } from '../scripts/categorie.js';
 
@@ -69,6 +69,7 @@ import AstePerRicerca from '../components/AstePerRicerca.vue';
 import axios from 'axios';
 
 import MultiSelect from 'primevue/multiselect';
+
 
 
 const selectedAuction = ref();
@@ -184,6 +185,7 @@ const setAsteRicercate = async () => {
 
 onMounted(() => {
   getCategorie();
+  vetrina.value = true;
 });
 </script>
 
