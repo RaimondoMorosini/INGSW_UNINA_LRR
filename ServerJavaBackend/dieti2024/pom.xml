@@ -20,6 +20,7 @@
 
 
     <dependencies>
+
         <dependency>
             <groupId>com.azure.spring</groupId>
             <artifactId>spring-cloud-azure-starter-storage</artifactId>

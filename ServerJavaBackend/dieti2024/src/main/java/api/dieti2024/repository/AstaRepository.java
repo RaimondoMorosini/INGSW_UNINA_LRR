@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AstaRepository extends JpaRepository<Asta, String> {
+public interface AstaRepository extends JpaRepository<Asta, Integer> {
 
     @Query(value = "SELECT * FROM asta_join_prodotto", nativeQuery = true)
     List<InfoDatiAstaDTO> getAllAsteDTO();

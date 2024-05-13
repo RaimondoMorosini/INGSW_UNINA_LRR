@@ -16,26 +16,27 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/testhello")
-    public String testHello(){
+    public String testHello() {
         return "Hello";
     }
+
     @PostMapping("/signup")
-    public ResponseEntity<String> genTokenAfterSingUp(@RequestBody CredenzialiUtenteDTO signUpRequest){
+    public ResponseEntity<String> genTokenAfterSingUp(@RequestBody CredenzialiUtenteDTO signUpRequest) {
         try {
             String token = authService.registrazione(signUpRequest);
             return ResponseEntity.ok(token);
-        }catch (ApiException e){
+        } catch (ApiException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
     }
+
     @PostMapping("/login")
-    public String GenTokenBylogin(@RequestBody CredenzialiUtenteDTO credenzialiInserite){
+    public String GenTokenBylogin(@RequestBody CredenzialiUtenteDTO credenzialiInserite) {
         return (authService.login(credenzialiInserite));
     }
 
-
     @PostMapping("/SalvaTest")
-    public String salvaTest(){
+    public String salvaTest() {
         authService.saveTest();
         return "Test salvato";
     }

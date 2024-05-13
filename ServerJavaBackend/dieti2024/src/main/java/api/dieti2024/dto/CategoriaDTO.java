@@ -14,9 +14,7 @@ public class CategoriaDTO {
 
     private List<CategoriaDTO> children = new ArrayList<>();
 
-
-
-    public CategoriaDTO(String nome){
+    public CategoriaDTO(String nome) {
 
         this.label = nome;
 

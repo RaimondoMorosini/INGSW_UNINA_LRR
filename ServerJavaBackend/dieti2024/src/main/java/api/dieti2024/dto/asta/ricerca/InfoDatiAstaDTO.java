@@ -13,6 +13,9 @@ public class InfoDatiAstaDTO {
     @Column(name = "id")
     int idProdottoAsta;
 
+    @Column(name = "id_asta")
+    int idAsta;
+
     @Column(name = "base_asta")
     double baseAsta;
 

@@ -13,9 +13,10 @@ public class controllerFaiOffertaWebSocket {
     @Autowired
     SimpMessagingTemplate simpleMessagingTemplate;
 
-    @GetMapping("public/inviamsg")
-    public String faiOfferta() {
-        simpleMessagingTemplate.convertAndSend("/asta", "un tizio ha detto: ");
+    @GetMapping("public/inviamsg/{astaid}")
+    public String faiOfferta(@RequestParam String messaggio,@PathVariable String astaid) {
+        String topic = "/asta/"+astaid;
+        simpleMessagingTemplate.convertAndSend(topic, "un tizio ha detto: "+messaggio);
         return "qualcosa ho fatto poi sti cazzi";
     }
 

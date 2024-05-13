@@ -1,27 +1,24 @@
 <template>
-  <!--TODO: rimuovere i ring di supporto a pagina finita-->
-
   <form @submit.prevent="gestioneInvio">
-    <main class="flex h-4col flex-col justify-around gap-2 py-4 lg:flex-row">
+    <main class="px-5 gap-3 min-w-3col h-auto md:w-auto w-[100%] flex flex-col lg:flex-row justify-around ">
       <div
-        class="flex w-[100%] min-w-4col flex-col justify-around gap-3 px-2 py-2 ring-2 ring-black lg:max-w-[40%]"
-      >
-        <div class="formSpace px-2 lg:pr-9">
+        class="flex w-[100%] h-4col px-2 auto-rows-max flex-col justify-around gap-3  ">
+        <div class="formSpace  ">
           <label for="nomeProdotto">Nome Prodotto</label>
-          <input class="w-[60%] lg:w-max" type="text" id="nomeProdotto" v-model="nomeProdotto" />
+          <input class="w-[60%] md:w-[70%] rounded" type="text" id="nomeProdotto" v-model="nomeProdotto" />
         </div>
-        <div class="formSpace px-2 lg:pr-9">
+        <div class="formSpace ">
           <label for="descrizione">Descrizione Prodotto</label>
-          <textarea class="w-[60%] lg:w-max" id="descrizione" v-model="descrizione" />
+          <textarea rows="5" class="w-[60%] md:w-[70%] rounded" id="descrizione" v-model="descrizione" />
         </div>
-        <div class="formSpace px-2 lg:pr-9">
+        <div class="formSpace  ">
           <label for="prezzoBase">Prezzo Base</label>
-          <input class="w-[60%] lg:w-max" type="number" id="prezzoBase" v-model="prezzoBase" />
+          <input class="w-[60%] md:w-[70%] rounded" type="number" id="prezzoBase" v-model="prezzoBase" />
         </div>
 
-        <InputGroup class="categoriaSelector w-[100%] px-2">
-          <InputGroupAddon class="bg-primario-100">
-            <i class="pi pi-th-large" style="color: #424242"></i>
+        <InputGroup class="categoriaSelector w-[100%] ">
+          <InputGroupAddon class="bg-slate-100 ring-1 ring-black">
+            <i class="pi pi-th-large" style="color: #000"></i>
           </InputGroupAddon>
           <TreeSelect
             id="categoria"
@@ -29,17 +26,17 @@
             :options="nodes"
             option-label="name"
             placeholder="Seleziona Categoria"
-            class="w-[100px] rounded-r bg-primario-100/50 text-black"
+            class=" rounded-r bg-slate-100 ring-1 ring-black text-black"
           />
         </InputGroup>
       </div>
 
-      <div class="h-[100%] w-[100%] px-2 py-2 ring-2 ring-black lg:w-[60%]">
-        <ImageUploader class="h-[100%]" />
+      <div class="h-[100%] w-[100%] px-2  flex ">
+        <ImageUploader class="h-[100%] flex" />
       </div>
     </main>
-    <div class="absolute">
-      <button class="bottone relative top-24 lg:top-0" type="submit">Successivo</button>
+    <div class="areaBottoni my-4 px-10">
+      <button class="bottone" type="submit">Successivo</button>
     </div>
   </form>
 </template>
@@ -66,9 +63,6 @@ const getCategorie = async () => {
   }
 };
 
-onMounted(() => {
-  getCategorie();
-});
 const storeInstance = useAstaStore();
 
 const emit = defineEmits(['update:active']);
@@ -77,17 +71,33 @@ const nomeProdotto = ref('');
 const descrizione = ref('');
 const prezzoBase = ref('');
 
+
+
+onMounted(() => {
+  storeInstance.updateAsta({
+    step : 0,
+  });
+  /** TODO controllare funzionamento e Permanenza dello store pinia
+   * selectedCategory = storeInstance.asta?.categoria;
+  nomeProdotto = storeInstance.asta?.nomeProdotto;
+  descrizione = storeInstance.asta?.descrizione;
+  prezzoBase = storeInstance.asta?.prezzoBase;*/
+  getCategorie();
+});
+
 const gestioneInvio = () => {
+  /** TODO da togliere quando il server è funzionante
   if (
     !nomeProdotto.value.trim ||
     !descrizione.value.trim ||
-    !prezzoBase.value.trim ||
-    !selectedCategory.value.trim
+    !prezzoBase.value.trim ||!selectedCategory.value.trim
   ) {
     alert('Compila tutti i campi.');
     return;
   }
+  */
   storeInstance.updateAsta({
+    
     nomeProdotto: nomeProdotto.value,
     descrizione: descrizione.value,
     prezzoBase: prezzoBase.value,
@@ -127,12 +137,28 @@ button.bottone {
   border-radius: 5px;
   font-size: 1.1rem;
   font-weight: bold;
-  width: 25%;
-  margin: 0 auto;
-  width: 100%;
+  width: 50%;
+  margin: 10px;
+  
 }
 
 button.bottone:hover {
   background-color: #7c3aed;
+}
+
+textarea {
+  resize: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 </style>

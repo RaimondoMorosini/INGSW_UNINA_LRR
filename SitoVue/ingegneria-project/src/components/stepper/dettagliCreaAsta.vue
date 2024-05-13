@@ -1,13 +1,12 @@
 <template>
   <form @submit.prevent="gestioneInvio">
-    <div class="card justify-content-center mx-5 my-5 flex">
-      <label class="switch">
-        <input type="checkbox" v-model="tipoAsta" />
-        <span class="slider round"></span>
-      </label>
-    </div>
+   <label for="asta">Seleziona tipo Asta</label>
+    <select name="tipoAsta" id="asta" v-model="tipoAsta">
+      <option value="Inglese">Asta Inglese</option>
+      <option value="Silenziosa">Asta Silenziosa</option>
+    </select>
 
-    <div v-if="!tipoAsta" class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black">
+    <div v-if="tipoAsta==='Inglese'" class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black">
       ASTA INGLESE
       <div class="formSpace px-2 lg:pr-9">
         <label for="incrementoMinimo">Incremento minimo</label>
@@ -23,7 +22,7 @@
       </div>
     </div>
 
-    <div v-else class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black">
+    <div v-if="tipoAsta==='Silenziosa'" class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black">
       ASTA Silenziosa
 
       <div class="formSpace px-2 lg:pr-9">
@@ -32,36 +31,53 @@
       </div>
     </div>
 
-    <div class="areaBottoni flex justify-around gap-5">
-      <button class="previous bottone w-[30%] px-5" @click="goToPreviousForm" type="button">
+    <div class="areaBottoni mx-4 px-4 flex justify-around gap-5">
+      <button class="previous bottone px-5" @click="goToPreviousForm" type="button">
         Precedente
       </button>
-      <button class="bottone w-[30%] px-5" type="submit">Successivo</button>
+      <button class="bottone px-5" type="submit">Successivo</button>
     </div>
   </form>
 </template>
 
 <script setup>
-import { defineEmits, ref } from 'vue';
+import { defineEmits, ref, onMounted } from 'vue';
+import { useAstaStore } from '../../stores/astaStore.js';
 
-const tipoAsta = ref(false);
+const storeInstance = useAstaStore();
 
-const incrementoMinimo = ref(0);
-const durataEstensione = ref(0);
+const tipoAsta = ref('Inglese');
+const incrementoMinimo = ref('');
+const durataEstensione = ref('');
 const scadenzaAsta = ref('');
+
+onMounted  (()  => {
+  storeInstance.updateAsta  ({ step : 2 });
+});
+
 
 const emit = defineEmits(['update:active']);
 
 const gestioneInvio = () => {
-  if (!incrementoMinimo.value || !durataEstensione.value || !scadenzaAsta.value) {
-    alert('Inserire tutti i campi');
-    return;
+  if (tipoAsta==='Inglese'){
+      if (!incrementoMinimo.value || !durataEstensione.value || !scadenzaAsta.value) {
+      alert('Asta Inglese: Inserire tutti i campi');
+      return;
+    }
   }
+  else{
+    if (!scadenzaAsta.value ) {
+      alert('Asta Silenziosa: Inserire tutti i campi');
+      return;
+    }
+  }
+
   // Emit event to notify parent component to move to the next form section
   if (tipoAsta.value) {
     storeInstance.updateAsta({
       tipoAsta: 'Silenziosa',
       scadenzaAsta: scadenzaAsta.value,
+      step: 2,
     });
   } else {
     storeInstance.updateAsta({
@@ -69,6 +85,7 @@ const gestioneInvio = () => {
       scadenzaAsta: scadenzaAsta.value,
       incrementoMinimo: incrementoMinimo.value,
       durataEstensione: durataEstensione.value,
+      step: 2,
     });
   }
   emit('update:active', 3);
@@ -104,71 +121,11 @@ label {
   border-radius: 5px;
   font-size: 1.1rem;
   font-weight: bold;
-  width: 100%;
+  width: 50%;
+  margin: 10px;
 }
 .bottone:hover {
   background-color: #7c3aed;
 }
-/* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
 
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: '';
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-input:checked + .slider {
-  background-color: #cc85f5;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #cc85f5;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
 </style>

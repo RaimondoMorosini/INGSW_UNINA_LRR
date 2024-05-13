@@ -6,4 +6,3 @@ import lombok.Builder;
 public record NotificaDTO(String email, String messaggio) {
 
 }
-

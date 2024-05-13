@@ -1,42 +1,30 @@
 <template>
   ciao
+  <div class="">
+    <p v-if="mesg1">asta 1 = {{ mesg1 }}</p>
+    </div>
 </template>
 
-<script>
-import SockJS from 'sockjs-client'
-import { Stomp }from '@stomp/stompjs';
+<script setup>
+import {mantieniAggiornamenti,disconnettiti} from '../scripts/websocket/websocket.js'; 
 
-export default {
-
-  data() {
-    return {
-
-    }
-  },
-
-  methods: {
-
-    connect() {
-
-      const socket = new SockJS('http://localhost:8081/websocket'); // Il percorso deve corrispondere a quello definito nel server Spring
-      const stompClient = Stomp.over(socket);
-      stompClient.connect({}, () => {
-        console.log('Connesso al server WebSocket');
-        // Aggiungi qui la logica per gestire gli eventi WebSocket
-        stompClient.subscribe('/asta', (message) => {
-          console.log('Messaggio ricevuto:', message.body);
-        });
-      }, error => {
-        console.error('Errore durante la connessione WebSocket:', error);
-      });
-    }
-  },
-
-  mounted() {
-   this.connect();
-  },
-
-
+import { ref,onMounted, onUnmounted } from 'vue';
+const mesg1 = ref(null);
+const stomp1 = ref(null);
+function handleMessage(message) {
+  console.log('Messaggio ricevuto test roby 2:', message);
+  mesg1.value = message;
 }
 
+onMounted(() => {
+  
+   stomp1.value= mantieniAggiornamenti('/asta/1',handleMessage);
+  const stomp2= mantieniAggiornamenti('/asta/2',handleMessage);
+
+});
+
+onUnmounted(() => {
+  console.log('mounted');
+  disconnettiti(stomp1.value);
+});
 </script>

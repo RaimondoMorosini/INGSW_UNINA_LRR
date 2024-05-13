@@ -40,7 +40,14 @@ public class ProdottoAstaController {
         }
     }
 
-
+    @PostMapping("public/asta/getNumeroAste")
+    public ResponseEntity<Integer> getNumeroTotaleDiAstePerRicerca(@RequestBody FiltroDto filtroDto){
+        try {
+            return ResponseEntity.ok( astaService.getNumeroTotaleDiAstePerRicerca(filtroDto));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
     @PostMapping("/asta/creaasta")
     public ResponseEntity addProdottoAsta(@RequestBody CreaAstaDTO datiPerCreazioneDtoInput){
