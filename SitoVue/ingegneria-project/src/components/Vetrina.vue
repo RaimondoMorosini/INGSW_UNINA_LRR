@@ -177,7 +177,6 @@
 
 <script setup>
 import { ref, onMounted} from "vue";
-import AstePerRicerca from "../components/AstePerRicerca.vue";
 
 </script>
 
