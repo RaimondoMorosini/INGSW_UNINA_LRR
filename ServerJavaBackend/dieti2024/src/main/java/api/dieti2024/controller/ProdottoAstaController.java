@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
+
 @RestController
 @CrossOrigin
 @RequestMapping
@@ -31,24 +32,35 @@ public class ProdottoAstaController {
     ImageContainerUtil imageContainerUtil;
 
     @PostMapping("public/asta/getAllAste")
-    public ResponseEntity<List<InfoDatiAstaDTO>> getAllAste(@RequestBody FiltroDto filtroDto) {
+    public ResponseEntity< List<InfoDatiAstaDTO>> getAllAste(@RequestBody FiltroDto filtroDto){
         try {
-            return ResponseEntity.ok(astaService.getAllAstaProdotto(filtroDto));
-        } catch (Exception e) {
+            return ResponseEntity.ok( astaService.getAllAstaProdotto(filtroDto));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("public/asta/getNumeroAste")
+    public ResponseEntity<Integer> getNumeroTotaleDiAstePerRicerca(@RequestBody FiltroDto filtroDto){
+        try {
+            return ResponseEntity.ok( astaService.getNumeroTotaleDiAstePerRicerca(filtroDto));
+        }catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
     }
 
     @PostMapping("/asta/creaasta")
-    public ResponseEntity addProdottoAsta(@RequestBody CreaAstaDTO datiPerCreazioneDtoInput) {
+    public ResponseEntity addProdottoAsta(@RequestBody CreaAstaDTO datiPerCreazioneDtoInput){
         try {
             astaFacadeService.creaAsta(datiPerCreazioneDtoInput);
             return ResponseEntity.ok().build();
-        } catch (ApiException e) {
+        }catch(ApiException e){
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore interno al server");
         }
+
 
     }
 
@@ -57,8 +69,8 @@ public class ProdottoAstaController {
         if (file.isEmpty()) {
             return "Errore: Nessun file selezionato";
         }
-        imageContainerUtil.uploadImage(file, file.getOriginalFilename());
-        return "Immagine caricata con successo!";
+            imageContainerUtil.uploadImage(file,file.getOriginalFilename());
+            return "Immagine caricata con successo!";
     }
 
 }

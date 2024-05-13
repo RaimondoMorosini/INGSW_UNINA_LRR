@@ -2,8 +2,6 @@
   <SwipeCarosello />
 
   <AreaRicerca />
-
-  <Vetrina />
 </template>
 
 <script setup>
