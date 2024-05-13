@@ -24,6 +24,7 @@
 <script setup>
 import { useAstaStore } from '../../stores/astaStore.js';
 import {ref,onMounted} from 'vue';
+
 const storeInstance = useAstaStore();
 const emit = defineEmits(['update:active']);
 

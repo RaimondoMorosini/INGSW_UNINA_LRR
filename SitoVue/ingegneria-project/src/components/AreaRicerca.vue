@@ -70,6 +70,9 @@ import axios from 'axios';
 
 import MultiSelect from 'primevue/multiselect';
 
+import {useVetrinaStore} from '../stores/vetrinaStore'
+
+const vetrinaInstance = useVetrinaStore();
 
 const selectedAuction = ref();
 const auctions = ref([
@@ -183,6 +186,7 @@ const setAsteRicercate = async () => {
 
 
 onMounted(() => {
+  this.vetrina = vetrinaInstance.getVetrina;
   getCategorie();
 });
 </script>

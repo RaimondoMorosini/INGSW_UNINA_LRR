@@ -4,10 +4,13 @@ export const useVetrinaStore = defineStore('Vetrina', {
   state: () => ({
     Vetrina: null,
   }),
-  actions: {
+  getters:{
     getVetrina() {
-      return this.Vetrina;
-    },
+        return this.Vetrina;
+      },
+  }
+
+  actions: {
     setAccessVetrina(Vetrina) {
       this.Vetrina = Vetrina;
     },
