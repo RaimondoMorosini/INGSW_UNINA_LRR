@@ -8,7 +8,7 @@ export const useVetrinaStore = defineStore('Vetrina', {
     getVetrina() {
         return this.Vetrina;
       },
-  }
+  },
 
   actions: {
     setAccessVetrina(Vetrina) {
