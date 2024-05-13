@@ -11,6 +11,9 @@ public class CalendarioUtil {
         long current = GetTime();
         return  current <start && start <end ;
     }
+    public static boolean verificaScadenza (long tempoInputi, long dataDiScadenza) {
+        return  tempoInputi <dataDiScadenza ;
+    }
 
     /**
      * Restituisce il tempo attuale in millisecondi

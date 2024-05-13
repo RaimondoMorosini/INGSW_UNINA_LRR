@@ -2,14 +2,12 @@ package api.dieti2024.service.Asta;
 
 import api.dieti2024.dto.asta.ricerca.FiltroDto;
 import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
-import api.dieti2024.repository.AstaProdottoRepository;
-import api.dieti2024.repository.ProdottoRepository;
+import api.dieti2024.model.DatiAstaInglese;
+import api.dieti2024.repository.*;
 import api.dieti2024.util.TipoPermesso;
 import api.dieti2024.dto.asta.InputAstaDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Asta;
-import api.dieti2024.repository.AstaRepository;
-import api.dieti2024.repository.PermessoRepository;
 import api.dieti2024.util.CalendarioUtil;
 import api.dieti2024.util.ControllerRestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +31,8 @@ public class AstaService {
     @Autowired
     private AstaProdottoRepository astaProdottoRepository;
 
+    @Autowired
+    private DatiAstaIngleseRepository datiAstaIngleseRepository;
     public void checkDatiInputi(InputAstaDTO inputAstaDTO) {
 
         if (inputAstaDTO == null) throw new ApiException("Dati asta mancanti", HttpStatus.BAD_REQUEST);
@@ -68,5 +68,12 @@ public class AstaService {
         return astaProdottoRepository.numeroTotaleDiAstePerRicerca(filtroDto);
     }
 
+    public Asta getAstaById(int i) {
+        return astaRepository.findById(i).orElseThrow(() -> new ApiException("Asta non trovata", HttpStatus.NOT_FOUND));
+    }
+
+    public DatiAstaInglese getDatiAstaIngleseById(int id) {
+        return datiAstaIngleseRepository.findById(id).orElseThrow(() -> new ApiException("Dati asta inglese non trovati", HttpStatus.NOT_FOUND));
+    }
 }
 
