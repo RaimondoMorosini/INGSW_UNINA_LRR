@@ -15,14 +15,9 @@ import './assets/css/tailwind.css'; // tailwindcss
 import router from './router'; // router
 import SockJS from 'sockjs-client'; //modulo per socket
 import { Stomp } from '@stomp/stompjs'; //stomp canale 1 via per messaggi
-import { plugin, defaultConfig } from '@formkit/vue' //formkit
-import config from '../formkit.config' //formkit config
 
 // Crea l'istanza dell'app Vue e usa il router
 const app = createApp(App).use(router);
-
-//iniziolizzazione formkit
-app.use(plugin, defaultConfig(config));
 
 // inizializzazione axios
 axios.defaults.baseURL = 'localhost:8081/';
