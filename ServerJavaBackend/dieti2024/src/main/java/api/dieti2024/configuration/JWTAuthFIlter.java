@@ -16,6 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 
 
 @Component
@@ -37,7 +38,7 @@ public class JWTAuthFIlter extends OncePerRequestFilter {
         }
 
         final String username = jwtUtils.getUsername(token);
-
+        final List<String> permessi = jwtUtils.getPermessi(token);
         // set user details in  spring security context
 
         // Carica gli user details
@@ -45,7 +46,7 @@ public class JWTAuthFIlter extends OncePerRequestFilter {
 
         // Crea l'oggetto Authentication
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                userDetails, null, Collections.emptyList());
+                userDetails,permessi , Collections.emptyList());
         // Imposta il dettaglio dell'autenticazione
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

@@ -1,6 +1,7 @@
 package api.dieti2024.security;
 
 
+import api.dieti2024.repository.PermessoRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -8,14 +9,18 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import api.dieti2024.dto.auth.DatiUtentePerTokenDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class JWTUtils {
 
+    @Autowired
+    PermessoRepository permessoRepository;
     private final Algorithm hmac512 ;
     private final JWTVerifier verifier;
 
@@ -29,6 +34,7 @@ public class JWTUtils {
     public String generateToken(DatiUtentePerTokenDTO datiTokenDTO){
         return JWT.create()
                 .withSubject(datiTokenDTO.email())
+                .withClaim("permessi" ,permessoRepository.getPermessiUtente(datiTokenDTO.email()))
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(hmac512);
@@ -43,6 +49,16 @@ public class JWTUtils {
         try {
             DecodedJWT decodedJWT = JWT.decode(token);
             return decodedJWT.getSubject();
+        } catch (JWTDecodeException e) {
+            // In caso di errore durante la decodifica del token
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public List<String> getPermessi(String token){
+        try {
+            DecodedJWT decodedJWT = JWT.decode(token);
+            return decodedJWT.getClaim("permessi").asList(String.class);
         } catch (JWTDecodeException e) {
             // In caso di errore durante la decodifica del token
             e.printStackTrace();

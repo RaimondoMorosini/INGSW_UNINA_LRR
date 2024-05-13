@@ -44,6 +44,8 @@ public class TipoPermesso {
         String permessoCorrispondente = mappaPermessiOfferta.get(tipoAsta);
         return permessoCorrispondente != null && permessiUtente.contains(permessoCorrispondente);
     }
+
+
 }
 
 
