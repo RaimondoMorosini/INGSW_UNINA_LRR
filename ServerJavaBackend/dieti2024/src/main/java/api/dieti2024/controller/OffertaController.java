@@ -24,14 +24,14 @@ public class OffertaController {
     OffertaService offertaService;
 
     @PostMapping("/faiOfferta")
-    public long faiOfferta(@RequestBody OffertaDto offertaDto) {
+    public ResponseEntity <Long> faiOfferta(@RequestBody OffertaDto offertaDto) {
 
         long tempoOfferta = CalendarioUtil.GetTime();
 
         try {
             long tempoScadenza = offertaService.faiOfferta(offertaDto, tempoOfferta ) ;
             simpleMessagingTemplate.convertAndSend("/asta/"+offertaDto.idAsta(), "Un utente ha fatto un'offerta scade asta:"+tempoScadenza);
-            return tempoScadenza;
+            return ResponseEntity.ok(tempoScadenza);
         }catch (ApiException e){
             throw e;
         }
