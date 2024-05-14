@@ -62,7 +62,7 @@
     </button>
   </div>
 
-  <Vetrina v-if="vetrina" />
+  <Vetrina v-if="vetrinaInstance.vetrinaShare" />
 
   <AstePerRicerca
     v-else
@@ -106,7 +106,6 @@ const auctions = ref([
 
 const selectedCategory = ref();
 const nodes = ref([]);
-const vetrina = ref(vetrinaInstance.vetrinaShare);
 let categoriaDaCercare = ref('tutte');
 let aste = ref();
 const isLoading = ref(true);
@@ -114,12 +113,6 @@ const numeroAsteTotali = ref();
 let tipoAstaCercata = ref([]);
 let nomeProdottoCercato = ref('');
 
-watch(
-  () => vetrinaInstance.vetrinaShare,
-  (newValue) => {
-    vetrina.value = newValue;
-  }
-);
 
 const getCategorie = async () => {
   try {

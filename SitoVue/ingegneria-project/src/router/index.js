@@ -101,7 +101,8 @@ const routes = [
   {
     path: '/asta/:id',
     name: 'asta',
-    component: () => import('@/views/AstaView.vue'),
+    component: () => import('@/views/Asta.vue'),
+    props: true
   },
 
   {
