@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="flex flex-col">
         <h1>Impostazioni Profilo</h1>
         <form @submit="saveSettings">
             <label for="name">Nome:</label>

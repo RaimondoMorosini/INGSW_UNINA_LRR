@@ -84,16 +84,16 @@ import InputGroupAddon from 'primevue/inputgroupaddon';
 
 import { onMounted, ref, watch } from 'vue';
 
-import { getCategorieRest } from '../scripts/categorie.js';
+import { getCategorieRest } from '../../scripts/categorie.js';
 
-import Vetrina from '../components/Vetrina.vue';
-import AstePerRicerca from '../components/AstePerRicerca.vue';
+import Vetrina from './Vetrina.vue';
+import AstePerRicerca from './AstePerRicerca.vue';
 
 import axios from 'axios';
 
 import MultiSelect from 'primevue/multiselect';
 
-import { useVetrinaStore } from '../stores/vetrinaStore';
+import { useVetrinaStore } from '../../stores/vetrinaStore';
 
 const vetrinaInstance = useVetrinaStore();
 

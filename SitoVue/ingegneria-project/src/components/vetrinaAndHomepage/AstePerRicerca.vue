@@ -74,7 +74,7 @@ import 'primevue/resources/themes/aura-light-green/theme.css';
 import 'primeicons/primeicons.css';
 
 import { ref, watch } from 'vue';
-import CaricamentoAste from '../components/CaricamentoAste.vue';
+import CaricamentoAste from './CaricamentoAste.vue';
 
 import axios from 'axios';
 

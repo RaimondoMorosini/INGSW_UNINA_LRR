@@ -7,5 +7,5 @@
 </template>
 
 <script setup>
-import Vetrina from '@/components/Vetrina.vue';
+import Vetrina from '../../components/vetrinaAndHomepage/Vetrina.vue';
 </script>

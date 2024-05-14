@@ -15,4 +15,6 @@ export const useTokenStore = defineStore('token', {
             this.token = null;
         },
     },
+
+    persist: true,
 });
