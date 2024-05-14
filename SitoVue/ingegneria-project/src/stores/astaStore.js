@@ -1,27 +1,29 @@
 import { defineStore } from 'pinia';
 
 export const useAstaStore = defineStore('asta', {
-  state: () => ({
-    asta: {
-      step : 0,
-      tipoAsta: '',
-      nomeProdotto: '',
-      descrizione: '',
-      prezzoBase: 0,
-      categoria: '',
-      incrementoMinimo: 0,
-      durataEstensione: 0,
-      scadenzaAsta: '',
+    state: () => ({
+        asta: {
+            step: 0,
+            tipoAsta: 'Inglese',
+            nomeProdotto: '',
+            descrizione: '',
+            prezzoBase: '',
+            categoria: '',
+            incrementoMinimo: '',
+            durataEstensione: '',
+            scadenzaAsta: '',
+        },
+    }),
+    getters: {
+        getAsta() {
+            return asta;
+        },
     },
-  }),
-  getters:{
-    getAsta(){
-      return asta;
-    }
-  },
-  actions:{
-    updateAsta(newData){
-      this.asta = {...this.asta, ...newData};
+    actions: {
+        updateAsta(newData) {
+            this.asta = { ...this.asta, ...newData };
+        },
     },
-  }
+
+    persist: true,
 });

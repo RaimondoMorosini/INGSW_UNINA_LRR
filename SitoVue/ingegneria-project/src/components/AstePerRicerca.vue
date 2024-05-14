@@ -1,5 +1,4 @@
 <template>
-
     <CaricamentoAste v-if="caricamentoAste" />
 
     <div class="card" v-else>
@@ -28,11 +27,14 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-column md:align-items-end gap-5">
-                                    <div class="contenitore-bottone flex flex-row-reverse md:flex-row gap-2">
-                                        <Button icon="pi pi-shopping-cart" label="Partecipa all'asta"
-                                            :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
-                                            class="flex-auto md:flex-initial white-space-nowrap"></Button>
-                                    </div>
+                                    <RouterLink :to="{ name: 'asta', params: { id: item.idAsta }}">
+                                        <div class="contenitore-bottone flex flex-row-reverse md:flex-row gap-2">
+                                            <Button icon="pi pi-shopping-cart" label="Partecipa all'asta"
+                                                :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
+                                                class="flex-auto md:flex-initial white-space-nowrap">
+                                            </Button>
+                                        </div>
+                                    </RouterLink>
                                 </div>
                             </div>
                         </div>
@@ -59,6 +61,8 @@ import CaricamentoAste from '../components/CaricamentoAste.vue';
 
 import axios from 'axios';
 
+import { RouterLink } from 'vue-router';
+
 
 const props = defineProps(['propAste', 'propLoading', 'propNumeroAste', 'propCategoriaCercata', 'propProdottoCercato', 'propTipoAsteCercate']);
 
@@ -66,7 +70,10 @@ const props = defineProps(['propAste', 'propLoading', 'propNumeroAste', 'propCat
 const products = ref();
 products.value = props.propAste;
 
+
 const caricamentoAste = ref(true);
+
+
 
 watch(() => props.propAste, (newValue) => {
     // Aggiorna products.values quando props.propAste cambia

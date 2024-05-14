@@ -1,5 +1,5 @@
 <template>
-  <button class="button__sign-up" @click="handleSignUp">Sign Up</button>
+    <button class="button__sign-up" @click="handleSignUp">Sign Up</button>
 </template>
 
 <script setup>
@@ -8,13 +8,13 @@ import { useAuth0 } from '@auth0/auth0-vue';
 const { loginWithRedirect } = useAuth0();
 
 const handleSignUp = () => {
-  loginWithRedirect({
-    appState: {
-      target: '/profilo',
-    },
-    authorizationParams: {
-      screen_hint: 'signup',
-    },
-  });
+    loginWithRedirect({
+        appState: {
+            target: '/profilo',
+        },
+        authorizationParams: {
+            screen_hint: 'signup',
+        },
+    });
 };
 </script>
