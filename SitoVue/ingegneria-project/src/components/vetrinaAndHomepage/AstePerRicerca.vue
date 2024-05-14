@@ -27,14 +27,14 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-column md:align-items-end gap-5">
-                                    <RouterLink :to="{ name: 'asta', params: { id: item.idAsta }}">
+                                    
                                         <div class="contenitore-bottone flex flex-row-reverse md:flex-row gap-2">
-                                            <Button icon="pi pi-shopping-cart" label="Partecipa all'asta"
+                                            <Button @click="apriUnNuovoTab(item.idAsta)" icon="pi pi-shopping-cart" label="Partecipa all'asta"
                                                 :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
                                                 class="flex-auto md:flex-initial white-space-nowrap">
                                             </Button>
                                         </div>
-                                    </RouterLink>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -121,6 +121,12 @@ const setAstePerPagina = async (paginaSelezionata) => {
 
         caricamentoAste.value = false; // Imposta lo stato di caricamento su false dopo che la richiesta è completata (in modo che carica la componente delle aste cercate)
     }
+}
+
+const apriUnNuovoTab = (idAsta) => {
+
+    const url = `http://localhost:8080/Asta/${idAsta}`;
+    window.open(url, '_blank');
 }
 
 </script>
