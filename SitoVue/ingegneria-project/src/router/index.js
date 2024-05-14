@@ -28,18 +28,6 @@ const routes = [
     name: 'profilo',
 
     component: () => import('@/views/ProfiloView.vue'),
-    children: [
-      { path: '', component: () => import('@/components/Profilo/InformazioniProfilo.vue') },
-      {
-        path: 'astePersonali',
-        component: () => import('@/components/Profilo/AstePersonaliProfilo.vue'),
-      },
-      { path: 'notifiche', component: () => import('@/components/Profilo/MessaggiProfilo.vue') },
-      {
-        path: 'impostazioni',
-        component: () => import('@/components/Profilo/ImpostazioniProfilo.vue'),
-      },
-    ],
   },
 
   {

@@ -1,22 +1,38 @@
 <template>
   <form @submit.prevent="gestioneInvio">
-    <main class="px-5 gap-3 min-w-3col h-auto md:w-auto w-[100%] flex flex-col lg:flex-row justify-around ">
-      <div
-        class="flex w-[100%] h-4col px-2 auto-rows-max flex-col justify-around gap-3  ">
-        <div class="formSpace  ">
+    <main
+      class="flex h-auto w-[100%] min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row"
+    >
+      <div class="flex h-4col w-[100%] auto-rows-max flex-col justify-around gap-3 px-2">
+        <div class="formSpace">
           <label for="nomeProdotto">Nome Prodotto</label>
-          <input class="w-[60%] md:w-[70%] rounded" type="text" id="nomeProdotto" v-model="nomeProdotto" />
+          <input
+            class="w-[60%] rounded md:w-[70%]"
+            type="text"
+            id="nomeProdotto"
+            v-model="nomeProdotto"
+          />
         </div>
-        <div class="formSpace ">
+        <div class="formSpace">
           <label for="descrizione">Descrizione Prodotto</label>
-          <textarea rows="5" class="w-[60%] md:w-[70%] rounded" id="descrizione" v-model="descrizione" />
+          <textarea
+            rows="5"
+            class="w-[60%] rounded md:w-[70%]"
+            id="descrizione"
+            v-model="descrizione"
+          />
         </div>
-        <div class="formSpace  ">
+        <div class="formSpace">
           <label for="prezzoBase">Prezzo Base</label>
-          <input class="w-[60%] md:w-[70%] rounded" type="number" id="prezzoBase" v-model="prezzoBase" />
+          <input
+            class="w-[60%] rounded md:w-[70%]"
+            type="number"
+            id="prezzoBase"
+            v-model="prezzoBase"
+          />
         </div>
 
-        <InputGroup class="categoriaSelector w-[100%] ">
+        <InputGroup class="categoriaSelector w-[100%]">
           <InputGroupAddon class="bg-slate-100 ring-1 ring-black">
             <i class="pi pi-th-large" style="color: #000"></i>
           </InputGroupAddon>
@@ -26,13 +42,13 @@
             :options="nodes"
             option-label="name"
             placeholder="Seleziona Categoria"
-            class=" rounded-r bg-slate-100 ring-1 ring-black text-black"
+            class="rounded-r bg-slate-100 text-black ring-1 ring-black"
           />
         </InputGroup>
       </div>
 
-      <div class="h-[100%] w-[100%] px-2  flex ">
-        <ImageUploader class="h-[100%] flex" />
+      <div class="flex h-[100%] w-[100%] px-2">
+        <ImageUploader class="flex h-[100%]" />
       </div>
     </main>
     <div class="areaBottoni my-4 px-10">
@@ -71,11 +87,9 @@ const nomeProdotto = ref(storeInstance.asta.nomeProdotto);
 const descrizione = ref(storeInstance.asta.descrizione);
 const prezzoBase = ref(storeInstance.asta.prezzoBase);
 
-
-
 onMounted(() => {
   storeInstance.updateAsta({
-    step : 0,
+    step: 0,
   });
   /** TODO controllare funzionamento e Permanenza dello store pinia
    * selectedCategory = storeInstance.asta?.categoria;
@@ -97,7 +111,6 @@ const gestioneInvio = () => {
   }
   */
   storeInstance.updateAsta({
-    
     nomeProdotto: nomeProdotto.value,
     descrizione: descrizione.value,
     prezzoBase: prezzoBase.value,
@@ -139,7 +152,6 @@ button.bottone {
   font-weight: bold;
   width: 50%;
   margin: 10px;
-  
 }
 
 button.bottone:hover {
@@ -158,7 +170,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 </style>

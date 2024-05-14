@@ -1,41 +1,57 @@
 <template>
   <ul class="flex flex-row justify-between border-b-2 border-slate-300 px-3 py-2">
-    <li class="flex rounded px-2 py-1 hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80">
+    <li
+      @click="pagina = 1"
+      class="flex rounded px-2 py-1 hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80"
+    >
       <span>
         <i class="pi pi-user" style="font-size: 1.5rem"></i>
       </span>
-      <router-link to="/profilo" class="hidden pl-1 md:inline">Informazioni Profilo</router-link>
+      Informazioni Profilo
     </li>
-    <li class="flex rounded px-2 py-1 hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80">
+    <li
+      @click="pagina = 2"
+      class="flex rounded px-2 py-1 hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80"
+    >
       <span>
         <i class="pi pi-inbox" style="font-size: 1.5rem"></i>
       </span>
-      <router-link to="/profilo/notifiche" class="hidden pl-1 md:inline">Notifiche</router-link>
+      Notifiche
     </li>
-    <li class="flex rounded px-2 py-1 hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80">
+    <li
+      @click="pagina = 3"
+      class="flex rounded px-2 py-1 hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80"
+    >
       <span>
         <i class="pi pi-shopping-bag" style="font-size: 1.5rem"></i>
       </span>
-      <router-link to="/profilo/astePersonali" class="hidden pl-1 md:inline"
-        >Aste Personali</router-link
-      >
+      Aste Personali
     </li>
-    <li class="flex rounded px-2 py-1 hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80">
+    <li
+      @click="pagina = 4"
+      class="flex rounded px-2 py-1 hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80"
+    >
       <span>
         <i class="pi pi-cog" style="font-size: 1.5rem"></i>
       </span>
-      <router-link to="/profilo/impostazioni" class="hidden pl-1 md:inline"
-        >Impostzioni</router-link
-      >
+      Impostzioni
     </li>
   </ul>
-
-  <RouterView />
+  <div v-if="pagina === 1"><InfoProfilo /></div>
+  <div v-else-if="pagina === 2"><Notifiche /></div>
+  <div v-else-if="pagina === 3"><AstePersonali /></div>
+  <div v-else-if="pagina === 4"><Impostazioni /></div>
 </template>
 
 <script setup>
 import { useToast } from 'primevue/usetoast';
 import { RouterView } from 'vue-router';
+import { ref } from 'vue';
+import InfoProfilo from '../components/Profilo/InformazioniProfilo.vue';
+import Notifiche from '../components/Profilo/MessaggiProfilo.vue';
+import AstePersonali from '../components/Profilo/AstePersonaliProfilo.vue';
+import Impostazioni from '../components/Profilo/ImpostazioniProfilo.vue';
 
+const pagina = ref(1);
 const toast = useToast();
 </script>

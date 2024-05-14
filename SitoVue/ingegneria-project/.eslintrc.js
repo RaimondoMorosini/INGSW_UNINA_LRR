@@ -25,6 +25,6 @@ module.exports = {
   printWidth: 120,
   rules: {
     'prettier/prettier': 'error',
-    'no-unused-vars': 'warn',  
+    'no-unused-vars': 'warn',
   },
 };

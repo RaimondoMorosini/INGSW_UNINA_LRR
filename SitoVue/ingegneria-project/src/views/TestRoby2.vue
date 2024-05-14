@@ -2,13 +2,13 @@
   ciao
   <div class="">
     <p v-if="mesg1">asta 1 = {{ mesg1 }}</p>
-    </div>
+  </div>
 </template>
 
 <script setup>
-import {mantieniAggiornamenti,disconnettiti} from '../scripts/websocket/websocket.js'; 
+import { mantieniAggiornamenti, disconnettiti } from '../scripts/websocket/websocket.js';
 
-import { ref,onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 const mesg1 = ref(null);
 const stomp1 = ref(null);
 function handleMessage(message) {
@@ -17,10 +17,8 @@ function handleMessage(message) {
 }
 
 onMounted(() => {
-  
-   stomp1.value= mantieniAggiornamenti('/asta/1',handleMessage);
-  const stomp2= mantieniAggiornamenti('/asta/2',handleMessage);
-
+  stomp1.value = mantieniAggiornamenti('/asta/1', handleMessage);
+  const stomp2 = mantieniAggiornamenti('/asta/2', handleMessage);
 });
 
 onUnmounted(() => {

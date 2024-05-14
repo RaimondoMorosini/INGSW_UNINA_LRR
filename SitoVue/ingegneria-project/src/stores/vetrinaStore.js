@@ -1,14 +1,13 @@
 import { defineStore } from 'pinia';
 
-
 export const useVetrinaStore = defineStore('Vetrina', {
   state: () => ({
     vetrinaShare: true,
   }),
-  getters:{
+  getters: {
     getVetrina() {
-        return this.vetrinaShare;
-      },
+      return this.vetrinaShare;
+    },
   },
 
   actions: {

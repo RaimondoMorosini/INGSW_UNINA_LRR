@@ -1,13 +1,9 @@
 <template>
-  <Steps class="py-2 min-w-4col" :model="items" v-model:activeStep="active" />
-  <CreaProdotto
-    @update:active="updateCurrentForm($event)"
-    v-if="active === 0"
-  />
+  <Steps class="min-w-4col py-2" :model="items" v-model:activeStep="active" />
+  <CreaProdotto @update:active="updateCurrentForm($event)" v-if="active === 0" />
   <SelezionaFiltri @update:active="updateCurrentForm($event)" v-if="active === 1" />
   <SelezioneTipoAsta @update:active="updateCurrentForm($event)" v-if="active === 2" />
-  <Review @update:active="updateCurrentForm($event)" v-if="active === 3"/>
-
+  <Review @update:active="updateCurrentForm($event)" v-if="active === 3" />
 </template>
 
 <script setup>

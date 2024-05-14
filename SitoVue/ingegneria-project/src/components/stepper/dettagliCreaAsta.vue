@@ -1,12 +1,15 @@
 <template>
   <form @submit.prevent="gestioneInvio">
-   <label for="asta">Seleziona tipo Asta</label>
+    <label for="asta">Seleziona tipo Asta</label>
     <select name="tipoAsta" id="asta" v-model="tipoAsta">
       <option value="Inglese">Asta Inglese</option>
       <option value="Silenziosa">Asta Silenziosa</option>
     </select>
 
-    <div v-if="tipoAsta==='Inglese'" class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black">
+    <div
+      v-if="tipoAsta === 'Inglese'"
+      class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black"
+    >
       ASTA INGLESE
       <div class="formSpace px-2 lg:pr-9">
         <label for="incrementoMinimo">Incremento minimo</label>
@@ -22,7 +25,10 @@
       </div>
     </div>
 
-    <div v-if="tipoAsta==='Silenziosa'" class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black">
+    <div
+      v-if="tipoAsta === 'Silenziosa'"
+      class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black"
+    >
       ASTA Silenziosa
 
       <div class="formSpace px-2 lg:pr-9">
@@ -31,7 +37,7 @@
       </div>
     </div>
 
-    <div class="areaBottoni mx-4 px-4 flex justify-around gap-5">
+    <div class="areaBottoni mx-4 flex justify-around gap-5 px-4">
       <button class="previous bottone px-5" @click="goToPreviousForm" type="button">
         Precedente
       </button>
@@ -51,22 +57,20 @@ const incrementoMinimo = ref(storeInstance.asta.incrementoMinimo);
 const durataEstensione = ref(storeInstance.asta.durataEstensione);
 const scadenzaAsta = ref(storeInstance.asta.scadenzaAsta);
 
-onMounted  (()  => {
-  storeInstance.updateAsta  ({ step : 2 });
+onMounted(() => {
+  storeInstance.updateAsta({ step: 2 });
 });
-
 
 const emit = defineEmits(['update:active']);
 
 const gestioneInvio = () => {
-  if (tipoAsta==='Inglese'){
-      if (!incrementoMinimo.value || !durataEstensione.value || !scadenzaAsta.value) {
+  if (tipoAsta === 'Inglese') {
+    if (!incrementoMinimo.value || !durataEstensione.value || !scadenzaAsta.value) {
       alert('Asta Inglese: Inserire tutti i campi');
       return;
     }
-  }
-  else{
-    if (!scadenzaAsta.value ) {
+  } else {
+    if (!scadenzaAsta.value) {
       alert('Asta Silenziosa: Inserire tutti i campi');
       return;
     }
@@ -127,5 +131,4 @@ label {
 .bottone:hover {
   background-color: #7c3aed;
 }
-
 </style>

@@ -4,13 +4,20 @@ import Navbar from "./components/Navbar/Navbar.vue";
 </script>
 
 <template>
-  <Navbar />
+  
+    <body>
+      <Navbar />
   
   <router-view/>
+    </body>
+  
+ 
+
 </template>
 
 <style>
 body{
   margin: 0;
+  padding: 0%;
 }
 </style>
