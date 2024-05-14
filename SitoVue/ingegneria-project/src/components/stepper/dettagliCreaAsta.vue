@@ -1,49 +1,59 @@
 <template>
-  <form @submit.prevent="gestioneInvio">
-    <label for="asta">Seleziona tipo Asta</label>
-    <select name="tipoAsta" id="asta" v-model="tipoAsta">
-      <option value="Inglese">Asta Inglese</option>
-      <option value="Silenziosa">Asta Silenziosa</option>
-    </select>
+    <form @submit.prevent="gestioneInvio">
+        <label for="asta">Seleziona tipo Asta</label>
+        <select name="tipoAsta" id="asta" v-model="tipoAsta">
+            <option value="Inglese">Asta Inglese</option>
+            <option value="Silenziosa">Asta Silenziosa</option>
+        </select>
 
-    <div
-      v-if="tipoAsta === 'Inglese'"
-      class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black"
-    >
-      ASTA INGLESE
-      <div class="formSpace px-2 lg:pr-9">
-        <label for="incrementoMinimo">Incremento minimo</label>
-        <input class="w-[60%]" type="number" id="incrementoMinimo" v-model="incrementoMinimo" />
-      </div>
-      <div class="formSpace px-2 lg:pr-9">
-        <label for="durataEstensione">Durata estensione</label>
-        <input type="number" class="w-[60%]" id="durataEstensione" v-model="durataEstensione" />
-      </div>
-      <div class="formSpace px-2 lg:pr-9">
-        <label for="prezzoBase">Data Scadenza</label>
-        <input class="w-[60%]" type="date" id="prezzoBase" v-model="scadenzaAsta" />
-      </div>
-    </div>
+        <div
+            v-if="tipoAsta === 'Inglese'"
+            class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black"
+        >
+            ASTA INGLESE
+            <div class="formSpace px-2 lg:pr-9">
+                <label for="incrementoMinimo">Incremento minimo</label>
+                <input
+                    class="w-[60%]"
+                    type="number"
+                    id="incrementoMinimo"
+                    v-model="incrementoMinimo"
+                />
+            </div>
+            <div class="formSpace px-2 lg:pr-9">
+                <label for="durataEstensione">Durata estensione</label>
+                <input
+                    type="number"
+                    class="w-[60%]"
+                    id="durataEstensione"
+                    v-model="durataEstensione"
+                />
+            </div>
+            <div class="formSpace px-2 lg:pr-9">
+                <label for="prezzoBase">Data Scadenza</label>
+                <input class="w-[60%]" type="date" id="prezzoBase" v-model="scadenzaAsta" />
+            </div>
+        </div>
 
-    <div
-      v-if="tipoAsta === 'Silenziosa'"
-      class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black"
-    >
-      ASTA Silenziosa
+        <div
+            v-if="tipoAsta === 'Silenziosa'"
+            class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black"
+        >
+            ASTA Silenziosa
 
-      <div class="formSpace px-2 lg:pr-9">
-        <label for="prezzoBase">Data Scadenza</label>
-        <input class="w-[60%]" type="date" id="prezzoBase" v-model="scadenzaAsta" />
-      </div>
-    </div>
+            <div class="formSpace px-2 lg:pr-9">
+                <label for="prezzoBase">Data Scadenza</label>
+                <input class="w-[60%]" type="date" id="prezzoBase" v-model="scadenzaAsta" />
+            </div>
+        </div>
 
-    <div class="areaBottoni mx-4 flex justify-around gap-5 px-4">
-      <button class="previous bottone px-5" @click="goToPreviousForm" type="button">
-        Precedente
-      </button>
-      <button class="bottone px-5" type="submit">Successivo</button>
-    </div>
-  </form>
+        <div class="areaBottoni mx-4 flex justify-around gap-5 px-4">
+            <button class="previous bottone px-5" @click="goToPreviousForm" type="button">
+                Precedente
+            </button>
+            <button class="bottone px-5" type="submit">Successivo</button>
+        </div>
+    </form>
 </template>
 
 <script setup>
@@ -58,77 +68,77 @@ const durataEstensione = ref(storeInstance.asta.durataEstensione);
 const scadenzaAsta = ref(storeInstance.asta.scadenzaAsta);
 
 onMounted(() => {
-  storeInstance.updateAsta({ step: 2 });
+    storeInstance.updateAsta({ step: 2 });
 });
 
 const emit = defineEmits(['update:active']);
 
 const gestioneInvio = () => {
-  if (tipoAsta === 'Inglese') {
-    if (!incrementoMinimo.value || !durataEstensione.value || !scadenzaAsta.value) {
-      alert('Asta Inglese: Inserire tutti i campi');
-      return;
+    if (tipoAsta === 'Inglese') {
+        if (!incrementoMinimo.value || !durataEstensione.value || !scadenzaAsta.value) {
+            alert('Asta Inglese: Inserire tutti i campi');
+            return;
+        }
+    } else {
+        if (!scadenzaAsta.value) {
+            alert('Asta Silenziosa: Inserire tutti i campi');
+            return;
+        }
     }
-  } else {
-    if (!scadenzaAsta.value) {
-      alert('Asta Silenziosa: Inserire tutti i campi');
-      return;
-    }
-  }
 
-  // Emit event to notify parent component to move to the next form section
-  if (tipoAsta.value) {
-    storeInstance.updateAsta({
-      tipoAsta: 'Silenziosa',
-      scadenzaAsta: scadenzaAsta.value,
-      step: 2,
-    });
-  } else {
-    storeInstance.updateAsta({
-      tipoAsta: 'Inglese',
-      scadenzaAsta: scadenzaAsta.value,
-      incrementoMinimo: incrementoMinimo.value,
-      durataEstensione: durataEstensione.value,
-      step: 2,
-    });
-  }
-  emit('update:active', 3);
+    // Emit event to notify parent component to move to the next form section
+    if (tipoAsta.value) {
+        storeInstance.updateAsta({
+            tipoAsta: 'Silenziosa',
+            scadenzaAsta: scadenzaAsta.value,
+            step: 2,
+        });
+    } else {
+        storeInstance.updateAsta({
+            tipoAsta: 'Inglese',
+            scadenzaAsta: scadenzaAsta.value,
+            incrementoMinimo: incrementoMinimo.value,
+            durataEstensione: durataEstensione.value,
+            step: 2,
+        });
+    }
+    emit('update:active', 3);
 };
 const goToPreviousForm = () => {
-  // Emit event to notify parent component to move to   the previous form section
-  emit('update:active', 1);
+    // Emit event to notify parent component to move to   the previous form section
+    emit('update:active', 1);
 };
 </script>
 
 <style scoped>
 form {
-  text-align: center;
+    text-align: center;
 }
 label {
-  text-align: center;
-  display: block;
-  margin: 25px 0 15px;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: bold;
+    text-align: center;
+    display: block;
+    margin: 25px 0 15px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
 }
 .formSpace {
-  justify-content: space-between;
-  display: flex;
-  direction: column;
+    justify-content: space-between;
+    display: flex;
+    direction: column;
 }
 .bottone {
-  background-color: #cc85f5;
-  padding: 10px 20px;
-  color: white;
-  border-radius: 5px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  width: 50%;
-  margin: 10px;
+    background-color: #cc85f5;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    width: 50%;
+    margin: 10px;
 }
 .bottone:hover {
-  background-color: #7c3aed;
+    background-color: #7c3aed;
 }
 </style>
