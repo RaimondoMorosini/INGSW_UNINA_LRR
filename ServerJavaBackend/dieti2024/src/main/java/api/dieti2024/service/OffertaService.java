@@ -33,7 +33,7 @@ OffertaRepository offertaRepository;
 
 @Autowired
     AstaRepository astaRepository;
-    public long faiOfferta(OffertaDto offertaDto,long tempoOfferta) {
+    public Offerta faiOfferta(OffertaDto offertaDto,long tempoOfferta) {
         offertaIsValido(offertaDto,tempoOfferta);
         String emailUtente = ControllerRestUtil.getEmailOfUtenteCorrente();
         Offerta offerta = new Offerta();
@@ -41,15 +41,15 @@ OffertaRepository offertaRepository;
         offerta.setEmailUtente(emailUtente);
         offerta.setAstaId(offertaDto.idAsta());
         offerta.setTempoOfferta(tempoOfferta);
-        offertaRepository.save(offerta);
-        return astaRepository.findById(offertaDto.idAsta()).get().getDataScadenza();
+        return offertaRepository.save(offerta);
+
     }
 
     private void offertaIsValido(OffertaDto offertaDto, long tempoOfferta) {
         Asta asta = astaService.getAstaById(offertaDto.idAsta());
         String tipoAsta = asta.getTipoAsta();
         if(!ControllerRestUtil.hasPermeessoDiFareUnOfferta(tipoAsta))
-            throw new ApiException("L'utente non ha il permesso di fare un offerta", HttpStatus.FORBIDDEN);
+            throw new ApiException("L'utente non ha il permesso di fare un offerta su "+tipoAsta, HttpStatus.FORBIDDEN);
 
         if(!CalendarioUtil.verificaScadenza(tempoOfferta,asta.getDataScadenza()))
             throw new ApiException("Asta scaduta", HttpStatus.BAD_REQUEST);
