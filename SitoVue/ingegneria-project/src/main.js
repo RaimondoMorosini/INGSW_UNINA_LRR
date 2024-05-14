@@ -25,14 +25,14 @@ axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getIte
 
 // inizializzazione auth0
 app.use(
-  createAuth0({
-    domain: 'dev-bmqxc24leqwhyhec.eu.auth0.com',
-    clientId: 'YR70390mlpskaBwBrMYclzGmkCLAXfaB',
-    authorizationParams: {
-      redirect_uri: 'http://localhost:8080/callback',
-      //redirect_uri: 'http://www.dietideals.it/callback',
-    },
-  })
+    createAuth0({
+        domain: 'dev-bmqxc24leqwhyhec.eu.auth0.com',
+        clientId: 'YR70390mlpskaBwBrMYclzGmkCLAXfaB',
+        authorizationParams: {
+            redirect_uri: 'http://localhost:8080/callback',
+            //redirect_uri: 'http://www.dietideals.it/callback',
+        },
+    })
 );
 
 // inizializazione primevue

@@ -1,8 +1,8 @@
 <template>
-  <body>
-    <SwipeCarosello />
-    <AreaRicerca />
-  </body>
+    <body>
+        <SwipeCarosello />
+        <AreaRicerca />
+    </body>
 </template>
 
 <script setup>
@@ -13,7 +13,7 @@ import AreaRicerca from '../components/AreaRicerca.vue';
 
 <style scoped>
 body {
-  margin: 0;
-  padding: 0%;
+    margin: 0;
+    padding: 0%;
 }
 </style>

@@ -1,60 +1,60 @@
 <template>
-  <form @submit.prevent="gestioneInvio">
-    <main
-      class="flex h-auto w-[100%] min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row"
-    >
-      <div class="flex h-4col w-[100%] auto-rows-max flex-col justify-around gap-3 px-2">
-        <div class="formSpace">
-          <label for="nomeProdotto">Nome Prodotto</label>
-          <input
-            class="w-[60%] rounded md:w-[70%]"
-            type="text"
-            id="nomeProdotto"
-            v-model="nomeProdotto"
-          />
-        </div>
-        <div class="formSpace">
-          <label for="descrizione">Descrizione Prodotto</label>
-          <textarea
-            rows="5"
-            class="w-[60%] rounded md:w-[70%]"
-            id="descrizione"
-            v-model="descrizione"
-          />
-        </div>
-        <div class="formSpace">
-          <label for="prezzoBase">Prezzo Base</label>
-          <input
-            class="w-[60%] rounded md:w-[70%]"
-            type="number"
-            id="prezzoBase"
-            v-model="prezzoBase"
-          />
-        </div>
+    <form @submit.prevent="gestioneInvio">
+        <main
+            class="flex h-auto w-[100%] min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row"
+        >
+            <div class="flex h-4col w-[100%] auto-rows-max flex-col justify-around gap-3 px-2">
+                <div class="formSpace">
+                    <label for="nomeProdotto">Nome Prodotto</label>
+                    <input
+                        class="w-[60%] rounded md:w-[70%]"
+                        type="text"
+                        id="nomeProdotto"
+                        v-model="nomeProdotto"
+                    />
+                </div>
+                <div class="formSpace">
+                    <label for="descrizione">Descrizione Prodotto</label>
+                    <textarea
+                        rows="5"
+                        class="w-[60%] rounded md:w-[70%]"
+                        id="descrizione"
+                        v-model="descrizione"
+                    />
+                </div>
+                <div class="formSpace">
+                    <label for="prezzoBase">Prezzo Base</label>
+                    <input
+                        class="w-[60%] rounded md:w-[70%]"
+                        type="number"
+                        id="prezzoBase"
+                        v-model="prezzoBase"
+                    />
+                </div>
 
-        <InputGroup class="categoriaSelector w-[100%]">
-          <InputGroupAddon class="bg-slate-100 ring-1 ring-black">
-            <i class="pi pi-th-large" style="color: #000"></i>
-          </InputGroupAddon>
-          <TreeSelect
-            id="categoria"
-            v-model="selectedCategory"
-            :options="nodes"
-            option-label="name"
-            placeholder="Seleziona Categoria"
-            class="rounded-r bg-slate-100 text-black ring-1 ring-black"
-          />
-        </InputGroup>
-      </div>
+                <InputGroup class="categoriaSelector w-[100%]">
+                    <InputGroupAddon class="bg-slate-100 ring-1 ring-black">
+                        <i class="pi pi-th-large" style="color: #000"></i>
+                    </InputGroupAddon>
+                    <TreeSelect
+                        id="categoria"
+                        v-model="selectedCategory"
+                        :options="nodes"
+                        option-label="name"
+                        placeholder="Seleziona Categoria"
+                        class="rounded-r bg-slate-100 text-black ring-1 ring-black"
+                    />
+                </InputGroup>
+            </div>
 
-      <div class="flex h-[100%] w-[100%] px-2">
-        <ImageUploader class="flex h-[100%]" />
-      </div>
-    </main>
-    <div class="areaBottoni my-4 px-10">
-      <button class="bottone" type="submit">Successivo</button>
-    </div>
-  </form>
+            <div class="flex h-[100%] w-[100%] px-2">
+                <ImageUploader class="flex h-[100%]" />
+            </div>
+        </main>
+        <div class="areaBottoni my-4 px-10">
+            <button class="bottone" type="submit">Successivo</button>
+        </div>
+    </form>
 </template>
 
 <script setup>
@@ -72,11 +72,11 @@ import { getCategorieRest } from '../../scripts/categorie.js';
 const nodes = ref([]);
 
 const getCategorie = async () => {
-  try {
-    nodes.value = await getCategorieRest(); // Assuming the response contains an array
-  } catch (error) {
-    console.error('Error categorie non trovate:', error);
-  }
+    try {
+        nodes.value = await getCategorieRest(); // Assuming the response contains an array
+    } catch (error) {
+        console.error('Error categorie non trovate:', error);
+    }
 };
 
 const storeInstance = useAstaStore();
@@ -88,19 +88,19 @@ const descrizione = ref(storeInstance.asta.descrizione);
 const prezzoBase = ref(storeInstance.asta.prezzoBase);
 
 onMounted(() => {
-  storeInstance.updateAsta({
-    step: 0,
-  });
-  /** TODO controllare funzionamento e Permanenza dello store pinia
+    storeInstance.updateAsta({
+        step: 0,
+    });
+    /** TODO controllare funzionamento e Permanenza dello store pinia
    * selectedCategory = storeInstance.asta?.categoria;
   nomeProdotto = storeInstance.asta?.nomeProdotto;
   descrizione = storeInstance.asta?.descrizione;
   prezzoBase = storeInstance.asta?.prezzoBase;*/
-  getCategorie();
+    getCategorie();
 });
 
 const gestioneInvio = () => {
-  /** TODO da togliere quando il server è funzionante
+    /** TODO da togliere quando il server è funzionante
   if (
     !nomeProdotto.value.trim ||
     !descrizione.value.trim ||
@@ -110,67 +110,67 @@ const gestioneInvio = () => {
     return;
   }
   */
-  storeInstance.updateAsta({
-    nomeProdotto: nomeProdotto.value,
-    descrizione: descrizione.value,
-    prezzoBase: prezzoBase.value,
-    categoria: selectedCategory.value,
-  });
-  emit('update:active', 1);
+    storeInstance.updateAsta({
+        nomeProdotto: nomeProdotto.value,
+        descrizione: descrizione.value,
+        prezzoBase: prezzoBase.value,
+        categoria: selectedCategory.value,
+    });
+    emit('update:active', 1);
 };
 
 const onAdvancedUpload = () => {
-  toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
+    toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
 };
 </script>
 
 <style scoped>
 form {
-  text-align: center;
+    text-align: center;
 }
 label {
-  text-align: center;
-  display: block;
-  margin: 25px 0 15px;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: bold;
+    text-align: center;
+    display: block;
+    margin: 25px 0 15px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
 }
 .formSpace {
-  justify-content: space-between;
-  display: flex;
-  direction: column;
+    justify-content: space-between;
+    display: flex;
+    direction: column;
 }
 
 button.bottone {
-  background-color: #cc85f5;
-  padding: 10px 20px;
-  color: white;
-  border-radius: 5px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  width: 50%;
-  margin: 10px;
+    background-color: #cc85f5;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    width: 50%;
+    margin: 10px;
 }
 
 button.bottone:hover {
-  background-color: #7c3aed;
+    background-color: #7c3aed;
 }
 
 textarea {
-  resize: none;
+    resize: none;
 }
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
 input[type='number'] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 </style>
