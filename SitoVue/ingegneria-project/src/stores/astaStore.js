@@ -12,6 +12,7 @@ export const useAstaStore = defineStore('asta', {
             incrementoMinimo: '',
             durataEstensione: '',
             scadenzaAsta: '',
+            immaginiSalvate: [],
         },
     }),
     getters: {

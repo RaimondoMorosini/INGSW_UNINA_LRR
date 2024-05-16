@@ -1,20 +1,20 @@
 <template>
     <form @submit.prevent="gestioneInvio">
         <label for="asta">Seleziona tipo Asta</label>
-        <select name="tipoAsta" id="asta" v-model="tipoAsta">
+        <select name="tipoAsta" id="asta" v-model="tipoAsta" class="rounded">
             <option value="asta_inglese">Asta Inglese</option>
             <option value="asta_silenziosa">Asta Silenziosa</option>
         </select>
 
         <div
-            v-if="tipoAsta === 'Inglese'"
+            v-if="tipoAsta === 'asta_inglese'"
             class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black"
         >
             ASTA INGLESE
             <div class="formSpace px-2 lg:pr-9">
                 <label for="incrementoMinimo">Incremento minimo</label>
                 <input
-                    class="w-[60%]"
+                    class="w-[60%] rounded"
                     type="number"
                     id="incrementoMinimo"
                     v-model="incrementoMinimo"
@@ -24,26 +24,26 @@
                 <label for="durataEstensione">Durata estensione</label>
                 <input
                     type="number"
-                    class="w-[60%]"
+                    class="w-[60%] rounded"
                     id="durataEstensione"
                     v-model="durataEstensione"
                 />
             </div>
             <div class="formSpace px-2 lg:pr-9">
                 <label for="prezzoBase">Data Scadenza</label>
-                <input class="w-[60%]" type="date" id="prezzoBase" v-model="scadenzaAsta" />
+                <input class="w-[60%] rounded" type="date" id="prezzoBase" v-model="scadenzaAsta" />
             </div>
         </div>
 
         <div
-            v-if="tipoAsta === 'Silenziosa'"
+            v-if="tipoAsta === 'asta_silenziosa'"
             class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black"
         >
             ASTA Silenziosa
 
             <div class="formSpace px-2 lg:pr-9">
                 <label for="prezzoBase">Data Scadenza</label>
-                <input class="w-[60%]" type="date" id="prezzoBase" v-model="scadenzaAsta" />
+                <input class="w-[60%] rounded" type="date" id="prezzoBase" v-model="scadenzaAsta" />
             </div>
         </div>
 
