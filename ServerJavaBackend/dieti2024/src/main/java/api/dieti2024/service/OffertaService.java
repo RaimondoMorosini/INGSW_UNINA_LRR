@@ -12,27 +12,30 @@ import api.dieti2024.service.Asta.AstaService;
 import api.dieti2024.util.CalendarioUtil;
 import api.dieti2024.util.ControllerRestUtil;
 import api.dieti2024.util.TipoAsta;
-import api.dieti2024.util.TipoPermesso;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @Service
 public class OffertaService {
 
-@Autowired
+final
 OffertaRepository offertaRepository;
 
-@Autowired
-    AstaService astaService;
-@Autowired
-    PermessoRepository permessoRepository;
+final
+AstaService astaService;
+final
+PermessoRepository permessoRepository;
 
-@Autowired
-    AstaRepository astaRepository;
+final
+AstaRepository astaRepository;
+
+    public OffertaService(OffertaRepository offertaRepository, AstaService astaService, PermessoRepository permessoRepository, AstaRepository astaRepository) {
+        this.offertaRepository = offertaRepository;
+        this.astaService = astaService;
+        this.permessoRepository = permessoRepository;
+        this.astaRepository = astaRepository;
+    }
+
     public Offerta faiOfferta(OffertaDto offertaDto,long tempoOfferta) {
         offertaIsValido(offertaDto,tempoOfferta);
         String emailUtente = ControllerRestUtil.getEmailOfUtenteCorrente();
@@ -64,8 +67,9 @@ OffertaRepository offertaRepository;
                 if (offertaDto.prezzoProposto()<=baseAsta || offertaDto.prezzoProposto()<=asta.getPrezzoAttuale())
                     throw new ApiException("Prezzo offerta inferiore al prezzo attuale", HttpStatus.BAD_REQUEST);
                 DatiAstaInglese datiAstaInglese = astaService.getDatiAstaIngleseById(asta.getId());
-                if (datiAstaInglese.getQuotaFissaPerLaPuntata()+baseAsta != offertaDto.prezzoProposto())
-                    throw new ApiException("Prezzo offerta non valido", HttpStatus.BAD_REQUEST);
+                double prezzoOffertaValido=datiAstaInglese.getQuotaFissaPerLaPuntata()+asta.getPrezzoAttuale();
+                if ( prezzoOffertaValido!= offertaDto.prezzoProposto())
+                    throw new ApiException("Prezzo offerta non valido deve essere di: "+prezzoOffertaValido, HttpStatus.BAD_REQUEST);
                 break;
             case TipoAsta.SILENZIOSA:
                 if (offertaDto.prezzoProposto()<=baseAsta)
