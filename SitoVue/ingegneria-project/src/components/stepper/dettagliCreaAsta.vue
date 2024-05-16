@@ -2,8 +2,8 @@
     <form @submit.prevent="gestioneInvio">
         <label for="asta">Seleziona tipo Asta</label>
         <select name="tipoAsta" id="asta" v-model="tipoAsta">
-            <option value="Inglese">Asta Inglese</option>
-            <option value="Silenziosa">Asta Silenziosa</option>
+            <option value="asta_inglese">Asta Inglese</option>
+            <option value="asta_silenziosa">Asta Silenziosa</option>
         </select>
 
         <div
@@ -74,7 +74,7 @@ onMounted(() => {
 const emit = defineEmits(['update:active']);
 
 const gestioneInvio = () => {
-    if (tipoAsta === 'Inglese') {
+    if (tipoAsta === 'asta_inglese') {
         if (!incrementoMinimo.value || !durataEstensione.value || !scadenzaAsta.value) {
             alert('Asta Inglese: Inserire tutti i campi');
             return;
@@ -89,13 +89,13 @@ const gestioneInvio = () => {
     // Emit event to notify parent component to move to the next form section
     if (tipoAsta.value) {
         storeInstance.updateAsta({
-            tipoAsta: 'Silenziosa',
+            tipoAsta: 'asta_silenziosa',
             scadenzaAsta: scadenzaAsta.value,
             step: 2,
         });
     } else {
         storeInstance.updateAsta({
-            tipoAsta: 'Inglese',
+            tipoAsta: 'asta_inglese',
             scadenzaAsta: scadenzaAsta.value,
             incrementoMinimo: incrementoMinimo.value,
             durataEstensione: durataEstensione.value,
