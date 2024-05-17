@@ -1,36 +1,31 @@
 <template>
     <div>
-        <label for="file-upload" class="custom-file-upload">
-        Custom Upload
-    </label>
-        <input id="file-upload" type="file" accept="image/*" multiple @change="handleChange">
+        <label for="file-upload" class="custom-file-upload"> Custom Upload </label>
+        <input id="file-upload" type="file" accept="image/*" multiple @change="handleChange" />
         <div v-for="image in store.asta.immaginiSalvate">
-        <img :src="image" alt="immagine caricata" class="w-24 h-24">
+            <img :src="image" alt="immagine caricata" class="h-24 w-24" />
+        </div>
     </div>
-        
-    </div>
-
-    
 </template>
 
 <script setup>
-import {useAstaStore} from '../stores/astaStore'
-const store = useAstaStore()
+import { useAstaStore } from '../stores/astaStore';
+const store = useAstaStore();
 
 const handleChange = (event) => {
     let test = [];
     for (let image of event.target.files) {
-        test.push (URL.createObjectURL(image) );
+        test.push(URL.createObjectURL(image));
     }
-    console.log(test)
+    console.log(test);
     store.asta.immaginiSalvate = test;
-    console.log("in store",store.asta.immaginiSalvate)
-}
+    console.log('in store', store.asta.immaginiSalvate);
+};
 </script>
 
 <style scoped>
-input[type="file"] {
-  display: none;
+input[type='file'] {
+    display: none;
 }
 
 .custom-file-upload {
@@ -42,7 +37,7 @@ input[type="file"] {
     font-weight: bold;
     width: 50%;
     margin: 10px;
-  cursor: pointer;
+    cursor: pointer;
 }
 .custom-file-upload:hover {
     background-color: #7c3aed;
