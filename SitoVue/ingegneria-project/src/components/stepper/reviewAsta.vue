@@ -30,7 +30,7 @@
             <img
                 :src="storeInstance.asta.immaginiSalvate[0]"
                 alt="Immagine Copertina"
-                class="h-24 w-24 ring-2 ring-primary-100"
+                class="h-24 w-24 ring-2 ring-[#cc85f5]"
             />
             <div v-for="image in storeInstance.asta.immaginiSalvate">
                 <img :src="image" alt="immagine caricata" class="h-24 w-24" />
@@ -85,7 +85,7 @@ function generaDTO() {
             datiProdotto: {
                 nomeProdotto: storeInstance.asta.nomeProdotto,
                 descrizioneProdotto: storeInstance.asta.descrizione,
-                immagini: ['TODO togliere quando funziona'],
+                immagini: storeInstance.asta.immaginiSalvate,
                 categoriaProdotto: categoriaInviata,
                 caratteristicheProdotto: [
                     {
