@@ -1,5 +1,7 @@
 package api.dieti2024.dto.asta.ricerca;
 
+import api.dieti2024.model.Caratteristica;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,7 +10,8 @@ public record FiltroDto(
         List<String> tipoAsta,
         String nomeProdotto,
         int pagina,
-        int elementiPerPagina) {
+        int elementiPerPagina,
+        List<FiltroCaratteristicheDTO> caratteristicheSelezionate ) {
 
     public String toWhere() {
         StringBuilder stringBuilder = new StringBuilder();
