@@ -1,41 +1,33 @@
 <template>
-    <div class="text-xl" font-semibold>Revisione Dati Inseriti</div>
+    <div class="text-xl font-semibold" font-semibold>Revisione Dati Inseriti</div>
     <div class="flex-cols flex justify-between">
         <div class="grid" grid-cols-2 px-3 py-2>
-            <div class="label">Categoria:</div>
+            <span class="label">Categoria:</span>
             <span>
                 {{ categoriaSelezionata(storeInstance.asta.categoria) }}
             </span>
-
             <span> {{ testCategoria }} </span>
-            <div class="label">nomeProdotto:</div>
+            <span class="label">nomeProdotto:</span>
             <span> {{ storeInstance.asta.nomeProdotto }}</span>
-            <div class="label">descrizione</div>
+            <span class="label">descrizione</span>
             <span>{{ storeInstance.asta.descrizione }}</span>
-            <div class="label">prezzo Base:</div>
+            <span class="label">prezzo Base:</span>
             <span>€ {{ storeInstance.asta.prezzoBase }}</span>
-            <div class="label">tipo Asta:</div>
+            <span class="label">tipo Asta:</span>
             <span>{{ storeInstance.asta.tipoAsta }}</span>
-            <div v-if="tipoAsta === 'asta_inglese'">
-                <div class="label">incremento minimo:</div>
-                <span>€ {{ storeInstance.asta.incrementoMinimo }}</span>
-                <div class="label">durata estensione:</div>
-                <span>{{ storeInstance.asta.durataEstensione }}</span>
-            </div>
 
-            <div class="label">scadenza asta:</div>
+            <span v-if="tipoAsta === 'asta_inglese'">
+                <span class="label">incremento minimo:</span>
+                <span>€ {{ storeInstance.asta.incrementoMinimo }}</span>
+                <span class="label">durata estensione:</span>
+                <span>{{ storeInstance.asta.durataEstensione }}</span>
+            </span>
+
+            <span class="label">scadenza asta:</span>
             <span>{{ storeInstance.asta.scadenzaAsta }}</span>
+
         </div>
-        <div class="block">
-            <img
-                :src="storeInstance.asta.immaginiSalvate[0]"
-                alt="Immagine Copertina"
-                class="h-24 w-24 ring-2 ring-[#cc85f5]"
-            />
-            <div v-for="image in storeInstance.asta.immaginiSalvate">
-                <img :src="image" alt="immagine caricata" class="h-24 w-24" />
-            </div>
-        </div>
+        
     </div>
     <div class="buttonArea">
         <button class="bottone mx-3 my-3 px-5" @click="goToPreviousForm" type="button">
@@ -44,14 +36,22 @@
         <button class="bottone px-5" @click="gestioneInvio">Finalizza</button>
     </div>
 </template>
+<!--<div class="block px-5 py-5">
+            <img
+                :src="storeInstance.asta.immaginiSalvate[0]"
+                alt="Immagine Copertina"
+                class=" ring-2 ring-[#cc85f5] w-[10%]"
+            />
+            <div v-for="image in storeInstance.asta.immaginiSalvate">
+                <img :src="image" alt="immagine caricata" class="w-[10%] px-5" />
+            </div>
+        </div>-->
 
 <script setup>
 import axios from 'axios';
 import { postRestWithtoken } from '../../scripts/RestUtils.js';
 import { useAstaStore } from '../../stores/astaStore.js';
 import { ref, onMounted } from 'vue';
-import TreeSelect from 'primevue/treeselect';
-import { getCategorieRest } from '../../scripts/categorie.js';
 
 const storeInstance = useAstaStore();
 
@@ -175,7 +175,7 @@ const gestioneInvio = () => {
     background-color: #7c3aed;
 }
 
-div.label {
+span.label {
     text-align: left;
     font-size: 1rem;
     text-transform: uppercase;

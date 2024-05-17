@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="gestioneInvio">
         <main
-            class="flex h-auto w-[100%] min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row"
+            class="flex h-auto w-[100%] min-w-3col flex-col justify-around gap-3 px-5 mt-5 md:w-auto lg:flex-row"
         >
             <div class="flex h-4col w-[100%] auto-rows-max flex-col justify-around gap-3 px-2">
                 <div class="formSpace">
@@ -45,6 +45,7 @@
                         class="rounded-r bg-slate-100 text-black ring-1 ring-black"
                     />
                 </InputGroup>
+                
             </div>
 
             <div class="flex h-[100%] w-[100%] px-2">
@@ -56,15 +57,7 @@
             <button class="bottone" type="submit">Successivo</button>
         </div>
     </form>
-    <!--
-<div class="py-2 px-2 ring-2 ring-black">
-        {{ categoriaSalvata }}
-        {{nomeProdotto.value}}
-        {{descrizione.value  }} ,
-        {{prezzoBase.value   }},
-        {{categoriaSalvata.value}}
-    </div>
-    -->
+  
 </template>
 
 <script setup>
