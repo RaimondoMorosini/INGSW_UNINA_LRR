@@ -1,6 +1,8 @@
 package api.dieti2024.testFiltri;
 
 
+import api.dieti2024.dto.asta.ricerca.FiltroDto;
+import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.repository.AstaProdottoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,18 +24,16 @@ public class ControllerTest {
 
     @Autowired
     ProdottoRepositoryImpl prodottoRepository;
-    @GetMapping("public/query")
-    public Object lanciaQuery() {
+    @PostMapping("public/asta/getAllAste")
+    public List< InfoDatiAstaDTO>   lanciaQuery(@RequestBody FiltroDto filtroDto){
         String query= "Select * from prodotto where nome_prodotto LIKE '%Rai%'";
-        int[] idProdotti = {2, 0};
-        List<List<String>> caratteristiche = List.of(
-                List.of("64GB"),
-                List.of("IOS", "android")
-                // Aggiungi ulteriori liste di caratteristiche qui
-        );
 
-
-
-         return prodottoRepository.lanciaQuery(idProdotti, caratteristiche);
+        List<InfoDatiAstaDTO> obj= prodottoRepository.getProdottiAstaConFiltroCompleto( filtroDto);
+        return obj;
+    }
+    //public/asta/getNumeroAste
+    @PostMapping("public/asta/getNumeroAste")
+    public int getNumeroAste(@RequestBody FiltroDto filtroDto){
+        return prodottoRepository.getNumeroProdottiAstaConFiltroCompleto( filtroDto).size();
     }
 }

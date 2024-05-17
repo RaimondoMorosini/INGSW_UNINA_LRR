@@ -31,7 +31,7 @@ public class ProdottoAstaController {
     @Autowired
     ImageContainerUtil imageContainerUtil;
 
-    @PostMapping("public/asta/getAllAste")
+    @PostMapping("public/asta/getAllAsteDeprecato")
     public ResponseEntity< List<InfoDatiAstaDTO>> getAllAste(@RequestBody FiltroDto filtroDto){
         try {
             return ResponseEntity.ok( astaService.getAllAstaProdotto(filtroDto));
@@ -40,7 +40,7 @@ public class ProdottoAstaController {
         }
     }
 
-    @PostMapping("public/asta/getNumeroAste")
+    @PostMapping("public/asta/getNumeroAsteDeprecato")
     public ResponseEntity<Integer> getNumeroTotaleDiAstePerRicerca(@RequestBody FiltroDto filtroDto){
         try {
             return ResponseEntity.ok( astaService.getNumeroTotaleDiAstePerRicerca(filtroDto));

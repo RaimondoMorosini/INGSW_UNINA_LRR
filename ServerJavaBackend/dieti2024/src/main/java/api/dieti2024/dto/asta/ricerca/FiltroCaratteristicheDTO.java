@@ -4,6 +4,6 @@ import java.util.List;
 
 public record FiltroCaratteristicheDTO(
         int idCaratteristica,
-        List<String> valoriSelezionati
+                List<String> valoriSelezionati
 ) {
 }

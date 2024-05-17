@@ -166,6 +166,7 @@ const setAsteRicercate = async () => {
     categoria: categoriaDaCercare.value,
     nomeProdotto: nomeProdottoCercato.value,
     tipoAsta: tipoAstaCercata.value,
+    caratteristicheSelezionate:[]
   };
 
   //tentativo di richesta axsios
@@ -177,7 +178,7 @@ const setAsteRicercate = async () => {
     numeroAsteTotali.value = response.data; //Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
 
     response = await axios.post('http://localhost:8081/public/asta/getAllAste', parametriBody); //Otteniamo tutte le aste che corrispondono al criterio di ricerca
-
+    console.log("asta dio cane ",response.data);
     aste.value = response.data; // Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
   } catch (error) {
     console.error('Si è verificato un errore:', error);
