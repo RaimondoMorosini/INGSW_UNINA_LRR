@@ -1,59 +1,45 @@
 <template>
     <div>
-        <h1>vue-timer-hook</h1>
-        <p>Timer Demo</p>
-        <div class="text-2xl">
-            <span class="rounded bg-slate-200 px-1 py-1">{{ timer.days }}</span
-            >:<span class="rounded bg-slate-200 px-1 py-1">{{ timer.hours }}</span
-            >:<span class="rounded bg-slate-200 px-1 py-1">{{ timer.minutes }}</span
-            >:<span class="rounded bg-slate-200 px-1 py-1">{{ timer.seconds }}</span>
+        <label for="file-upload" class="custom-file-upload"> Custom Upload </label>
+        <input id="file-upload" type="file" accept="image/*" multiple @change="handleChange" />
+        <div v-for="image in store.asta.immaginiSalvate">
+            <img :src="image" alt="immagine caricata" class="h-24 w-24" />
         </div>
-        <p>{{ timer.isRunning ? 'Running' : 'Not running' }}</p>
-        <button
-            class="mx-1 rounded bg-indigo-200 px-1 py-1 hover:bg-slate-200"
-            @click="timer.start()"
-        >
-            Start
-        </button>
-        <button
-            class="mx-1 rounded bg-indigo-200 px-1 py-1 hover:bg-slate-200"
-            @click="timer.pause()"
-        >
-            Pause
-        </button>
-        <button
-            class="mx-1 rounded bg-indigo-200 px-1 py-1 hover:bg-slate-200"
-            @click="timer.resume()"
-        >
-            Resume
-        </button>
-        <button
-            class="mx-1 rounded bg-indigo-200 px-1 py-1 hover:bg-slate-200"
-            @click="restartFive()"
-        >
-            Restart
-        </button>
     </div>
 </template>
 
 <script setup>
-import { onMounted, watchEffect } from 'vue';
-import { useTimer } from 'vue-timer-hook';
+import { useAstaStore } from '../stores/astaStore';
+const store = useAstaStore();
 
-let time = new Date();
-time.setSeconds(time.getSeconds() + 600); // 10 minutes timer
-const timer = useTimer(time);
-const restartFive = () => {
-    // Restarts to 5 minutes timer
-    const time = new Date();
-    time.setSeconds(time.getSeconds() + 300);
-    timer.restart(time);
+const handleChange = (event) => {
+    let test = [];
+    for (let image of event.target.files) {
+        test.push(URL.createObjectURL(image));
+    }
+    console.log(test);
+    store.asta.immaginiSalvate = test;
+    console.log('in store', store.asta.immaginiSalvate);
 };
-onMounted(() => {
-    watchEffect(async () => {
-        if (timer.isExpired.value) {
-            console.warn('IsExpired');
-        }
-    });
-});
 </script>
+
+<style scoped>
+input[type='file'] {
+    display: none;
+}
+
+.custom-file-upload {
+    background-color: #cc85f5;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    width: 50%;
+    margin: 10px;
+    cursor: pointer;
+}
+.custom-file-upload:hover {
+    background-color: #7c3aed;
+}
+</style>

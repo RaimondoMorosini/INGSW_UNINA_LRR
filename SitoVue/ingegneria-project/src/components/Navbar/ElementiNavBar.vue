@@ -5,12 +5,12 @@
             :class="[open ? 'left-0 ' : 'left-[-100%] ']"
         >
             <template v-if="!isAuthenticated">
-                <li class="my-6 lg:mx-4 lg:my-0">
+                <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <SignupButton
                         class="mt-1 block w-[100%] rounded px-2 py-1 font-semibold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 lg:mx-4"
                     />
                 </li>
-                <li class="my-6 lg:mx-4 lg:my-0">
+                <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <LoginButton
                         class="mt-1 block w-[100%] rounded px-2 py-1 font-semibold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 lg:mx-4"
                     />
@@ -18,7 +18,7 @@
             </template>
 
             <template v-if="isAuthenticated">
-                <li class="my-6 lg:mx-4 lg:my-0">
+                <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'profilo' }">
                         <p
                             class="!sm:w-[100%] mt-1 block rounded px-2 py-1 text-center font-semibold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 lg:mx-4"
@@ -27,7 +27,7 @@
                         </p>
                     </RouterLink>
                 </li>
-                <li class="my-6 lg:mx-4 lg:my-0">
+                <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <router-link to="/profilo/notifiche">
                         <p
                             class="mt-1 block rounded px-2 py-1 text-center font-semibold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 lg:mx-4"
@@ -36,7 +36,7 @@
                         </p>
                     </router-link>
                 </li>
-                <li class="my-6 lg:mx-4 lg:my-0">
+                <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'about' }">
                         <p
                             class="!sm:w-[100%] mt-1 block rounded px-2 py-1 text-center font-semibold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 lg:mx-4"
@@ -45,12 +45,12 @@
                         </p>
                     </RouterLink>
                 </li>
-                <li class="my-6 lg:mx-4 lg:my-0">
+                <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <LogoutButton
                         class="mt-1 block w-[100%] rounded px-2 py-1 text-center font-semibold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 lg:mx-4"
                     />
                 </li>
-                <li class="my-6 lg:mx-4 lg:my-0">
+                <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'creaAsta' }">
                         <p
                             class="!sm:w-[100%] mt-1 block rounded bg-primario-200 px-2 py-1 text-center font-semibold ring-2 ring-slate-300/80 hover:bg-primario-100 lg:mx-4"
@@ -85,5 +85,8 @@ const { user } = useAuth0();
 const open = ref(false);
 function MenuOpen() {
     open.value = !open.value;
+}
+function MenuClose() {
+    open.value = false;
 }
 </script>
