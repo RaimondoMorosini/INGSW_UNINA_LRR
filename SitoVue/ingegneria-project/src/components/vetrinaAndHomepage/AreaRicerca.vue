@@ -161,14 +161,15 @@ const setAsteRicercate = async () => {
         tipoAstaCercata = ref([]);
     }
 
-    //impostazione dei parametri del body da amndare nella richiesta axios
-    const parametriBody = {
-        pagina: 1,
-        elementiPerPagina: 5,
-        categoria: categoriaDaCercare.value,
-        nomeProdotto: nomeProdottoCercato.value,
-        tipoAsta: tipoAstaCercata.value,
-    };
+  //impostazione dei parametri del body da amndare nella richiesta axios
+  const parametriBody = {
+    pagina: 1,
+    elementiPerPagina: 5,
+    categoria: categoriaDaCercare.value,
+    nomeProdotto: nomeProdottoCercato.value,
+    tipoAsta: tipoAstaCercata.value,
+    caratteristicheSelezionate:[]
+  };
 
     //tentativo di richesta axsios
     try {
@@ -181,14 +182,14 @@ const setAsteRicercate = async () => {
 
         numeroAsteTotali.value = response.data; //Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
 
-        response = await axios.post('http://localhost:8081/public/asta/getAllAste', parametriBody); //Otteniamo tutte le aste che corrispondono al criterio di ricerca
-
-        aste.value = response.data; // Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
-    } catch (error) {
-        console.error('Si è verificato un errore:', error);
-    } finally {
-        isLoading.value = false; // Imposta lo stato di caricamento su false dopo che la richiesta è completata (in modo che carica la componente delle aste cercate)
-    }
+    response = await axios.post('http://localhost:8081/public/asta/getAllAste', parametriBody); //Otteniamo tutte le aste che corrispondono al criterio di ricerca
+    console.log("asta dio cane ",response.data);
+    aste.value = response.data; // Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
+  } catch (error) {
+    console.error('Si è verificato un errore:', error);
+  } finally {
+    isLoading.value = false; // Imposta lo stato di caricamento su false dopo che la richiesta è completata (in modo che carica la componente delle aste cercate)
+  }
 };
 
 onMounted(() => {

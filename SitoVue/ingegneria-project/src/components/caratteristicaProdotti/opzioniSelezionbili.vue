@@ -16,18 +16,10 @@
     </div>
 
     <div class="gruppo-opzioni" v-if="statoFinestra">
-        <div class="flex-column flex gap-3">
-            <div
-                v-for="opzione of props.propOpzioni"
-                :key="opzione"
-                class="align-items-center flex"
-            >
-                <Checkbox
-                    v-model="selectedOpzioni"
-                    :inputId="opzione"
-                    name="opzione"
-                    :value="opzione"
-                />
+        <div class="flex flex-column gap-3">
+            <div v-for="opzione of props.propOpzioni" :key="opzione" class="flex align-items-center">
+                <Checkbox @change="aggiornaValoriSelezionati"  v-model="selectedOpzioni" :inputId="opzione" name="opzione"
+                    :value="opzione" />
                 <label :for="opzione">{{ opzione }}</label>
             </div>
         </div>
@@ -35,7 +27,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref,defineEmits } from "vue";
 
 import Checkbox from 'primevue/checkbox';
 import 'primeflex/primeflex.css';
@@ -43,6 +35,7 @@ import 'primevue/resources/themes/aura-light-green/theme.css';
 import 'primeicons/primeicons.css';
 
 const props = defineProps(['propOpzioni', 'propNomeCaratteristica']);
+const emit = defineEmits(['recuperoValoriSelezionati']);
 
 let statoFinestra = ref(true);
 
@@ -51,6 +44,12 @@ const triggerFinestra = () => {
 };
 
 const selectedOpzioni = ref([]);
+
+const aggiornaValoriSelezionati = () => {
+
+    emit('recuperoValoriSelezionati', selectedOpzioni.value);
+}
+
 </script>
 
 <style scoped>
