@@ -50,7 +50,7 @@
                         class="mt-1 block w-[100%] rounded px-2 py-1 text-center font-semibold hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 lg:mx-4"
                     />
                 </li>
-                <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()"> 
+                <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'creaAsta' }">
                         <p
                             class="!sm:w-[100%] mt-1 block rounded bg-primario-200 px-2 py-1 text-center font-semibold ring-2 ring-slate-300/80 hover:bg-primario-100 lg:mx-4"

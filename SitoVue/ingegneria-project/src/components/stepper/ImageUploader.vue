@@ -4,9 +4,11 @@
       Custom Upload
   </label>
       <input id="file-upload" type="file" accept="image/*" multiple @change="handleChange">
-      <div v-for="image in store.asta.immaginiSalvate">
-      <img :src="image" alt="immagine caricata" class="w-24 h-24">
-  </div>
+      <div class="flex gap-2 justify-between">
+        <div v-for="image in store.asta.immaginiSalvate" class="px-5 py-5 ">
+        <img :src="image" alt="immagine caricata" class="w-28 shadow">
+        </div>
+      </div>
       
   </div>
 

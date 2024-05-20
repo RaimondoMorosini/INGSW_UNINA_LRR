@@ -2,9 +2,9 @@ package api.dieti2024.repository;
 
 import api.dieti2024.dto.asta.ricerca.FiltroDto;
 import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
+import api.dieti2024.testFiltri.CaratteristicheTest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -22,6 +22,9 @@ public interface AstaProdottoRepository extends JpaRepository<InfoDatiAstaDTO,In
             "AND (:#{#filtro.categoria().equals('tutte')} OR  categoria In (SELECT * FROM TrovaFigliCategoria(:#{#filtro.categoria()}))  ) " +
             "AND (:#{#filtro.nomeProdotto()} IS NULL OR nome_prodotto LIKE CONCAT('%', :#{#filtro.nomeProdotto()}, '%')) ",nativeQuery = true)
     int numeroTotaleDiAstePerRicerca(FiltroDto filtro);
+
+    @Query(value = "SELECT * FROM ricerca_prodotti_con_valori_specifici(:caratteristiche)", nativeQuery = true)
+    Object searchProductsWithSpecificValues(CaratteristicheTest caratteristiche);
 
 
 }

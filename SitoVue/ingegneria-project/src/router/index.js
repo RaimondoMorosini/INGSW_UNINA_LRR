@@ -98,12 +98,12 @@ const routes = [
         component: () => import('@/views/LoginView.vue'),
     },
 
-  {
-    path: '/asta/:id',
-    name: 'asta',
-    component: () => import('@/views/Asta.vue'),
-    props: true
-  },
+    {
+        path: '/asta/:id',
+        name: 'asta',
+        component: () => import('@/views/Asta.vue'),
+        props: true,
+    },
 
     {
         path: '/creaAsta',

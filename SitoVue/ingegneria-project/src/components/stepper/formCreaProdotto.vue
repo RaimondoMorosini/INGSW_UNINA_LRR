@@ -1,8 +1,7 @@
-
 <template>
     <form @submit.prevent="gestioneInvio">
         <main
-            class="flex h-auto w-[100%] min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row"
+            class="flex h-auto w-[100%] min-w-3col flex-col justify-around gap-3 px-5 mt-5 md:w-auto lg:flex-row"
         >
             <div class="flex h-4col w-[100%] auto-rows-max flex-col justify-around gap-3 px-2">
                 <div class="formSpace">
@@ -46,39 +45,28 @@
                         class="rounded-r bg-slate-100 text-black ring-1 ring-black"
                     />
                 </InputGroup>
+                
             </div>
 
             <div class="flex h-[100%] w-[100%] px-2">
-                <ImageUploader/>
+                <ImageUploader />
             </div>
         </main>
 
         <div class="areaBottoni my-4 px-10">
             <button class="bottone" type="submit">Successivo</button>
         </div>
-
     </form>
-    <!--
-<div class="py-2 px-2 ring-2 ring-black">
-        {{ categoriaSalvata }}
-        {{nomeProdotto.value}}
-        {{descrizione.value  }} ,
-        {{prezzoBase.value   }},
-        {{categoriaSalvata.value}}
-    </div>
-    -->
-    
-    
-    
+  
 </template>
 
 <script setup>
-'use strict'
+'use strict';
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 import TreeSelect from 'primevue/treeselect';
 import { defineEmits } from 'vue';
-import ImageUploader from './ImageUploader.vue'
+import ImageUploader from './ImageUploader.vue';
 import { onMounted, ref } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
 import { getCategorieRest } from '../../scripts/categorie.js';
@@ -87,11 +75,9 @@ const customUploader = (e) => {
     console.log(e);
     const file = e.files[0];
     const ref = new FileReader();
-
 };
 
 const nodes = ref([]);
-
 
 const getCategorie = async () => {
     try {
@@ -109,40 +95,36 @@ const descrizione = ref(storeInstance.asta.descrizione);
 const prezzoBase = ref(storeInstance.asta.prezzoBase);
 const immagini = ref(null);
 
-const categoriaSelezionata = function(obj){
-   var keys = '';
-   for(var key in obj){
-      keys=key;
-   }
-   return keys;
-}
+const categoriaSelezionata = function (obj) {
+    var keys = '';
+    for (var key in obj) {
+        keys = key;
+    }
+    return keys;
+};
 
 const categoriaSalvata = ref(categoriaSelezionata(storeInstance.asta.categoria));
 
-function onFileChange(e){
+function onFileChange(e) {
     console.log(e);
     const file = e.target.files[0];
-    this
+    this;
 }
 
 onMounted(() => {
     storeInstance.updateAsta({
         step: 0,
     });
-    
+
     getCategorie();
 });
 
 const gestioneInvio = () => {
-  if (
-    !nomeProdotto.value ||
-    !descrizione.value ||
-    !prezzoBase.value ||!categoriaSalvata
-  ) {
-    alert('Compila tutti i campi.');
-    return;
-  }
-  
+    if (!nomeProdotto.value || !descrizione.value || !prezzoBase.value || !categoriaSalvata) {
+        alert('Compila tutti i campi.');
+        return;
+    }
+
     storeInstance.updateAsta({
         nomeProdotto: nomeProdotto.value,
         descrizione: descrizione.value,
@@ -151,15 +133,10 @@ const gestioneInvio = () => {
     });
     emit('update:active', 1);
 };
-
-
-
-
-
 </script>
 
 <style scoped>
-    #imgInp {
+#imgInp {
     width: 100%;
     background: #cc85f5;
     color: #fff;
