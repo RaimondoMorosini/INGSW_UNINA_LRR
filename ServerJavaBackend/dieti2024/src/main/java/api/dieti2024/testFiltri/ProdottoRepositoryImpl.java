@@ -111,7 +111,7 @@ public class ProdottoRepositoryImpl {
         // Aggiungi condizioni per categoria, tipoAsta e nomeProdotto solo se non sono
         // nulli o vuoti
         if (filtroDto.categoria() != null && !filtroDto.categoria().isEmpty() && !filtroDto.categoria().equals("tutte")) {
-            stringBuilder.append("categoria = ? AND  ");
+            stringBuilder.append(" categoria In (SELECT * FROM TrovaFigliCategoria(?) ) AND  ");
             params.add(filtroDto.categoria());
             isEmpty= false;
         }
