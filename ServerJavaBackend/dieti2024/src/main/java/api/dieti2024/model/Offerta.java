@@ -25,5 +25,7 @@ public class Offerta {
 
     @Column(name = "asta")
     private int astaId;
+    @Column(name = "offerta_vincente",columnDefinition = "boolean default false")
+    private boolean offertaVincente;
 
 }

@@ -9,9 +9,14 @@ public record FiltroDto(
         String categoria,
         List<String> tipoAsta,
         String nomeProdotto,
+        Double prezzoMin,
+        Double prezzoMax,
         int pagina,
         int elementiPerPagina,
-        List<FiltroCaratteristicheDTO> caratteristicheSelezionate ) {
+        List<FiltroCaratteristicheDTO> caratteristicheSelezionate,
+        CampoOrdinamento campoOrdinamento,
+        DirezioneOrdinamento direzioneOrdinamento
+        ){
 
     public String toWhere() {
         StringBuilder stringBuilder = new StringBuilder();

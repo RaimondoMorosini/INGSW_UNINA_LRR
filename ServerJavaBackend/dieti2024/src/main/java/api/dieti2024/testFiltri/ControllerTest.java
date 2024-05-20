@@ -34,6 +34,6 @@ public class ControllerTest {
     //public/asta/getNumeroAste
     @PostMapping("public/asta/getNumeroAste")
     public int getNumeroAste(@RequestBody FiltroDto filtroDto){
-        return prodottoRepository.getNumeroProdottiAstaConFiltroCompleto( filtroDto).size();
+        return prodottoRepository.getNumeroProdottiAstaConFiltroCompleto( filtroDto);
     }
 }
