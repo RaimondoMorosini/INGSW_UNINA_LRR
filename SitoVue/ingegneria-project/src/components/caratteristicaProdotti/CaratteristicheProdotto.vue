@@ -1,11 +1,15 @@
 <template>
     <div class="contenitore-caratteristiche">
-        <div class="contenitore-caratteristica" v-for="caratteristica in caratteristicheRelativeAllaCategoria">
+        <h1 class="font-bold text-2xl">Filtra:</h1>
+        <div class="contenitore-caratteristica" v-for="(caratteristica,index) in caratteristicheRelativeAllaCategoria">
             <div class="linea-separatoria"></div>
             <opzioniSelezionabili :propOpzioni="caratteristica.opzioniSelezionabili"
-                :propNomeCaratteristica="caratteristica.nomeCaratteristica" />
+                :propNomeCaratteristica="caratteristica.nomeCaratteristica" 
+                :key="index" @recuperoValoriSelezionati="aggiornaOpzioniSelezionate(index, caratteristica.nomeCaratteristica, $event)" />
             <div class="linea-separatoria"></div>
         </div>
+
+        <button @click="filtra">Filtra ricerca</button>
     </div>
 </template>
 
@@ -32,6 +36,29 @@ const getCaratteristiche = async (categoria) => {
 
         console.log("errore richiesta  caratteristiche");
     }
+}
+
+const childValues = ref(new Array(caratteristicheRelativeAllaCategoria.length).fill(''));
+
+
+const aggiornaOpzioniSelezionate = (index, nomeCaratteristica, valoriSelezionati) => {
+
+    childValues.value[index] = {
+
+        caratteristica : nomeCaratteristica,
+
+        opzioni : valoriSelezionati
+    }
+}
+
+const filtra = () => {
+
+    childValues.value.forEach(element => {
+
+        console.log(element);
+        
+    });
+
 }
 
 onMounted(() => {
