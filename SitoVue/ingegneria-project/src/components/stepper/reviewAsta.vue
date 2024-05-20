@@ -1,33 +1,55 @@
 <template>
-    <div class="text-xl font-semibold" font-semibold>Revisione Dati Inseriti</div>
-    <div class="flex-cols flex justify-between">
+    <div class="px-5 text-xl font-semibold" font-semibold>Revisione Dati Inseriti</div>
+    <div class="flex-cols flex justify-around">
         <div class="grid" grid-cols-2 px-3 py-2>
             <span class="label">Categoria:</span>
-            <span>
+            <span class="campo w-96 shadow ring-1 ring-slate-100">
                 {{ categoriaSelezionata(storeInstance.asta.categoria) }}
             </span>
             <span> {{ testCategoria }} </span>
             <span class="label">nomeProdotto:</span>
-            <span> {{ storeInstance.asta.nomeProdotto }}</span>
+            <span class="campo w-96 shadow ring-1 ring-slate-100">
+                {{ storeInstance.asta.nomeProdotto }}</span
+            >
             <span class="label">descrizione</span>
-            <span>{{ storeInstance.asta.descrizione }}</span>
+            <span class="campo w-96 shadow ring-1 ring-slate-100">{{
+                storeInstance.asta.descrizione
+            }}</span>
             <span class="label">prezzo Base:</span>
-            <span>€ {{ storeInstance.asta.prezzoBase }}</span>
+            <span class="campo w-96 shadow ring-1 ring-slate-100"
+                >€ {{ storeInstance.asta.prezzoBase }}</span
+            >
             <span class="label">tipo Asta:</span>
-            <span>{{ storeInstance.asta.tipoAsta }}</span>
+            <span class="campo w-96 shadow ring-1 ring-slate-100">{{
+                storeInstance.asta.tipoAsta
+            }}</span>
 
             <span v-if="tipoAsta === 'asta_inglese'">
                 <span class="label">incremento minimo:</span>
-                <span>€ {{ storeInstance.asta.incrementoMinimo }}</span>
+                <span class="campo w-96 shadow ring-1 ring-slate-100"
+                    >€ {{ storeInstance.asta.incrementoMinimo }}</span
+                >
                 <span class="label">durata estensione:</span>
-                <span>{{ storeInstance.asta.durataEstensione }}</span>
+                <span class="campo w-96 shadow ring-1 ring-slate-100">{{
+                    storeInstance.asta.durataEstensione
+                }}</span>
             </span>
 
             <span class="label">scadenza asta:</span>
-            <span>{{ storeInstance.asta.scadenzaAsta }}</span>
-
+            <span class="campo w-96 shadow ring-1 ring-slate-100">{{
+                storeInstance.asta.scadenzaAsta
+            }}</span>
         </div>
-        
+        <div class="grid grid-cols-4 gap-2 px-5 shadow ring-1 ring-slate-100">
+            <img
+                :src="storeInstance.asta.immaginiSalvate[0]"
+                alt="Immagine Copertina"
+                class="col-span-4 h-[8rem] ring-2 ring-[#cc85f5]"
+            />
+            <div v-for="image in storeInstance.asta.immaginiSalvate">
+                <img :src="image" alt="immagine caricata" class="h-[8rem]" />
+            </div>
+        </div>
     </div>
     <div class="buttonArea">
         <button class="bottone mx-3 my-3 px-5" @click="goToPreviousForm" type="button">
@@ -36,7 +58,8 @@
         <button class="bottone px-5" @click="gestioneInvio">Finalizza</button>
     </div>
 </template>
-<!--<div class="block px-5 py-5">
+<!--
+    <div class="block px-5 py-5">
             <img
                 :src="storeInstance.asta.immaginiSalvate[0]"
                 alt="Immagine Copertina"
@@ -45,7 +68,8 @@
             <div v-for="image in storeInstance.asta.immaginiSalvate">
                 <img :src="image" alt="immagine caricata" class="w-[10%] px-5" />
             </div>
-        </div>-->
+        </div>
+    -->
 
 <script setup>
 import axios from 'axios';
