@@ -63,6 +63,7 @@ import { useAstaStore } from '../../stores/astaStore.js';
 const storeInstance = useAstaStore();
 
 const tipoAsta = ref(storeInstance.asta.tipoAsta);
+
 const incrementoMinimo = ref(storeInstance.asta.incrementoMinimo);
 const durataEstensione = ref(storeInstance.asta.durataEstensione);
 const scadenzaAsta = ref(storeInstance.asta.scadenzaAsta);

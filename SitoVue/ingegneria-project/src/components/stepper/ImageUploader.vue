@@ -1,6 +1,6 @@
 <template>
     <div>
-        <label for="file-upload" class="custom-file-upload"> Custom Upload </label>
+        <label for="file-upload" class="custom-file-upload"> Aggiungi Immagine </label>
         <input id="file-upload" type="file" accept="image/*" multiple @change="handleChange" />
         <div class="grid grid-cols-4 justify-between gap-2">
             <div v-for="image in store.asta.immaginiSalvate" class="px-5 py-5">
@@ -8,11 +8,11 @@
             </div>
 
             <div class="areaBottoni flex flex-row gap-2 py-5">
-                <label @click="eliminaUltima" class="h-24 w-24 rounded bg-primario-100 py-1"
-                    ><i class="bi bi-file-minus icon-60"></i
+                <label @click="eliminaUltima" class="h-24 w-24 rounded bg-primario-100 pt-2"
+                    ><i class="bi bi-file-minus icon-size"></i
                 ></label>
-                <label @click="eliminaTutto" class="h-24 w-24 rounded bg-primario-100 py-1"
-                    ><i class="bi bi-trash3 icon-60"></i
+                <label @click="eliminaTutto" class="h-24 w-24 rounded bg-primario-100 pt-2"
+                    ><i class="bi bi-trash3 icon-size"></i
                 ></label>
             </div>
         </div>
@@ -63,16 +63,8 @@ input[type='file'] {
 .custom-file-upload:hover {
     background-color: #7c3aed;
 }
-.icon-100 {
-    font-size: 100px;
-}
-.icon-200 {
-    font-size: 200px;
-}
-.icon-300 {
-    font-size: 300px;
-}
-.icon-60 {
-    font-size: 60px;
+
+.icon-size {
+    font-size: 50px;
 }
 </style>
