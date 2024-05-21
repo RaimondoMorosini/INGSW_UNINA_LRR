@@ -4,7 +4,7 @@ export const useAstaStore = defineStore('asta', {
     state: () => ({
         asta: {
             step: 0,
-            tipoAsta: 'Inglese',
+            tipoAsta: 'asta_inglese',
             nomeProdotto: '',
             descrizione: '',
             prezzoBase: '',
@@ -27,4 +27,7 @@ export const useAstaStore = defineStore('asta', {
     },
 
     persist: true,
+    //persist: {
+    //   storage: sessionStorage, // data in sessionStorage is cleared when the page session ends.
+    // },
 });

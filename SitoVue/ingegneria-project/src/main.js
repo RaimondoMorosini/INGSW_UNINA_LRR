@@ -7,9 +7,9 @@ import piniaPluginPersistedState from 'pinia-plugin-persistedstate'; //permanenz
 import 'primeicons/primeicons.css'; // primevue icons
 import PrimeVue from 'primevue/config'; // primevue config
 import 'primevue/resources/primevue.min.css'; // core CSS (primevue)
-import 'primevue/resources/themes/aura-light-primary/theme.css'; // theme (primevue)
+import 'primevue/resources/themes/aura-light-purple/theme.css'; // theme (primevue)
 import ToastService from 'primevue/toastservice'; // toast (primevue)
-import { createApp } from 'vue'; // Vue 3
+import { createApp, watch } from 'vue'; // Vue 3
 import App from './App.vue'; // App.vue
 import './assets/css/tailwind.css'; // tailwindcss
 import router from './router'; // router
@@ -42,6 +42,16 @@ app.use(ToastService);
 // inizializzazione pinia
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedState);
+
+// import state dagli store, testing nuovi modi per fare il persist
+//if (localStorage.getItem('state')) {
+//    pinia.state.value = JSON.parse(localStorage.getItem('state'));
+//}
+
+watch(pinia.state, (state) => {
+    localStorage.setItem('state', JSON.stringify(state));
+});
+
 app.use(pinia);
 
 // Monta l'app Vue

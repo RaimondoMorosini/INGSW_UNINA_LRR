@@ -1,7 +1,7 @@
 <template>
     <div class="px-3">
         <ul
-            class="absolute top-[90px] w-full border-b-2 border-t-2 border-slate-300 bg-primario-100/90 px-6 py-6 text-lg duration-500 ease-in lg:static lg:flex lg:w-auto lg:items-center lg:border-transparent lg:bg-inherit lg:px-0 lg:pb-1"
+            class="duration-400 absolute top-[90px] w-full border-b-2 border-t-2 border-slate-300 bg-primario-100/90 px-6 py-6 text-lg ease-in lg:static lg:flex lg:w-auto lg:items-center lg:border-transparent lg:bg-inherit lg:px-0 lg:pb-1"
             :class="[open ? 'left-0 ' : 'left-[-100%] ']"
         >
             <template v-if="!isAuthenticated">
@@ -64,10 +64,10 @@
     </div>
 
     <span
-        class="absolute right-6 top-5 rounded text-4xl hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 lg:hidden"
+        class="absolute right-6 top-6 rounded hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80 lg:hidden"
         @click="MenuOpen()"
     >
-        <i :class="[open ? 'bi bi-x ' : 'bi bi-filter-left']"></i>
+        <i :class="[open ? 'bi bi-x icon-size' : 'bi bi-list icon-size']"></i>
     </span>
 </template>
 
@@ -90,3 +90,9 @@ function MenuClose() {
     open.value = false;
 }
 </script>
+
+<style scoped>
+.icon-size {
+    font-size: 40px;
+}
+</style>

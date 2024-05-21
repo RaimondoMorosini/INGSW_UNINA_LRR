@@ -28,7 +28,7 @@
         :loop="true"
         :navigation="true"
         :keyboard="true"
-        class="bg-primario-100 !px-10 !py-6"
+        class="bg-primario-100 px-10 py-5"
     >
         <SwiperSlide v-for="(photo, index) in slides.photo" :key="index">
             <RouterLink :to="{ name: slides.links[index] }">

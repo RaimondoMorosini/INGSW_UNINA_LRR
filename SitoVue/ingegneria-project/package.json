@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "format": "prettier --write src/",
+        "format": "prettier --write src/ --plugin=prettier-plugin-tailwindcss",
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "test:unit": "vue-cli-service test:unit"
@@ -24,6 +24,7 @@
         "express": "^4.19.2",
         "fs": "^0.0.1-security",
         "glob": "^10.3.10",
+        "moment": "^2.30.1",
         "mutationobserver-shim": "^0.3.7",
         "pinia": "^2.1.7",
         "pinia-plugin-persistedstate": "^3.2.1",

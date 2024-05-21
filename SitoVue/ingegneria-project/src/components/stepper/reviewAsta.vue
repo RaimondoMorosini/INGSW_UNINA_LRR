@@ -1,61 +1,67 @@
 <template>
-    <div class="text-xl font-semibold" font-semibold>Revisione Dati Inseriti</div>
-    <div class="flex-cols flex justify-between">
+    <div class="px-5 text-xl font-semibold" font-semibold>Revisione Dati Inseriti</div>
+    <div class="flex flex-col gap-3 px-5 py-3 lg:flex-row">
         <div class="grid" grid-cols-2 px-3 py-2>
             <span class="label">Categoria:</span>
-            <span>
+            <span class="campo w-[100%] lg:w-[45rem]">
                 {{ categoriaSelezionata(storeInstance.asta.categoria) }}
             </span>
             <span> {{ testCategoria }} </span>
             <span class="label">nomeProdotto:</span>
-            <span> {{ storeInstance.asta.nomeProdotto }}</span>
+            <span class="campo w-[100%] lg:w-[45rem]"> {{ storeInstance.asta.nomeProdotto }}</span>
             <span class="label">descrizione</span>
-            <span>{{ storeInstance.asta.descrizione }}</span>
+            <span class="campo w-[100%] lg:w-[45rem]">{{ storeInstance.asta.descrizione }}</span>
             <span class="label">prezzo Base:</span>
-            <span>€ {{ storeInstance.asta.prezzoBase }}</span>
+            <span class="campo w-[100%] lg:w-[45rem]">€ {{ storeInstance.asta.prezzoBase }}</span>
             <span class="label">tipo Asta:</span>
-            <span>{{ storeInstance.asta.tipoAsta }}</span>
+            <span class="campo w-[100%] lg:w-[45rem]">{{ storeInstance.asta.tipoAsta }}</span>
 
             <span v-if="tipoAsta === 'asta_inglese'">
                 <span class="label">incremento minimo:</span>
-                <span>€ {{ storeInstance.asta.incrementoMinimo }}</span>
+                <span class="campo w-[100%] lg:w-[45rem]"
+                    >€ {{ storeInstance.asta.incrementoMinimo }}</span
+                >
                 <span class="label">durata estensione:</span>
-                <span>{{ storeInstance.asta.durataEstensione }}</span>
+                <span class="campo w-[100%] lg:w-[45rem]">{{
+                    storeInstance.asta.durataEstensione
+                }}</span>
             </span>
 
             <span class="label">scadenza asta:</span>
-            <span>{{ storeInstance.asta.scadenzaAsta }}</span>
-
+            <span class="campo w-[100%] lg:w-[45rem]">{{ storeInstance.asta.scadenzaAsta }}</span>
         </div>
-        
-    </div>
-    <div class="buttonArea">
-        <button class="bottone mx-3 my-3 px-5" @click="goToPreviousForm" type="button">
-            Precedente
-        </button>
-        <button class="bottone px-5" @click="gestioneInvio">Finalizza</button>
-    </div>
-</template>
-<!--<div class="block px-5 py-5">
+        <div class="grid w-[100%] grid-cols-4 gap-2 px-5 py-3">
             <img
                 :src="storeInstance.asta.immaginiSalvate[0]"
                 alt="Immagine Copertina"
-                class=" ring-2 ring-[#cc85f5] w-[10%]"
+                class="col-span-4 h-[9rem] shadow ring-2 ring-[#cc85f5] lg:h-[12rem]"
             />
             <div v-for="image in storeInstance.asta.immaginiSalvate">
-                <img :src="image" alt="immagine caricata" class="w-[10%] px-5" />
+                <img :src="image" alt="immagine caricata" class="h-[7rem] shadow lg:h-[10rem]" />
             </div>
-        </div>-->
+        </div>
+    </div>
+    <div class="buttonArea flex">
+        <button class="bottone mx-3 my-3 px-5" @click="goToPreviousForm" type="button">
+            Precedente
+        </button>
+        <button
+            class="bottone bg-gradient-to-tl from-danger-300/90 via-primario-100 to-secondario-300 px-5 hover:from-danger-400 hover:via-[#7c3aed] hover:to-secondario-400"
+            @click="gestioneInvio"
+        >
+            Finalizza
+        </button>
+    </div>
+</template>
 
 <script setup>
-import axios from 'axios';
 import { postRestWithtoken } from '../../scripts/RestUtils.js';
 import { useAstaStore } from '../../stores/astaStore.js';
 import { ref, onMounted } from 'vue';
 
 const storeInstance = useAstaStore();
 
-//IMPORTANTE: se in futuro le cateorie diverranno multiple, sostituire questo con Object.keys(storeInstance.asta.categoria)
+//IMPORTANTE: se in futuro le categorie diverranno multiple, sostituire questo con Object.keys(storeInstance.asta.categoria)
 const categoriaSelezionata = function (obj) {
     var keys = '';
     for (var key in obj) {
@@ -181,5 +187,12 @@ span.label {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: bold;
+}
+
+.campo::before {
+    content: ' > ';
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #cc85f5;
 }
 </style>

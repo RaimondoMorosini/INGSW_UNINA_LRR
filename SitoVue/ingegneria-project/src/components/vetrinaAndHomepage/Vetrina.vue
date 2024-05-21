@@ -1,5 +1,9 @@
 <template>
     <div class="vetrina">
+        <h1 class="titolo-sezione">Testing Layout</h1>
+        <div class="grid grid-rows-2 gap-2 px-5">
+            <div v-for="index in 5" :key="index"><TestProdotto /></div>
+        </div>
         <h1 class="titolo-sezione">Aste inglesi più recenti</h1>
         <div class="contenitore-aste">
             <div class="contenitore-asta">
@@ -193,6 +197,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import TestProdotto from '../scaffolding/esempioAsta.vue';
 </script>
 
 <style scoped>
