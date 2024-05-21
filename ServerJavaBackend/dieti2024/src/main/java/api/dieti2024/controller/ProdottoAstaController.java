@@ -69,8 +69,22 @@ public class ProdottoAstaController {
         if (file.isEmpty()) {
             return "Errore: Nessun file selezionato";
         }
+        imageContainerUtil.uploadImage(file,file.getOriginalFilename());
+        return "Immagine caricata con successo!";
+    }@PostMapping("public/asta/uploadImages")
+    public String uploadImage(@RequestParam("file") List<MultipartFile> files) {
+        if (files.isEmpty()) {
+            return "Errore: Nessun file selezionato";
+        }
+        String message="";
+        for(MultipartFile file:files){
+            if (!file.isEmpty()){
             imageContainerUtil.uploadImage(file,file.getOriginalFilename());
-            return "Immagine caricata con successo!";
+                message+="Immagine caricata con successo!\n";
+            }
+            else message+="Errore: file non trovato\n";
+        }
+        return message;
     }
 
 }

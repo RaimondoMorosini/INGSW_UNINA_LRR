@@ -1,6 +1,7 @@
 package api.dieti2024.controller;
 
 import api.dieti2024.dto.OffertaDto;
+import api.dieti2024.dto.OffertaVincenteDto;
 import api.dieti2024.model.Offerta;
 import api.dieti2024.service.OffertaService;
 import api.dieti2024.util.CalendarioUtil;
@@ -28,10 +29,15 @@ public class OffertaController {
     @PostMapping("/faiOfferta")
     public Offerta faiOfferta(@RequestBody OffertaDto offertaDto) {
 
-        long tempoOfferta = CalendarioUtil.GetTime();
+        long tempoOfferta = CalendarioUtil.ottieniTempoAttuale();
             Offerta offerta = offertaService.faiOfferta(offertaDto, tempoOfferta ) ;
             simpleMessagingTemplate.convertAndSend("/asta/"+offertaDto.idAsta(), "Un utente ha fatto un'offerta:\n"+offerta);
             return offerta;
+    }
+
+   @PostMapping("ConfermaOffertaVincente")
+    public Offerta confermaOffertaVincente(@RequestBody OffertaVincenteDto offertaDto) {
+        return offertaService.confermaOffertaVincente(offertaDto);
     }
 
 }

@@ -19,6 +19,7 @@ async function getRest(path) {
 async function postRest(path, data) {
     try {
         console.log('Post path:', path, ' dati body: ', JSON.stringify(data));
+        delete axios.defaults.headers.common['Authorization'];
         const response = await axios.post(`${path}`, data);
         console.log(' response.data:', response.data);
         return response.data;

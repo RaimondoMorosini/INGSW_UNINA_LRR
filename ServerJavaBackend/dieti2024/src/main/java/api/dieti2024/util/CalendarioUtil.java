@@ -6,23 +6,37 @@ import java.time.ZoneOffset;
 
 
 public class CalendarioUtil {
-
-    public static boolean verificaIntevalloDate(long start, long end) {
-        long current = GetTime();
-        return  current <start && start <end ;
+    /**
+     * Verifica se un tempo specifico si trova all'interno di un intervallo di tempo.
+     * @param inizioIntervallo il tempo di inizio dell'intervallo
+     * @param fineIntervallo il tempo di fine dell'intervallo
+     * @return true se il tempo specifico è compreso nell'intervallo, altrimenti false
+     */
+    public static boolean isTempoCorrenteNellIntervallo(long inizioIntervallo, long fineIntervallo) {
+        long tempoCorrente = ottieniTempoAttuale();
+        return inizioIntervallo<=tempoCorrente && tempoCorrente < fineIntervallo;
     }
-    public static boolean verificaScadenza (long tempoInputi, long dataDiScadenza) {
-        return  tempoInputi <dataDiScadenza ;
+
+
+    /**
+     * Verifica se un tempo specifico è scaduto rispetto a una data limite.
+     * @param tempoInput il tempo da confrontare con la data di scadenza
+     * @param dataLimite la data limite da confrontare
+     * @return true se il tempo Inserito  è scaduto rispetto alla data limite, altrimenti false
+     */
+    public static boolean isTempoScaduto(long tempoInput, long dataLimite) {
+        return tempoInput > dataLimite;
     }
 
     /**
-     * Restituisce il tempo attuale in millisecondi
+     * Ottiene il tempo attuale in millisecondi dal sistema.
      * @return il tempo attuale in millisecondi
      */
-    public static long GetTime() {
-    return  Instant.now().toEpochMilli();
-
+    public static long ottieniTempoAttuale() {
+        return  Instant.now().toEpochMilli();
     }
+
+
     /**
      * Restituisce il tempo in millisecondi di una data
      * @param giorno il giorno
@@ -32,8 +46,13 @@ public class CalendarioUtil {
      * @param minuti i minuti
      * @return il tempo in millisecondi
      */
-    public static long getTime(int giorno, int mese, int anno, int ora, int minuti) {
+    public static long ottieniTempoAttuale(int giorno, int mese, int anno, int ora, int minuti) {
         LocalDateTime dataOra = LocalDateTime.of(anno, mese, giorno, ora, minuti);
         return dataOra.toInstant(ZoneOffset.UTC).toEpochMilli();
     }
+
+    public static boolean isOltreTempoAttuale(long tempo) {
+        return tempo > ottieniTempoAttuale();
+    }
 }
+

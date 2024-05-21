@@ -36,12 +36,15 @@ public class AstaService {
     public void checkDatiInputi(InputAstaDTO inputAstaDTO) {
 
         if (inputAstaDTO == null) throw new ApiException("Dati asta mancanti", HttpStatus.BAD_REQUEST);
+        if (!checkPermessoDiCreazione(inputAstaDTO.tipoAsta())) throw new ApiException("Permesso di creazione asta non valido", HttpStatus.FORBIDDEN);
 
         if (inputAstaDTO.baseAsta() <= 0) throw new ApiException("Base asta non valida", HttpStatus.BAD_REQUEST);
 
-        if (!CalendarioUtil.verificaIntevalloDate(inputAstaDTO.dataInizio(), inputAstaDTO.dataScadenza())) throw new ApiException("Tempo asta non valido", HttpStatus.BAD_REQUEST);
+        long dataInizio = inputAstaDTO.dataInizio();
+        long dataScadenza = inputAstaDTO.dataScadenza();
+        long dataAttuale = CalendarioUtil.ottieniTempoAttuale();
+        if (!(dataInizio>=dataAttuale && dataInizio<dataScadenza)) throw new ApiException("Tempo asta non valido", HttpStatus.BAD_REQUEST);
 
-        if (!checkPermessoDiCreazione(inputAstaDTO.tipoAsta())) throw new ApiException("Permesso di creazione asta non valido", HttpStatus.FORBIDDEN);
 
     }
 

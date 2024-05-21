@@ -1,6 +1,7 @@
 package api.dieti2024.service;
 
 import api.dieti2024.dto.OffertaDto;
+import api.dieti2024.dto.OffertaVincenteDto;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Asta;
 import api.dieti2024.model.DatiAstaInglese;
@@ -54,7 +55,7 @@ AstaRepository astaRepository;
         if(!ControllerRestUtil.hasPermeessoDiFareUnOfferta(tipoAsta))
             throw new ApiException("L'utente non ha il permesso di fare un offerta su "+tipoAsta, HttpStatus.FORBIDDEN);
 
-        if(!CalendarioUtil.verificaScadenza(tempoOfferta,asta.getDataScadenza()))
+        if(CalendarioUtil.isTempoScaduto(tempoOfferta,asta.getDataScadenza()))
             throw new ApiException("Asta scaduta", HttpStatus.BAD_REQUEST);
 
         if(offertaDto.prezzoProposto() <=0)
@@ -82,5 +83,20 @@ AstaRepository astaRepository;
         }
 
 
+    }
+
+    public Offerta confermaOffertaVincente(OffertaVincenteDto offertaDto) {
+        Offerta offerta = offertaRepository.findById(offertaDto.idOfferta()).orElseThrow(()->new ApiException("Offerta non trovata", HttpStatus.NOT_FOUND));
+        if(offertaDto.idAsta()!=offerta.getAstaId())
+            throw new ApiException("Offerta non è assocciata all'asta che hai dato", HttpStatus.BAD_REQUEST);
+        Asta asta = astaRepository.findById(offerta.getAstaId()).orElseThrow(()->new ApiException("Asta non trovata", HttpStatus.NOT_FOUND));
+        if(!asta.getEmailUtenteCreatore().equals(ControllerRestUtil.getEmailOfUtenteCorrente()))
+            throw new ApiException("Non sei il creatore dell'asta", HttpStatus.FORBIDDEN);
+        if(!asta.getTipoAsta().equals(TipoAsta.SILENZIOSA))
+            throw new ApiException("Puoi confermare il vincitore sole delle aste silenziose", HttpStatus.FORBIDDEN);
+        if(!CalendarioUtil.isOltreTempoAttuale(asta.getDataScadenza()))
+            throw new ApiException("Asta scaduta", HttpStatus.BAD_REQUEST);
+        offerta.setOffertaVincente(true);
+        return offertaRepository.save(offerta);
     }
 }
