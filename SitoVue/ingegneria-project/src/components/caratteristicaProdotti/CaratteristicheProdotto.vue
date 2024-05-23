@@ -1,26 +1,26 @@
 <template>
     <div class="contenitore-caratteristiche">
         <h1 class="font-bold text-2xl">Filtra:</h1>
-        <div class="contenitore-caratteristica" v-for="(caratteristica,index) in caratteristicheRelativeAllaCategoria">
+        <div class="contenitore-caratteristica" v-for="(caratteristica, index) in caratteristicheRelativeAllaCategoria">
             <div class="linea-separatoria"></div>
             <opzioniSelezionabili :propOpzioni="caratteristica.opzioniSelezionabili"
-                :propNomeCaratteristica="caratteristica.nomeCaratteristica" 
-                :key="index" @recuperoValoriSelezionati="aggiornaOpzioniSelezionate(index, caratteristica.nomeCaratteristica, $event)" />
+                :propNomeCaratteristica="caratteristica.nomeCaratteristica" :key="index"
+                @recuperoValoriSelezionati="aggiornaOpzioniSelezionate(index, caratteristica.id, $event)" />
             <div class="linea-separatoria"></div>
         </div>
-
-        <button @click="filtra">Filtra ricerca</button>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineEmits } from 'vue';
 
 import { getRest } from '../../scripts/RestUtils';
 
 import opzioniSelezionabili from '../caratteristicaProdotti/opzioniSelezionbili.vue';
 
 const props = defineProps(['propCategoria']);
+const emit = defineEmits(['caratteristicheSelezionate']);
+
 
 const caratteristicheRelativeAllaCategoria = ref([]);
 
@@ -38,26 +38,26 @@ const getCaratteristiche = async (categoria) => {
 
 const childValues = ref(new Array(caratteristicheRelativeAllaCategoria.length).fill(''));
 
+const aggiornaOpzioniSelezionate = (index, idCaratteristica, valoriSelezionati) => {
 
-const aggiornaOpzioniSelezionate = (index, nomeCaratteristica, valoriSelezionati) => {
+    if (valoriSelezionati.length === 0) {
 
-    childValues.value[index] = {
+        childValues.value.splice(index, 1);
+    } else {
 
-        caratteristica : nomeCaratteristica,
+        childValues.value[index] = {
 
-        opzioni : valoriSelezionati
+            idCaratteristica: idCaratteristica,
+
+            valoriSelezionati: valoriSelezionati
+        }
     }
+
+
+
+    emit('caratteristicheSelezionate', childValues.value);
 }
 
-const filtra = () => {
-
-    childValues.value.forEach(element => {
-
-        console.log(element);
-        
-    });
-
-}
 
 onMounted(() => {
     getCaratteristiche(props.propCategoria);

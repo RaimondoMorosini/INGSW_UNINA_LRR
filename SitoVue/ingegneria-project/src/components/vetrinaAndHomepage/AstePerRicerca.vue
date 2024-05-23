@@ -1,61 +1,60 @@
 <template>
-    <CaricamentoAste v-if="caricamentoAste" />
 
-    <div v-else class="sezione-centrale">
-        <CaratteristicheProdotto :propCategoria="props.propCategoriaCercata" />
+<div class="card flex flex-wrap gap-3 p-fluid">
 
-        <div class="card mx-16">
+    <div class="sezione-superiore w-full">
+        <BarraRicercaPerOrdine 
+        @ordineSelezionato="setCampiOrdinamento($event)" 
+        @prezzoMinSelezionato="setPrezzoMin($event)"
+        @prezzoMaxSelezionato="setPrezzoMax($event)" />
+    </div>
+
+
+    <div class="sezione-centrale">
+
+        <!--SEZIONE FILTRI CARETTERISTICHE DEL PRODTTO-->
+        <CaratteristicheProdotto v-if="props.propRicaricaComponenteCaratteristiche" :propCategoria="props.propCategoriaCercata"
+            @caratteristicheSelezionate="setCaratteristiche($event)" />
+        <!--SE CAMBIA CATEGORIA CARICA UN ATTIMO UN TEMPLATE VUOTO PER I FILTRI CARATTERISTICHE IN MODO DA RICARICARE LA COMPONENTE DELLE CARATTERISTICHE QUANDO DIVENTA DI NUOVO TRUE props.propRicaricaComponenteCaratteristiche-->
+        <div v-else></div>
+            
+        <!--TAMPLATE CARICAMENTO ASTE-->
+        <CaricamentoAste v-if="props.propLoading" />
+
+        <!--CONTENITORE LISTA ASTE-->
+        <div v-else class="card mx-16">
             <DataView :value="products">
                 <template #list="slotProps">
                     <div class="grid-nogutter grid">
                         <div v-for="(item, index) in slotProps.items" :key="index" class="col-12">
-                            <div
-                                class="flex-column sm:align-items-center flex gap-3 bg-zinc-100 p-4 sm:flex-row"
-                                :class="{ 'border-top-1 surface-border': index !== 0 }"
-                            >
+                            <div class="flex-column sm:align-items-center flex gap-3 bg-zinc-100 p-4 sm:flex-row"
+                                :class="{ 'border-top-1 surface-border': index !== 0 }">
                                 <div class="md:w-10rem relative">
-                                    <img
-                                        class="border-round mx-auto block w-full xl:block"
-                                        :src="`${item.immagini[0]}`"
-                                        :alt="item.nome"
-                                    />
-                                    <Tag
-                                        :value="item.tipoAsta"
-                                        :severity="danger"
-                                        class="absolute"
-                                        style="left: 4px; top: 4px"
-                                    ></Tag>
+                                    <img class="border-round mx-auto block w-full xl:block" :src="`${item.immagini[0]}`"
+                                        :alt="item.nome" />
+                                    <Tag :value="item.tipoAsta" :severity="danger" class="absolute"
+                                        style="left: 4px; top: 4px"></Tag>
                                 </div>
                                 <div
-                                    class="flex-column justify-content-between md:align-items-center flex flex-1 gap-4 md:flex-row"
-                                >
+                                    class="flex-column justify-content-between md:align-items-center flex flex-1 gap-4 md:flex-row">
                                     <div
-                                        class="md:flex-column justify-content-between align-items-start flex flex-row gap-2"
-                                    >
+                                        class="md:flex-column justify-content-between align-items-start flex flex-row gap-2">
                                         <div>
-                                            <span class="text-secondary text-sm font-medium">{{
-                                                item.categoria
-                                            }}</span>
+                                            <span class="text-secondary text-sm font-medium">{{ item.categoria }}</span>
                                             <div class="text-900 mt-2 text-lg font-medium">
                                                 {{ item.nome }}
                                             </div>
                                             <div>Venditore: {{ item.emailUtenteCreatore }}</div>
-                                            <span class="text-900 text-xl font-semibold"
-                                                >BASE ASTA: EURO{{ item.baseAsta }}</span
-                                            >
+                                            <span class="text-900 text-xl font-semibold">BASE ASTA: EURO{{ item.baseAsta
+                                                }}</span>
                                         </div>
                                     </div>
                                     <div class="flex-column md:align-items-end flex gap-5">
-                                        <div
-                                            class="contenitore-bottone flex flex-row-reverse gap-2 md:flex-row"
-                                        >
-                                            <Button
-                                                @click="apriUnNuovoTab(item.idAsta)"
-                                                icon="pi pi-shopping-cart"
+                                        <div class="contenitore-bottone bg-primario-100 flex flex-row-reverse gap-2 md:flex-row">
+                                            <Button @click="apriUnNuovoTab(item.idAsta)" icon="pi pi-shopping-cart"
                                                 label="Partecipa all'asta"
                                                 :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
-                                                class="white-space-nowrap flex-auto md:flex-initial"
-                                            >
+                                                class="white-space-nowrap flex-auto md:flex-initial">
                                             </Button>
                                         </div>
                                     </div>
@@ -66,8 +65,13 @@
                 </template>
             </DataView>
         </div>
+
     </div>
 
+</div>
+
+
+     <!--COMPONENTE DELLE PAGINE-->
     <Paginator :rows="5" :totalRecords="props.propNumeroAste" @page="onPage($event)"></Paginator>
 </template>
 
@@ -80,25 +84,24 @@ import 'primeflex/primeflex.css';
 import 'primevue/resources/themes/aura-light-green/theme.css';
 import 'primeicons/primeicons.css';
 
-import { ref, watch } from 'vue';
+import { ref, watch, defineEmits } from 'vue';
 import CaricamentoAste from './CaricamentoAste.vue';
 import CaratteristicheProdotto from '../caratteristicaProdotti/CaratteristicheProdotto.vue';
+import BarraRicercaPerOrdine from '../vetrinaAndHomepage/barraRicercaPerOrdine.vue'
 
-import axios from 'axios';
+const emit = defineEmits(['caratteristicheSelezionate', 'numeroDiPaginaSelezionato', 'ordineSelezionato', 'prezzoMinSelezionato','prezzoMaxSelezionato']);
+
 
 const props = defineProps([
     'propAste',
     'propLoading',
     'propNumeroAste',
     'propCategoriaCercata',
-    'propProdottoCercato',
-    'propTipoAsteCercate',
+    'propRicaricaComponenteCaratteristiche'
 ]);
 
 const products = ref();
 products.value = props.propAste;
-
-const caricamentoAste = ref(true);
 
 watch(
     () => props.propAste,
@@ -108,52 +111,44 @@ watch(
     }
 );
 
-watch(
-    () => props.propLoading,
-    (newValue) => {
-        // Aggiorna caricamentoAste quando props.props.propLaoding cambia
-        caricamentoAste.value = newValue;
-    }
-);
 
 const onPage = (event) => {
-    setAstePerPagina(event.page + 1);
+
+    emit('numeroDiPaginaSelezionato', event.page + 1)
 };
 
-const setAstePerPagina = async (paginaSelezionata) => {
-    caricamentoAste.value = true; // Imposta lo stato di caricamento su true prima di effettuare la richiesta
+const setCaratteristiche = (filtro) => {
 
-    //impostazione dei parametri del body da amndare nella richiesta axios
-    const parametriBody = {
-        pagina: paginaSelezionata,
-        elementiPerPagina: 5,
-        categoria: props.propCategoriaCercata,
-        nomeProdotto: props.propProdottoCercato,
-        tipoAsta: props.propTipoAsteCercate,
-    };
+    emit('caratteristicheSelezionate', filtro)
 
-    //tentativo di richesta axsios
-    try {
-        const response = await axios.post(
-            'http://localhost:8081/public/asta/getAllAste',
-            parametriBody
-        );
+}
 
-        products.value = response.data; //Aggiorna i valori dei prodotti in asta
-    } catch (error) {
-        console.error('Si è verificato un errore:', error);
-    } finally {
-        caricamentoAste.value = false; // Imposta lo stato di caricamento su false dopo che la richiesta è completata (in modo che carica la componente delle aste cercate)
-    }
-};
+const setCampiOrdinamento = (ordinamentoSelezionato) => {
+
+    emit('ordineSelezionato', ordinamentoSelezionato);
+}
+
+const setPrezzoMin = (prezzoMin) => {
+    
+
+    emit('prezzoMinSelezionato', prezzoMin);
+}
+
+const setPrezzoMax = (prezzoMax) => {
+
+    emit('prezzoMaxSelezionato', prezzoMax);
+}
 
 const apriUnNuovoTab = (idAsta) => {
     const url = `http://localhost:8080/Asta/${idAsta}`;
     window.open(url, '_blank');
 };
+
+
 </script>
 
 <style scoped>
+
 .sezione-centrale {
     display: flex;
     flex-direction: row;
@@ -165,10 +160,10 @@ const apriUnNuovoTab = (idAsta) => {
 }
 
 .contenitore-bottone {
-    background-color: green;
     border: 2px solid #c5c5c58a;
     border-radius: 1rem;
     padding: 1rem;
     color: white;
 }
+
 </style>
