@@ -18,7 +18,7 @@
     <div class="gruppo-opzioni" v-if="statoFinestra">
         <div class="flex flex-column gap-3">
             <div v-for="opzione of props.propOpzioni" :key="opzione" class="flex align-items-center">
-                <Checkbox @change="aggiornaValoriSelezionati"  v-model="selectedOpzioni" :inputId="opzione" name="opzione"
+                <Checkbox @change="OnChangeOpzioniSelezionate"  v-model="selectedOpzioni" :inputId="opzione" name="opzione"
                     :value="opzione" />
                 <label :for="opzione">{{ opzione }}</label>
             </div>
@@ -45,7 +45,7 @@ const triggerFinestra = () => {
 
 const selectedOpzioni = ref([]);
 
-const aggiornaValoriSelezionati = () => {
+const OnChangeOpzioniSelezionate = () => {
 
     emit('recuperoValoriSelezionati', selectedOpzioni.value);
 }
