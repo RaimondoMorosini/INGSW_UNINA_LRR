@@ -20,8 +20,9 @@
             <InputGroupAddon class="bg-primario-100">
                 <i class="pi pi-th-large" style="color: #424242"></i>
             </InputGroupAddon>
-            <TreeSelect id="idCategoria" v-model="selectedCategory" :options="gerarchiaCategorie" option-label="name"
-                placeholder="Seleziona Categoria" class="w-[100%] rounded-r bg-primario-100/50 text-black" />
+            <TreeSelect @change="setCategoriaSelezionata" id="idCategoria" v-model="selectedCategory"
+                :options="gerarchiaCategorie" option-label="name" placeholder="Seleziona Categoria"
+                class="w-[100%] rounded-r bg-primario-100/50 text-black" />
         </InputGroup>
 
         <!-- CASSELLA TIPI DI ASTA -->
@@ -36,28 +37,24 @@
                 </svg>
             </InputGroupAddon>
 
-            <MultiSelect v-model="selectedAuction" :options="auctions" optionLabel="name" placeholder="Seleziona aste"
-                :maxSelectedLabels="3" class="w-[100%] rounded-r bg-primario-100/50 text-black" />
+            <MultiSelect @change="setTipoAsteSelezionate" v-model="selectedAuction" :options="auctions"
+                optionLabel="name" placeholder="Seleziona aste" :maxSelectedLabels="3"
+                class="w-[100%] rounded-r bg-primario-100/50 text-black" />
         </InputGroup>
 
         <!-- BOTTONE CERCA-->
-        <button class="h-14 w-[100%] rounded bg-primario-100 text-white lg:w-[10%]" @click="OnCLickCerca">
+        <button class="h-14 w-[100%] rounded bg-primario-100 text-white lg:w-[10%]" @click="OnCLickCerca(false)">
             Cerca aste
         </button>
     </div>
 
     <Vetrina v-if="vetrinaInstance.vetrinaShare" />
 
-    <AstePerRicerca v-else 
-        :propAste="aste" 
-        :propLoading="isLoading" 
-        :propNumeroAste="numeroAsteTotali"
+    <AstePerRicerca v-else :propAste="aste" :propLoading="isLoading" :propNumeroAste="numeroAsteTotali"
         :propCategoriaCercata="categoriaCercata"
         :propRicaricaComponenteCaratteristiche="ricaraComponenteCaratteristiche"
-        @numeroDiPaginaSelezionato="setPagina($event)" 
-        @caratteristicheSelezionate="setCaratteristiche($event)"
-        @ordineSelezionato="setCampiOrdinamento($event)"
-        @prezzoMinSelezionato="setPrezzoMin($event)"
+        @numeroDiPaginaSelezionato="setPagina($event)" @caratteristicheSelezionate="setCaratteristiche($event)"
+        @ordineSelezionato="setCampiOrdinamento($event)" @prezzoMinSelezionato="setPrezzoMin($event)"
         @prezzoMaxSelezionato="setPrezzoMax($event)" />
 
 </template>
@@ -72,7 +69,7 @@ import InputGroupAddon from 'primevue/inputgroupaddon';
 import { onMounted, ref } from 'vue';
 
 import { getCategorieRest } from '../../scripts/categorie.js';
-import {getInfoOrdinamento} from '../../scripts/restOrdinamento.js'
+import { getInfoOrdinamento } from '../../scripts/restOrdinamento.js'
 
 import Vetrina from './Vetrina.vue';
 import AstePerRicerca from './AstePerRicerca.vue';
@@ -125,55 +122,8 @@ const getCategorie = async () => {
     }
 };
 
-const setPagina = (pagina) => {
+const setCategoriaSelezionata = () => {
 
-    paginaSelezionata.value = pagina;
-
-    OnCLickCerca();
-}
-
-const setCaratteristiche = (caratteristicheSelezionate) => {
-
-    listaDiCaratteristicheSelezionate.value = caratteristicheSelezionate;
-
-}
-
-const setCampiOrdinamento = (ordinamentoSelezionato) => {
-
-    if(ordinamentoSelezionato != null){
-
-        const infoOrdinamento = getInfoOrdinamento(ordinamentoSelezionato.name);
-        
-        if(infoOrdinamento != null){
-
-            nomeOrdinamento.value = infoOrdinamento[0];
-            direzioneOrdinamento.value = infoOrdinamento[1];
-        }else{
-
-            nomeOrdinamento.value = null;
-            direzioneOrdinamento.value = null;
-        }
-    }
-}
-
-const setPrezzoMin = (prezzoMinSelezionato) => {
-
-    prezzoMin.value = prezzoMinSelezionato
-   
-}
-
-const setPrezzoMax = (prezzoMaxSelezionato) => {
-
-    prezzoMax.value = prezzoMaxSelezionato;
-    
-}
-
-const OnCLickCerca = async () => {
-    isLoading.value = true; // Imposta lo stato di caricamento su true prima di effettuare la richiesta
-
-    vetrinaInstance.setAccessVetrina(false); //Disattiva il tamplate della vetrina e carica la componente che mostra il caricamento delle aste
-
-   
 
     try {
         //se la categoria è selezionata allora imposta come filtro di ricerca su categoria: la categoria selezionata
@@ -182,15 +132,15 @@ const OnCLickCerca = async () => {
         //se la categoria non è selezionata allora imposta come filtro di riceca su categoria: "tutte"
         categoriaCercata.value = 'tutte';
     }
+}
 
-
+const setTipoAsteSelezionate = () => {
 
     try {
+
         tipoAstaCercata = ref([]);
 
-        const asteSelezionate = selectedAuction.value;
-
-        asteSelezionate.forEach((asta) => {
+        selectedAuction.value.forEach((asta) => {
             switch (asta.name) {
                 case 'Asta inglese':
                     tipoAstaCercata.value.push('asta_inglese');
@@ -208,8 +158,59 @@ const OnCLickCerca = async () => {
     } catch (error) {
         tipoAstaCercata = ref([]);
     }
+}
 
-    if (! (ultimaCategoriaCercata.value === categoriaCercata.value) ) {
+const setPagina = (pagina) => {
+
+    paginaSelezionata.value = pagina;
+
+    OnCLickCerca(true);
+}
+
+const setCaratteristiche = (caratteristicheSelezionate) => {
+
+    listaDiCaratteristicheSelezionate.value = caratteristicheSelezionate;
+
+}
+
+const setCampiOrdinamento = (ordinamentoSelezionato) => {
+
+    if (ordinamentoSelezionato != null) {
+
+        const infoOrdinamento = getInfoOrdinamento(ordinamentoSelezionato.name);
+
+        if (infoOrdinamento != null) {
+
+            nomeOrdinamento.value = infoOrdinamento[0];
+            direzioneOrdinamento.value = infoOrdinamento[1];
+        } else {
+
+            nomeOrdinamento.value = null;
+            direzioneOrdinamento.value = null;
+        }
+    }
+}
+
+const setPrezzoMin = (prezzoMinSelezionato) => {
+
+    prezzoMin.value = prezzoMinSelezionato
+
+}
+
+const setPrezzoMax = (prezzoMaxSelezionato) => {
+
+    prezzoMax.value = prezzoMaxSelezionato;
+
+}
+
+const OnCLickCerca = async (paginaCliccata) => {
+
+    isLoading.value = true; // Imposta lo stato di caricamento su true prima di effettuare la richiesta
+
+    vetrinaInstance.setAccessVetrina(false); //Disattiva il tamplate della vetrina e carica la componente che mostra il caricamento delle aste
+
+    //Confronta la categoria cercata con l'ultima categoria cercata prima di questa richiesta, se sono diversi allora la componente caratteristiche specifiche va ricarica e inizializzato ad una lista vuote le caratteristiche specifiche cercate dalla precedente richiesta
+    if (!(ultimaCategoriaCercata.value === categoriaCercata.value)) {
 
         ricaraComponenteCaratteristiche.value = false;
         listaDiCaratteristicheSelezionate.value = [];
@@ -233,19 +234,24 @@ const OnCLickCerca = async () => {
 
     //tentativo di richesta axsios
     try {
+
         let response;
 
-        //Richiesta per ottenere il numero totale di aste
-        response = await axios.post('http://localhost:8081/public/asta/getNumeroAste', parametriBody); //Otteniamo il numero totale delle aste in base al criterio di ricerca (questo numero serve per calcolare il numero totali di pagine)
-        numeroAsteTotali.value = response.data; //Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
-
+        //Richiesta per ottenere il numero totale di aste (da fare se la ricerca non proviene dal tasto della pagina)
+        if (!paginaCliccata) {
+            response = await axios.post('http://localhost:8081/public/asta/getNumeroAste', parametriBody); //Otteniamo il numero totale delle aste in base al criterio di ricerca (questo numero serve per calcolare il numero totali di pagine)
+            numeroAsteTotali.value = response.data; //Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
+        }
         //Richiesta per ottenere le aste
         response = await axios.post('http://localhost:8081/public/asta/getAllAste', parametriBody); //Otteniamo tutte le aste che corrispondono al criterio di ricerca
         aste.value = response.data; // Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
 
     } catch (error) {
+
         console.error('Si è verificato un errore:', error);
+
     } finally {
+
         isLoading.value = false; // Imposta lo stato di caricamento su false dopo che la richiesta è completata (in modo che carica la componente delle aste cercate)
 
         paginaSelezionata.value = 1; // resetta la pagina selezionata a 1 in modo che ogni ricerca partita dal tasto cerca parta dalla pagina 1
