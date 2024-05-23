@@ -224,28 +224,17 @@ import TestProdotto from '../scaffolding/esempioAsta.vue';
     margin-right: auto;
     padding: 1rem;
     background-color: #e3e6e6;
-    overflow-x: scroll;
-    overflow-y: hidden;
 }
 
 .contenitore-asta {
     display: flex;
     flex-direction: column;
     width: 30%;
-    height: 95%;
+    height: 30rem;
     margin-right: 1rem;
     padding: 0.5rem;
     background-color: #f2f2f2;
     cursor: pointer;
-}
-
-@media(max-width: 1000px){
-
-    .contenitore-asta{
-
-        width: 300rem;
-        height: 95%;
-    }
 }
 
 .contenitore-immagine {
@@ -287,5 +276,4 @@ import TestProdotto from '../scaffolding/esempioAsta.vue';
     width: 5rem;
     height: 5rem;
 }
-
 </style>

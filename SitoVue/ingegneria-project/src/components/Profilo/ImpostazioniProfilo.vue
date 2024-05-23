@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-col">
+    <div>
         <h1>Impostazioni Profilo</h1>
-        <form @submit="saveSettings">
+        <form @submit="saveSettings" class="gap-53 flex flex-col px-5 py-3">
             <label for="name">Nome:</label>
             <input type="text" id="name" v-model="name" required />
 
@@ -11,34 +11,36 @@
             <label for="password">Password:</label>
             <input type="password" id="password" v-model="password" required />
 
-            <button type="submit">Salva</button>
+            <button type="submit" classe="bottone">Salva</button>
         </form>
     </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            name: '',
-            email: '',
-            password: '',
-        };
-    },
-    methods: {
-        saveSettings() {
-            // Here you can implement the logic to save the settings
-            // For example, you can make an API call to update the user's profile
+<script setup>
+import { ref } from 'vue';
+import useProfiloStore from '../../stores/profiloStore.js'
+const storeInstance = useProfiloStore()
+const name = ref('');
+const email = ref('');
+const password = ref('');
 
-            // Reset the form fields after saving
-            this.name = '';
-            this.email = '';
-            this.password = '';
-        },
-    },
-};
+function saveSettings() {
+    
+}
 </script>
 
 <style scoped>
-/* Add your custom styles here */
+.bottone {
+    background-color: #cc85f5;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    width: 50%;
+    margin: 10px;
+}
+.bottone:hover {
+    background-color: #7c3aed;
+}
 </style>

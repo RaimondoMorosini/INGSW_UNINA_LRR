@@ -1,6 +1,6 @@
 <template>
-    <SwipeCarosello /> 
-    
+    <SwipeCarosello />
+
     <AreaRicerca />
 </template>
 
