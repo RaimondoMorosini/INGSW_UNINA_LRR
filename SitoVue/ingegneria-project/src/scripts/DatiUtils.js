@@ -10,7 +10,8 @@ function getDato(nomeCookie) {
     for (let i = 0; i < cookies.length; i++) {
         const cookie = cookies[i].trim();
         if (cookie.startsWith(nomeCookie + '=')) {
-            return cookie.split('=')[1]; // Restituisce il valore del cookie
+            const valore= cookie.split('=')[1];
+            return JSON.parse(valore); // Restituisce il valore del cookie
         }
     }
     return null; // Se il cookie non esiste, restituisce null
@@ -18,6 +19,7 @@ function getDato(nomeCookie) {
 
 // Funzione per inserire un cookie di sessione
 function inserisciDato(nome, valore) {
+    valore = JSON.stringify(valore);
     document.cookie = nome + '=' + valore + ';path=/';
 }
 // Funzione per eliminare un cookie
