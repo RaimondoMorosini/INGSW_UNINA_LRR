@@ -1,50 +1,170 @@
 <template>
-    <div>
+    <div id="app">
+      <div class="container">
         <label for="file-upload" class="custom-file-upload"> Aggiungi Immagine </label>
-        <input id="file-upload" type="file" accept="image/*" multiple @change="handleChange" />
-        <div class="grid grid-cols-4 justify-between gap-2">
-            <div v-for="image in store.asta.immaginiSalvate" class="px-5 py-5">
-                <img :src="image" alt="immagine caricata" class="h-28 shadow lg:h-32" />
-            </div>
-
-            <div class="areaBottoni flex flex-row gap-2 py-5">
-                <label @click="eliminaUltima" class="h-24 w-24 rounded bg-primario-100 pt-2"
-                    ><i class="bi bi-file-minus icon-size"></i
-                ></label>
-                <label @click="eliminaTutto" class="h-24 w-24 rounded bg-primario-100 pt-2"
-                    ><i class="bi bi-trash3 icon-size"></i
-                ></label>
-            </div>
+        <input id="file-upload" type="file" accept="image/*" multiple @change="onFileChange" /><br><br>
+        
+        <div
+          class="drop-area"
+          @dragover.prevent
+          @dragenter.prevent
+          @drop.prevent="onDrop"
+        >
+          Trascina i file qui
         </div>
+  
+        <div class="jumbotron">
+          <div class="immagini-container">
+            <div v-for="(immagine, indice) in immagini" :key="indice" class="immagine">
+              <button type="button" @click="rimuoviImmagine(indice)" class="btn-close">
+                &times;
+              </button>
+              <img class="preview" :src="immagine.src" />
+              <div class="img-name">{{ immagine.name }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <button @click="eseguiChiamataAxios">Esegui chiamata Axios</button>
     </div>
-</template>
+  </template>
+  
+  <script setup>
+  import { ref,onUnmounted,onMounted } from 'vue';
+  import {uploadImages}from '../../scripts/ImageUploadService.js'
+  import { useAstaStore } from '../../stores/astaStore';
+ 
+   
+  const immagini = ref([]);
+  
+  function eseguiChiamataAxios() {
+      console.log('sto eseguendo la chiamata Axios');
+    // In questo caso, potresti voler implementare il codice per inviare l'immagine al server
+    // e gestire la risposta qui
+    console.log('Immagine caricata:', immagini.value);
 
-<script setup>
-import { useAstaStore } from '../../stores/astaStore';
-const store = useAstaStore();
-
-const eliminaUltima = () => {
-    store.asta.immaginiSalvate.pop();
-};
-
-const eliminaTutto = () => {
-    store.asta.immaginiSalvate = [];
-};
-
-const handleChange = (event) => {
-    let newImgs = [];
-    let newArray = [];
-    for (let image of event.target.files) {
-        newImgs.push(URL.createObjectURL(image));
+    if (immagini.value === null) {
+        alert("Seleziona un'immagine prima di caricare");
+        return;
     }
-    console.log(newImgs);
-    newArray = store.asta.immaginiSalvate.concat(newImgs);
-    store.asta.immaginiSalvate = newArray;
-    console.log('in store', store.asta.immaginiSalvate);
-};
-</script>
+        uploadImages(immagini.value).then((response) => {
+            console.log(response);
+        }).catch((error) => {
+            console.log(error);
+        });
+        
+        
+    }
+    function onFileChange(e) {
+        aggiungiFile(e.target.files);
+    }
+    
+    function onDrop(e) {
+        aggiungiFile(e.dataTransfer.files);
+  }
+  
+  function aggiungiFile(files) {
+    console.log('hai selezionato ', files.length, ' file');
+    for (let i = 0; i < files.length; i++) {
+        immagini.value.push({ file: files[i], src: null, name: files[i].name });
+    }
+    console.log('immagini: ', immagini.value);
+    immagini.value.forEach((immagine, indice) => {
+        if (!immagine.src) {
+            const lettore = new FileReader();
+            lettore.addEventListener('load', () => {
+                immagini.value[indice].src = lettore.result;
+                console.log('lettore.result di indice ', indice, ' ', lettore.result);
+            }, false);
+            lettore.readAsDataURL(immagine.file);
+        }
+    });
+}
 
-<style scoped>
+function rimuoviImmagine(indice) {
+    console.log('sto rimuovendo l\'immagine con indice ', indice);
+    immagini.value.splice(indice, 1);
+}
+  
+onMounted
+(() => {
+const store = useAstaStore();
+     immagini.value =store.asta.immaginiSalvate ;
+
+});
+onUnmounted (() => {
+const store = useAstaStore();
+    store.asta.immaginiSalvate = immagini.value;
+
+});
+
+</script>
+  
+  <style scoped>
+  .container {
+      margin: 20px;
+  }
+  
+  .drop-area {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #ccc;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  
+  .drop-area:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .jumbotron {
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+  
+  .immagini-container {
+    @apply grid grid-cols-4 justify-between gap-2;
+    gap: 10px;
+  }
+  
+  .immagine {
+    position: relative;
+    flex: 1 1 calc(33.333% - 10px); /* Tre immagini per riga con uno spazio di 10px */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .btn-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #dc3545;
+  }
+  
+  .preview {
+    @apply h-28 shadow lg:h-32;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 5px;
+  }
+  
+  .img-name {
+    word-break: break-all;
+    text-align: center;
+  }
+
+  
+
 input[type='file'] {
     display: none;
 }

@@ -10,10 +10,9 @@ async function getCategorieRest() {
         if (data === null) {
             const response = await getRest('public/getGerarchiaCategorie');
             data = response.data;
-            inserisciDato('categorie', JSON.stringify(data));
+            inserisciDato('categorie',data);
         }
-        console.log('categorie', data);
-        return JSON.parse(data);
+        return data;
     } catch (error) {
         console.error(error);
         throw new Error('Impossibile ottenere le categorie dal server');
