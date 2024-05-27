@@ -14,8 +14,9 @@
                     <h2 class="text-sm text-gray-500">{{ user.email }}</h2>
                 </div>
             </div>
-
-            <EditButton />
+            <RouterLink :to="{ name: 'ediProfilo' }">
+                <button class="bottone">Modifica Profilo</button>
+            </RouterLink>
         </div>
 
         <div class="Bio rounded bg-slate-100 px-3">
@@ -42,10 +43,25 @@
 </template>
 
 <script setup>
-import EditButton from '@/components/buttons/EditButton.vue';
 import { useAuth0 } from '@auth0/auth0-vue';
 
 const linkUtili = ['GitHub', 'LinkedIn', 'Twitter', 'Facebook'];
 
 const { user } = useAuth0();
 </script>
+
+<style scoped>
+.bottone {
+    background-color: #cc85f5;
+    padding: 10px 5px;
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 50%;
+    margin: 10px;
+}
+.bottone:hover {
+    background-color: #7c3aed;
+}
+</style>

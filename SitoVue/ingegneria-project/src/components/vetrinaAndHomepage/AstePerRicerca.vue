@@ -1,13 +1,25 @@
 <template>
+    <div class="card p-fluid flex flex-wrap gap-3">
+        <div class="sezione-superiore w-full">
+            <BarraRicercaPerOrdine
+                @ordineSelezionato="setCampiOrdinamento($event)"
+                @prezzoMinSelezionato="setPrezzoMin($event)"
+                @prezzoMaxSelezionato="setPrezzoMax($event)"
+            />
+        </div>
 
-<div class="card flex flex-wrap gap-3 p-fluid">
+        <div class="sezione-centrale">
+            <!--SEZIONE FILTRI CARETTERISTICHE DEL PRODTTO-->
+            <CaratteristicheProdotto
+                v-if="props.propRicaricaComponenteCaratteristiche"
+                :propCategoria="props.propCategoriaCercata"
+                @caratteristicheSelezionate="setCaratteristiche($event)"
+            />
+            <!--SE CAMBIA CATEGORIA CARICA UN ATTIMO UN TEMPLATE VUOTO PER I FILTRI CARATTERISTICHE IN MODO DA RICARICARE LA COMPONENTE DELLE CARATTERISTICHE QUANDO DIVENTA DI NUOVO TRUE props.propRicaricaComponenteCaratteristiche-->
+            <div v-else></div>
 
-    <div class="sezione-superiore w-full">
-        <BarraRicercaPerOrdine 
-        @ordineSelezionato="setCampiOrdinamento($event)" 
-        @prezzoMinSelezionato="setPrezzoMin($event)"
-        @prezzoMaxSelezionato="setPrezzoMax($event)" />
-    </div>
+            <!--TAMPLATE CARICAMENTO ASTE-->
+            <CaricamentoAste v-if="props.propLoading" />
 
 
     <div class="sezione-centrale">
@@ -36,42 +48,68 @@
                                         style="left: 4px; top: 4px"></Tag>
                                 </div>
                                 <div
-                                    class="flex-column justify-content-between md:align-items-center flex flex-1 gap-4 md:flex-row">
-                                    <div
-                                        class="md:flex-column justify-content-between align-items-start flex flex-row gap-2">
-                                        <div>
-                                            <span class="text-secondary text-sm font-medium">{{ item.categoria }}</span>
-                                            <div class="text-900 mt-2 text-lg font-medium">
-                                                {{ item.nome }}
-                                            </div>
-                                            <div>Venditore: {{ item.emailUtenteCreatore }}</div>
-                                            <span class="text-900 text-xl font-semibold">BASE ASTA: EURO{{ item.baseAsta
-                                                }}</span>
-                                        </div>
+                                    class="flex-column sm:align-items-center flex gap-3 bg-zinc-100 p-4 sm:flex-row"
+                                    :class="{ 'border-top-1 surface-border': index !== 0 }"
+                                >
+                                    <div class="md:w-10rem relative">
+                                        <img
+                                            class="border-round mx-auto block w-full xl:block"
+                                            :src="`${item.immagini[0]}`"
+                                            :alt="item.nome"
+                                        />
+                                        <Tag
+                                            :value="item.tipoAsta"
+                                            :severity="danger"
+                                            class="absolute"
+                                            style="left: 4px; top: 4px"
+                                        ></Tag>
                                     </div>
-                                    <div class="flex-column md:align-items-end flex gap-5">
-                                        <div class="contenitore-bottone bg-primario-100 flex flex-row-reverse gap-2 md:flex-row">
-                                            <Button @click="apriUnNuovoTab(item.idAsta)" icon="pi pi-shopping-cart"
-                                                label="Partecipa all'asta"
-                                                :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
-                                                class="white-space-nowrap flex-auto md:flex-initial">
-                                            </Button>
+                                    <div
+                                        class="flex-column justify-content-between md:align-items-center flex flex-1 gap-4 md:flex-row"
+                                    >
+                                        <div
+                                            class="md:flex-column justify-content-between align-items-start flex flex-row gap-2"
+                                        >
+                                            <div>
+                                                <span class="text-secondary text-sm font-medium">{{
+                                                    item.categoria
+                                                }}</span>
+                                                <div class="text-900 mt-2 text-lg font-medium">
+                                                    {{ item.nome }}
+                                                </div>
+                                                <div>Venditore: {{ item.emailUtenteCreatore }}</div>
+                                                <span class="text-900 text-xl font-semibold"
+                                                    >BASE ASTA: EURO{{ item.baseAsta }}</span
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="flex-column md:align-items-end flex gap-5">
+                                            <div
+                                                class="contenitore-bottone flex flex-row-reverse gap-2 bg-primario-100 md:flex-row"
+                                            >
+                                                <Button
+                                                    @click="apriUnNuovoTab(item.idAsta)"
+                                                    icon="pi pi-shopping-cart"
+                                                    label="Partecipa all'asta"
+                                                    :disabled="
+                                                        item.inventoryStatus === 'OUTOFSTOCK'
+                                                    "
+                                                    class="white-space-nowrap flex-auto md:flex-initial"
+                                                >
+                                                </Button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </template>
-            </DataView>
+                    </template>
+                </DataView>
+            </div>
         </div>
-
     </div>
 
-</div>
-
-
-     <!--COMPONENTE DELLE PAGINE-->
+    <!--COMPONENTE DELLE PAGINE-->
     <Paginator :rows="5" :totalRecords="props.propNumeroAste" @page="onPage($event)"></Paginator>
 </template>
 
@@ -87,17 +125,22 @@ import 'primeicons/primeicons.css';
 import { ref, watch, defineEmits } from 'vue';
 import CaricamentoAste from './CaricamentoAste.vue';
 import CaratteristicheProdotto from '../caratteristicaProdotti/CaratteristicheProdotto.vue';
-import BarraRicercaPerOrdine from '../vetrinaAndHomepage/barraRicercaPerOrdine.vue'
+import BarraRicercaPerOrdine from '../vetrinaAndHomepage/barraRicercaPerOrdine.vue';
 
-const emit = defineEmits(['caratteristicheSelezionate', 'numeroDiPaginaSelezionato', 'ordineSelezionato', 'prezzoMinSelezionato','prezzoMaxSelezionato']);
-
+const emit = defineEmits([
+    'caratteristicheSelezionate',
+    'numeroDiPaginaSelezionato',
+    'ordineSelezionato',
+    'prezzoMinSelezionato',
+    'prezzoMaxSelezionato',
+]);
 
 const props = defineProps([
     'propAste',
     'propLoading',
     'propNumeroAste',
     'propCategoriaCercata',
-    'propRicaricaComponenteCaratteristiche'
+    'propRicaricaComponenteCaratteristiche',
 ]);
 
 const products = ref();
@@ -111,44 +154,33 @@ watch(
     }
 );
 
-
 const onPage = (event) => {
-
-    emit('numeroDiPaginaSelezionato', event.page + 1)
+    emit('numeroDiPaginaSelezionato', event.page + 1);
 };
 
 const setCaratteristiche = (filtro) => {
-
-    emit('caratteristicheSelezionate', filtro)
-
-}
+    emit('caratteristicheSelezionate', filtro);
+};
 
 const setCampiOrdinamento = (ordinamentoSelezionato) => {
-
     emit('ordineSelezionato', ordinamentoSelezionato);
-}
+};
 
 const setPrezzoMin = (prezzoMin) => {
-    
-
     emit('prezzoMinSelezionato', prezzoMin);
-}
+};
 
 const setPrezzoMax = (prezzoMax) => {
-
     emit('prezzoMaxSelezionato', prezzoMax);
-}
+};
 
 const apriUnNuovoTab = (idAsta) => {
     const url = `http://localhost:8080/Asta/${idAsta}`;
     window.open(url, '_blank');
 };
-
-
 </script>
 
 <style scoped>
-
 .sezione-centrale {
     display: flex;
     flex-direction: row;
@@ -165,5 +197,4 @@ const apriUnNuovoTab = (idAsta) => {
     padding: 1rem;
     color: white;
 }
-
 </style>

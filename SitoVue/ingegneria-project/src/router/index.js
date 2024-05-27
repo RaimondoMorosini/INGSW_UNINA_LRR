@@ -29,7 +29,11 @@ const routes = [
 
         component: () => import('@/views/ProfiloView.vue'),
     },
-
+    {
+        path: '/modificaProfilo',
+        name: 'ediProfilo',
+        component: () => import('../components/Profilo/ImpostazioniProfilo.vue'),
+    },
     {
         path: '/callback',
         name: 'callback',

@@ -16,10 +16,19 @@
     </div>
 
     <div class="gruppo-opzioni" v-if="statoFinestra">
-        <div class="flex flex-column gap-3">
-            <div v-for="opzione of props.propOpzioni" :key="opzione" class="flex align-items-center">
-                <Checkbox @change="OnChangeOpzioniSelezionate"  v-model="selectedOpzioni" :inputId="opzione" name="opzione"
-                    :value="opzione" />
+        <div class="flex-column flex gap-3">
+            <div
+                v-for="opzione of props.propOpzioni"
+                :key="opzione"
+                class="align-items-center flex"
+            >
+                <Checkbox
+                    @change="OnChangeOpzioniSelezionate"
+                    v-model="selectedOpzioni"
+                    :inputId="opzione"
+                    name="opzione"
+                    :value="opzione"
+                />
                 <label :for="opzione">{{ opzione }}</label>
             </div>
         </div>
@@ -27,7 +36,7 @@
 </template>
 
 <script setup>
-import { ref,defineEmits } from "vue";
+import { ref, defineEmits } from 'vue';
 
 import Checkbox from 'primevue/checkbox';
 import 'primeflex/primeflex.css';
@@ -46,10 +55,8 @@ const triggerFinestra = () => {
 const selectedOpzioni = ref([]);
 
 const OnChangeOpzioniSelezionate = () => {
-
     emit('recuperoValoriSelezionati', selectedOpzioni.value);
-}
-
+};
 </script>
 
 <style scoped>

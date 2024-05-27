@@ -1,7 +1,10 @@
 <template>
     <div class="contenitore-caratteristiche">
-        <h1 class="font-bold text-2xl">Filtra:</h1>
-        <div class="contenitore-caratteristica" v-for="(caratteristica, index) in caratteristicheRelativeAllaCategoria">
+        <h1 class="text-2xl font-bold">Filtra:</h1>
+        <div
+            class="contenitore-caratteristica"
+            v-for="(caratteristica, index) in caratteristicheRelativeAllaCategoria"
+        >
             <div class="linea-separatoria"></div>
             <opzioniSelezionabili :propOpzioni="caratteristica.opzioniSelezionabili"
                 :propNomeCaratteristica="caratteristica.nomeCaratteristica" :key="index"
@@ -20,7 +23,6 @@ import opzioniSelezionabili from '../caratteristicaProdotti/opzioniSelezionbili.
 
 const props = defineProps(['propCategoria']);
 const emit = defineEmits(['caratteristicheSelezionate']);
-
 
 const caratteristicheRelativeAllaCategoria = ref([]);
 

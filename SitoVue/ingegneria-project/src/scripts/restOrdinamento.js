@@ -1,15 +1,12 @@
-
 function getInfoOrdinamento(opzioneSelezionata) {
-
     const campiOrdinamento = [];
 
-    switch(opzioneSelezionata){
-
+    switch (opzioneSelezionata) {
         case 'Prezzo più basso':
             campiOrdinamento[0] = 'PREZZO_ATTUALE';
             campiOrdinamento[1] = 'ASCENDENTE';
             return campiOrdinamento;
-        
+
         case 'Prezzo più alto':
             campiOrdinamento[0] = 'PREZZO_ATTUALE';
             campiOrdinamento[1] = 'DISCENDENTE';
@@ -17,9 +14,9 @@ function getInfoOrdinamento(opzioneSelezionata) {
 
         case 'Nome discedente':
             campiOrdinamento[0] = 'NOME_PRODOTTO';
-            campiOrdinamento[1] = 'DISCENDENTE'
+            campiOrdinamento[1] = 'DISCENDENTE';
             return campiOrdinamento;
- 
+
         case 'Nome crescente':
             campiOrdinamento[0] = 'NOME_PRODOTTO';
             campiOrdinamento[1] = 'ASCENDENTE';
@@ -33,7 +30,6 @@ function getInfoOrdinamento(opzioneSelezionata) {
         default:
             return null;
     }
-
 }
 
-export {getInfoOrdinamento}
+export { getInfoOrdinamento };

@@ -110,17 +110,19 @@ const direzioneOrdinamento = ref(null);
 const prezzoMin = ref(null);
 const prezzoMax = ref(null);
 
-onMounted(() => {
-    getCategorie();
-});
-
-const getCategorie = async () => {
+onMounted(async () => {
+    let data = [];
     try {
-        gerarchiaCategorie.value = await getCategorieRest();
+        gerarchiaCategorie.value= await getCategorieRest();
     } catch (error) {
         console.error('Error categorie non trovate:', error);
+    }finally{
+     //   gerarchiaCategorie.value = data;
     }
-};
+    
+});
+
+
 
 const setCategoriaSelezionata = () => {
 
