@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface CaratteristicaRepository extends JpaRepository<Caratteristica, Integer> {
 
-    @Query(value = "SELECT * FROM caratteristica WHERE categoria = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM caratteristica WHERE categoria ILIKE ?1", nativeQuery = true)
     List<Caratteristica> getCaratteristicheDaCategoria(String categoria);
 }

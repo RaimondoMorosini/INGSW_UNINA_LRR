@@ -6,14 +6,9 @@
             v-for="(caratteristica, index) in caratteristicheRelativeAllaCategoria"
         >
             <div class="linea-separatoria"></div>
-            <opzioniSelezionabili
-                :propOpzioni="caratteristica.opzioniSelezionabili"
-                :propNomeCaratteristica="caratteristica.nomeCaratteristica"
-                :key="index"
-                @recuperoValoriSelezionati="
-                    aggiornaOpzioniSelezionate(index, caratteristica.id, $event)
-                "
-            />
+            <opzioniSelezionabili :propOpzioni="caratteristica.opzioniSelezionabili"
+                :propNomeCaratteristica="caratteristica.nomeCaratteristica" :key="index"
+                @recuperoValoriSelezionati="aggiornaOpzioniSelezionate(caratteristica.id, $event)" />
             <div class="linea-separatoria"></div>
         </div>
     </div>
@@ -21,8 +16,7 @@
 
 <script setup>
 import { ref, onMounted, defineEmits } from 'vue';
-
-import { getRest } from '../../scripts/RestUtils';
+import { getCaratteristiche } from '../../service/carateristicheService.js';
 
 import opzioniSelezionabili from '../caratteristicaProdotti/opzioniSelezionbili.vue';
 
@@ -31,40 +25,57 @@ const emit = defineEmits(['caratteristicheSelezionate']);
 
 const caratteristicheRelativeAllaCategoria = ref([]);
 
-const getCaratteristiche = async (categoria) => {
-    try {
-        const response = await getRest(
-            'public/getCaratteristicheDaCategoria?categoria=' + categoria
-        ); //Get delle caratteristihce relative alla categoria cercata
 
-        caratteristicheRelativeAllaCategoria.value = response.data;
-    } catch (error) {
-        console.log('errore richiesta  caratteristiche');
-    }
-};
+const caratteristicheSelezionateDTO = ref(new Array(0));
 
-const childValues = ref(new Array(caratteristicheRelativeAllaCategoria.length).fill(''));
 
-const aggiornaOpzioniSelezionate = (index, idCaratteristica, valoriSelezionati) => {
+const aggiornaOpzioniSelezionate = (idCaratteristica, valoriSelezionati) => {
+
     if (valoriSelezionati.length === 0) {
-        childValues.value.splice(index, 1);
+
+        const index = caratteristicheSelezionateDTO.value.findIndex(obj => obj.idCaratteristica === idCaratteristica);
+
+        caratteristicheSelezionateDTO.value.splice(index, 1);
+
     } else {
-        childValues.value[index] = {
+
+        const caratteristica = {
+
             idCaratteristica: idCaratteristica,
 
-            valoriSelezionati: valoriSelezionati,
-        };
+            valoriSelezionati: valoriSelezionati
+        }
+
+        const index = caratteristicheSelezionateDTO.value.findIndex(obj => obj.idCaratteristica === idCaratteristica);
+
+        if (index >= 0) {
+
+            caratteristicheSelezionateDTO.value[index] = caratteristica;
+
+        } else {
+
+            caratteristicheSelezionateDTO.value.push(caratteristica);
+        }
+        
     }
 
-    emit('caratteristicheSelezionate', childValues.value);
-};
+    emit('caratteristicheSelezionate', caratteristicheSelezionateDTO.value);
+
+}
+
 
 onMounted(() => {
-    getCaratteristiche(props.propCategoria);
+    getCaratteristiche(props.propCategoria).then((response) => {
+        caratteristicheRelativeAllaCategoria.value = response;
+    }).catch((error) => {
+        console.log(error);
+    });
+    
 });
 </script>
 
 <style scoped>
+
 .contenitore-caratteristiche {
     width: 25%;
     display: flex;
