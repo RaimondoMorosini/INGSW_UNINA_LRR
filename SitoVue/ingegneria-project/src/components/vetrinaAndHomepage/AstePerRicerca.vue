@@ -8,19 +8,6 @@
             />
         </div>
 
-        <div class="sezione-centrale">
-            <!--SEZIONE FILTRI CARETTERISTICHE DEL PRODTTO-->
-            <CaratteristicheProdotto
-                v-if="props.propRicaricaComponenteCaratteristiche"
-                :propCategoria="props.propCategoriaCercata"
-                @caratteristicheSelezionate="setCaratteristiche($event)"
-            />
-            <!--SE CAMBIA CATEGORIA CARICA UN ATTIMO UN TEMPLATE VUOTO PER I FILTRI CARATTERISTICHE IN MODO DA RICARICARE LA COMPONENTE DELLE CARATTERISTICHE QUANDO DIVENTA DI NUOVO TRUE props.propRicaricaComponenteCaratteristiche-->
-            <div v-else></div>
-
-            <!--TAMPLATE CARICAMENTO ASTE-->
-            <CaricamentoAste v-if="props.propLoading" />
-
 
     <div class="sezione-centrale">
 
@@ -103,6 +90,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </template>
                 </DataView>
             </div>
