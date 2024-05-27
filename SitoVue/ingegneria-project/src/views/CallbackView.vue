@@ -19,19 +19,12 @@
 </template>
 
 <script setup>
- 
-
-import useProfiloStore from '../../stores/profiloStore.js'
-
 import { useAuth0 } from '@auth0/auth0-vue';
 import Skeleton from 'primevue/skeleton';
 import { onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { inserisciDato } from '../scripts/DatiUtils';
 import { postRest } from '../scripts/RestUtils';
-
-
-const storeInstance = useProfiloStore();
 
 const { idTokenClaims, isAuthenticated, user } = useAuth0();
 const router = useRouter();
@@ -59,12 +52,6 @@ onUnmounted(async () => {
         }
 
         console.log('access token', JSON.stringify(idTokenClaims.value.__raw));
-        storeInstance.updateProfilo({
-            nomeProfilo: user.name,
-            emailProfilo: user.email,
-            passwordProfilo: user.password,
-            immagineProfilo: user.picture,
-        })
     } catch (error) {
         console.error('errore getting token ', error);
         router.push({ name: 'home' });

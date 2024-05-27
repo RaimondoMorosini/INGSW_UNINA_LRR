@@ -10,7 +10,7 @@ function getDato(nomeCookie) {
     for (let i = 0; i < cookies.length; i++) {
         const cookie = cookies[i].trim();
         if (cookie.startsWith(nomeCookie + '=')) {
-            const valore= cookie.split('=')[1];
+            const valore = cookie.split('=')[1];
             return JSON.parse(valore); // Restituisce il valore del cookie
         }
     }

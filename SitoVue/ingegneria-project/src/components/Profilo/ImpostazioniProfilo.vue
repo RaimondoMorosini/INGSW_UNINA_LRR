@@ -18,15 +18,13 @@
 
 <script setup>
 import { ref } from 'vue';
-import useProfiloStore from '../../stores/profiloStore.js'
-const storeInstance = useProfiloStore()
+import useProfiloStore from '../../stores/profiloStore.js';
+const storeInstance = useProfiloStore();
 const name = ref('');
 const email = ref('');
 const password = ref('');
 
-function saveSettings() {
-    
-}
+function saveSettings() {}
 </script>
 
 <style scoped>
