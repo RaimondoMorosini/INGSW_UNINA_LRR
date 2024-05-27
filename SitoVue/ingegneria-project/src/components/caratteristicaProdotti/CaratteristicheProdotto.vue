@@ -5,7 +5,7 @@
             <div class="linea-separatoria"></div>
             <opzioniSelezionabili :propOpzioni="caratteristica.opzioniSelezionabili"
                 :propNomeCaratteristica="caratteristica.nomeCaratteristica" :key="index"
-                @recuperoValoriSelezionati="aggiornaOpzioniSelezionate(index, caratteristica.id, $event)" />
+                @recuperoValoriSelezionati="aggiornaOpzioniSelezionate(caratteristica.id, $event)" />
             <div class="linea-separatoria"></div>
         </div>
     </div>
@@ -36,26 +36,41 @@ const getCaratteristiche = async (categoria) => {
     }
 };
 
-const childValues = ref(new Array(caratteristicheRelativeAllaCategoria.length).fill(''));
+const caratteristicheSelezionateDTO = ref(new Array(0));
 
-const aggiornaOpzioniSelezionate = (index, idCaratteristica, valoriSelezionati) => {
+
+const aggiornaOpzioniSelezionate = (idCaratteristica, valoriSelezionati) => {
 
     if (valoriSelezionati.length === 0) {
 
-        childValues.value.splice(index, 1);
+        const index = caratteristicheSelezionateDTO.value.findIndex(obj => obj.idCaratteristica === idCaratteristica);
+
+        caratteristicheSelezionateDTO.value.splice(index, 1);
+
     } else {
 
-        childValues.value[index] = {
+        const caratteristica = {
 
             idCaratteristica: idCaratteristica,
 
             valoriSelezionati: valoriSelezionati
         }
+
+        const index = caratteristicheSelezionateDTO.value.findIndex(obj => obj.idCaratteristica === idCaratteristica);
+
+        if (index >= 0) {
+
+            caratteristicheSelezionateDTO.value[index] = caratteristica;
+
+        } else {
+
+            caratteristicheSelezionateDTO.value.push(caratteristica);
+        }
+        
     }
 
+    emit('caratteristicheSelezionate', caratteristicheSelezionateDTO.value);
 
-
-    emit('caratteristicheSelezionate', childValues.value);
 }
 
 
@@ -65,6 +80,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
 .contenitore-caratteristiche {
     width: 25%;
     display: flex;
