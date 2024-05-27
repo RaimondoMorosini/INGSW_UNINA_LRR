@@ -10,7 +10,7 @@ async function getCategorieRest() {
         if (data === null) {
             const response = await getRest('public/getGerarchiaCategorie');
             data = response.data;
-            inserisciDato('categorie',data);
+            inserisciDato('categorie', data);
         }
         return data;
     } catch (error) {

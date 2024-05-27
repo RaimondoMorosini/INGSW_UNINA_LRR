@@ -33,7 +33,7 @@
         <SwiperSlide v-for="(photo, index) in slides.photo" :key="index">
             <RouterLink :to="{ name: slides.links[index] }">
                 <img
-                    :src="require(`@/assets/${photo}`)"
+                    :src="require(`@/assets/img/carosello/${photo}`)"
                     alt=""
                     class="border-2 border-slate-400 lg:max-h-[80%] lg:max-w-[80%]"
                 />

@@ -30,9 +30,6 @@ import { useRoute, useRouter } from 'vue-router';
 import { inserisciDato } from '../scripts/DatiUtils';
 import { postRest } from '../scripts/RestUtils';
 
-
-const storeInstance = useProfiloStore();
-
 const { idTokenClaims, isAuthenticated, user } = useAuth0();
 const router = useRouter();
 const route = useRoute();
@@ -59,12 +56,6 @@ onUnmounted(async () => {
         }
 
         console.log('access token', JSON.stringify(idTokenClaims.value.__raw));
-        storeInstance.updateProfilo({
-            nomeProfilo: user.name,
-            emailProfilo: user.email,
-            passwordProfilo: user.password,
-            immagineProfilo: user.picture,
-        })
     } catch (error) {
         console.error('errore getting token ', error);
         router.push({ name: 'home' });

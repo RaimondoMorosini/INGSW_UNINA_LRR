@@ -3,7 +3,7 @@
         <main
             class="mt-5 flex h-auto w-[100%] min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row"
         >
-            <div class="flex h-4col w-[100%] auto-rows-max flex-col justify-around gap-3 px-2">
+            <div class="flex h-4col w-[100%] auto-rows-max flex-col justify-between gap-3 px-2">
                 <div class="formSpace">
                     <label for="nomeProdotto">Nome Prodotto</label>
                     <input
