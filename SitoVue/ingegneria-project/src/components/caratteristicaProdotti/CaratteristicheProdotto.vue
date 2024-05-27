@@ -16,8 +16,7 @@
 
 <script setup>
 import { ref, onMounted, defineEmits } from 'vue';
-
-import { getRest } from '../../scripts/RestUtils';
+import { getCaratteristiche } from '../../service/carateristicheService.js';
 
 import opzioniSelezionabili from '../caratteristicaProdotti/opzioniSelezionbili.vue';
 
@@ -26,17 +25,6 @@ const emit = defineEmits(['caratteristicheSelezionate']);
 
 const caratteristicheRelativeAllaCategoria = ref([]);
 
-const getCaratteristiche = async (categoria) => {
-    try {
-        const response = await getRest(
-            'public/getCaratteristicheDaCategoria?categoria=' + categoria
-        ); //Get delle caratteristihce relative alla categoria cercata
-
-        caratteristicheRelativeAllaCategoria.value = response.data;
-    } catch (error) {
-        console.log('errore richiesta  caratteristiche');
-    }
-};
 
 const caratteristicheSelezionateDTO = ref(new Array(0));
 
@@ -77,7 +65,12 @@ const aggiornaOpzioniSelezionate = (idCaratteristica, valoriSelezionati) => {
 
 
 onMounted(() => {
-    getCaratteristiche(props.propCategoria);
+    getCaratteristiche(props.propCategoria).then((response) => {
+        caratteristicheRelativeAllaCategoria.value = response;
+    }).catch((error) => {
+        console.log(error);
+    });
+    
 });
 </script>
 
