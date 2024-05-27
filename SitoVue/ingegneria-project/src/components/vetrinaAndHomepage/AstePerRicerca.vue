@@ -28,12 +28,6 @@
                         <div v-for="(item, index) in slotProps.items" :key="index" class="col-12 mt-4">
                             <div class="flex-column sm:align-items-center flex gap-3 bg-zinc-100 p-4 sm:flex-row"
                                 :class="{ 'border-top-1 surface-border': index !== 0 }">
-                                <div class="md:w-10rem relative">
-                                    <img class="border-round mx-auto block w-full xl:block" :src="`${item.immagini[0]}`"
-                                        :alt="item.nome" />
-                                    <Tag :value="item.tipoAsta" :severity="danger" class="absolute"
-                                        style="left: 4px; top: 4px"></Tag>
-                                </div>
                                 <div
                                     class="flex-column sm:align-items-center flex gap-3 bg-zinc-100 p-4 sm:flex-row"
                                     :class="{ 'border-top-1 surface-border': index !== 0 }"
