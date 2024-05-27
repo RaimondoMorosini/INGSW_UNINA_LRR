@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <Carousel :value="products" :numVisible="5" :numScroll="1" :responsiveOptions="responsiveOptions" circular :autoplayInterval="3000">
+        <Carousel :value="products" :numVisible="4" :numScroll="1" :responsiveOptions="responsiveOptions" circular :autoplayInterval="3000">
             <template #item="slotProps">
                 <div class="border-1 surface-border border-round m-2  p-3">
                     <div class="mb-3">
