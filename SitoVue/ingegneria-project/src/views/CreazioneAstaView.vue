@@ -1,5 +1,5 @@
 <template>
-    <Steps class="min-w-4col py-2 label" :model="items" v-model:activeStep="active" />
+    <Steps class="label min-w-4col py-2" :model="items" v-model:activeStep="active" />
     <CreaProdotto @update:active="updateCurrentForm($event)" v-if="active === 0" />
     <SelezionaFiltri @update:active="updateCurrentForm($event)" v-if="active === 1" />
     <SelezioneTipoAsta @update:active="updateCurrentForm($event)" v-if="active === 2" />

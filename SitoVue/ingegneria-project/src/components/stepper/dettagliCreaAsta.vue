@@ -80,12 +80,10 @@ const gestioneInvio = () => {
             alert('Asta Inglese: Inserire tutti i campi');
             return;
         }
-    } else {
-        if (!scadenzaAsta.value) {
+    } else if (!scadenzaAsta.value) {
             alert('Asta Silenziosa: Inserire tutti i campi');
             return;
         }
-    }
 
     // Emit event to notify parent component to move to the next form section
     if (tipoAsta.value) {

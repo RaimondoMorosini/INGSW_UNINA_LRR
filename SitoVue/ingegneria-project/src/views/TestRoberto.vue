@@ -13,7 +13,7 @@
                         <button type="button" @click="rimuoviImmagine(indice)" class="btn-close">
                             &times;
                         </button>
-                        <img class="preview img-thumbnail" :src="immagine.src" />
+                        <img class="preview img-thumbnail" :src="immagine.src" :alt="immagine.name"/>
                         <div class="img-name">{{ immagine.name }}</div>
                     </div>
                 </div>
@@ -57,8 +57,8 @@ function onDrop(e) {
 
 function aggiungiFile(files) {
     console.log('hai selezionato ', files.length, ' file');
-    for (let i = 0; i < files.length; i++) {
-        immagini.value.push({ file: files[i], src: null, name: files[i].name });
+    for (const element of files) {
+        immagini.value.push({ file: element, src: null, name: element.name });
     }
     console.log('immagini: ', immagini.value);
     immagini.value.forEach((immagine, indice) => {

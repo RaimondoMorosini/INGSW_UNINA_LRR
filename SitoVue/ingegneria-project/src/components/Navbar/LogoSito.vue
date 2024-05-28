@@ -15,7 +15,6 @@
 
 <script setup>
 import { RouterLink } from 'vue-router';
-import { ref, onMounted } from 'vue';
 import { useVetrinaStore } from '../../stores/vetrinaStore';
 
 const vetrinaInstance = useVetrinaStore();

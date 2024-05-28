@@ -57,14 +57,14 @@
 <script setup>
 import { postRestWithtoken } from '../../scripts/RestUtils.js';
 import { useAstaStore } from '../../stores/astaStore.js';
-import { ref, onMounted } from 'vue';
+import {  onMounted } from 'vue';
 
 const storeInstance = useAstaStore();
 
 //IMPORTANTE: se in futuro le categorie diverranno multiple, sostituire questo con Object.keys(storeInstance.asta.categoria)
 const categoriaSelezionata = function (obj) {
-    var keys = '';
-    for (var key in obj) {
+    let keys = '';
+    for (let key in obj) {
         keys = key;
     }
     return keys;

@@ -136,13 +136,13 @@ const prezzoMin = ref(null);
 const prezzoMax = ref(null);
 
 onMounted(async () => {
-    let data = [];
+    //let data = [];
     try {
         gerarchiaCategorie.value = await getCategorieRest();
     } catch (error) {
         console.error('Error categorie non trovate:', error);
     } finally {
-        //   gerarchiaCategorie.value = data;
+           //gerarchiaCategorie.value = data;
     }
 });
 
@@ -218,7 +218,7 @@ const OnCLickCerca = async (paginaCliccata) => {
     vetrinaInstance.setAccessVetrina(false); //Disattiva il tamplate della vetrina e carica la componente che mostra il caricamento delle aste
 
     //Confronta la categoria cercata con l'ultima categoria cercata prima di questa richiesta, se sono diversi allora la componente caratteristiche specifiche va ricarica e inizializzato ad una lista vuote le caratteristiche specifiche cercate dalla precedente richiesta
-    if (!(ultimaCategoriaCercata.value === categoriaCercata.value)) {
+    if (ultimaCategoriaCercata.value !== categoriaCercata.value) {
         ricaraComponenteCaratteristiche.value = false;
         listaDiCaratteristicheSelezionate.value = [];
     }
@@ -269,4 +269,4 @@ const OnCLickCerca = async (paginaCliccata) => {
 };
 </script>
 
-<style scoped></style>
+

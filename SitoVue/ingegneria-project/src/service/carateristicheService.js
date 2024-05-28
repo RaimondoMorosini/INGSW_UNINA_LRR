@@ -1,5 +1,5 @@
 import { getRest } from '../scripts/RestUtils';
-async function  getCaratteristiche(categoria)  {
+async function getCaratteristiche(categoria) {
     try {
         const response = await getRest(
             'public/getCaratteristicheDaCategoria?categoria=' + categoria
@@ -9,6 +9,6 @@ async function  getCaratteristiche(categoria)  {
     } catch (error) {
         console.log('errore richiesta  caratteristiche');
     }
-};
+}
 
 export { getCaratteristiche };

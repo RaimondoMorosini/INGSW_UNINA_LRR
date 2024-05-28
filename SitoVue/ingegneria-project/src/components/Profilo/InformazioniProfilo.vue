@@ -6,7 +6,7 @@
             <div class="flex flex-row space-x-1">
                 <img
                     :src="user.picture"
-                    alt="Profile Picture"
+                    alt="Immagine Profilo impostata"
                     class="h-20 w-20 rounded-full border-primario-200"
                 />
                 <div class="User info">

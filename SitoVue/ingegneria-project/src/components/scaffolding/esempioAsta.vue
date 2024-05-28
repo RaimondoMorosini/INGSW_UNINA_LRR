@@ -3,6 +3,7 @@
         <div class="contenitore-immagine">
             <img
                 class="img-prodotto"
+                alt="Immagine Prodotto"
                 src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/refurb-iphone-13-pro-max-blue-2023?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1679072989205"
             />
         </div>

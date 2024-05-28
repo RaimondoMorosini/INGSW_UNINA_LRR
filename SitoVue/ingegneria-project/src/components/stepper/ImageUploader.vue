@@ -4,29 +4,30 @@
             class="container flex w-auto flex-col content-center items-center justify-center px-5 py-2"
         >
             <div class="drop-area" @dragover.prevent @dragenter.prevent @drop.prevent="onDrop">
-                <label
-                    for="file-upload"
-                    class="custom-file-upload flex flex-col items-center gap-0 text-4xl"
-                >
+                <label class="custom-file-upload flex flex-col items-center gap-0 text-4xl">
+                    <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        @change="onFileChange"
+                    />
                     <i class="bi bi-camera"></i>
                     <i class="bi bi-box-arrow-in-down"></i>
+                
                 </label>
-                <input
-                    id="file-upload"
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    @change="onFileChange"
-                />
+                    
+               
+                
+            
             </div>
 
             <div class="jumbotron w-fit shadow">
-                <div class="immagini-container w-fit">
-                    <div v-if="isEmpty" class="flex flex-row items-stretch">
+                <div class="immagini-container grid grid-cols-4 justify-between gap-2 ">
+                    <div v-if="isEmpty" >
                         <img
                             src="../../assets/img/placeholder/placeholder.png"
                             alt="Immagine temporanea placeholder"
-                            class="w-96 shadow"
+                            class="shadow text-center"
                         />
                     </div>
                     <div
@@ -34,10 +35,10 @@
                         :key="indice"
                         class="immagine shadow"
                     >
-                        <button type="button" @click="rimuoviImmagine(indice)" class="btn-close">
+                        <button type="button" @click="rimuoviImmagine(indice)" class="btn-close px-1 bg-slate-100/50 ring-1 ring-primario-100 rounded">
                             &times;
                         </button>
-                        <img class="preview" :src="immagine.src" alt="Catalogo immagini prodotto" />
+                        <img class="preview h-28 shadow lg:h-32" :src="immagine.src" alt="Catalogo immagini prodotto" />
                         <div class="img-name">{{ immagine.name }}</div>
                     </div>
                 </div>
@@ -148,7 +149,6 @@ onUnmounted(() => {
 }
 
 .immagini-container {
-    @apply grid grid-cols-4 justify-between gap-2;
     gap: 10px;
 }
 
@@ -173,7 +173,6 @@ onUnmounted(() => {
 }
 
 .preview {
-    @apply h-28 shadow lg:h-32;
     max-width: 100%;
     height: auto;
     margin-bottom: 5px;
