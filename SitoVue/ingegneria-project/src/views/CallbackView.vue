@@ -19,9 +19,7 @@
 </template>
 
 <script setup>
- 
-
-import {useProfiloStore} from '../stores/profiloStore.js'
+import { useProfiloStore } from '../stores/profiloStore.js';
 
 import { useAuth0 } from '@auth0/auth0-vue';
 import Skeleton from 'primevue/skeleton';

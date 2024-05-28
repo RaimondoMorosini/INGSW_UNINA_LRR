@@ -9,7 +9,7 @@
         @mouseleave="hoverBarra(false)"
     >
         <div class="outputBarra">
-            <img src="../assets/Icon/lente.svg" class="iconaRicerca" alt="Icona Ricerca"/>
+            <img src="../assets/Icon/lente.svg" class="iconaRicerca" alt="Icona Ricerca" />
             <input
                 style="color: black"
                 type="text"
@@ -38,10 +38,10 @@ function hoverBarra(stato) {
             this.coloreEtichetta = '#0071fe';
         }
     } else if (!this.cliccato) {
-            this.bordoBarra = '2px solid black';
-            this.bordoBarraBottom = '2px solid black';
-            this.coloreEtichetta = 'black';
-        }
+        this.bordoBarra = '2px solid black';
+        this.bordoBarraBottom = '2px solid black';
+        this.coloreEtichetta = 'black';
+    }
 }
 
 function focusBarra() {

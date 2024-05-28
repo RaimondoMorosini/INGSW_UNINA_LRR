@@ -1,30 +1,20 @@
-
-<template>
-  <div>
-    <label>{{label}}</label>
-    <br>
-    <Dropdown showClear  v-model="selectedValue" :options="options" placeholder="Seleziona" @change="handleChange" />
-    <br>
-  </div>
-</template>
-
-
 <script setup>
 import Dropdown from 'primevue/dropdown';
 import { defineProps, ref ,defineEmits,onMounted} from 'vue';
 
 const props = defineProps({
-  label: String,
-  options: Array,
-  modelValue: String,
+    label: String,
+    options: Array,
+    modelValue: String,
 });
 
 const selectedValue = ref(null);
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:valoreSelezionato', 'update:modelValue']);
 const handleChange = (newValue) => {
-  selectedValue.value = newValue.value;
-  emit('update:modelValue', newValue.value);
+    selectedValue.value = newValue.value;
+    emit('update:valoreSelezionato', newValue.value);
+    emit('update:modelValue', newValue.value);
 };
 
 onMounted(() => {
@@ -34,3 +24,19 @@ onMounted(() => {
 
 });
 </script>
+
+<template>
+    <div>
+        <label>{{ label }}</label>
+        <br />
+        <Dropdown
+            showClear
+            v-model="selectedValue"
+            :options="options"
+            placeholder="Seleziona"
+            @change="handleChange"
+        />
+        <br />
+        Valore selezionato: {{ selectedValue }}
+    </div>
+</template>
