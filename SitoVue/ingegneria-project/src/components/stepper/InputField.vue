@@ -11,7 +11,7 @@
 
 <script setup>
 import Dropdown from 'primevue/dropdown';
-import { defineProps, ref ,defineEmits} from 'vue';
+import { defineProps, ref ,defineEmits,onMounted} from 'vue';
 
 const props = defineProps({
   label: String,
@@ -26,4 +26,11 @@ const handleChange = (newValue) => {
   selectedValue.value = newValue.value;
   emit('update:modelValue', newValue.value);
 };
+
+onMounted(() => {
+  
+  // ordina le option in ordine alfabetico props.options
+  //props.options.sort();
+
+});
 </script>

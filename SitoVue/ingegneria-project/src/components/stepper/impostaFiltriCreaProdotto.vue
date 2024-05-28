@@ -67,3 +67,4 @@ onMounted(() => {
 <style scoped>
 /* Stili rimossi per brevità */
 </style>
+  
