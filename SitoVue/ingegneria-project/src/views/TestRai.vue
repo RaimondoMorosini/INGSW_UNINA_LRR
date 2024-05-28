@@ -1,99 +1,44 @@
 <template>
-    <div class="card">
-        <Carousel
-            :value="products"
-            :numVisible="5"
-            :numScroll="1"
-            :responsiveOptions="responsiveOptions"
-            circular
-            :autoplayInterval="3000"
-        >
-            <template #item="slotProps">
-                <div class="border-1 surface-border border-round m-2 p-3">
-                    <div class="mb-3">
-                        <div class="relative mx-auto">
-                            <img
-                                :src="
-                                    'https://primefaces.org/cdn/primevue/images/product/' +
-                                    slotProps.data.image
-                                "
-                                :alt="slotProps.data.name"
-                                class="border-round w-full"
-                            />
-                            <Tag
-                                :value="slotProps.data.inventoryStatus"
-                                :severity="getSeverity(slotProps.data.inventoryStatus)"
-                                class="absolute"
-                                style="left: 5px; top: 5px"
-                            />
-                        </div>
-                    </div>
-                    <div class="mb-3 font-medium">{{ slotProps.data.name }}</div>
-                    <div class="justify-content-between align-items-center flex">
-                        <div class="mt-0 text-xl font-semibold">${{ slotProps.data.price }}</div>
-                        <span>
-                            <Button icon="pi pi-heart" severity="secondary" outlined />
-                            <Button icon="pi pi-shopping-cart" class="ml-2" />
-                        </span>
-                    </div>
-                </div>
-            </template>
-        </Carousel>
-    </div>
+    arrayDeiKm: {{ arrayKM }} <br>
+    arrayImmatricolazione: {{ arrayImm}}
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { ProductService } from '@/service/ProductService';
-import Carousel from 'primevue/carousel';
-import Tag from 'primevue/tag';
-import Button from 'primevue/button';
 
-import 'primeflex/primeflex.css';
+const arrayKM = ref(["da 90.000 a 95.000","da 90.000 a 100.000","da 85.000 a 90.000","da 80.000 a 85.000","da 75.000 a 80.000","da 70.000 a 75.000","da 65.000 a 70.000","da 60.000 a 65.000  ","da 55.000 a 60.000","da 5.000 a 10.000","da 50.000 a 55.000","da 500.000   ","da 45.000 a 50.000","da 450.000 a 500.000","da 40.000 a 45.000","da 400.000 a 450.000","da 35.000 a 40.000","da 350.000 a 400.000","da 30.000 a 35.000","da 300.000 a 350.000","da 25.000 a 30.000","da 250.000 a 300.000","da 20.000 a 25.000","da 200.000 a 250.000","da 190.000 a 200.000","da 180.000 a 190.000","da 170.000 a 180.000","da 160.000 a 170.000","da 15.000 a 20.000","da 150.000 a 160.000","da 140.000 a 150.000","da 130.000 a 140.000 ","da 120.000 a 130.000","da 110.000 a 120.000","da 10.000 a 15.000","da 100.000 a 110.000","da 0 a 5.000"])
+const arrayImm = ref(["Anni 70","Anni 60","Anni 50","Anni 40","Anni 30","2024","2023","2022","2021","2020","2019","2018","2017","2016","2015","2014","2013","2012","2011","2010","2009","2008","2007","2006","2005","2004","2003","2002","2001","2000","1999","1998","1997","1996","1995","1994","1993","1992","1991","1990","1989","1988","1987","1986","1985","1984","1983","1982","1981","1980","1900"])
 
 onMounted(() => {
-    ProductService.getProductsSmall().then((data) => (products.value = data.slice(0, 9)));
+   
+    arrayKM.value.sort(compareStringsByNumbers);
+    arrayImm.value.sort(compareStringsByNumbers);
 });
 
-const products = ref();
-const responsiveOptions = ref([
-    {
-        breakpoint: '1400px',
-        numVisible: 2,
-        numScroll: 1,
-    },
-    {
-        breakpoint: '1199px',
-        numVisible: 3,
-        numScroll: 1,
-    },
-    {
-        breakpoint: '767px',
-        numVisible: 2,
-        numScroll: 1,
-    },
-    {
-        breakpoint: '575px',
-        numVisible: 1,
-        numScroll: 1,
-    },
-]);
 
-const getSeverity = (status) => {
-    switch (status) {
-        case 'INSTOCK':
-            return 'success';
-
-        case 'LOWSTOCK':
-            return 'warning';
-
-        case 'OUTOFSTOCK':
-            return 'danger';
-
-        default:
-            return null;
+function extractNumbersFromString(str) {
+    let matches = str.match(/\d+/g); // Trova tutte le sequenze di cifre nella stringa
+    if (matches) {
+        return matches.map(Number); // Converte le sequenze di cifre in numeri
     }
-};
+    return [0]; // Se non ci sono numeri, ritorna 0 per mantenere la stringa alla fine dell'ordine
+}
+
+function compareStringsByNumbers(a, b) {
+    let numA = extractNumbersFromString(a);
+    let numB = extractNumbersFromString(b);
+
+    // Confronta le sequenze numeriche trovate nelle stringhe
+    for (let i = 0; i < Math.min(numA.length, numB.length); i++) {
+        if (numA[i] !== numB[i]) {
+            return numA[i] - numB[i];
+        }
+    }
+
+    // Se tutte le sequenze numeriche confrontate sono uguali, confronta la lunghezza delle sequenze
+    return numA.length - numB.length;
+}
+
 </script>
 
 <style>
