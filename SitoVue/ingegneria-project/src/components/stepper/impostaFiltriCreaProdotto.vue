@@ -23,7 +23,6 @@
 </template>
 
 <script setup>
-import Dropdown from 'primevue/dropdown';
 import { defineEmits, onMounted, ref } from 'vue';
 import { getCaratteristiche } from '../../service/carateristicheService.js';
 import InputField from './inputFieldCaratteristiche.vue'; // Assicurati che il percorso sia corretto

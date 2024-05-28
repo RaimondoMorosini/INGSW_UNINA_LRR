@@ -10,7 +10,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
 import CaroselloProdotti from '../vetrinaAndHomepage/CaroselloProdotti.vue';
 </script>
 

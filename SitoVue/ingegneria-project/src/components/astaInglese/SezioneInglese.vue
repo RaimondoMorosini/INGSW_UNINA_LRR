@@ -1,5 +1,5 @@
 <script>
-import Timer from './Timer.vue';
+'use strict'
 </script>
 
 <template>

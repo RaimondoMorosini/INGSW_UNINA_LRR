@@ -9,7 +9,7 @@
         @mouseleave="hoverBarra(false)"
     >
         <div class="outputBarra">
-            <img src="../assets/Icon/lente.svg" class="iconaRicerca" />
+            <img src="../assets/Icon/lente.svg" class="iconaRicerca" alt="Icona Ricerca"/>
             <input
                 style="color: black"
                 type="text"
@@ -25,10 +25,10 @@
 <script setup>
 import { ref } from 'vue';
 
-cliccato = ref(false);
-bordoBarra = ref('2px solid black');
-bordoBarraBottom = ref('2px solid black');
-coloreEtichetta = ref('black');
+const cliccato = ref(false);
+const bordoBarra = ref('2px solid black');
+const bordoBarraBottom = ref('2px solid black');
+const coloreEtichetta = ref('black');
 
 function hoverBarra(stato) {
     if (stato) {
@@ -37,13 +37,11 @@ function hoverBarra(stato) {
             this.bordoBarraBottom = '2px solid #0071fe';
             this.coloreEtichetta = '#0071fe';
         }
-    } else {
-        if (!this.cliccato) {
+    } else if (!this.cliccato) {
             this.bordoBarra = '2px solid black';
             this.bordoBarraBottom = '2px solid black';
             this.coloreEtichetta = 'black';
         }
-    }
 }
 
 function focusBarra() {

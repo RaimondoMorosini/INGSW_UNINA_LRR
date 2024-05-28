@@ -4,20 +4,21 @@
             class="container flex w-auto flex-col content-center items-center justify-center px-5 py-2"
         >
             <div class="drop-area" @dragover.prevent @dragenter.prevent @drop.prevent="onDrop">
-                <label
-                    for="file-upload"
-                    class="custom-file-upload flex flex-col items-center gap-0 text-4xl"
-                >
+                <label class="custom-file-upload flex flex-col items-center gap-0 text-4xl">
+                    <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        @change="onFileChange"
+                    />
                     <i class="bi bi-camera"></i>
                     <i class="bi bi-box-arrow-in-down"></i>
+                
                 </label>
-                <input
-                    id="file-upload"
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    @change="onFileChange"
-                />
+                    
+               
+                
+            
             </div>
 
             <div class="jumbotron w-fit shadow">
@@ -34,7 +35,7 @@
                         :key="indice"
                         class="immagine shadow"
                     >
-                        <button type="button" @click="rimuoviImmagine(indice)" class="btn-close">
+                        <button type="button" @click="rimuoviImmagine(indice)" class="btn-close px-1 bg-slate-100/50 ring-1 ring-primario-100 rounded">
                             &times;
                         </button>
                         <img class="preview h-28 shadow lg:h-32" :src="immagine.src" alt="Catalogo immagini prodotto" />

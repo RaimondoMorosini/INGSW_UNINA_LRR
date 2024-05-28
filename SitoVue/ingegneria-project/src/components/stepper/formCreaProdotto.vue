@@ -63,17 +63,10 @@
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 import TreeSelect from 'primevue/treeselect';
-import { defineEmits } from 'vue';
 import ImageUploader from './ImageUploader.vue';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref ,defineEmits} from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
 import { getCategorieRest } from '../../scripts/categorie.js';
-
-const customUploader = (e) => {
-    console.log(e);
-    const file = e.files[0];
-    const ref = new FileReader();
-};
 
 const nodes = ref([]);
 
@@ -94,20 +87,14 @@ const prezzoBase = ref(storeInstance.asta.prezzoBase);
 const immagini = ref(null);
 
 const categoriaSelezionata = function (obj) {
-    var keys = '';
-    for (var key in obj) {
+    let keys = '';
+    for (let key in obj) {
         keys = key;
     }
     return keys;
 };
 
 const categoriaSalvata = ref(categoriaSelezionata(storeInstance.asta.categoria));
-
-function onFileChange(e) {
-    console.log(e);
-    const file = e.target.files[0];
-    this;
-}
 
 onMounted(() => {
     storeInstance.updateAsta({

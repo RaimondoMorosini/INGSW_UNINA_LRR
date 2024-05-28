@@ -6,12 +6,14 @@
             @click="triggerFinestra"
             src="../../assets/Icon/frecciaGiu.svg"
             class="cursor-pointer"
+            alt="freccia-giu"
         />
         <img
             v-else
             @click="triggerFinestra"
             src="../../assets/Icon/freccia-su.svg"
             class="cursor-pointer"
+            alt="freccia-su"
         />
     </div>
 
