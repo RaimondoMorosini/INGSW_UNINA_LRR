@@ -22,7 +22,7 @@ const name = ref('');
 const email = ref('');
 const password = ref('');
 
-import {useProfiloStore} from '../../stores/profiloStore';
+import { useProfiloStore } from '../../stores/profiloStore';
 const storeInstance = useProfiloStore();
 
 function saveSettings() {}

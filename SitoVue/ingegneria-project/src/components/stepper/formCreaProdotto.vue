@@ -64,7 +64,7 @@ import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 import TreeSelect from 'primevue/treeselect';
 import ImageUploader from './ImageUploader.vue';
-import { onMounted, ref ,defineEmits} from 'vue';
+import { onMounted, ref, defineEmits } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
 import { getCategorieRest } from '../../scripts/categorie.js';
 

@@ -81,9 +81,9 @@ const gestioneInvio = () => {
             return;
         }
     } else if (!scadenzaAsta.value) {
-            alert('Asta Silenziosa: Inserire tutti i campi');
-            return;
-        }
+        alert('Asta Silenziosa: Inserire tutti i campi');
+        return;
+    }
 
     // Emit event to notify parent component to move to the next form section
     if (tipoAsta.value) {
