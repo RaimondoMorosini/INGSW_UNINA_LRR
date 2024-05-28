@@ -11,13 +11,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import CaroselloProdotti from '../vetrinaAndHomepage/CaroselloProdotti.vue'
+import CaroselloProdotti from '../vetrinaAndHomepage/CaroselloProdotti.vue';
 </script>
 
 <style scoped>
-
 .contenitore-carosello {
-
     margin-left: 2rem;
     margin-right: 2rem;
     margin-top: 2rem;

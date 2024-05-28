@@ -6,9 +6,12 @@
             v-for="(caratteristica, index) in caratteristicheRelativeAllaCategoria"
         >
             <div class="linea-separatoria"></div>
-            <opzioniSelezionabili :propOpzioni="caratteristica.opzioniSelezionabili"
-                :propNomeCaratteristica="caratteristica.nomeCaratteristica" :key="index"
-                @recuperoValoriSelezionati="aggiornaOpzioniSelezionate(caratteristica.id, $event)" />
+            <opzioniSelezionabili
+                :propOpzioni="caratteristica.opzioniSelezionabili"
+                :propNomeCaratteristica="caratteristica.nomeCaratteristica"
+                :key="index"
+                @recuperoValoriSelezionati="aggiornaOpzioniSelezionate(caratteristica.id, $event)"
+            />
             <div class="linea-separatoria"></div>
         </div>
     </div>
@@ -25,57 +28,48 @@ const emit = defineEmits(['caratteristicheSelezionate']);
 
 const caratteristicheRelativeAllaCategoria = ref([]);
 
-
 const caratteristicheSelezionateDTO = ref(new Array(0));
 
-
 const aggiornaOpzioniSelezionate = (idCaratteristica, valoriSelezionati) => {
-
     if (valoriSelezionati.length === 0) {
-
-        const index = caratteristicheSelezionateDTO.value.findIndex(obj => obj.idCaratteristica === idCaratteristica);
+        const index = caratteristicheSelezionateDTO.value.findIndex(
+            (obj) => obj.idCaratteristica === idCaratteristica
+        );
 
         caratteristicheSelezionateDTO.value.splice(index, 1);
-
     } else {
-
         const caratteristica = {
-
             idCaratteristica: idCaratteristica,
 
-            valoriSelezionati: valoriSelezionati
-        }
+            valoriSelezionati: valoriSelezionati,
+        };
 
-        const index = caratteristicheSelezionateDTO.value.findIndex(obj => obj.idCaratteristica === idCaratteristica);
+        const index = caratteristicheSelezionateDTO.value.findIndex(
+            (obj) => obj.idCaratteristica === idCaratteristica
+        );
 
         if (index >= 0) {
-
             caratteristicheSelezionateDTO.value[index] = caratteristica;
-
         } else {
-
             caratteristicheSelezionateDTO.value.push(caratteristica);
         }
-        
     }
 
     emit('caratteristicheSelezionate', caratteristicheSelezionateDTO.value);
-
-}
-
+};
 
 onMounted(() => {
-    getCaratteristiche(props.propCategoria).then((response) => {
-        caratteristicheRelativeAllaCategoria.value = response;
-    }).catch((error) => {
-        console.log(error);
-    });
-    
+    getCaratteristiche(props.propCategoria)
+        .then((response) => {
+            caratteristicheRelativeAllaCategoria.value = response;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 });
 </script>
 
 <style scoped>
-
 .contenitore-caratteristiche {
     width: 25%;
     display: flex;

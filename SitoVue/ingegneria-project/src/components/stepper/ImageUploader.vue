@@ -21,12 +21,12 @@
             </div>
 
             <div class="jumbotron w-fit shadow">
-                <div class="immagini-container w-fit">
-                    <div v-if="isEmpty" class="flex flex-row items-stretch">
+                <div class="immagini-container grid grid-cols-4 justify-between gap-2 ">
+                    <div v-if="isEmpty" >
                         <img
                             src="../../assets/img/placeholder/placeholder.png"
                             alt="Immagine temporanea placeholder"
-                            class="w-96 shadow"
+                            class="shadow text-center"
                         />
                     </div>
                     <div
@@ -37,7 +37,7 @@
                         <button type="button" @click="rimuoviImmagine(indice)" class="btn-close">
                             &times;
                         </button>
-                        <img class="preview" :src="immagine.src" alt="Catalogo immagini prodotto" />
+                        <img class="preview h-28 shadow lg:h-32" :src="immagine.src" alt="Catalogo immagini prodotto" />
                         <div class="img-name">{{ immagine.name }}</div>
                     </div>
                 </div>
@@ -148,7 +148,6 @@ onUnmounted(() => {
 }
 
 .immagini-container {
-    @apply grid grid-cols-4 justify-between gap-2;
     gap: 10px;
 }
 
@@ -173,7 +172,6 @@ onUnmounted(() => {
 }
 
 .preview {
-    @apply h-28 shadow lg:h-32;
     max-width: 100%;
     height: auto;
     margin-bottom: 5px;
