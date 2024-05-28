@@ -268,3 +268,16 @@ const OnCLickCerca = async (paginaCliccata) => {
     }
 };
 </script>
+
+
+<style>
+
+.p-checkbox{
+
+    width: 20px;
+    height: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+}
+
+</style>

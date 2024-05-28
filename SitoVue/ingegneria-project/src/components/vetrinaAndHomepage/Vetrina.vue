@@ -1,6 +1,6 @@
 <template>
     <div class="contenitore-carosello">
-        <h1>Titolo carosello</h1>
+        <h1 class="font-bold text-4xl">Titolo carosello</h1>
         <CaroselloProdotti />
     </div>
 
