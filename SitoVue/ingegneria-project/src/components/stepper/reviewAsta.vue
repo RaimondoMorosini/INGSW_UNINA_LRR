@@ -57,7 +57,7 @@
 <script setup>
 import { postRestWithtoken } from '../../scripts/RestUtils.js';
 import { useAstaStore } from '../../stores/astaStore.js';
-import {  onMounted } from 'vue';
+import { onMounted } from 'vue';
 
 const storeInstance = useAstaStore();
 

@@ -4,19 +4,27 @@
             src="../../assets/Icon/frecciaSinistra2.svg"
             class="frecciaSinistra"
             @click="updatePhotoFreccia('sinistra')"
+            alt="freccia Sinistra"
         />
         <div class="contenitoreImg">
             <img
                 v-if="countImg == 1"
                 src="../../assets/img/carosello/carousel1.png"
                 class="immagine"
+                alt="Immagine carosello 1"
             />
             <img
                 v-else-if="countImg == 2"
                 src="../../assets/img/carosello/carousel2.png"
                 class="immagine"
+                alt="Immagine carosello 2"
             />
-            <img v-else src="../../assets/img/carosello/carousel3.png" class="immagine" />
+            <img
+                v-else
+                src="../../assets/img/carosello/carousel3.png"
+                class="immagine"
+                alt="Immagine carosello 3"
+            />
             <div class="contenitoreOpzioni absolute inset-x-0 bottom-0 mx-auto">
                 <div v-if="countImg != 1" class="opzione" @click="updatePhoto(1)"></div>
                 <div v-else class="opzioneSelected" @click="updatePhoto(1)"></div>
@@ -30,6 +38,7 @@
             src="../../assets/Icon/frecciaDestra.svg"
             class="frecciaDestra"
             @click="updatePhotoFreccia('destra')"
+            alt="freccia Destra"
         />
     </div>
 </template>
@@ -80,26 +89,24 @@ export default {
                     this.countImg = 3;
                     this.sfondo = '#e9c9c6';
                 }
-            } else {
-                if (this.countImg != 3) {
-                    this.countImg++;
+            } else if (this.countImg != 3) {
+                this.countImg++;
 
-                    switch (this.countImg) {
-                        case 2:
-                            this.sfondo = '#fee782';
-                            break;
+                switch (this.countImg) {
+                    case 2:
+                        this.sfondo = '#fee782';
+                        break;
 
-                        case 3:
-                            this.sfondo = '#e9c9c6';
-                            break;
+                    case 3:
+                        this.sfondo = '#e9c9c6';
+                        break;
 
-                        default:
-                            break;
-                    }
-                } else {
-                    this.countImg = 1;
-                    this.sfondo = '#e6818d';
+                    default:
+                        break;
                 }
+            } else {
+                this.countImg = 1;
+                this.sfondo = '#e6818d';
             }
         },
 

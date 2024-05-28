@@ -13,7 +13,11 @@
                         <button type="button" @click="rimuoviImmagine(indice)" class="btn-close">
                             &times;
                         </button>
-                        <img class="preview img-thumbnail" :src="immagine.src" :alt="immagine.name"/>
+                        <img
+                            class="preview img-thumbnail"
+                            :src="immagine.src"
+                            :alt="immagine.name"
+                        />
                         <div class="img-name">{{ immagine.name }}</div>
                     </div>
                 </div>

@@ -5,29 +5,19 @@
         >
             <div class="drop-area" @dragover.prevent @dragenter.prevent @drop.prevent="onDrop">
                 <label class="custom-file-upload flex flex-col items-center gap-0 text-4xl">
-                    <input
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        @change="onFileChange"
-                    />
+                    <input type="file" accept="image/*" multiple @change="onFileChange" />
                     <i class="bi bi-camera"></i>
                     <i class="bi bi-box-arrow-in-down"></i>
-                
                 </label>
-                    
-               
-                
-            
             </div>
 
             <div class="jumbotron w-fit shadow">
-                <div class="immagini-container grid grid-cols-4 justify-between gap-2 ">
-                    <div v-if="isEmpty" >
+                <div class="immagini-container grid grid-cols-4 justify-between gap-2">
+                    <div v-if="isEmpty">
                         <img
                             src="../../assets/img/placeholder/placeholder.png"
                             alt="Immagine temporanea placeholder"
-                            class="shadow text-center"
+                            class="text-center shadow"
                         />
                     </div>
                     <div
@@ -35,10 +25,14 @@
                         :key="indice"
                         class="immagine shadow"
                     >
-                        <button type="button" @click="rimuoviImmagine(indice)" class="btn-close px-1 bg-slate-100/50 ring-1 ring-primario-100 rounded">
+                        <button type="button" @click="rimuoviImmagine(indice)" class="btn-close">
                             &times;
                         </button>
-                        <img class="preview h-28 shadow lg:h-32" :src="immagine.src" alt="Catalogo immagini prodotto" />
+                        <img
+                            class="preview h-28 shadow lg:h-32"
+                            :src="immagine.src"
+                            alt="Catalogo immagini prodotto"
+                        />
                         <div class="img-name">{{ immagine.name }}</div>
                     </div>
                 </div>
@@ -163,11 +157,11 @@ onUnmounted(() => {
 
 .btn-close {
     position: absolute;
-    top: 5px;
+    top: 2px;
     right: 5px;
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     cursor: pointer;
     color: #dc3545;
 }

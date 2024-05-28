@@ -142,7 +142,7 @@ onMounted(async () => {
     } catch (error) {
         console.error('Error categorie non trovate:', error);
     } finally {
-           //gerarchiaCategorie.value = data;
+        //gerarchiaCategorie.value = data;
     }
 });
 

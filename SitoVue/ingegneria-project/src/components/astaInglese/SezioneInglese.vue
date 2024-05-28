@@ -1,5 +1,5 @@
 <script>
-'use strict'
+'use strict';
 </script>
 
 <template>

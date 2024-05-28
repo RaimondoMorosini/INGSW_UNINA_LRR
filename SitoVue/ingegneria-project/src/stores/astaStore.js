@@ -9,6 +9,7 @@ export const useAstaStore = defineStore('asta', {
             descrizione: '',
             prezzoBase: '',
             categoria: '',
+            filtri: [],
             incrementoMinimo: '',
             durataEstensione: '',
             scadenzaAsta: '',

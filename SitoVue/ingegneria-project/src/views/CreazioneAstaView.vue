@@ -1,5 +1,9 @@
 <template>
-    <Steps class="label min-w-4col py-2" :model="items" v-model:activeStep="active" />
+    <Steps
+        class="label min-w-4col py-2 text-[0.8rem] lg:text-[1rem]"
+        :model="items"
+        v-model:activeStep="active"
+    />
     <CreaProdotto @update:active="updateCurrentForm($event)" v-if="active === 0" />
     <SelezionaFiltri @update:active="updateCurrentForm($event)" v-if="active === 1" />
     <SelezioneTipoAsta @update:active="updateCurrentForm($event)" v-if="active === 2" />
@@ -71,7 +75,6 @@ const finalize = () => {
     text-align: center;
     display: block;
     margin: 25px 0 15px;
-    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: bold;
