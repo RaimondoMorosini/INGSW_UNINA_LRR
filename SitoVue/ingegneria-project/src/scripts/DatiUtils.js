@@ -7,8 +7,8 @@ function checkEsisteDato(nomeDato) {
 // Funzione per ottenere un cookie dal nome specificato
 function getDato(nomeCookie) {
     const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
+    for (let element of cookies) {
+        const cookie = element.trim();
         if (cookie.startsWith(nomeCookie + '=')) {
             const valore = cookie.split('=')[1];
             return JSON.parse(valore); // Restituisce il valore del cookie
