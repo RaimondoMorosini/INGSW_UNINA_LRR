@@ -1,28 +1,27 @@
 <script setup>
 import Dropdown from 'primevue/dropdown';
-import { defineProps, ref ,defineEmits,onMounted} from 'vue';
-
+import { defineProps, ref ,defineEmits,onMounted,onUnmounted} from 'vue';
 const props = defineProps({
     label: String,
     options: Array,
-    modelValue: String,
+    modelValue: {
+        type: [String, Number, Boolean],
+        default: '',
+    },
 });
 
 const selectedValue = ref(null);
 
-const emit = defineEmits(['update:valoreSelezionato', 'update:modelValue']);
+const emit = defineEmits([ 'update:modelValue']);
 const handleChange = (newValue) => {
     selectedValue.value = newValue.value;
-    emit('update:valoreSelezionato', newValue.value);
     emit('update:modelValue', newValue.value);
 };
 
 onMounted(() => {
-  
-  // ordina le option in ordine alfabetico props.options
-  //props.options.sort();
-
+    selectedValue.value = props.modelValue;
 });
+
 </script>
 
 <template>

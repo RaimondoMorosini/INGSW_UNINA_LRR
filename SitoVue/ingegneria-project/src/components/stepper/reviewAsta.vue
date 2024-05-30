@@ -70,6 +70,7 @@ const categoriaSelezionata = function (obj) {
     return keys;
 };
 
+
 const categoriaInviata = categoriaSelezionata(storeInstance.asta.categoria);
 
 const datiExtra = JSON.stringify({
@@ -149,12 +150,13 @@ const goToPreviousForm = () => {
 };
 
 onMounted(() => {
+    console.log('test gettere asta: ',storeInstance.getFormattedData());
     storeInstance.updateAsta({ step: 3 });
 });
 
 const gestioneInvio = () => {
     //path = asta/creaAsta
-    postRestWithtoken('asta/creaAsta', astaCompleta)
+    postRestWithtoken('asta/creaAsta',storeInstance.getFormattedData() )
         .then((response) => {
             success = true;
             console.log(response);

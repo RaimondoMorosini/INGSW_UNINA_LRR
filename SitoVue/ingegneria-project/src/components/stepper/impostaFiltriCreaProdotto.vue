@@ -25,7 +25,7 @@ arrayValoriSelezionati {{ arrayValoriSelezionati }} <br>
 </template>
 
 <script setup>
-import { defineEmits, onMounted, ref } from 'vue';
+import { defineEmits, onBeforeMount,onUnmounted, ref } from 'vue';
 import { getCaratteristiche } from '../../service/carateristicheService.js';
 import{useAstaStore} from '../../stores/astaStore.js'
 import InputField from './InputField.vue';
@@ -52,7 +52,7 @@ const categoriaSelezionata = function (obj) {
 };
 
 
-onMounted(() => {
+onBeforeMount(() => {
   const categorieSelezionata =  categoriaSelezionata(useAstaStore().asta.categoria);
   console.log('categoria selezionata:', categorieSelezionata);
   getCaratteristiche(categorieSelezionata).then((response) => {
@@ -60,8 +60,12 @@ onMounted(() => {
   }).catch((error) => {
     console.log(error);
   });
+  arrayValoriSelezionati.value=useAstaStore().asta.caratteristiche ;;
 });
 
+onUnmounted(() => {
+ useAstaStore().asta.caratteristiche = arrayValoriSelezionati.value;
+});
 </script>
 
 <style scoped>

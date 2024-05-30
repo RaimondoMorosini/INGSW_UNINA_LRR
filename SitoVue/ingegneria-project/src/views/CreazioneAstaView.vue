@@ -1,5 +1,5 @@
 <template>
-    <Steps
+    <Steps :readonly="false"
         class="label min-w-4col py-2 text-[0.8rem] lg:text-[1rem]"
         :model="items"
         v-model:activeStep="active"

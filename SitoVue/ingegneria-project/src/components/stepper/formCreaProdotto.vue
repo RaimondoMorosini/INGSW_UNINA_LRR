@@ -46,7 +46,6 @@
                     />
                 </InputGroup>
             </div>
-
             <div class="flex h-[100%] w-[100%] justify-center px-2 lg:justify-start">
                 <ImageUploader />
             </div>
@@ -59,24 +58,17 @@
 </template>
 
 <script setup>
-'use strict';
+
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 import TreeSelect from 'primevue/treeselect';
 import ImageUploader from './ImageUploader.vue';
 import { onMounted, ref, defineEmits } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
-import { getCategorieRest } from '../../scripts/categorie.js';
+import{ getCategorie} from '../../service/categoriaService.js';
 
 const nodes = ref([]);
 
-const getCategorie = async () => {
-    try {
-        nodes.value = await getCategorieRest(); // Assuming the response contains an array
-    } catch (error) {
-        console.error('Error categorie non trovate:', error);
-    }
-};
 
 const storeInstance = useAstaStore();
 const emit = defineEmits(['update:active']);
@@ -100,8 +92,9 @@ onMounted(() => {
     storeInstance.updateAsta({
         step: 0,
     });
-
-    getCategorie();
+    getCategorie().then((response) => {
+        nodes.value = response;
+    });
 });
 
 const gestioneInvio = () => {
