@@ -39,5 +39,63 @@ function compareStringsByNumbers(a, b) {
     return numA.length - numB.length;
 }
 
+function getArrayOpzionePerMultiSelect(opzioni) {
 
-export { getCaratteristiche };
+    const arrayDelleOpzioniFormattato = new Array();
+
+    opzioni.forEach( (opzione) => {
+    
+        const oggettoOpzione = {
+
+            name: opzione
+        };
+
+        arrayDelleOpzioniFormattato.push(oggettoOpzione)
+});
+
+       return arrayDelleOpzioniFormattato; 
+}
+
+function getArrayOpzionePerChiamataAxsios(opzioni){
+
+    const arrayDelleOpzioniFormattato = new Array();
+
+    opzioni.forEach( (opzione) => {
+
+        arrayDelleOpzioniFormattato.push(opzione.name);
+    });
+
+    return arrayDelleOpzioniFormattato;
+}
+
+function getCaratteristicheSelezionateDTO(caratteristicheSelezionateDTO, idCaratteristica, valoriSelezionati) {
+
+    if (valoriSelezionati.length === 0) {
+        const index = caratteristicheSelezionateDTO.findIndex(
+            (obj) => obj.idCaratteristica === idCaratteristica
+        );
+
+        caratteristicheSelezionateDTO.splice(index, 1);
+    } else {
+        const caratteristica = {
+            idCaratteristica: idCaratteristica,
+
+            valoriSelezionati: valoriSelezionati,
+        };
+
+        const index = caratteristicheSelezionateDTO.findIndex(
+            (obj) => obj.idCaratteristica === idCaratteristica
+        );
+
+        if (index >= 0) {
+            caratteristicheSelezionateDTO[index] = caratteristica;
+        } else {
+            caratteristicheSelezionateDTO.push(caratteristica);
+        }
+    }
+
+    return caratteristicheSelezionateDTO;
+}
+
+
+export { getCaratteristiche, getArrayOpzionePerMultiSelect, getArrayOpzionePerChiamataAxsios, getCaratteristicheSelezionateDTO };
