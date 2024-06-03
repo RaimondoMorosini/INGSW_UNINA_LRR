@@ -1,11 +1,10 @@
 import { defineStore } from 'pinia';
-
+import { getImageInFormdata} from '../service/astaService.js';
 
 // Funzione per convertire Base64 in Blob
 function srcToFile(base64, nomeFile) {
     // Verifica e rimuovi il prefisso data:image
     let base64String = base64;
-    console.log('base64:', base64);
     if (base64.startsWith('data:image/jpeg;base64,')) {
         base64String = base64.replace(/^data:image\/jpeg;base64,/, '');
     } else if (base64.startsWith('data:image/png;base64,')) {
@@ -41,6 +40,7 @@ export const useAstaStore = defineStore('asta', {
             incrementoMinimo: '',
             durataEstensione: '',
             scadenzaAsta: '',
+            dataInizio: '',
             immaginiSalvate: [],
             caratteristiche: {},
 
@@ -56,16 +56,15 @@ export const useAstaStore = defineStore('asta', {
         updateAsta(newData) {
             this.asta = { ...this.asta, ...newData };
         },
-        getFormattedData() {
+         async getFormattedData() {
+            const formData = await getImageInFormdata();
             const categoriaSalvata = Object.keys(this.asta.categoria)[0];
-            const formData = new FormData();
             const file = this.asta.immaginiSalvate;
             file.forEach((f) => {
             formData.append('file', srcToFile(f.src, f.name));
                 });
-            
-                console.log('astastore getformatted formData:', formData.getAll('file'));
 
+                
             return {
                 datiProdotto: {
                     nomeProdotto: this.asta.nomeProdotto,
@@ -77,7 +76,7 @@ export const useAstaStore = defineStore('asta', {
                 datiAsta: {
                     baseAsta: parseFloat(this.asta.prezzoBase),
                     dataScadenza: Date.parse(this.asta.scadenzaAsta),
-                    dataInizio: Date.parse(this.asta.dataInizio),
+                    dataInizio: 0,
                     tipoAsta: this.asta.tipoAsta,
                     datiExtraJson: JSON.stringify({
                         tempoEstensione: parseFloat(this.asta.durataEstensione),

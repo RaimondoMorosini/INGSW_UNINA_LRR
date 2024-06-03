@@ -54,5 +54,12 @@ public class CalendarioUtil {
     public static boolean isOltreTempoAttuale(long tempo) {
         return tempo > ottieniTempoAttuale();
     }
+
+    public static String convertIntoString(long data) {
+        //converti in stringa la data in giorno mese anno ora minuti e secondi e fuso orario
+        LocalDateTime dataOra = LocalDateTime.ofInstant(Instant.ofEpochMilli(data), ZoneOffset.UTC);
+
+        return dataOra.toString();
+    }
 }
 

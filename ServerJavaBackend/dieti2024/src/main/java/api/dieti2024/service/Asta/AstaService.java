@@ -43,7 +43,12 @@ public class AstaService {
         long dataInizio = inputAstaDTO.dataInizio();
         long dataScadenza = inputAstaDTO.dataScadenza();
         long dataAttuale = CalendarioUtil.ottieniTempoAttuale();
-        if (!(dataInizio>=dataAttuale && dataInizio<dataScadenza)) throw new ApiException("Tempo asta non valido", HttpStatus.BAD_REQUEST);
+        if (dataInizio<=dataAttuale) dataInizio=dataAttuale+1;
+        String testoDataAttuale= CalendarioUtil.convertIntoString(dataAttuale);
+        String testoDataInizio= CalendarioUtil.convertIntoString(dataInizio);
+        String testoDataScadenza= CalendarioUtil.convertIntoString(dataScadenza);
+        String testoErrore= "Data attuale: "+testoDataAttuale+" Data inizio: "+testoDataInizio+" Data scadenza: "+testoDataScadenza;
+        if (!(dataInizio>=dataAttuale && dataInizio<dataScadenza)) throw new ApiException("Tempo asta non valido \n"+testoErrore, HttpStatus.BAD_REQUEST);
 
 
     }

@@ -70,7 +70,7 @@ function eseguiChiamataAxios() {
         alert("Seleziona un'immagine prima di caricare");
         return;
     }
-    uploadImages(store.asta.immaginiSalvate)
+    uploadImages()
         .then((response) => {
             console.log(response);
         })

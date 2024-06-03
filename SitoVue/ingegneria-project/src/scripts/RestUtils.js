@@ -60,7 +60,7 @@ async function postRestWithtoken(path, data) {
             ' headers: ',
             headers
         );
-        const response = await axios.post(`${path}`, JSON.stringify(data), headers);
+        const response = await axios.post(`${path}`, data, headers);
         console.log(' response.data:', response.data);
         delete axios.defaults.headers.common['Authorization'];
 

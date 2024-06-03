@@ -100,7 +100,6 @@ onMounted(() => {
 
 const gestioneInvio = () => {
     //path = asta/creaAsta
-    const datiAstablablablabla= storeInstance.getFormattedData();
     creaAsta()
         .then((response) => {
             console.log('response: ', response);
