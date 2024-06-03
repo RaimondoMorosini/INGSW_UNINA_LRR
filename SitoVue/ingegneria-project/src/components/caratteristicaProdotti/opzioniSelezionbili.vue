@@ -1,46 +1,32 @@
-<template class="contenitore-caratteristiche">
-    <div class="nome-caratteristica">
-        <h1>{{ props.propNomeCaratteristica }}</h1>
-        <img
-            v-if="!statoFinestra"
-            @click="triggerFinestra"
-            src="../../assets/Icon/frecciaGiu.svg"
-            class="cursor-pointer"
-            alt="freccia-giu"
-        />
-        <img
-            v-else
-            @click="triggerFinestra"
-            src="../../assets/Icon/freccia-su.svg"
-            class="cursor-pointer"
-            alt="freccia-su"
-        />
-    </div>
+<template>
 
+    <div class="contenitore-caratteristiche">
+        <div class="nome-caratteristica">
+            <h1>{{ props.propNomeCaratteristica }}</h1>
+        </div>
+
+        <MultiSelect @change="OnChangeOpzioniSelezionate" v-model="selectedOpzioni" :options="opzioni" filter optionLabel="name"
+            placeholder="Opzioni" :maxSelectedLabels="3" class="w-full md:w-20rem" />
+        <!--
     <div class="gruppo-opzioni" v-if="statoFinestra">
-        <div class="flex-column flex gap-3">
-            <div
-                v-for="opzione of props.propOpzioni"
-                :key="opzione"
-                class="align-items-center flex"
-            >
-                <Checkbox
-                    @change="OnChangeOpzioniSelezionate"
-                    v-model="selectedOpzioni"
-                    :inputId="opzione"
-                    name="opzione"
-                    :value="opzione"
-                />
+        <div class="flex-column flex gap-3 w-auto h-60 overflow-y-auto overflow-x-hidden scroll-personalizzato">
+            <div v-for="opzione of props.propOpzioni" :key="opzione" class="align-items-center flex">
+                <Checkbox @change="OnChangeOpzioniSelezionate" v-model="selectedOpzioni":inputId="opzione" name="opzione":value="opzione"/>
                 <label :for="opzione">{{ opzione }}</label>
             </div>
         </div>
     </div>
+-->
+
+    </div>
+
 </template>
 
 <script setup>
 import { ref, defineEmits } from 'vue';
+import MultiSelect from 'primevue/multiselect';
+import { getArrayOpzionePerMultiSelect } from '../../service/carateristicheService'
 
-import Checkbox from 'primevue/checkbox';
 import 'primeflex/primeflex.css';
 import 'primevue/resources/themes/aura-light-green/theme.css';
 import 'primeicons/primeicons.css';
@@ -48,12 +34,7 @@ import 'primeicons/primeicons.css';
 const props = defineProps(['propOpzioni', 'propNomeCaratteristica']);
 const emit = defineEmits(['recuperoValoriSelezionati']);
 
-let statoFinestra = ref(true);
-
-const triggerFinestra = () => {
-    statoFinestra.value = !statoFinestra.value;
-};
-
+const opzioni = getArrayOpzionePerMultiSelect(props.propOpzioni);
 const selectedOpzioni = ref([]);
 
 const OnChangeOpzioniSelezionate = () => {
@@ -62,6 +43,7 @@ const OnChangeOpzioniSelezionate = () => {
 </script>
 
 <style scoped>
+
 .contenitore-caratteristiche {
     width: 100%;
     display: flex;

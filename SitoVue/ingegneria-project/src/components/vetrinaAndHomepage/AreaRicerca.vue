@@ -87,9 +87,11 @@
 <script setup>
 import InputText from 'primevue/inputtext';
 import TreeSelect from 'primevue/treeselect';
-
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
+import MultiSelect from 'primevue/multiselect';
+import 'primeflex/primeflex.css';
+import 'primeicons/primeicons.css';
 
 import { onMounted, ref } from 'vue';
 
@@ -101,13 +103,7 @@ import AstePerRicerca from './AstePerRicerca.vue';
 
 import axios from 'axios';
 
-import MultiSelect from 'primevue/multiselect';
-import 'primeflex/primeflex.css';
-import 'primevue/resources/themes/aura-light-green/theme.css';
-import 'primeicons/primeicons.css';
-
 import { useVetrinaStore } from '../../stores/vetrinaStore.js';
-
 const vetrinaInstance = useVetrinaStore();
 
 //Lista dei tipi di aste
@@ -145,6 +141,8 @@ onMounted(async () => {
         //gerarchiaCategorie.value = data;
     }
 });
+
+
 
 const setCategoriaSelezionata = () => {
     try {

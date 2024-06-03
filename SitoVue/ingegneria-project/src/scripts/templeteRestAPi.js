@@ -15,8 +15,8 @@ async function getDatoFromAPI() {
 // Funzione per controllare se il dato è presente nei cookie
 function checkCookie(nomeDato) {
     const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
+    for (const element of cookies) {
+        const cookie = element.trim();
         if (cookie.startsWith(nomeDato + '=')) {
             // Il dato è presente nei cookie
             return true;

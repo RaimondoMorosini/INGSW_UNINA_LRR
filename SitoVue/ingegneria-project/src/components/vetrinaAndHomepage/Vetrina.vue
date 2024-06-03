@@ -1,16 +1,26 @@
 <template>
-    <div class="contenitore-carosello">
-        <h1 class="font-bold text-4xl">Titolo carosello</h1>
-        <CaroselloProdotti />
+
+    <div v-for="carosello in caroselli" class="contenitore-carosello">
+        <h1 class="font-bold text-4xl">{{carosello.titoloCarosello}}</h1>
+        <CaroselloProdotti :propProdotti="carosello.prodotti"/>
     </div>
 
-    <div class="contenitore-carosello">
-        <h1>Titolo carosello</h1>
-    </div>
 </template>
 
 <script setup>
+import {ref, onMounted} from 'vue'
 import CaroselloProdotti from '../vetrinaAndHomepage/CaroselloProdotti.vue';
+import {fetchCaroselli} from '../../scripts/prodottiVetrina'
+
+const caroselli = ref([]);
+
+onMounted( async () => {
+    
+    caroselli.value = await fetchCaroselli();
+});
+
+
+
 </script>
 
 <style scoped>
