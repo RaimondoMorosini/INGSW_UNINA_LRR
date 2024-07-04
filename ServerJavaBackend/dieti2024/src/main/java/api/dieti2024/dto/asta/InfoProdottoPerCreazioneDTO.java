@@ -2,6 +2,7 @@ package api.dieti2024.dto.asta;
 
 import api.dieti2024.model.Prodotto;
 import api.dieti2024.model.ValoreSpecificoPerProdotto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +10,14 @@ import java.util.List;
 public record InfoProdottoPerCreazioneDTO(
         String nomeProdotto,
         String descrizioneProdotto,
-        List<String> immagini,
+        List<MultipartFile> immagini,
         String categoriaProdotto,
         List<CoppiaCaratteristicaValoreDTO> caratteristicheProdotto) {
     public Prodotto toProdotto() {
         Prodotto prodotto = new Prodotto();
         prodotto.setNome(nomeProdotto);
         prodotto.setDescrizione(descrizioneProdotto);
-        prodotto.setImmagini(immagini);
+        prodotto.setImmagini(immagini.stream().map(MultipartFile::getOriginalFilename).toList());
         prodotto.setCategoria(categoriaProdotto);
         return prodotto;
     }

@@ -8,6 +8,8 @@ import api.dieti2024.service.Asta.AstaFacadeService;
 import api.dieti2024.service.Asta.AstaService;
 import api.dieti2024.service.Asta.ProdottoService;
 import api.dieti2024.util.ImageContainerUtil;
+import api.dieti2024.util.JsonUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -75,8 +77,10 @@ public class ProdottoAstaController {
             return "Errore: Nessun file selezionato";
         }
         imageContainerUtil.uploadImage(file,file.getOriginalFilename());
-        return "Immagine caricata con successo!";
-    }@PostMapping("public/asta/uploadImages")
+
+        return "Immagine caricata con successo! ";
+
+    }@PostMapping(value = "public/asta/uploadImages" )
     public String uploadImage(@RequestParam("file") List<MultipartFile> files) {
         if (files.isEmpty()) {
             return "Errore: Nessun file selezionato";

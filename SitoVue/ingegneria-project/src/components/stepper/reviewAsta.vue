@@ -51,11 +51,13 @@
         >
             Finalizza
         </button>
+        success: {{ success }}
+        
     </div>
 </template>
 
 <script setup>
-import { postRestWithtoken } from '../../scripts/RestUtils.js';
+import { creaAsta} from '../../service/astaService.js';
 import { useAstaStore } from '../../stores/astaStore.js';
 import { onMounted } from 'vue';
 
@@ -86,64 +88,6 @@ const emit = defineEmits(['update:active']);
 let success = false;
 let error = '';
 
-function generaDTO() {
-    if (storeInstance.asta.tipoAsta === 'asta_inglese') {
-        return {
-            datiProdotto: {
-                nomeProdotto: storeInstance.asta.nomeProdotto,
-                descrizioneProdotto: storeInstance.asta.descrizione,
-                immagini: storeInstance.asta.immaginiSalvate,
-                categoriaProdotto: categoriaInviata,
-                caratteristicheProdotto: [
-                    {
-                        idCaratteristica: 0,
-                        valore: 'android',
-                    },
-                    {
-                        idCaratteristica: 2,
-                        valore: '64GB',
-                    },
-                ],
-            },
-            datiAsta: {
-                baseAsta: storeInstance.asta.prezzoBase,
-                dataScadenza: storeInstance.asta.scadenzaAsta.valueOf() / 1000,
-                dataInizio: timestamp,
-                tipoAsta: storeInstance.asta.tipoAsta,
-                datiExtraJson: datiExtra,
-            },
-        };
-    } else {
-        return {
-            datiProdotto: {
-                nomeProdotto: storeInstance.asta.nomeProdotto,
-                descrizioneProdotto: storeInstance.asta.descrizione,
-                immagini: ['TODO togliere quando funziona'],
-                categoriaProdotto: categoriaInviata,
-                caratteristicheProdotto: [
-                    {
-                        idCaratteristica: 0,
-                        valore: 'android',
-                    },
-                    {
-                        idCaratteristica: 2,
-                        valore: '64GB',
-                    },
-                ],
-            },
-            datiAsta: {
-                baseAsta: storeInstance.asta.prezzoBase,
-                dataScadenza: storeInstance.asta.scadenzaAsta.valueOf() / 1000,
-                dataInizio: timestamp,
-                tipoAsta: storeInstance.asta.tipoAsta,
-                datiExtraJson: '',
-            },
-        };
-    }
-}
-
-const astaCompleta = generaDTO();
-
 const goToPreviousForm = () => {
     // Emit event to notify parent component to move to   the previous form section
     emit('update:active', 2);
@@ -156,15 +100,16 @@ onMounted(() => {
 
 const gestioneInvio = () => {
     //path = asta/creaAsta
-    postRestWithtoken('asta/creaAsta',storeInstance.getFormattedData() )
+    creaAsta()
         .then((response) => {
+            console.log('response: ', response);
             success = true;
-            console.log(response);
         })
         .catch((error) => {
-            console.log(error);
-            success = false;
+            console.log('error: ', error);
+            error = error;
         });
+    
 };
 </script>
 
