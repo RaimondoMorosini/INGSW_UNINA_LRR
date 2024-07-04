@@ -21,3 +21,6 @@ azure.containerName = upload
 
 logging.level.org.hibernate.SQL=INFO
 logging.level.org.hibernate.type.descriptor.sql=INFO
+
+comando
+mvn clean verify sonar:sonar -Dsonar.login=sqp_d6254392c36fdf40e90558f0eb8237b71df4b14f
