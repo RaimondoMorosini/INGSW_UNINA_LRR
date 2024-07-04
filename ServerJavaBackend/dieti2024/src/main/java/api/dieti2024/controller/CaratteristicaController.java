@@ -2,7 +2,6 @@ package api.dieti2024.controller;
 
 import api.dieti2024.model.Caratteristica;
 import api.dieti2024.service.Asta.CaratteristicaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,8 +11,11 @@ import java.util.List;
 @RequestMapping("/public")
 public class CaratteristicaController {
 
-    @Autowired
-    private CaratteristicaService caratteristicaService;
+    private final CaratteristicaService caratteristicaService;
+
+    public CaratteristicaController(CaratteristicaService caratteristicaService) {
+        this.caratteristicaService = caratteristicaService;
+    }
 
     @GetMapping("/getCaratteristicheDaCategoria")
     public List<Caratteristica> getCaratteristicheDaCategoria(@RequestParam("categoria") String categoria) {

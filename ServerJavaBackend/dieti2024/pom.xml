@@ -17,8 +17,9 @@
         <java.version>17</java.version>
         <spring-cloud-azure.version>5.11.0</spring-cloud-azure.version>
         <sonar.projectKey>DietiDeals24-server</sonar.projectKey>
-        <sonar.login>1a67c2ffb56706e829bfa9f3d0126a804219d825</sonar.login>
+        <sonar.token>sqp_1a67c2ffb56706e829bfa9f3d0126a804219d825</sonar.token>
         <sonar.host>http://localhost:9000</sonar.host>
+        
     </properties>
 
 
@@ -102,21 +103,8 @@
     </dependencies>
 
     <build>
-        <pluginManagement>
+        <defaultGoal>install</defaultGoal>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
@@ -131,9 +119,24 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            
+
             
         </plugins>
-        </pluginManagement>
+        
     </build>
 
 

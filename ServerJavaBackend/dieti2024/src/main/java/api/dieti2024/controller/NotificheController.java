@@ -7,6 +7,8 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
+import java.util.Objects;
+
 @Controller
 public class NotificheController {
 
@@ -18,7 +20,7 @@ public class NotificheController {
 
     public NotificaDTO addUtente(@Payload NotificaDTO notificaDTO, SimpMessageHeaderAccessor headerAccessor) {
         // aggiungo l'utente alla sessione tramite l'email per poterlo identificare
-        headerAccessor.getSessionAttributes().put("email", notificaDTO.email());
+        Objects.requireNonNull(headerAccessor.getSessionAttributes()).put("email", notificaDTO.email());
         return notificaDTO;
     }
 }

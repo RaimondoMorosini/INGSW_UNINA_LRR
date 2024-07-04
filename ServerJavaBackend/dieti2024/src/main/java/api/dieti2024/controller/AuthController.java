@@ -3,8 +3,6 @@ package api.dieti2024.controller;
 import api.dieti2024.dto.auth.CredenzialiUtenteDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.security.AuthService;
-import api.dieti2024.util.ControllerRestUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
     @PostMapping("/testhello")
     public String testHello() {
@@ -32,7 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String GenTokenBylogin(@RequestBody CredenzialiUtenteDTO credenzialiInserite) {
+    public String genTokenByLogin(@RequestBody CredenzialiUtenteDTO credenzialiInserite) {
         return (authService.login(credenzialiInserite));
     }
 

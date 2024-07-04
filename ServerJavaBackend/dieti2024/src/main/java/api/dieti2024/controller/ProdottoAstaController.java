@@ -8,7 +8,6 @@ import api.dieti2024.service.Asta.AstaFacadeService;
 import api.dieti2024.service.Asta.AstaService;
 import api.dieti2024.service.Asta.ProdottoService;
 import api.dieti2024.util.ImageContainerUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +20,21 @@ import java.util.List;
 @RequestMapping
 public class ProdottoAstaController {
 
-    @Autowired
+    final
     ProdottoService prodottoService;
-    @Autowired
+    final
     AstaService astaService;
-
-    @Autowired
+    final
     AstaFacadeService astaFacadeService;
-    @Autowired
+    final
     ImageContainerUtil imageContainerUtil;
+
+    public ProdottoAstaController(ProdottoService prodottoService, AstaService astaService, AstaFacadeService astaFacadeService, ImageContainerUtil imageContainerUtil) {
+        this.prodottoService = prodottoService;
+        this.astaService = astaService;
+        this.astaFacadeService = astaFacadeService;
+        this.imageContainerUtil = imageContainerUtil;
+    }
 
     @PostMapping("public/asta/getAllAsteDeprecato")
     public ResponseEntity< List<InfoDatiAstaDTO>> getAllAste(@RequestBody FiltroDto filtroDto){
@@ -76,15 +81,15 @@ public class ProdottoAstaController {
         if (files.isEmpty()) {
             return "Errore: Nessun file selezionato";
         }
-        String message="";
+        StringBuilder message= new StringBuilder();
         for(MultipartFile file:files){
             if (!file.isEmpty()){
             imageContainerUtil.uploadImage(file,file.getOriginalFilename());
-                message+="Immagine caricata con successo!\n";
+                message.append("Immagine caricata con successo!\n");
             }
-            else message+="Errore: file non trovato\n";
+            else message.append("Errore: file non trovato\n");
         }
-        return message;
+        return message.toString();
     }
 
 }

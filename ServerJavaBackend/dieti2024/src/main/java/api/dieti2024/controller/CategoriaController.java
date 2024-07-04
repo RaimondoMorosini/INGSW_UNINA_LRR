@@ -3,7 +3,6 @@ package api.dieti2024.controller;
 import api.dieti2024.dto.CategoriaDTO;
 import api.dieti2024.service.CategoriaService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +15,12 @@ import java.util.List;
 @RequestMapping("/public")
 public class CategoriaController {
 
-    @Autowired
+    final
     CategoriaService categoriaServizio;
+
+    public CategoriaController(CategoriaService categoriaServizio) {
+        this.categoriaServizio = categoriaServizio;
+    }
 
     @GetMapping("/getGerarchiaCategorie")
     public List<CategoriaDTO> getGerarchiaCategorie() {
