@@ -1,4 +1,4 @@
-package api.dieti2024.websocketTest;
+package api.dieti2024.websockettest;
 
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;

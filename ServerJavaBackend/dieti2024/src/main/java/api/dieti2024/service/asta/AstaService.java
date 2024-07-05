@@ -1,4 +1,4 @@
-package api.dieti2024.service.Asta;
+package api.dieti2024.service.asta;
 
 import api.dieti2024.dto.asta.InputAstaDTO;
 import api.dieti2024.dto.asta.ricerca.FiltroDto;
@@ -76,7 +76,7 @@ public class AstaService {
     }
 
     public Asta getAstaById(int i) {
-        return astaRepository.findById(i).orElseThrow(() -> new ApiException("Asta non trovata", HttpStatus.NOT_FOUND));
+        return astaRepository.findById(i).orElseThrow(() -> new ApiException("asta non trovata", HttpStatus.NOT_FOUND));
     }
 
     public DatiAstaInglese getDatiAstaIngleseById(int id) {

@@ -1,4 +1,4 @@
-package api.dieti2024.testFiltri;
+package api.dieti2024.testfiltri;
 
 
 import api.dieti2024.dto.asta.ricerca.FiltroDto;

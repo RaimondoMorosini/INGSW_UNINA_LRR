@@ -1,4 +1,4 @@
-package api.dieti2024.service.Asta;
+package api.dieti2024.service.asta;
 
 import api.dieti2024.dto.asta.InfoProdottoPerCreazioneDTO;
 import api.dieti2024.exceptions.ApiException;

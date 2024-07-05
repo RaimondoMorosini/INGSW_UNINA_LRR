@@ -1,7 +1,7 @@
 package api.dieti2024.controller;
 
 import api.dieti2024.model.Caratteristica;
-import api.dieti2024.service.Asta.CaratteristicaService;
+import api.dieti2024.service.asta.CaratteristicaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

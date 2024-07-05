@@ -1,4 +1,4 @@
-package api.dieti2024.service.Asta;
+package api.dieti2024.service.asta;
 
 import api.dieti2024.dto.asta.CreaAstaDTO;
 import api.dieti2024.dto.asta.InputAstaDTO;
@@ -57,8 +57,8 @@ public class AstaFacadeService {
         List<String> pathImmaginiSalvate = new ArrayList<>();
         int countImmaginiSalvateConSuccesso=0;
         for (MultipartFile multipartFile : immagini) {
-            path = path + "/" + countImmaginiSalvateConSuccesso;
-            if (uploadImage(multipartFile, path)) {
+
+            if (uploadImage(multipartFile, path + "/" + countImmaginiSalvateConSuccesso)) {
                 countImmaginiSalvateConSuccesso++;
                 pathImmaginiSalvate.add(path);
             }

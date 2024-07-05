@@ -9,7 +9,7 @@ import api.dieti2024.model.Offerta;
 import api.dieti2024.repository.AstaRepository;
 import api.dieti2024.repository.OffertaRepository;
 import api.dieti2024.repository.PermessoRepository;
-import api.dieti2024.service.Asta.AstaService;
+import api.dieti2024.service.asta.AstaService;
 import api.dieti2024.util.CalendarioUtil;
 import api.dieti2024.util.ControllerRestUtil;
 import api.dieti2024.util.TipoAsta;
@@ -56,7 +56,7 @@ AstaRepository astaRepository;
             throw new ApiException("L'utente non ha il permesso di fare un offerta su "+tipoAsta, HttpStatus.FORBIDDEN);
 
         if(CalendarioUtil.isTempoScaduto(tempoOfferta,asta.getDataScadenza()))
-            throw new ApiException("Asta scaduta", HttpStatus.BAD_REQUEST);
+            throw new ApiException("asta scaduta", HttpStatus.BAD_REQUEST);
 
         if(offertaDto.prezzoProposto() <=0)
             throw new ApiException("Prezzo offerta inferiore alla base asta", HttpStatus.BAD_REQUEST);
@@ -91,13 +91,13 @@ AstaRepository astaRepository;
         Offerta offerta = offertaRepository.findById(offertaDto.idOfferta()).orElseThrow(()->new ApiException("Offerta non trovata", HttpStatus.NOT_FOUND));
         if(offertaDto.idAsta()!=offerta.getAstaId())
             throw new ApiException("Offerta non è assocciata all'asta che hai dato", HttpStatus.BAD_REQUEST);
-        Asta asta = astaRepository.findById(offerta.getAstaId()).orElseThrow(()->new ApiException("Asta non trovata", HttpStatus.NOT_FOUND));
+        Asta asta = astaRepository.findById(offerta.getAstaId()).orElseThrow(()->new ApiException("asta non trovata", HttpStatus.NOT_FOUND));
         if(!asta.getEmailUtenteCreatore().equals(ControllerRestUtil.getEmailOfUtenteCorrente()))
             throw new ApiException("Non sei il creatore dell'asta", HttpStatus.FORBIDDEN);
         if(!asta.getTipoAsta().equals(TipoAsta.SILENZIOSA))
             throw new ApiException("Puoi confermare il vincitore sole delle aste silenziose", HttpStatus.FORBIDDEN);
         if(!CalendarioUtil.isOltreTempoAttuale(asta.getDataScadenza()))
-            throw new ApiException("Asta scaduta", HttpStatus.BAD_REQUEST);
+            throw new ApiException("asta scaduta", HttpStatus.BAD_REQUEST);
         offerta.setOffertaVincente(true);
         return offertaRepository.save(offerta);
     }

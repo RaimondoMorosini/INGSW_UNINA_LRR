@@ -2,7 +2,7 @@ package api.dieti2024.repository;
 
 import api.dieti2024.dto.asta.ricerca.FiltroDto;
 import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
-import api.dieti2024.testFiltri.CaratteristicheTest;
+import api.dieti2024.testfiltri.CaratteristicheTest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
