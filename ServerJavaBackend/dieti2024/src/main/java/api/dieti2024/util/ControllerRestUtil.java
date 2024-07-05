@@ -26,8 +26,7 @@ public class ControllerRestUtil {
      * @return lista di permessi dell'utente
      */
     public static List<String> getPermessiOfUtenteCorrente() {
-        List<String> permessi= (List<String>) SecurityContextHolder.getContext().getAuthentication().getCredentials();
-        return permessi;
+        return (List<String>) SecurityContextHolder.getContext().getAuthentication().getCredentials();
     }
 
     public static  boolean hasPermeessoDiFareUnOfferta(String tipoAsta){
