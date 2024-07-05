@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/utente")
 public class UtenteController {
 
-    private final ControllerRestUtil controllerUtil = new ControllerRestUtil();
     private final api.dieti2024.service.utenteService utenteService;
 
     public UtenteController(api.dieti2024.service.utenteService utenteService) {
