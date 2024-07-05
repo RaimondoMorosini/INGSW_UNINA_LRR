@@ -140,7 +140,7 @@ public class ProdottoRepositoryImpl {
     }
 
     private String getClausolaWherePerValoriSpecifici( List<FiltroCaratteristicheDTO> filtroCaratteristicheDTOS, List<Object> params) {
-        if (filtroCaratteristicheDTOS==null && filtroCaratteristicheDTOS.isEmpty()) {
+        if (filtroCaratteristicheDTOS==null || filtroCaratteristicheDTOS.isEmpty()) {
             return "";
         }
         String where = " p.id IN ( ";
