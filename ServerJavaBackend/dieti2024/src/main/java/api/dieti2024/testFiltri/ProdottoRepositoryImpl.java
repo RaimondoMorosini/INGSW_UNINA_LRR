@@ -191,7 +191,6 @@ public class ProdottoRepositoryImpl {
         String query = getQueryBasePerRicercaConFiltri(filtroDto, params,true);
         // Creazione array di oggetti contenenti ID e valori
         Object[] paramsArray =params.toArray();
-        //return jdbcTemplate.queryForObject(query, paramsArray, Integer.class);
         Integer result = jdbcTemplate.queryForObject(query, paramsArray, Integer.class);
         return (result != null) ? result : 0;
     }
