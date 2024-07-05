@@ -2,6 +2,10 @@ package api.dieti2024.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonUtil {
+    // Costruttore privato per impedire l'istanziazione
+    private JsonUtil() {
+        throw new IllegalStateException("Utility class");
+    }
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public static String toJson(Object object) {
