@@ -23,7 +23,7 @@ public class UtenteController {
     }
 
     @PutMapping("/datiProfilo")
-    public ResponseEntity updateDatiProfilo(@RequestBody ProfiloUtentePublicoDTO profiloUtentePublicoDTO) {
+    public ResponseEntity<String> updateDatiProfilo(@RequestBody ProfiloUtentePublicoDTO profiloUtentePublicoDTO) {
 
         String email = ControllerRestUtil.getEmailOfUtenteCorrente();
 
