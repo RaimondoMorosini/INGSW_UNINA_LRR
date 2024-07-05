@@ -3,7 +3,6 @@ package api.dieti2024.service;
 import api.dieti2024.dto.CategoriaDTO;
 import api.dieti2024.model.Categoria;
 import api.dieti2024.repository.CategoriaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,10 +11,13 @@ import java.util.List;
 @Service
 public class CategoriaService {
 
-    @Autowired
-    private CategoriaRepository categoriaRepository;
+    private final CategoriaRepository categoriaRepository;
 
-public List<CategoriaDTO> costruisciGerarchiaCategorie(){
+    public CategoriaService(CategoriaRepository categoriaRepository) {
+        this.categoriaRepository = categoriaRepository;
+    }
+
+    public List<CategoriaDTO> costruisciGerarchiaCategorie(){
 
         List<CategoriaDTO> gerarchiaDaRestituire = new ArrayList<>();
 
@@ -73,21 +75,15 @@ public List<CategoriaDTO> costruisciGerarchiaCategorie(){
         return listaCategorieRadice;
     }
 
-    private boolean haDeiFigliV2(String categoriaDaVerificare, List<Categoria>tutteLeCategorie){
-
-        for(Categoria categoria : tutteLeCategorie){
-
-            if(categoria.getPadre() != null){
-
-                if(categoria.getPadre().equals(categoriaDaVerificare)){
-
-                    return true;
-                }
+    private boolean haDeiFigliV2(String categoriaDaVerificare, List<Categoria> tutteLeCategorie) {
+        for (Categoria categoria : tutteLeCategorie) {
+            if (categoria.getPadre() != null && categoria.getPadre().equals(categoriaDaVerificare)) {
+                return true;
             }
         }
-
         return false;
     }
+
 
     private List<String> getFigli(String categoriaPadre, List<Categoria> tutteLeCategorie){
 
