@@ -6,6 +6,12 @@ import java.time.ZoneOffset;
 
 
 public class CalendarioUtil {
+
+    // Costruttore privato per impedire l'istanziazione
+    private CalendarioUtil() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
      * Verifica se un tempo specifico si trova all'interno di un intervallo di tempo.
      * @param inizioIntervallo il tempo di inizio dell'intervallo
