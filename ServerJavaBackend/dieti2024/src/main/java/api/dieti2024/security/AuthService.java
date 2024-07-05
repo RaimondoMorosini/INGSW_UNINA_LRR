@@ -19,19 +19,7 @@ public class AuthService {
     private JWTUtils jwtUtils;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    public  void saveTest() {
-        Utente utente = new Utente();
-        utente.setEmail("prova");
-        utente.setPassword("prova");
-        utente.setMetodoDiRegistrazione("prova");
-        try {
-            utenteRepo.save(utente);
-        }catch (Exception e){
-            throw new ApiException("Errore nel salvataggio", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
+    
 
 
     public String registrazione(CredenzialiUtenteDTO credenzialiUtenteDTO) {
