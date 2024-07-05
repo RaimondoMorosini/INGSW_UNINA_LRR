@@ -5,14 +5,25 @@ import java.util.List;
 import java.util.Map;
 
 public class TipoPermesso {
-
+    // Costruttore privato per impedire l'istanziazione
+    private TipoPermesso() {
+        throw new IllegalStateException("Utility class");
+    }
         public static class Crea {
+            // Costruttore privato per impedire l'istanziazione
+            private Crea() {
+                throw new IllegalStateException("Utility class");
+            }
             public static final String ASTAINGLESE = "crea_asta_inglese";
             public static final String APPALTO = "crea_asta_inversa";
             public static final String  SILENZIOSA = "crea_asta_silenziosa";
         }
 
         public static class FaiOfferta {
+            // Costruttore privato per impedire l'istanziazione
+            private FaiOfferta() {
+                throw new IllegalStateException("Utility class");
+            }
             public static final String ASTAINGLESE = "fai_offerta_asta_inglese";
             public static final String APPALTO = "fai_offerta_asta_inversa";
             public static final String SILENZIOSA = "fai_offerta_asta_silenziosa";
