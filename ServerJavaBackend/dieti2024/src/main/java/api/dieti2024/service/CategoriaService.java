@@ -15,70 +15,7 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-
-    /* ---------------------------Versione vecchia da cancellare----------------------------------------------------------
-    public List<CategoriaDTO> costruisciGerarchiaCategorieDeprecato(){
-
-        List<CategoriaDTO> listaCategorieDaRestituire = new ArrayList<>();
-
-        List<String> categorieRadici =  categoriaRepository.getCategorieRadice();
-
-        List<String> figli;
-
-
-            Per ogni categoria radice estraiamo la lista dei suoi figli
-
-
-        for(String categoriaRadice : categorieRadici){
-
-            CategoriaDTO categoriaRadiceDTO = new CategoriaDTO(categoriaRadice);
-
-            if( haDeifigli(categoriaRadiceDTO) ){
-
-                figli = categoriaRepository.getCategorieFiglie(categoriaRadice);
-
-
-                for(String figlio : figli){
-
-                    CategoriaDTO figlioDTO = new CategoriaDTO(figlio);
-
-                    costruisciGerarchiaRicorsivamente(figlioDTO);
-
-                    categoriaRadiceDTO.getChildren().add(figlioDTO);
-                }
-            }
-
-            listaCategorieDaRestituire.add(categoriaRadiceDTO);
-        }
-
-        return listaCategorieDaRestituire;
-    }
-
-    private void costruisciGerarchiaRicorsivamente(CategoriaDTO categoriaParametro){
-
-        if(haDeifigli(categoriaParametro)){
-
-            List<String> figli = categoriaRepository.getCategorieFiglie(categoriaParametro.getLabel());
-
-            for (String figlio : figli){
-
-                CategoriaDTO figlioDTO = new CategoriaDTO(figlio);
-
-                costruisciGerarchiaRicorsivamente(figlioDTO);
-
-                categoriaParametro.getChildren().add(figlioDTO);
-            }
-        }
-    }
-
-    private boolean haDeifigli(CategoriaDTO categoriaParametro) {
-        return categoriaRepository.getNumeroFigli(categoriaParametro.getLabel()) > 0;
-    }
-
-    */
-
-    /////////////////////////////////////////////////v2////////////////////////////////////////////////////////////////////////////
-    public List<CategoriaDTO> costruisciGerarchiaCategorie(){
+public List<CategoriaDTO> costruisciGerarchiaCategorie(){
 
         List<CategoriaDTO> gerarchiaDaRestituire = new ArrayList<>();
 
