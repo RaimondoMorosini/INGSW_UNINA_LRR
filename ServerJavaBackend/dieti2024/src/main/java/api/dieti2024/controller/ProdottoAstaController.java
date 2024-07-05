@@ -3,17 +3,14 @@ package api.dieti2024.controller;
 import api.dieti2024.dto.asta.CreaAstaDTO;
 import api.dieti2024.dto.asta.ricerca.FiltroDto;
 import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
-import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.service.Asta.AstaFacadeService;
 import api.dieti2024.service.Asta.AstaService;
 import api.dieti2024.service.Asta.ProdottoService;
 import api.dieti2024.util.ImageContainerUtil;
-import api.dieti2024.util.JsonUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 

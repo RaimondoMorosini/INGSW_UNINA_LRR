@@ -1,17 +1,23 @@
 package api.dieti2024.testFiltri;
 
 import api.dieti2024.dto.asta.ricerca.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
+@SuppressWarnings("deprecation")
 @Repository
 public class ProdottoRepositoryImpl {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public ProdottoRepositoryImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public List< InfoDatiAstaDTO> getProdottiAstaConFiltroCompleto(FiltroDto filtroDto) {
         //init array without element to avoid null pointer exception
@@ -44,8 +50,7 @@ public class ProdottoRepositoryImpl {
         }
 
     private String getQueryPerRicercaConFiltri(FiltroDto filtroDto, List<Object> params) {
-        String query = getQueryBasePerRicercaConFiltri(filtroDto, params,false);
-        return query;
+        return getQueryBasePerRicercaConFiltri(filtroDto, params,false);
     }
 
     private String getQueryBasePerRicercaConFiltri(FiltroDto filtroDto, List<Object> params,Boolean isCount) {
@@ -88,7 +93,7 @@ public class ProdottoRepositoryImpl {
         addPriceFilters(filtroDto, params, stringBuilder);
         addCaratteristicheFilter(filtroDto, params, stringBuilder);
 
-        if (!isEmpty(filtroDto.categoria()) && !filtroDto.categoria().equals("tutte")) {
+        if (isNotEmpty(filtroDto.categoria()) && !filtroDto.categoria().equals("tutte")) {
             addCategoryFilter(filtroDto, params, stringBuilder);
         }
 
@@ -96,7 +101,7 @@ public class ProdottoRepositoryImpl {
             addTipoAstaFilter(filtroDto, params, stringBuilder);
         }
 
-        if (!isEmpty(filtroDto.nomeProdotto())) {
+        if (isNotEmpty(filtroDto.nomeProdotto())) {
             addNomeProdottoFilter(filtroDto, params, stringBuilder);
         }
 
@@ -141,11 +146,11 @@ public class ProdottoRepositoryImpl {
         if (lastIndex != -1) {
             sb.delete(lastIndex, sb.length());
         }
-        return sb.isEmpty() ? "" : " WHERE " + sb.toString();
+        return sb.isEmpty() ? "" : " WHERE " + sb;
     }
 
-    private boolean isEmpty(String s) {
-        return s == null || s.isEmpty();
+    private boolean isNotEmpty(String s) {
+        return s != null && !s.isEmpty();
     }
 
 
@@ -154,24 +159,24 @@ public class ProdottoRepositoryImpl {
         if (filtroCaratteristicheDTOS==null || filtroCaratteristicheDTOS.isEmpty()) {
             return "";
         }
-        String where = " p.id IN ( ";
+        StringBuilder where = new StringBuilder(" p.id IN ( ");
         //foreach filtroCaratteristicheDTOS
         int count = 0;
         for(FiltroCaratteristicheDTO caratteristica : filtroCaratteristicheDTOS){
             count++;
-            where += " select id_prodotto from valore_specifico_di_un_prodotto v2 where  id_caratteristica = ? and valore in ( ";
+            where.append(" select id_prodotto from valore_specifico_di_un_prodotto v2 where  id_caratteristica = ? and valore in ( ");
             // ?, ?, ? ... FOR EACH ELEMENT IN caratteristiche.get(i)
-            where += createQuestionMarks(caratteristica.valoriSelezionati());
-            where += " )     ";
+            where.append(createQuestionMarks(caratteristica.valoriSelezionati()));
+            where.append(" )     ");
             params.add(caratteristica.idCaratteristica());
             params.addAll(caratteristica.valoriSelezionati());
             if (count < filtroCaratteristicheDTOS.size()) {
-                where += " INTERSECT  ";
+                where.append(" INTERSECT  ");
             }
 
         }
-        where += ") AND  ";
-        return where;
+        where.append(") AND  ");
+        return where.toString();
     }
 
     public String createQuestionMarks(List<String> list) {
@@ -187,7 +192,7 @@ public class ProdottoRepositoryImpl {
         // Creazione array di oggetti contenenti ID e valori
         Object[] paramsArray =params.toArray();
         //return jdbcTemplate.queryForObject(query, paramsArray, Integer.class);
-        return jdbcTemplate.queryForObject(query, paramsArray, Integer.class);
-
+        Integer result = jdbcTemplate.queryForObject(query, paramsArray, Integer.class);
+        return (result != null) ? result : 0;
     }
 }
