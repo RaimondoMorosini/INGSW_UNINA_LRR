@@ -57,19 +57,11 @@ public class ProdottoAstaController {
     }
 
     @PostMapping("/asta/creaasta")
-    public ResponseEntity addProdottoAsta(@RequestBody CreaAstaDTO datiPerCreazioneDtoInput){
-        try {
+    public ResponseEntity<String> addProdottoAsta(@RequestBody CreaAstaDTO datiPerCreazioneDtoInput) {
             astaFacadeService.creaAsta(datiPerCreazioneDtoInput);
-            return ResponseEntity.ok().build();
-        }catch(ApiException e){
-            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
-        }
-        catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore interno al server");
-        }
-
-
+            return ResponseEntity.ok().build(); // Restituisce 200 OK senza corpo
     }
+
 
     @PostMapping("public/asta/uploadImage")
     public String uploadImage(@RequestParam("file") MultipartFile file) {
