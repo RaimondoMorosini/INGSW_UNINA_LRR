@@ -3,7 +3,6 @@ package api.dieti2024.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 
 @Data

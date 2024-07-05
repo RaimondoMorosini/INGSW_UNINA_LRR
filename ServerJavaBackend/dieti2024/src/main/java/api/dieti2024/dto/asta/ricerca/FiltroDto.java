@@ -1,7 +1,5 @@
 package api.dieti2024.dto.asta.ricerca;
 
-import api.dieti2024.model.Caratteristica;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
