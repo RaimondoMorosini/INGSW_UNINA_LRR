@@ -6,6 +6,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.List;
 
 public class ControllerRestUtil {
+    // Costruttore privato per impedire l'istanziazione
+    private ControllerRestUtil() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * Metodo per ottenere l'email dell'utente tramite il SecurityContext
