@@ -5,7 +5,6 @@ import api.dieti2024.dto.auth.DatiUtentePerTokenDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Utente;
 import api.dieti2024.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,14 +12,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService {
 
-    @Autowired
-    private UserRepository utenteRepo;
-    @Autowired
-    private JWTUtils jwtUtils;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository utenteRepo;
+    private final JWTUtils jwtUtils;
+    private final PasswordEncoder passwordEncoder;
 
     private static final String METODO_REGISTRAZIONE_DIETI = "dieti";
+
+    public AuthService(UserRepository utenteRepo, JWTUtils jwtUtils, PasswordEncoder passwordEncoder) {
+        this.utenteRepo = utenteRepo;
+        this.jwtUtils = jwtUtils;
+        this.passwordEncoder = passwordEncoder;
+    }
 
 
     public String registrazione(CredenzialiUtenteDTO credenzialiUtenteDTO) {

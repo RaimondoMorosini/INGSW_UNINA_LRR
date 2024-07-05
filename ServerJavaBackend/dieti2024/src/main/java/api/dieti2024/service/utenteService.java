@@ -1,11 +1,10 @@
 package api.dieti2024.service;
 
-import api.dieti2024.dto.utente.ProfiloUtentePublicoDTO;
 import api.dieti2024.dto.auth.UserDetailsDto;
+import api.dieti2024.dto.utente.ProfiloUtentePublicoDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Utente;
 import api.dieti2024.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class utenteService {
 
-    @Autowired
-    private UserRepository utenteRepository;
+    private final UserRepository utenteRepository;
+
+    public utenteService(UserRepository utenteRepository) {
+        this.utenteRepository = utenteRepository;
+    }
 
     public UserDetailsDto getUserDetails(String email) {
 
@@ -29,14 +31,12 @@ public class utenteService {
      * @throws ApiException se l'utente non è presente
      */
     private Utente getUtenteByEmail(String email) {
-        Utente utente = utenteRepository.findById(email).orElseThrow(() -> new ApiException("Utente non trovato", HttpStatus.NOT_FOUND));
-        return utente;
+        return utenteRepository.findById(email).orElseThrow(() -> new ApiException("Utente non trovato", HttpStatus.NOT_FOUND));
     }
 
     public ProfiloUtentePublicoDTO getDatiProfilo(String email){
         Utente utente = getUtenteByEmail(email);
-        ProfiloUtentePublicoDTO profiloUtentePublicoDTO = ProfiloUtentePublicoDTO.fromUserModel(utente);
-        return profiloUtentePublicoDTO;
+        return ProfiloUtentePublicoDTO.fromUserModel(utente);
     }
     public void updateDatiProfilo(String email,  ProfiloUtentePublicoDTO profiloUtentePublicoDTO){
         try {

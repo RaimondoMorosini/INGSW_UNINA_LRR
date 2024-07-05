@@ -5,14 +5,17 @@ import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.DatiAstaInglese;
 import api.dieti2024.repository.DatiAstaIngleseRepository;
 import api.dieti2024.util.JsonUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DatiAstaIngleseService {
-    @Autowired
+    final
     DatiAstaIngleseRepository datiAstaIngleseRepository;
+
+    public DatiAstaIngleseService(DatiAstaIngleseRepository datiAstaIngleseRepository) {
+        this.datiAstaIngleseRepository = datiAstaIngleseRepository;
+    }
 
     public void salvaDatiAstaInglese(InputAstaDTO inputAstaDTO,int idAsta) {
         DatiAstaInglese datiAstaInglese = getDatiAstaInglese(inputAstaDTO, idAsta);

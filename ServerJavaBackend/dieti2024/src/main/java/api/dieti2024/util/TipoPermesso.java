@@ -5,14 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 public class TipoPermesso {
+    private static final String UTILITY_CLASS_MESSAGE = "Non è possibile creare un'istanza di una classe Utility";
+
     // Costruttore privato per impedire l'istanziazione
     private TipoPermesso() {
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException(UTILITY_CLASS_MESSAGE);
     }
         public static class Crea {
             // Costruttore privato per impedire l'istanziazione
             private Crea() {
-                throw new IllegalStateException("Utility class");
+                throw new IllegalStateException(UTILITY_CLASS_MESSAGE);
             }
             public static final String ASTAINGLESE = "crea_asta_inglese";
             public static final String APPALTO = "crea_asta_inversa";
@@ -22,7 +24,7 @@ public class TipoPermesso {
         public static class FaiOfferta {
             // Costruttore privato per impedire l'istanziazione
             private FaiOfferta() {
-                throw new IllegalStateException("Utility class");
+                throw new IllegalStateException(UTILITY_CLASS_MESSAGE);
             }
             public static final String ASTAINGLESE = "fai_offerta_asta_inglese";
             public static final String APPALTO = "fai_offerta_asta_inversa";

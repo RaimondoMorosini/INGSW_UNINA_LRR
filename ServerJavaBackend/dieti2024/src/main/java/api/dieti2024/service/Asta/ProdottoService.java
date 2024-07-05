@@ -5,7 +5,6 @@ import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Prodotto;
 import api.dieti2024.model.ValoreSpecificoPerProdotto;
 import api.dieti2024.repository.ProdottoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +13,14 @@ import java.util.List;
 @Service
 public class ProdottoService {
 
-    @Autowired
-    private ProdottoRepository prodottoRepository;
-    @Autowired
-    private ValoreSpecificoService valoreSpecificoService;
+    private final ProdottoRepository prodottoRepository;
+    private final ValoreSpecificoService valoreSpecificoService;
+
+    public ProdottoService(ProdottoRepository prodottoRepository, ValoreSpecificoService valoreSpecificoService) {
+        this.prodottoRepository = prodottoRepository;
+        this.valoreSpecificoService = valoreSpecificoService;
+    }
+
     public List<Prodotto> getAllPrdotti(){
 
         return prodottoRepository.findAll();

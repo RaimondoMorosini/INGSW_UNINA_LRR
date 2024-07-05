@@ -1,13 +1,13 @@
 package api.dieti2024.exceptions;
 
 
-import java.util.Date;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+
+import java.util.Date;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
@@ -19,7 +19,7 @@ public class ControllerExceptionHandler {
                 new Date(),
                 e.getMessage(),
                 request.getDescription(false));
-        return new ResponseEntity<MessaggioDiErrore>(message, e.getStatus());
+        return new ResponseEntity<>(message, e.getStatus());
     }
 
     @ExceptionHandler(Exception.class)
@@ -30,6 +30,6 @@ public class ControllerExceptionHandler {
                 e.getMessage(),
                 request.getDescription(false));
 
-        return new ResponseEntity<MessaggioDiErrore>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

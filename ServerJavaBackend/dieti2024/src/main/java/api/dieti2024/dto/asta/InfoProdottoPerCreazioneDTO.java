@@ -23,7 +23,7 @@ public record InfoProdottoPerCreazioneDTO(
     }
 
     public List<ValoreSpecificoPerProdotto> toListValoreSpecificoPerProdotto(int idProdotto) {
-        ArrayList<ValoreSpecificoPerProdotto> lista = new ArrayList<ValoreSpecificoPerProdotto>();
+        ArrayList<ValoreSpecificoPerProdotto> lista = new ArrayList<>();
         for (CoppiaCaratteristicaValoreDTO coppia : caratteristicheProdotto) {
             ValoreSpecificoPerProdotto valore = new ValoreSpecificoPerProdotto();
             valore.setIdProdotto(idProdotto);

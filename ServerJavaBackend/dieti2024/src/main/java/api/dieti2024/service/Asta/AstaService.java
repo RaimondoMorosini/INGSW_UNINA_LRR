@@ -1,16 +1,15 @@
 package api.dieti2024.service.Asta;
 
+import api.dieti2024.dto.asta.InputAstaDTO;
 import api.dieti2024.dto.asta.ricerca.FiltroDto;
 import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
-import api.dieti2024.model.DatiAstaInglese;
-import api.dieti2024.repository.*;
-import api.dieti2024.util.TipoPermesso;
-import api.dieti2024.dto.asta.InputAstaDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Asta;
+import api.dieti2024.model.DatiAstaInglese;
+import api.dieti2024.repository.*;
 import api.dieti2024.util.CalendarioUtil;
 import api.dieti2024.util.ControllerRestUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import api.dieti2024.util.TipoPermesso;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -19,20 +18,21 @@ import java.util.List;
 @Service
 public class AstaService {
 
-    @Autowired
-    private AstaRepository astaRepository;
+    private final AstaRepository astaRepository;
 
-    @Autowired
-    private PermessoRepository permessoRepository;
+    private final PermessoRepository permessoRepository;
 
-    @Autowired
-    private ProdottoRepository prodottoRepository;
+    private final AstaProdottoRepository astaProdottoRepository;
 
-    @Autowired
-    private AstaProdottoRepository astaProdottoRepository;
+    private final DatiAstaIngleseRepository datiAstaIngleseRepository;
 
-    @Autowired
-    private DatiAstaIngleseRepository datiAstaIngleseRepository;
+    public AstaService(AstaRepository astaRepository, PermessoRepository permessoRepository, AstaProdottoRepository astaProdottoRepository, DatiAstaIngleseRepository datiAstaIngleseRepository) {
+        this.astaRepository = astaRepository;
+        this.permessoRepository = permessoRepository;
+        this.astaProdottoRepository = astaProdottoRepository;
+        this.datiAstaIngleseRepository = datiAstaIngleseRepository;
+    }
+
     public void checkDatiInputi(InputAstaDTO inputAstaDTO) {
 
         if (inputAstaDTO == null) throw new ApiException("Dati asta mancanti", HttpStatus.BAD_REQUEST);
@@ -66,9 +66,8 @@ public class AstaService {
     }
 
     public List<InfoDatiAstaDTO> getAllAstaProdotto(FiltroDto filtroDto){
-        List<InfoDatiAstaDTO> lista= astaProdottoRepository.findByCustomWhere(filtroDto, filtroDto.elementiPerPagina(), (filtroDto.pagina() - 1) * filtroDto.elementiPerPagina());
 
-        return lista;
+        return astaProdottoRepository.findByCustomWhere(filtroDto, filtroDto.elementiPerPagina(), (filtroDto.pagina() - 1) * filtroDto.elementiPerPagina());
     }
 
     public int getNumeroTotaleDiAstePerRicerca(FiltroDto filtroDto){
