@@ -80,6 +80,8 @@ AstaRepository astaRepository;
                 if (offertaDto.prezzoProposto()<=baseAsta || offertaDto.prezzoProposto()<=asta.getPrezzoAttuale())
                     throw new ApiException("Prezzo offerta superiore al prezzo attuale ",HttpStatus.BAD_REQUEST);
                 break;
+            default:
+                throw new ApiException("Tipo asta non valido", HttpStatus.BAD_REQUEST);
         }
 
 
