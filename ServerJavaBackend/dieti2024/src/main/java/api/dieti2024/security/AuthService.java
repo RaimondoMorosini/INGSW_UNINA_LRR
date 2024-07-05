@@ -114,14 +114,6 @@ public class AuthService {
         }
     }
 
-    /**
-     * Codifica la password
-     * @param passowordDaCodificare password da codificare
-     * @return password codificata
-     */
-    private String codificaPassword(String passowordDaCodificare) {
-        return  passwordEncoder.encode(passowordDaCodificare);
-    }
 
 
 }
