@@ -85,23 +85,18 @@ public class CategoriaService {
     }
 
 
-    private List<String> getFigli(String categoriaPadre, List<Categoria> tutteLeCategorie){
-
+    private List<String> getFigli(String categoriaPadre, List<Categoria> tutteLeCategorie) {
         ArrayList<String> figli = new ArrayList<>();
 
-        for(Categoria categoria : tutteLeCategorie){
-
-            if(categoria.getPadre() != null){
-
-                if(categoria.getPadre().equals(categoriaPadre)){
-
-                    figli.add(categoria.getNome());
-                }
+        for (Categoria categoria : tutteLeCategorie) {
+            if (categoria.getPadre() != null && categoria.getPadre().equals(categoriaPadre)) { // Condizioni combinate
+                figli.add(categoria.getNome());
             }
         }
 
         return figli;
     }
+
 
     private void costruisciGerarchiaRicorsivamenteV2(CategoriaDTO categoriaDtoParametro, List<Categoria> tutteLeCategorie){
 
