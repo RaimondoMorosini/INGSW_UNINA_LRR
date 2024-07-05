@@ -19,36 +19,36 @@ public class AuthService {
     private JWTUtils jwtUtils;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
+    private static final String METODO_REGISTRAZIONE_DIETI = "dieti";
 
 
     public String registrazione(CredenzialiUtenteDTO credenzialiUtenteDTO) {
-        try{
-        //verifica se l'utente è già presente nel database
-        if (utenteRepo.existsById(credenzialiUtenteDTO.email()) && credenzialiUtenteDTO.metodoDiRegistrazione().equals("dieti") ) {
-            throw new ApiException("Utente già presente", HttpStatus.CONFLICT);
-        }
+        try {
+            if (utenteRepo.existsById(credenzialiUtenteDTO.email()) &&
+                    credenzialiUtenteDTO.metodoDiRegistrazione().equals(METODO_REGISTRAZIONE_DIETI)) {
+                throw new ApiException("Utente già presente", HttpStatus.CONFLICT);
+            }
 
-        Utente utenteModel = new Utente();
-        utenteModel.setEmail(credenzialiUtenteDTO.email());
-        if(credenzialiUtenteDTO.metodoDiRegistrazione().equals("dieti")){
-            utenteModel.setMetodoDiRegistrazione("dieti");
-            utenteModel.setPassword(passwordEncoder.encode(credenzialiUtenteDTO.password()));
-        }
-        else{
-            utenteModel.setMetodoDiRegistrazione("auth0");
-        }
+            Utente utenteModel = new Utente();
+            utenteModel.setEmail(credenzialiUtenteDTO.email());
+            if (credenzialiUtenteDTO.metodoDiRegistrazione().equals(METODO_REGISTRAZIONE_DIETI)) {
+                utenteModel.setMetodoDiRegistrazione(METODO_REGISTRAZIONE_DIETI);
+                utenteModel.setPassword(passwordEncoder.encode(credenzialiUtenteDTO.password()));
+            } else {
+                utenteModel.setMetodoDiRegistrazione("auth0");
+            }
 
-        utenteRepo.save(utenteModel);
+            utenteRepo.save(utenteModel);
 
-        return jwtUtils.generateToken(DatiUtentePerTokenDTO.fromUserModel(utenteModel));
-        }catch (ApiException e){
+            return jwtUtils.generateToken(DatiUtentePerTokenDTO.fromUserModel(utenteModel));
+        } catch (ApiException e) {
             throw e;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new ApiException("Errore nella registrazione", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
+
     /**
      *
      * @param credenzialiUtenteDTO credenziali dell'utente
@@ -82,7 +82,7 @@ public class AuthService {
         String email = credenzialiUtenteDTO.email();
         Utente utenteRecuperatoTramiteEmail= utenteRepo.findById(email).orElseThrow();
 
-        if(credenzialiUtenteDTO.metodoDiRegistrazione().equals("dieti")){
+        if(credenzialiUtenteDTO.metodoDiRegistrazione().equals(METODO_REGISTRAZIONE_DIETI)){
             matchPassword(
                     credenzialiUtenteDTO.password(),
                     utenteRecuperatoTramiteEmail.getPassword()
