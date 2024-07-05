@@ -2,6 +2,7 @@ package api.dieti2024.controller;
 
 import api.dieti2024.dto.utente.ProfiloUtentePublicoDTO;
 import api.dieti2024.exceptions.ApiException;
+import api.dieti2024.service.UtenteService;
 import api.dieti2024.util.ControllerRestUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/utente")
 public class UtenteController {
 
-    private final api.dieti2024.service.utenteService utenteService;
+    private final UtenteService utenteService;
 
-    public UtenteController(api.dieti2024.service.utenteService utenteService) {
+    public UtenteController(UtenteService utenteService) {
         this.utenteService = utenteService;
     }
 

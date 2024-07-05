@@ -63,7 +63,7 @@ public class AuthService {
             if (!utenteRepo.existsById(credenzialiUtenteDTO.email()) && credenzialiUtenteDTO.metodoDiRegistrazione().equals("auth0") ) {
                return registrazione(credenzialiUtenteDTO);
             }
-            Utente utenteRecuperatoTramiteEmail = VerificaUtente(credenzialiUtenteDTO);
+            Utente utenteRecuperatoTramiteEmail = verificaUtente(credenzialiUtenteDTO);
 
             DatiUtentePerTokenDTO datiUtentePerTokenDTO = DatiUtentePerTokenDTO.fromUserModel(utenteRecuperatoTramiteEmail);
             return jwtUtils.generateToken(datiUtentePerTokenDTO);
@@ -80,7 +80,7 @@ public class AuthService {
      * @return restituisce l'utente in caso di successo
      * @throws ApiException se le credenziali non sono corrette
      */
-    private Utente VerificaUtente(CredenzialiUtenteDTO credenzialiUtenteDTO) {
+    private Utente verificaUtente(CredenzialiUtenteDTO credenzialiUtenteDTO) {
         String email = credenzialiUtenteDTO.email();
         Utente utenteRecuperatoTramiteEmail= utenteRepo.findById(email).orElseThrow();
 

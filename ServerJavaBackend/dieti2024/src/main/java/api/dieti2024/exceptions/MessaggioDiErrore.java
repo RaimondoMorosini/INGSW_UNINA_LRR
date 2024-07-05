@@ -8,7 +8,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 public class MessaggioDiErrore {
-    private int CodiceDiErrore;
+    private int codiceDiErrore;
     private Date timestamp;
     private String messaggio;
     private String descrizione;

@@ -2,6 +2,7 @@ package api.dieti2024.configuration;
 
 import api.dieti2024.dto.auth.UserDetailsDto;
 import api.dieti2024.security.JWTUtils;
+import api.dieti2024.service.UtenteService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,9 +22,9 @@ import java.util.List;
 @Component
 public class JWTAuthFIlter extends OncePerRequestFilter {
     private final JWTUtils jwtUtils;
-    private final api.dieti2024.service.utenteService utenteService;
+    private final UtenteService utenteService;
 
-    public JWTAuthFIlter(JWTUtils jwtUtils, api.dieti2024.service.utenteService utenteService) {
+    public JWTAuthFIlter(JWTUtils jwtUtils, UtenteService utenteService) {
         this.jwtUtils = jwtUtils;
         this.utenteService = utenteService;
     }

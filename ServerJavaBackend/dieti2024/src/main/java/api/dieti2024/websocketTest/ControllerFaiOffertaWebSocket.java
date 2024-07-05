@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 @RequestMapping
-public class controllerFaiOffertaWebSocket {
+public class ControllerFaiOffertaWebSocket {
 
     final
     SimpMessagingTemplate simpleMessagingTemplate;
 
-    public controllerFaiOffertaWebSocket(SimpMessagingTemplate simpleMessagingTemplate) {
+    public ControllerFaiOffertaWebSocket(SimpMessagingTemplate simpleMessagingTemplate) {
         this.simpleMessagingTemplate = simpleMessagingTemplate;
     }
 

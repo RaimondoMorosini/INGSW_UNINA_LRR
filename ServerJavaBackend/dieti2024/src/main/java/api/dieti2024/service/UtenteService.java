@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class utenteService {
+public class UtenteService {
 
     private final UserRepository utenteRepository;
 
-    public utenteService(UserRepository utenteRepository) {
+    public UtenteService(UserRepository utenteRepository) {
         this.utenteRepository = utenteRepository;
     }
 
