@@ -4,8 +4,10 @@ package api.dieti2024.testFiltri;
 import api.dieti2024.dto.asta.ricerca.FiltroDto;
 import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.repository.AstaProdottoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -13,8 +15,13 @@ import java.util.List;
 @CrossOrigin
 public class ControllerTest {
 
-    @Autowired
+    final
     AstaProdottoRepository astaProdottoRepository;
+
+    public ControllerTest(AstaProdottoRepository astaProdottoRepository, ProdottoRepositoryImpl prodottoRepository) {
+        this.astaProdottoRepository = astaProdottoRepository;
+        this.prodottoRepository = prodottoRepository;
+    }
 
     @PostMapping("public/testfiltro")
     public Object searchProducts(@RequestBody List<CoppiaValoriTest> caratteristiche) {
@@ -22,14 +29,12 @@ public class ControllerTest {
         return astaProdottoRepository.searchProductsWithSpecificValues(caratteristicheWrapper);
     }
 
-    @Autowired
+    final
     ProdottoRepositoryImpl prodottoRepository;
     @PostMapping("public/asta/getAllAste")
     public List< InfoDatiAstaDTO>   lanciaQuery(@RequestBody FiltroDto filtroDto){
-        String query= "Select * from prodotto where nome_prodotto LIKE '%Rai%'";
 
-        List<InfoDatiAstaDTO> obj= prodottoRepository.getProdottiAstaConFiltroCompleto( filtroDto);
-        return obj;
+        return prodottoRepository.getProdottiAstaConFiltroCompleto( filtroDto);
     }
     //public/asta/getNumeroAste
     @PostMapping("public/asta/getNumeroAste")
