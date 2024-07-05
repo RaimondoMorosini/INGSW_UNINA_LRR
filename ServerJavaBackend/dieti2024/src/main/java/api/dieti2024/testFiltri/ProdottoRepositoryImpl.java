@@ -82,62 +82,73 @@ public class ProdottoRepositoryImpl {
 
 
 
-
-    private String makeWhere( FiltroDto filtroDto,List<Object> params) {
-
-        boolean isEmpty= true;
+    private String makeWhere(FiltroDto filtroDto, List<Object> params) {
         StringBuilder stringBuilder = new StringBuilder();
 
-    if (filtroDto.prezzoMax()!=null || filtroDto.prezzoMin()!=null) {
-        isEmpty = false;
-        if (filtroDto.prezzoMin()!=null && !filtroDto.prezzoMin().isNaN()) {
-            stringBuilder.append("prezzo_attuale >= ? AND  ");
+        addPriceFilters(filtroDto, params, stringBuilder);
+        addCaratteristicheFilter(filtroDto, params, stringBuilder);
+
+        if (!isEmpty(filtroDto.categoria()) && !filtroDto.categoria().equals("tutte")) {
+            addCategoryFilter(filtroDto, params, stringBuilder);
+        }
+
+        if (filtroDto.tipoAsta()!=null && !filtroDto.tipoAsta().isEmpty()) {
+            addTipoAstaFilter(filtroDto, params, stringBuilder);
+        }
+
+        if (!isEmpty(filtroDto.nomeProdotto())) {
+            addNomeProdottoFilter(filtroDto, params, stringBuilder);
+        }
+
+        return finalizeWhereClause(stringBuilder);
+    }
+
+    private void addPriceFilters(FiltroDto filtroDto, List<Object> params, StringBuilder sb) {
+        if (filtroDto.prezzoMin() != null && !filtroDto.prezzoMin().isNaN()) {
+            sb.append("prezzo_attuale >= ? AND ");
             params.add(filtroDto.prezzoMin());
         }
-        if (filtroDto.prezzoMax()!=null && !filtroDto.prezzoMax().isNaN()) {
-            stringBuilder.append("prezzo_attuale <= ? AND  ");
+        if (filtroDto.prezzoMax() != null && !filtroDto.prezzoMax().isNaN()) {
+            sb.append("prezzo_attuale <= ? AND ");
             params.add(filtroDto.prezzoMax());
         }
     }
 
-        if (filtroDto.caratteristicheSelezionate()!=null &&!filtroDto.caratteristicheSelezionate().isEmpty()) {
-        String clausolaWherePerValoriSpecifici = getClausolaWherePerValoriSpecifici(
-                filtroDto.caratteristicheSelezionate(),
-                params);
-        stringBuilder.append(clausolaWherePerValoriSpecifici);
-        isEmpty= false;
+    private void addCaratteristicheFilter(FiltroDto filtroDto, List<Object> params, StringBuilder sb) {
+        if (filtroDto.caratteristicheSelezionate() != null && !filtroDto.caratteristicheSelezionate().isEmpty()) {
+            sb.append(getClausolaWherePerValoriSpecifici(filtroDto.caratteristicheSelezionate(), params));
+        }
     }
 
-        // Aggiungi condizioni per categoria, tipoAsta e nomeProdotto solo se non sono
-        // nulli o vuoti
-        if (filtroDto.categoria() != null && !filtroDto.categoria().isEmpty() && !filtroDto.categoria().equals("tutte")) {
-            stringBuilder.append(" categoria In (SELECT * FROM TrovaFigliCategoria(?) ) AND  ");
-            params.add(filtroDto.categoria());
-            isEmpty= false;
-        }
-        // Aggiungi condizioni per tipoAsta solo se non è vuoto
-        if (filtroDto.tipoAsta()!=null &&!filtroDto.tipoAsta().isEmpty()) {
-            String puntiIterogativi = createQuestionMarks(filtroDto.tipoAsta());
-            stringBuilder.append("tipo IN ("+puntiIterogativi+") AND  ");
-            params.addAll(filtroDto.tipoAsta());
-            isEmpty= false;
-        }
+    private void addCategoryFilter(FiltroDto filtroDto, List<Object> params, StringBuilder sb) {
+        sb.append(" categoria IN (SELECT * FROM TrovaFigliCategoria(?)) AND ");
+        params.add(filtroDto.categoria());
+    }
 
-        if (filtroDto.nomeProdotto() != null && !filtroDto.nomeProdotto().isEmpty()) {
-            stringBuilder.append("nome_prodotto ILIKE ? AND  ");
-            params.add("%"+filtroDto.nomeProdotto()+"%");
-            isEmpty= false;
-        }
+    private void addTipoAstaFilter(FiltroDto filtroDto, List<Object> params, StringBuilder sb) {
+        String puntiIterogativi = createQuestionMarks(filtroDto.tipoAsta());
+        sb.append("tipo IN (").append(puntiIterogativi).append(") AND ");
+        params.addAll(filtroDto.tipoAsta());
+    }
 
-        // Trova l'ultima occorrenza di "AND" e rimuovi l'eventuale "AND" finale
-        int lastIndex = stringBuilder.lastIndexOf("AND");
+    private void addNomeProdottoFilter(FiltroDto filtroDto, List<Object> params, StringBuilder sb) {
+        sb.append("nome_prodotto ILIKE ? AND ");
+        params.add("%" + filtroDto.nomeProdotto() + "%");
+    }
+
+    private String finalizeWhereClause(StringBuilder sb) {
+        int lastIndex = sb.lastIndexOf("AND");
         if (lastIndex != -1) {
-            stringBuilder.delete(lastIndex, stringBuilder.length());
-            isEmpty= false;
+            sb.delete(lastIndex, sb.length());
         }
-        if(isEmpty) return "";
-        return " WHERE " +stringBuilder.toString()+"   ";
+        return sb.isEmpty() ? "" : " WHERE " + sb.toString();
     }
+
+    private boolean isEmpty(String s) {
+        return s == null || s.isEmpty();
+    }
+
+
 
     private String getClausolaWherePerValoriSpecifici( List<FiltroCaratteristicheDTO> filtroCaratteristicheDTOS, List<Object> params) {
         if (filtroCaratteristicheDTOS==null || filtroCaratteristicheDTOS.isEmpty()) {
