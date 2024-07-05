@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -62,7 +63,8 @@ public class JWTUtils {
         } catch (JWTDecodeException e) {
             // In caso di errore durante la decodifica del token
             e.printStackTrace();
-            return null;
+            return Collections.emptyList(); // Restituisci lista vuota in caso di errore
+
         }
     }
 
