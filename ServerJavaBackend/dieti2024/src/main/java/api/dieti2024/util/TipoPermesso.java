@@ -18,20 +18,19 @@ public class TipoPermesso {
             public static final String SILENZIOSA = "fai_offerta_asta_silenziosa";
         }
 
-    private static final Map<String, String> mappaPermessiCreazione = new HashMap<>() {
-        {
-            put(TipoAsta.INGLESE, TipoPermesso.Crea.ASTAINGLESE);
-            put(TipoAsta.SILENZIOSA, TipoPermesso.Crea.SILENZIOSA);
-            put(TipoAsta.APPALTO, TipoPermesso.Crea.APPALTO);
-        }
-    };
-    private static final Map<String, String> mappaPermessiOfferta = new HashMap<>(){
-        {
-            put(TipoAsta.INGLESE, TipoPermesso.FaiOfferta.ASTAINGLESE);
-            put(TipoAsta.SILENZIOSA, TipoPermesso.FaiOfferta.SILENZIOSA);
-            put(TipoAsta.APPALTO, TipoPermesso.FaiOfferta.APPALTO);
-        }
-    };
+    private static final Map<String, String> mappaPermessiCreazione = new HashMap<>();
+    private static final Map<String, String> mappaPermessiOfferta = new HashMap<>();
+
+    static {
+        // Inizializzazione esplicita delle mappe nel blocco statico
+        mappaPermessiCreazione.put(TipoAsta.INGLESE, TipoPermesso.Crea.ASTAINGLESE);
+        mappaPermessiCreazione.put(TipoAsta.SILENZIOSA, TipoPermesso.Crea.SILENZIOSA);
+        mappaPermessiCreazione.put(TipoAsta.APPALTO, TipoPermesso.Crea.APPALTO);
+
+        mappaPermessiOfferta.put(TipoAsta.INGLESE, TipoPermesso.FaiOfferta.ASTAINGLESE);
+        mappaPermessiOfferta.put(TipoAsta.SILENZIOSA, TipoPermesso.FaiOfferta.SILENZIOSA);
+        mappaPermessiOfferta.put(TipoAsta.APPALTO, TipoPermesso.FaiOfferta.APPALTO);
+    }
 
 
 
