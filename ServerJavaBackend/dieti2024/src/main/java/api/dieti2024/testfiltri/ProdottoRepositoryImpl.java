@@ -53,21 +53,24 @@ public class ProdottoRepositoryImpl {
         return getQueryBasePerRicercaConFiltri(filtroDto, params,false);
     }
 
-    private String getQueryBasePerRicercaConFiltri(FiltroDto filtroDto, List<Object> params,Boolean isCount) {
+    private String getQueryBasePerRicercaConFiltri(FiltroDto filtroDto, List<Object> params, Boolean isCount) {
         String where = makeWhere(filtroDto, params);
-        if (isCount) {
-            return "SELECT COUNT(*) FROM asta_join_prodotto p " + where ;
+
+        if (Boolean.TRUE.equals(isCount)) { // Controllo esplicito per TRUE
+            return "SELECT COUNT(*) FROM asta_join_prodotto p " + where;
         }
+
         String orderBy = makeOrderBy(filtroDto.campoOrdinamento(), filtroDto.direzioneOrdinamento());
-        String query= "SELECT p.* ,string_agg(i.immagini,', ') as lista_img   FROM asta_join_prodotto p " +
+        String query = "SELECT p.*, string_agg(i.immagini,', ') as lista_img   FROM asta_join_prodotto p " +
                 " LEFT JOIN valore_specifico_di_un_prodotto v ON p.id = v.id_prodotto  LEFT JOIN prodotto_immagini i ON i.prodotto_id=p.id" +
                 where +
                 " group by p.id, id_asta, base_asta, prezzo_attuale, data_scadenza, data_inizio, tipo, utente_creatore, nome_prodotto, p.immagini, descrizione, categoria " +
-                orderBy ;
+                orderBy;
 
         query = addQueryLimiteAndOffset(filtroDto, params, query);
         return query;
     }
+
 
     private String makeOrderBy(CampoOrdinamento campoOrdinamento, DirezioneOrdinamento direzioneOrdinamento) {
         if (campoOrdinamento == null || direzioneOrdinamento == null) {
