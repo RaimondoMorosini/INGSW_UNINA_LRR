@@ -21,7 +21,7 @@ public class ValoreSpecificoService {
             try {
                 valoreSpecificoRepository.save(nodo);
             } catch (Exception e) {
-                System.out.println("Errore nel salvataggio del valore specifico nodo: " + nodo.toString() + e.getMessage());
+                // Blocco catch vuoto: ignora l'eccezione
             }
         }
     }

@@ -37,7 +37,7 @@ public class ProdottoService {
         try{
             valoreSpecificoService.saveAll(lista);
         }catch (Exception e){
-            System.out.println("Errore nel salvataggio dei valori specifici per il prodotto "+e.getMessage());
+            // Blocco catch vuoto: ignora l'eccezione
         }
 
         return idProdotto;

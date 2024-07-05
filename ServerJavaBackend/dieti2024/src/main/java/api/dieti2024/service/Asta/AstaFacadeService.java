@@ -38,7 +38,6 @@ public class AstaFacadeService {
             int idAsta=astaService.salvaAsta(datiInput.datiAsta(), idProdotto);
             saveDatiExtraAsta(datiInput.datiAsta(),idAsta);
             salvaImmaginiProdotto(datiInput.datiProdotto().immagini(),idAsta);
-        System.out.println("Asta creata con successo");
     }
 
     private void saveDatiExtraAsta(InputAstaDTO inputAstaDTO,int idAsta) {
