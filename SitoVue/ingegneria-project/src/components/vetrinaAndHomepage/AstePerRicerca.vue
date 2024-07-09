@@ -131,7 +131,7 @@ const setPrezzoMax = (prezzoMax) => {
 };
 
 const apriUnNuovoTab = (idAsta) => {
-    const url = `http://localhost:8080/Asta/${idAsta}`;
+    const url = `Asta/${idAsta}`;
     window.open(url, '_blank');
 };
 </script>
