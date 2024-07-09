@@ -25,7 +25,7 @@
 <script setup>
 import { ref, defineEmits } from 'vue';
 import MultiSelect from 'primevue/multiselect';
-import { getArrayOpzionePerMultiSelect } from '../../service/carateristicheService'
+import { getArrayOpzionePerMultiSelect } from '../../../service/carateristicheService'
 
 import 'primeflex/primeflex.css';
 import 'primevue/resources/themes/aura-light-green/theme.css';

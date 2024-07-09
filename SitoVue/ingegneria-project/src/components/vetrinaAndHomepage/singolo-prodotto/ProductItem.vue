@@ -29,8 +29,8 @@
 <script setup>
 import { defineProps } from 'vue';
 import Button from 'primevue/button';
-import ProductDetails from '../vetrinaAndHomepage/ProductDetails.vue';
-import ProductImage from '../vetrinaAndHomepage/ProductImage.vue';
+import ProductDetails from './ProductDetails.vue';
+import ProductImage from './ProductImage.vue';
 
 const props = defineProps({
   item: Object,

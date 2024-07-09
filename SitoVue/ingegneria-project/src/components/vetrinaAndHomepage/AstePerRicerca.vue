@@ -1,7 +1,7 @@
 <template>
     <div class="card p-fluid flex flex-wrap gap-3">
       <div class="sezione-superiore w-full">
-        <BarraRicercaPerOrdine 
+        <barraDeiFIltriPrincipale 
           @ordineSelezionato="setCampiOrdinamento"
           @prezzoMinSelezionato="setPrezzoMin"
           @prezzoMaxSelezionato="setPrezzoMax" 
@@ -46,8 +46,6 @@
   
 <script setup>
 import DataView from 'primevue/dataview';
-import Tag from 'primevue/tag';
-import Button from 'primevue/button';
 import Paginator from 'primevue/paginator';
 import 'primeflex/primeflex.css';
 import 'primevue/resources/themes/aura-light-green/theme.css';
@@ -55,9 +53,9 @@ import 'primeicons/primeicons.css';
 
 import { ref, watch, defineEmits } from 'vue';
 import CaricamentoAste from './CaricamentoAste.vue';
-import CaratteristicheProdotto from '../caratteristicaProdotti/CaratteristicheProdotto.vue';
-import BarraRicercaPerOrdine from '../vetrinaAndHomepage/barraRicercaPerOrdine.vue';
-import ProductItem from '../vetrinaAndHomepage/ProductItem.vue';
+import CaratteristicheProdotto from './caratteristicaProdotti/CaratteristicheProdotto.vue';
+import barraDeiFIltriPrincipale from './barraDeiFIltriPrincipale.vue';
+import ProductItem from './singolo-prodotto/ProductItem.vue';
 const emit = defineEmits([
     'caratteristicheSelezionate',
     'numeroDiPaginaSelezionato',

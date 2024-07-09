@@ -17,9 +17,9 @@
 
 <script setup>
 import { ref, onMounted, defineEmits } from 'vue';
-import { getCaratteristiche, getArrayOpzionePerChiamataAxsios, getCaratteristicheSelezionateDTO } from '../../service/carateristicheService.js';
+import { getCaratteristiche, getArrayOpzionePerChiamataAxsios, getCaratteristicheSelezionateDTO } from '../../../service/carateristicheService.js';
 
-import opzioniSelezionabili from '../caratteristicaProdotti/opzioniSelezionbili.vue';
+import opzioniSelezionabili from './opzioniSelezionbili.vue';
 
 const props = defineProps(['propCategoria']);
 const emit = defineEmits(['caratteristicheSelezionate']);
