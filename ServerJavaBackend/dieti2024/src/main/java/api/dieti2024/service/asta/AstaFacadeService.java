@@ -37,12 +37,13 @@ public class AstaFacadeService {
     }
 
     @Transactional
-    public void creaAsta(CreaAstaDTO datiInput) {
+    public int creaAsta(CreaAstaDTO datiInput) {
             checkDatiInputValidi(datiInput);
             int idProdotto = prodottoService.salvaProdotto(datiInput.datiProdotto());
             int idAsta=astaService.salvaAsta(datiInput.datiAsta(), idProdotto);
             saveDatiExtraAsta(datiInput.datiAsta(),idAsta);
             salvaImmaginiProdotto(datiInput.datiProdotto().immagini(),idAsta);
+            return idAsta;
     }
 
     private void saveDatiExtraAsta(InputAstaDTO inputAstaDTO,int idAsta) {

@@ -28,13 +28,14 @@ function srcToFile(base64, nomeFile) {
 
 
 export async function creaAsta() {
-    const datiAsta =useAstaStore().getFormattedData();
-        const formData = await getImageInFormdata();
-        console.log('formData:', formData.getAll('file'));
-        (await datiAsta).datiProdotto.immagini = formData;
+    const datiAsta =await useAstaStore().getFormattedData();
+    console.log('datiAsta:\n', datiAsta);
+    datiAsta.datiProdotto.immagini=[];
     try {
-        const response2= await postRest('public/asta/uploadImages',(await datiAsta).datiProdotto.immagini);
         const response = await postRestWithtoken('asta/creaasta', datiAsta);
+        console.log('log ora recupero idasta e salvo le img:', response);
+        const idAsta = response.idAsta;
+        const formData = await getImageInFormdata();
         return response;
     } catch (error) {
         console.error("Errore durante la creazione dell'asta:", error);

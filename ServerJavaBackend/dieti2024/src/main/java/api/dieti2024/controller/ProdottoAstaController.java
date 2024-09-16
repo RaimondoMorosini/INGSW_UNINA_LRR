@@ -55,8 +55,10 @@ public class ProdottoAstaController {
 
     @PostMapping("/asta/creaasta")
     public ResponseEntity<String> addProdottoAsta(@RequestBody CreaAstaDTO datiPerCreazioneDtoInput) {
-            astaFacadeService.creaAsta(datiPerCreazioneDtoInput);
-            return ResponseEntity.ok().build(); // Restituisce 200 OK senza corpo
+            int idAsta= astaFacadeService.creaAsta(datiPerCreazioneDtoInput);
+            String json="{\"message\":\"Asta creata con successo\",\"idAsta\":"+idAsta+"}";
+            return ResponseEntity.ok(json);
+
     }
 
 

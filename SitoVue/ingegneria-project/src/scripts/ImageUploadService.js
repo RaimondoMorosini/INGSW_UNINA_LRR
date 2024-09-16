@@ -3,8 +3,10 @@ import { getImageInFormdata} from '../service/astaService.js';
 
 export async function uploadImages() {
     try {
-
+        idTest= 90;
         const formData = await getImageInFormdata();
+        formData.append('id', idTest);
+
         const response = postRest('public/asta/uploadImages',formData);
         return response;
     } catch (error) {
