@@ -56,7 +56,7 @@ export async function getImageInFormdata(){
         // Convertire la stringa Base64 in un File
         const file1= srcToFile(f.src, f.name);
 
-        formData.append('file', file1);
+        formData.append('files', file1, f.name);
  
     });
     return formData;

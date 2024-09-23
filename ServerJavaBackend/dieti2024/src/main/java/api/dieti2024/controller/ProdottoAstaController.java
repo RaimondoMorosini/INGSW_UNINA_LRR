@@ -1,5 +1,6 @@
 package api.dieti2024.controller;
 
+import api.dieti2024.dto.MultipartfileDTO;
 import api.dieti2024.dto.asta.CreaAstaDTO;
 import api.dieti2024.dto.asta.ricerca.FiltroDto;
 import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
@@ -73,7 +74,9 @@ public class ProdottoAstaController {
 
 
     }@PostMapping(value = "public/asta/uploadImages" )
-    public String uploadImage(@RequestParam("file") List<MultipartFile> files) {
+    public String uploadImage(@ModelAttribute MultipartfileDTO input) {
+        List<MultipartFile> files = input.files();
+        System.out.println("id asttttttttttttttttttttaaaaaaaaaaaaaa: "+input.idAsta());
         if (files.isEmpty()) {
             return "Errore: Nessun file selezionato";
         }

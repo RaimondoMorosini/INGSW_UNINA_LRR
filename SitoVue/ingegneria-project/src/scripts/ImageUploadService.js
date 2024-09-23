@@ -4,10 +4,11 @@ import { getImageInFormdata} from '../service/astaService.js';
 export async function uploadImages() {
     try {
         const formData = await getImageInFormdata();
-        //formData.append('idAsta', idTest);
-        console.log('formData salva img e id asta:', formData);
-
+        
+        console.log('formDatan json::::', formData);
+        formData.append('idAsta', 1);
         const response = postRest('public/asta/uploadImages',formData);
+        
         return response;
     } catch (error) {
         console.error("Errore durante il caricamento dell'immagine:", error);
