@@ -3,9 +3,9 @@ import { getImageInFormdata} from '../service/astaService.js';
 
 export async function uploadImages() {
     try {
-        idTest= 90;
         const formData = await getImageInFormdata();
-        formData.append('id', idTest);
+        //formData.append('idAsta', idTest);
+        console.log('formData salva img e id asta:', formData);
 
         const response = postRest('public/asta/uploadImages',formData);
         return response;

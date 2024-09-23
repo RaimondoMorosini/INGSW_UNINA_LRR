@@ -71,6 +71,7 @@ public class ProdottoAstaController {
 
         return "Immagine caricata con successo! ";
 
+
     }@PostMapping(value = "public/asta/uploadImages" )
     public String uploadImage(@RequestParam("file") List<MultipartFile> files) {
         if (files.isEmpty()) {
@@ -80,10 +81,12 @@ public class ProdottoAstaController {
         for(MultipartFile file:files){
             if (!file.isEmpty()){
             imageContainerUtil.uploadImage(file,file.getOriginalFilename());
-                message.append("Immagine caricata con successo!\n");
+            String link = "https://dieti24.blob.core.windows.net/upload/"+file.getOriginalFilename();
+                message.append("Immagine caricata con successo! "+link +"\n");
             }
             else message.append("Errore: file non trovato\n");
         }
+
         return message.toString();
     }
 
