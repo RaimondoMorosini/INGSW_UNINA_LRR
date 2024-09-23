@@ -165,7 +165,7 @@ const setTipoAsteSelezionate = () => {
                     break;
 
                 case 'Asta silenziosa':
-                    tipoAstaCercata.value.push('asta_silensiosa');
+                    tipoAstaCercata.value.push('asta_silenziosa');
                     break;
 
                 case 'Asta inversa':
@@ -250,6 +250,9 @@ const OnCLickCerca = async (paginaCliccata) => {
         //Richiesta per ottenere le aste
         response = await axios.post('http://localhost:8081/public/asta/getAllAste', parametriBody); //Otteniamo tutte le aste che corrispondono al criterio di ricerca
         aste.value = response.data; // Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
+
+        console.log("messaggio...postaman:\n ");
+        console.log(JSON.stringify(parametriBody));
     } catch (error) {
         console.error('Si è verificato un errore:', error);
     } finally {
