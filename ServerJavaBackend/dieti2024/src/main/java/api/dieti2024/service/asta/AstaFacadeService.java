@@ -1,6 +1,7 @@
 package api.dieti2024.service.asta;
 
 import api.dieti2024.dto.asta.CreaAstaDTO;
+import api.dieti2024.dto.asta.ImmagineAstaDTO;
 import api.dieti2024.dto.asta.InputAstaDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.repository.AstaProdottoRepository;
@@ -86,8 +87,34 @@ public class AstaFacadeService {
     }
 
 
+    public String aggiornaImmaginiAsta(ImmagineAstaDTO immagineAstaDTO) {
+        List<MultipartFile> files = immagineAstaDTO.files();
+        int idAsta = immagineAstaDTO.idAsta();
+        String identificativoUtente = ControllerRestUtil.getEmailOfUtenteCorrente();
+        String PropritarioAsta = astaService.getIdUtentebyIdAsta(idAsta);
+        if (!identificativoUtente.equals(PropritarioAsta)) {
+            throw new ApiException("Non hai i permessi per modificare quest'asta", HttpStatus.FORBIDDEN);
+        }
+        StringBuilder message = new StringBuilder();
+        message.append("Immagini caricate con successo! \necco i link:\n");
+        List<String> links = new ArrayList<>();
+        int counterErroriCaricamentoImg=0;
+        for(int i=0;i<files.size();i++){
 
+            try{
+            String link=imageContainerUtil.uploadImage(files.get(i),
+                    idAsta+"-"+(i-counterErroriCaricamentoImg)+"."+files.get(i).getOriginalFilename().split("\\.")[1]);
+            message.append(link).append("\n");
+            links.add(link);
+            }catch (Exception e){
+                counterErroriCaricamentoImg++;
+                message.append("Errore: file non caricato\n");
+            }
 
+        }
 
+        prodottoService.aggiornaPathImmagini(idAsta,links);
+        return message.toString();
 
+    }
 }

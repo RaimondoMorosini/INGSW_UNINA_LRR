@@ -45,4 +45,13 @@ public class ProdottoService {
 
         return idProdotto;
     }
+
+    public void aggiornaPathImmagini(int idAsta, List<String> links) {
+        Integer idProdotto = prodottoRepository.findIdProdottoByIdAsta(idAsta);
+        Prodotto prodotto = prodottoRepository.findById(idProdotto).orElseThrow(() -> new ApiException("Prodotto non trovato", HttpStatus.NOT_FOUND));
+        prodotto.setImmagini(links);
+        prodottoRepository.save(prodotto);
+    }
+
+
 }

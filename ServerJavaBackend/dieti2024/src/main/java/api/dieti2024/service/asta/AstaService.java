@@ -6,7 +6,10 @@ import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Asta;
 import api.dieti2024.model.DatiAstaInglese;
-import api.dieti2024.repository.*;
+import api.dieti2024.repository.AstaProdottoRepository;
+import api.dieti2024.repository.AstaRepository;
+import api.dieti2024.repository.DatiAstaIngleseRepository;
+import api.dieti2024.repository.PermessoRepository;
 import api.dieti2024.util.CalendarioUtil;
 import api.dieti2024.util.ControllerRestUtil;
 import api.dieti2024.util.TipoPermesso;
@@ -81,6 +84,10 @@ public class AstaService {
 
     public DatiAstaInglese getDatiAstaIngleseById(int id) {
         return datiAstaIngleseRepository.findById(id).orElseThrow(() -> new ApiException("Dati asta inglese non trovati", HttpStatus.NOT_FOUND));
+    }
+
+    public String getIdUtentebyIdAsta(int idAsta) {
+        return  astaRepository.findById(idAsta).orElseThrow(() -> new ApiException("asta non trovata", HttpStatus.NOT_FOUND)).getEmailUtenteCreatore();
     }
 }
 

@@ -1,5 +1,6 @@
 import {postRestWithtoken,postRest} from '../scripts/RestUtils.js';
 import {useAstaStore} from '../stores/astaStore.js'
+import { salvaImaginiAsta } from '../scripts/ImageUploadService.js';
 
 function srcToFile(base64, nomeFile) {
     // Verifica e rimuovi il prefisso data:image
@@ -35,7 +36,8 @@ export async function creaAsta() {
         const response = await postRestWithtoken('asta/creaasta', datiAsta);
         console.log('log ora recupero idasta e salvo le img:', response);
         const idAsta = response.idAsta;
-        const formData = await getImageInFormdata();
+        await salvaImaginiAsta(idAsta);
+
         return response;
     } catch (error) {
         console.error("Errore durante la creazione dell'asta:", error);

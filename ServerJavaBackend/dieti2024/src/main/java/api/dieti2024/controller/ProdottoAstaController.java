@@ -2,6 +2,7 @@ package api.dieti2024.controller;
 
 import api.dieti2024.dto.MultipartfileDTO;
 import api.dieti2024.dto.asta.CreaAstaDTO;
+import api.dieti2024.dto.asta.ImmagineAstaDTO;
 import api.dieti2024.dto.asta.ricerca.FiltroDto;
 import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.service.asta.AstaFacadeService;
@@ -61,7 +62,15 @@ public class ProdottoAstaController {
             return ResponseEntity.ok(json);
 
     }
-
+    @PostMapping("asta/AggiornaImgAsta")
+    public ResponseEntity<String> aggiornaImgAsta(@ModelAttribute ImmagineAstaDTO immagineAstaDTO) {
+        try {
+            String msg=astaFacadeService.aggiornaImmaginiAsta(immagineAstaDTO);
+            return ResponseEntity.ok(msg);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
     @PostMapping("public/asta/uploadImage")
     public String uploadImage(@RequestParam("file") MultipartFile file) {

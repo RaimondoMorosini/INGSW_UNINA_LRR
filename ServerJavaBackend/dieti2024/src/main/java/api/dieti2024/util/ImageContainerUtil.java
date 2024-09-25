@@ -18,7 +18,7 @@ public class ImageContainerUtil {
         this.blobContainerClient = blobContainerClient;
     }
 
-    public void uploadImage(MultipartFile file,String nomePath) {
+    public String uploadImage(MultipartFile file,String nomePath) {
 
          try {
              // Get the image file name
@@ -26,7 +26,7 @@ public class ImageContainerUtil {
 
              // Get a BlobClient to upload the image file
              blob.upload(file.getInputStream(),file.getSize(),true);
-
+            return blob.getBlobUrl();
          }catch (Exception e){
              throw new ApiException("Errore nel caricamento dell'immagine", HttpStatus.INTERNAL_SERVER_ERROR);
          }
