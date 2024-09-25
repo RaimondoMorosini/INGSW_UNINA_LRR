@@ -16,7 +16,7 @@
       />
 
       <Button 
-        @click.stop="apriUnNuovoTab(item.idAsta)"
+        @click.stop="apriUnNuovoTab(item)"
         icon="pi pi-shopping-cart" 
         label="Partecipa all'asta" 
         :disabled="item.inventoryStatus === 'OUTOFSTOCK'" 
@@ -37,7 +37,7 @@ const props = defineProps({
   index: Number
 });
 
-function apriUnNuovoTab(idAsta) {
-  window.open(`/asta/${idAsta}`, '_blank');
+function apriUnNuovoTab(item) {
+  const newWindow = window.open(`/asta/${item.idAsta}`, '_blank');
 }
 </script>

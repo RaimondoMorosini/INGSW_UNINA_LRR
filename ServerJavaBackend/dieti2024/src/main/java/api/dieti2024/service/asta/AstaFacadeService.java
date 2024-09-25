@@ -3,6 +3,7 @@ package api.dieti2024.service.asta;
 import api.dieti2024.dto.asta.CreaAstaDTO;
 import api.dieti2024.dto.asta.ImmagineAstaDTO;
 import api.dieti2024.dto.asta.InputAstaDTO;
+import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.repository.AstaProdottoRepository;
 import api.dieti2024.util.ControllerRestUtil;
@@ -113,8 +114,14 @@ public class AstaFacadeService {
 
         }
 
-        prodottoService.aggiornaPathImmagini(idAsta,links);
+        Integer idProdotto = astaProdottoRepository.findIdProdottoByIdAsta(idAsta);
+        prodottoService.aggiornaPathImmagini(idProdotto,links);
         return message.toString();
 
+    }
+
+    public InfoDatiAstaDTO getInfoSingolaAsta(int idAsta) {
+        Integer idProdotto = astaProdottoRepository.findIdProdottoByIdAsta(idAsta);
+        return  astaProdottoRepository.findById(idProdotto).orElseThrow(() -> new ApiException("Dettagli asta non trovata", HttpStatus.NOT_FOUND));
     }
 }

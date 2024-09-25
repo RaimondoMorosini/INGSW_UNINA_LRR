@@ -29,4 +29,7 @@ public interface AstaProdottoRepository extends JpaRepository<InfoDatiAstaDTO,In
 
     @Query(value = "SELECT inserisci_immagini_asta(:idAsta, :#{#pathImmaginiSalvate.toArray(new String[0])})", nativeQuery = true)
     void updatePathImmagini( int idAsta, List<String> pathImmaginiSalvate);
+
+    @Query(value = "SELECT id from asta_join_prodotto p where p.id_asta = ?1", nativeQuery = true)
+    Integer findIdProdottoByIdAsta(int idAsta);
 }

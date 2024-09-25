@@ -2,6 +2,7 @@ package api.dieti2024.controller;
 
 import api.dieti2024.dto.asta.CreaAstaDTO;
 import api.dieti2024.dto.asta.ImmagineAstaDTO;
+import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.service.asta.AstaFacadeService;
 import api.dieti2024.util.ImageContainerUtil;
 import org.springframework.http.ResponseEntity;
@@ -40,5 +41,13 @@ public class ProdottoAstaController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @GetMapping("public/prodottoasta/{idAssta}")
+    public ResponseEntity<InfoDatiAstaDTO> getInfoProdottoAsta(@PathVariable int idAssta) {
+            InfoDatiAstaDTO dati= astaFacadeService.getInfoSingolaAsta(idAssta);
+            return ResponseEntity.ok(dati);
+    }
+
+
 
 }
