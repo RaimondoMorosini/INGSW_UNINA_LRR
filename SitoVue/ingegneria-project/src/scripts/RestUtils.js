@@ -9,7 +9,7 @@ async function getRest(path) {
     try {
         const response = await axios.get(`${path}`);
         console.log('Get path:', path, ' response.data:', response.data);
-        return response;
+        return response.data;
     } catch (error) {
         console.error(error);
         throw new Error("Impossibile ottenere l'elemento dal server" + error);
