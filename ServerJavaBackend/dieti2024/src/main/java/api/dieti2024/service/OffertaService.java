@@ -74,11 +74,11 @@ AstaRepository astaRepository;
                 break;
             case TipoAsta.SILENZIOSA:
                 if (offertaDto.prezzoProposto()<=baseAsta)
-                    throw new ApiException("Prezzo offerta superiore o uguale alla base asta", HttpStatus.BAD_REQUEST);
+                    throw new ApiException("Errore: in un asta silenziosa non puoi fare un offerta piu' bassa della base d'asta\n fai un offerta minore di "+asta.getBaseAsta(), HttpStatus.BAD_REQUEST);
                 break;
             case TipoAsta.APPALTO:
-                if (offertaDto.prezzoProposto()<=baseAsta || offertaDto.prezzoProposto()<=asta.getPrezzoAttuale())
-                    throw new ApiException("Prezzo offerta superiore al prezzo attuale ",HttpStatus.BAD_REQUEST);
+                if (offertaDto.prezzoProposto()>baseAsta || offertaDto.prezzoProposto()>asta.getPrezzoAttuale())
+                    throw new ApiException("Errore: in un asta inversa l'offerta deve sempre piu' bassa del prezzo attuale  ",HttpStatus.BAD_REQUEST);
                 break;
             default:
                 throw new ApiException("Tipo asta non valido", HttpStatus.BAD_REQUEST);
