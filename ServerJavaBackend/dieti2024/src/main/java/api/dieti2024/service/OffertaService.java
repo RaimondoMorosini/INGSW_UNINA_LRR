@@ -59,7 +59,7 @@ AstaRepository astaRepository;
             throw new ApiException("asta scaduta", HttpStatus.BAD_REQUEST);
 
         if(offertaDto.prezzoProposto() <=0)
-            throw new ApiException("Prezzo offerta inferiore alla base asta", HttpStatus.BAD_REQUEST);
+            throw new ApiException("Prezzo offerta inferiore o uguale alla base asta", HttpStatus.BAD_REQUEST);
 
 
         double baseAsta = asta.getBaseAsta();
