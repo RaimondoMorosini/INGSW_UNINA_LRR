@@ -53,10 +53,11 @@
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'creaAsta' }">
                         <p
-                            class="!sm:w-[100%] mt-1 block rounded bg-primario-200 px-2 py-1 text-center font-semibold ring-2 ring-slate-300/80 hover:bg-primario-100 lg:mx-4"
+                            class="!sm:w-[100%] mt-1 block rounded bg-gradient-to-tl from-danger-300/90 via-primario-100 to-secondario-300 px-5 hover:from-danger-400 hover:via-[#7c3aed] hover:to-secondario-400 px-2 py-1 text-center font-semibold ring-2 ring-slate-300/80  lg:mx-4"
                         >
                             Crea Asta
                         </p>
+                        
                     </RouterLink>
                 </li>
             </template>

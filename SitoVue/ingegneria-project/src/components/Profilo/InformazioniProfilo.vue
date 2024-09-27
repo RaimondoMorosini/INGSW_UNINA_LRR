@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col gap-3 px-3 py-3">
         <div
-            class="user-info-photo flex w-full flex-row items-center justify-between space-x-5 rounded bg-slate-100 px-3 py-3"
+            class="user-info-photo flex w-full flex-row items-center justify-between space-x-5 rounded ring-1 ring-[#cbd5e1] px-3 py-3"
         >
             <div class="flex flex-row space-x-1">
                 <img
@@ -19,7 +19,7 @@
             </RouterLink>
         </div>
 
-        <div class="Bio rounded bg-slate-100 px-3">
+        <div class="Bio rounded ring-1 ring-[#cbd5e1] px-3">
             <h1 class="text-xl">Bio:</h1>
             <p>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime ex delectus
@@ -28,12 +28,12 @@
             </p>
         </div>
 
-        <div class="Indirizzo rounded bg-slate-100 px-3">
+        <div class="Indirizzo rounded ring-1 ring-[#cbd5e1] px-3">
             <h1 class="text-xl">Indirizzo:</h1>
             {{ user.address }}
         </div>
 
-        <ul class="LinkAssociati rounded bg-slate-100 px-3">
+        <ul class="LinkAssociati rounded ring-1 ring-[#cbd5e1] px-3">
             <h1 class="text-xl">Collegamenti</h1>
             <li v-for="(link, index) in linkUtili" v-bind:key="index">
                 {{ link }}
@@ -54,7 +54,7 @@ const { user } = useAuth0();
 .bottone {
     background-color: #cc85f5;
     padding: 10px 5px;
-    color: white;
+    color: #cbd5e1;
     border-radius: 5px;
     font-size: 1rem;
     font-weight: bold;
