@@ -6,15 +6,16 @@ import { createPinia } from 'pinia'; // pinia
 import piniaPluginPersistedState from 'pinia-plugin-persistedstate'; //permanenza stati pinia
 import 'primeicons/primeicons.css'; // primevue icons
 import PrimeVue from 'primevue/config'; // primevue config
-import 'primevue/resources/primevue.min.css'; // core CSS (primevue)
-import 'primevue/resources/themes/aura-light-purple/theme.css'; // theme (primevue)
+import Aura from '@primevue/themes/aura';
+import { definePreset } from '@primevue/themes';
 import ToastService from 'primevue/toastservice'; // toast (primevue)
 import { createApp, watch } from 'vue'; // Vue 3
 import App from './App.vue'; // App.vue
 import './assets/css/tailwind.css'; // tailwindcss
 import router from './router'; // router
-import SockJS from 'sockjs-client'; //modulo per socket
-import { Stomp } from '@stomp/stompjs'; //stomp canale 1 via per messaggi
+//import SockJS from 'sockjs-client'; //modulo per socket
+//import { Stomp } from '@stomp/stompjs'; //stomp canale 1 via per messaggi
+//import { preset } from '~/jest.config';
 
 // Crea l'istanza dell'app Vue e usa il router
 const app = createApp(App).use(router);
@@ -35,8 +36,37 @@ app.use(
     })
 );
 
+const MyPreset = definePreset(Aura, {
+    semantic: {
+        primary: {
+            50: '{fuchsia.50}',
+            100: '{fuchsia.100}',
+            200: '{fuchsia.200}',
+            300: '{fuchsia.300}',
+            400: '{fuchsia.400}',
+            500: '{fuchsia.500}',
+            600: '{fuchsia.600}',
+            700: '{fuchsia.700}',
+            800: '{fuchsia.800}',
+            900: '{fuchsia.900}',
+            950: '{fuchsia.950}'
+        }
+    }
+});
+
+
 // inizializazione primevue
-app.use(PrimeVue);
+app.use(PrimeVue, { 
+    ripple: true ,
+    theme:{
+        preset: MyPreset,
+        options: {
+            prefix: 'p',
+            darkModeSelector: 'system',
+            cssLayer: false
+        }
+    }
+});
 app.use(ToastService);
 
 // inizializzazione pinia

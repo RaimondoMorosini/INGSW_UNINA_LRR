@@ -46,7 +46,7 @@ import { ProductService } from '../../service/ProductService';
 import Skeleton from 'primevue/skeleton';
 
 import 'primeflex/primeflex.css';
-import 'primevue/resources/themes/aura-light-green/theme.css';
+//import 'primevue/resources/themes/aura-light-green/theme.css';
 import 'primeicons/primeicons.css';
 import '../../assets/css/flags.css';
 import '../../assets/css/style.css';
