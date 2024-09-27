@@ -10,7 +10,7 @@
             <InputText
                 v-model="nomeProdottoCercato"
                 placeholder="Search"
-                class="w-[100%] rounded-r border-transparent bg-primario-100/50 text-black"
+                class="w-[100%] rounded-r bg-primario-100/50 text-black"
             >
                 <template #imputtexticon>
                     <i class="pi pi-search" style="color: #424242"></i>
