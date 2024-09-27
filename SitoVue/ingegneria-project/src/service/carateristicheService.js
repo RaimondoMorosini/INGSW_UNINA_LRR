@@ -4,13 +4,13 @@ async function getCaratteristiche(categoria) {
         const response = await getRest(
             'public/getCaratteristicheDaCategoria?categoria=' + categoria
         ); //Get delle caratteristihce relative alla categoria cercata
-        response.data.forEach(element => {
+        response.forEach(element => {
             // Ordina le caratteristiche in base ai numeri presenti se data.tipo = 'numero'
         if (element.tipoCaratteristica === 'numero')
             element.opzioniSelezionabili.sort(compareStringsByNumbers); // Ordina le caratteristiche in base ai numeri presenti
         else element.opzioniSelezionabili.sort(); // Ordina le caratteristiche in ordine alfabetico
         });
-        return response.data;
+        return response;
     } catch (error) {
         console.log('errore richiesta  caratteristiche');
     }
