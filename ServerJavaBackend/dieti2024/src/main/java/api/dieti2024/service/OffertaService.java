@@ -74,7 +74,7 @@ AstaRepository astaRepository;
                 break;
             case TipoAsta.SILENZIOSA:
                 if (offertaDto.prezzoProposto()<=baseAsta)
-                    throw new ApiException("Prezzo offerta superiore alla base asta", HttpStatus.BAD_REQUEST);
+                    throw new ApiException("Prezzo offerta superiore o uguale alla base asta", HttpStatus.BAD_REQUEST);
                 break;
             case TipoAsta.APPALTO:
                 if (offertaDto.prezzoProposto()<=baseAsta || offertaDto.prezzoProposto()<=asta.getPrezzoAttuale())

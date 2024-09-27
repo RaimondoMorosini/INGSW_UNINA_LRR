@@ -12,6 +12,8 @@
       <button @click="faiOfferta" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         Fai un'offerta
       </button>
+      <Countdown v-model="tempoInSecondi"></Countdown>
+      secondoi rimanenti : {{ tempoInSecondi }}
     </div>
     <div class="descrizione">
       <h2>Descrizione</h2>
@@ -30,12 +32,12 @@ import { ref, onMounted ,onUnmounted} from 'vue';
 import { useRoute } from 'vue-router';
 import { getInfoAstaProdotto } from '../service/PaginaProdottoAstaService';
 import { mantieniAggiornamenti, disconnettiti } from '../scripts/websocket/websocket.js';
-
+import Countdown from '../components/PaginaAsta/countdown.vue';
 const route = useRoute();
 const astaId = route.params.id;
 const item = ref(null);
 const stomp1 = ref(null);
-
+const tempoInSecondi = ref(600);
 onMounted(async () => {
   try {
     console.log('Caricamento asta in corso...');
@@ -52,6 +54,14 @@ onUnmounted(() => {
 });
 function handleMessage(message) {
     console.log('Messaggio ricevuto dalla websocket:', message);
+    const data = JSON.parse(message);
+    const offerta = data.offerta;
+
+    if (offerta.prezzoProposto > item.value.prezzoAttuale) {
+      item.value.prezzoAttuale = offerta.prezzoProposto;
+      console.log('Prezzo attuale aggiornato:', item.value.prezzoAttuale);
+    }
+
 }
 
 function formattataData(timestamp) {
@@ -65,6 +75,7 @@ function formattataData(timestamp) {
 
 function faiOfferta() {
   console.log('Offerta fatta!');
+  tempoInSecondi.value = 600;
 }
 </script>
 
