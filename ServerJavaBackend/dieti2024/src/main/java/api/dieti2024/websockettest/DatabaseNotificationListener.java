@@ -31,7 +31,7 @@ public class DatabaseNotificationListener {
             CompletableFuture.runAsync(this::processNotifications);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 
@@ -47,7 +47,7 @@ public class DatabaseNotificationListener {
 
                 Thread.sleep(500);
             } catch (SQLException | InterruptedException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
     }
