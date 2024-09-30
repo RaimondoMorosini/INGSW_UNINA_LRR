@@ -2,6 +2,13 @@ import {postRestWithtoken,postRest} from '../scripts/RestUtils.js';
 import {useAstaStore} from '../stores/astaStore.js'
 import { salvaImaginiAsta } from '../scripts/ImageUploadService.js';
 
+
+export const TipoAsta = {
+    INVERSA: 'asta_inversa',
+    SILENZIOSA: 'asta_silenziosa',
+    INGLESE: 'asta_inglese'
+};
+
 function srcToFile(base64, nomeFile) {
     // Verifica e rimuovi il prefisso data:image
     let base64String = base64;

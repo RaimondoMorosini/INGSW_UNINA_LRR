@@ -67,8 +67,9 @@ async function postRestWithtoken(path, data) {
         return response.data;
     } catch (error) {
         delete axios.defaults.headers.common['Authorization'];
-        console.error('errore nella chiamata Post: ', error);
+        console.error('errore nella chiamata Post: ', error.response ? error.response.data : error.message);
         throw new Error("Impossibile inviare l'elemento al server" + error);
+        
     }
 }
 
