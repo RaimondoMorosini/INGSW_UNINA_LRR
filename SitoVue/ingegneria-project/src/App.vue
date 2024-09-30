@@ -5,10 +5,10 @@ import Navbar from "./components/Navbar/Navbar.vue";
 
 <template>
   
-    <body>
+    <body class="min-w-[600px]">
       <Navbar />
   
-  <router-view/>
+      <router-view/>
     </body>
   
  
@@ -19,5 +19,6 @@ import Navbar from "./components/Navbar/Navbar.vue";
 body{
   margin: 0;
   padding: 0%;
+  
 }
 </style>

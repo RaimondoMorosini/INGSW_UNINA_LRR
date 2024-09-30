@@ -1,8 +1,6 @@
 <template>
     <div id="app">
-        <div
-            class="container flex w-auto flex-col content-center items-center justify-center px-5 py-2"
-        >
+        <div class="container flex w-full flex-col content-center items-center justify-center py-2">
             <div class="drop-area" @dragover.prevent @dragenter.prevent @drop.prevent="onDrop">
                 <label class="custom-file-upload flex flex-col items-center gap-0 text-4xl">
                     <input type="file" accept="image/*" multiple @change="onFileChange" />
@@ -11,15 +9,18 @@
                 </label>
             </div>
 
-            <div class="jumbotron w-fit shadow">
+            <div
+                v-if="isEmpty"
+                class="flex w-[100%] items-center justify-center ring-2 ring-[#cd87f6]"
+            >
+                <img
+                    src="../../assets/img/placeholder/placeholder.png"
+                    alt="Immagine temporanea placeholder"
+                    class="immagine shadow px-2 lg:px-64 py-2"
+                />
+            </div>
+            <div v-else class="jumbotron w-[100%] shadow">
                 <div class="immagini-container grid grid-cols-4 justify-between gap-2">
-                    <div v-if="isEmpty">
-                        <img
-                            src="../../assets/img/placeholder/placeholder.png"
-                            alt="Immagine temporanea placeholder"
-                            class="text-center shadow"
-                        />
-                    </div>
                     <div
                         v-for="(immagine, indice) in store.asta.immaginiSalvate"
                         :key="indice"
@@ -29,7 +30,7 @@
                             &times;
                         </button>
                         <img
-                            class="preview h-28 shadow lg:h-32"
+                            class="preview h-28 shadow lg:max-h-32"
                             :src="immagine.src"
                             alt="Catalogo immagini prodotto"
                         />
@@ -40,12 +41,15 @@
             </div>
         </div>
 
+        <!--
+        TODO: Da togliere quanto non più necessari test
         <button
             @click="eseguiChiamataAxios"
             class="my-5 h-fit w-[100%] rounded bg-primario-100 px-5 py-5 text-xl font-semibold text-white"
         >
             Esegui chiamata Axios
         </button>
+        -->
     </div>
 </template>
 
@@ -129,18 +133,14 @@ onUnmounted(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px dashed #ccc;
+    border: 2px solid #cd87f6;
     margin-bottom: 20px;
     cursor: pointer;
 }
 
-.drop-area:hover {
-    background-color: #f8f9fa;
-}
-
 .jumbotron {
     padding: 20px;
-    background-color: #f8f9fa;
+    border: 2px solid #cd87f6;
 }
 
 .immagini-container {
@@ -149,7 +149,6 @@ onUnmounted(() => {
 
 .immagine {
     position: relative;
-    flex: 1 1 calc(33.333% - 10px); /* Tre immagini per riga con uno spazio di 10px */
     display: flex;
     flex-direction: column;
     align-items: center;
