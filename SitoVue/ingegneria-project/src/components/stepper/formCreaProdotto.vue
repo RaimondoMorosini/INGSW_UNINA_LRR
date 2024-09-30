@@ -3,7 +3,7 @@
         <main
             class="mt-5 flex h-auto min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row"
         >
-            <div class="h-4col lg:w-6col auto-rows-max justify-between gap-3 px-2">
+            <div class="h-4col auto-rows-max justify-between gap-3 px-2 lg:w-[50%]">
                 <div class="formSpace pt-6">
                     <FloatLabel>
                         <InputText
@@ -49,7 +49,7 @@
                     />
                 </InputGroup>
             </div>
-            <div class="flex justify-center px-2 lg:justify-start">
+            <div class="flex justify-center p-2 lg:w-[50%] lg:justify-start">
                 <ImageUploader />
             </div>
         </main>

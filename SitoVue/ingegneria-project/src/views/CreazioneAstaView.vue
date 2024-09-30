@@ -1,10 +1,17 @@
 <template>
-    <Steps
-        :readonly="false"
-        class="label min-w-4col py-2 text-[0.8rem] lg:text-[1rem]"
-        :model="items"
-        v-model:activeStep="active"
-    />
+
+    <div class="card">
+        <Steps
+            :readonly="false"
+            class="label py-2 text-[0.8rem] lg:text-[1rem]"
+            :model="items"
+            v-model:activeStep="active"
+        />
+    </div>
+    
+
+    
+    
     <CreaProdotto @update:active="updateCurrentForm($event)" v-if="active === 0" />
     <SelezionaFiltri @update:active="updateCurrentForm($event)" v-if="active === 1" />
     <SelezioneTipoAsta @update:active="updateCurrentForm($event)" v-if="active === 2" />
@@ -12,7 +19,9 @@
 </template>
 
 <script setup>
+import StepList from 'primevue/steplist';
 import Steps from 'primevue/steps';
+import Step from 'primevue/step';
 import { ref } from 'vue';
 import SelezioneTipoAsta from '../components/stepper/dettagliCreaAsta.vue';
 import CreaProdotto from '../components/stepper/formCreaProdotto.vue';
@@ -29,6 +38,7 @@ const updateCurrentForm = (value) => {
 const items = ref([
     {
         label: 'Descrizione Prodotto',
+        
     },
     {
         label: 'Selezione Filtri',
