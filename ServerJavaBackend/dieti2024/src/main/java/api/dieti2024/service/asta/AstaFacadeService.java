@@ -124,4 +124,14 @@ public class AstaFacadeService {
         Integer idProdotto = astaProdottoRepository.findIdProdottoByIdAsta(idAsta);
         return  astaProdottoRepository.findById(idProdotto).orElseThrow(() -> new ApiException("Dettagli asta non trovata", HttpStatus.NOT_FOUND));
     }
+
+    public String getExtraInfoSingolaAsta(int idAssta) {
+        //scopri il tipo d'asta
+        String tipoAsta = astaService.getTipoAstaById(idAssta);
+        if (TipoAsta.INGLESE.equals(tipoAsta)) {
+            return datiAstaIngleseService.getDatiExtraInfoSingolaAsta(idAssta);
+        }else {
+            return "Nessun dato extra per questo tipo di asta";
+        }
+    }
 }

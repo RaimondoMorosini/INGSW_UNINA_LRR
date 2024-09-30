@@ -89,5 +89,9 @@ public class AstaService {
     public String getIdUtentebyIdAsta(int idAsta) {
         return  astaRepository.findById(idAsta).orElseThrow(() -> new ApiException("asta non trovata", HttpStatus.NOT_FOUND)).getEmailUtenteCreatore();
     }
+
+    public String getTipoAstaById(int idAssta) {
+        return astaRepository.findById(idAssta).orElseThrow(() -> new ApiException("asta non trovata", HttpStatus.NOT_FOUND)).getTipoAsta();
+    }
 }
 

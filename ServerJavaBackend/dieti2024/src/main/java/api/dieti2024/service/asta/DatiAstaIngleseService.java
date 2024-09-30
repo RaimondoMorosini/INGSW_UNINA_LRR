@@ -32,4 +32,10 @@ public class DatiAstaIngleseService {
         datiAstaInglese.setAstaId(idAsta);
         return datiAstaInglese;
     }
+
+    public String getDatiExtraInfoSingolaAsta(int idAssta) {
+        DatiAstaInglese datiAstaInglese = datiAstaIngleseRepository.findById(idAssta).orElse(null);
+        if(datiAstaInglese==null) throw new ApiException("Dati asta inglese non trovati", HttpStatus.NOT_FOUND);
+        return JsonUtil.toJson(datiAstaInglese);
+    }
 }

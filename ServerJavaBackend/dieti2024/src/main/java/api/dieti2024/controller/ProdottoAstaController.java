@@ -48,6 +48,11 @@ public class ProdottoAstaController {
             return ResponseEntity.ok(dati);
     }
 
-
+    //get dati extra delle asta
+    @GetMapping("public/prodottoasta/extra/{idAssta}")
+    public ResponseEntity<String> getExtraInfoProdottoAsta(@PathVariable int idAssta) {
+        String dati= astaFacadeService.getExtraInfoSingolaAsta(idAssta);
+        return ResponseEntity.ok(dati);
+    }
 
 }

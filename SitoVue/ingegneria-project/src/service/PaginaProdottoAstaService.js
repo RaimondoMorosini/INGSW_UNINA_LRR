@@ -10,4 +10,14 @@ async function getInfoAstaProdotto(idAsta) {
     }
 }
 
-export { getInfoAstaProdotto };
+async function getDatiastaInglese(idAsta) {
+try {
+        const response = await getRest('public/prodottoasta/extra/' + idAsta);
+        return response;
+    } catch (error) {
+        console.error('Errore:', error);
+        throw error; // Propaga l'errore per gestirlo nel componente chiamante
+    }
+}
+
+export { getInfoAstaProdotto, getDatiastaInglese };
