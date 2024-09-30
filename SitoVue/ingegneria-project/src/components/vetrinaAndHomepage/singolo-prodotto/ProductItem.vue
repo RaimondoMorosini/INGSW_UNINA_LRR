@@ -1,29 +1,29 @@
 <template>
-  <div class="flex flex-col md:flex-row p-4 gap-4 border rounded-md shadow-md">
-    <ProductImage 
-    class="w-full md:w-1/3 max-w-xs"
-    :urlFotoCopertina="item.immagini[0]" 
-      :tipoAsta="item.tipoAsta" 
-    />
+    <div class="flex flex-col gap-4 rounded-md border p-4 shadow-md md:flex-row">
+        <ProductImage
+            class="w-full max-w-xs md:w-1/3"
+            :urlFotoCopertina="item.immagini[0]"
+            :tipoAsta="item.tipoAsta"
+        />
 
-    <div class="flex-1">
-      <ProductDetails 
-        class="mb-4"
-        :categoria="item.categoria" 
-        :titoloProdotto="item.nome" 
-        :venditore="item.emailUtenteCreatore" 
-        :baseAsta="item.baseAsta"
-      />
+        <div class="flex-1">
+            <ProductDetails
+                class="mb-4"
+                :categoria="item.categoria"
+                :titoloProdotto="item.nome"
+                :venditore="item.emailUtenteCreatore"
+                :baseAsta="item.baseAsta"
+            />
 
-      <Button 
-        @click.stop="apriUnNuovoTab(item)"
-        icon="pi pi-shopping-cart" 
-        label="Partecipa all'asta" 
-        :disabled="item.inventoryStatus === 'OUTOFSTOCK'" 
-        class="w-full md:w-auto bg-primario-100 text-white hover:bg-primario-200 focus:ring focus:ring-primario-300"
-      /> 
+            <Button
+                @click.stop="apriUnNuovoTab(item)"
+                icon="pi pi-shopping-cart"
+                label="Partecipa all'asta"
+                :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
+                class="w-full bg-primario-100 text-white hover:bg-primario-200 focus:ring focus:ring-primario-300 md:w-auto"
+            />
+        </div>
     </div>
-  </div>
 </template>
 
 <script setup>
@@ -33,11 +33,11 @@ import ProductDetails from './ProductDetails.vue';
 import ProductImage from './ProductImage.vue';
 
 const props = defineProps({
-  item: Object,
-  index: Number
+    item: Object,
+    index: Number,
 });
 
 function apriUnNuovoTab(item) {
-  const newWindow = window.open(`/asta/${item.idAsta}`, '_blank');
+    const newWindow = window.open(`/asta/${item.idAsta}`, '_blank');
 }
 </script>

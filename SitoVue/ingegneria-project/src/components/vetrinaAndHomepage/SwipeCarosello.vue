@@ -28,14 +28,14 @@
         :loop="true"
         :navigation="true"
         :keyboard="true"
-        class="bg-primario-100 "
+        class="bg-primario-100"
     >
         <SwiperSlide v-for="(photo, index) in slides.photo" :key="index" class="p-6">
             <RouterLink :to="{ name: slides.links[index] }">
                 <img
                     :src="require(`@/assets/img/carosello/${photo}`)"
                     alt=""
-                    class="border-2 border-slate-400 "
+                    class="border-2 border-slate-400"
                 />
             </RouterLink>
         </SwiperSlide>

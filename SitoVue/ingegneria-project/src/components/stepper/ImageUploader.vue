@@ -34,7 +34,7 @@
                             alt="Catalogo immagini prodotto"
                         />
                         <div class="img-name">{{ immagine.name }}</div>
-                        <div> file {{immagine.file}}</div>
+                        <div>file {{ immagine.file }}</div>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
 import { ref, onUnmounted, onMounted, computed } from 'vue';
 import { uploadImages } from '../../scripts/ImageUploadService.js';
 import { useAstaStore } from '../../stores/astaStore';
-import {inserisciDato,getDato} from '../../scripts/DatiUtils.js'
+import { inserisciDato, getDato } from '../../scripts/DatiUtils.js';
 const store = useAstaStore();
 const immagini = ref([]);
 const isEmpty = computed(() => {

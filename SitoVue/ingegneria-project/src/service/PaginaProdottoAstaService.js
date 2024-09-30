@@ -6,7 +6,7 @@ async function getInfoAstaProdotto(idAsta) {
         return response;
     } catch (error) {
         console.error('Errore:', error);
-        throw error;  // Propaga l'errore per gestirlo nel componente chiamante
+        throw error; // Propaga l'errore per gestirlo nel componente chiamante
     }
 }
 

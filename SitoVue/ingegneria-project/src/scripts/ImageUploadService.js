@@ -1,5 +1,5 @@
 import { postRest, postRestWithtoken } from './RestUtils.js';
-import { getImageInFormdata} from '../service/astaService.js';
+import { getImageInFormdata } from '../service/astaService.js';
 
 export async function uploadImages() {
     try {
@@ -7,7 +7,7 @@ export async function uploadImages() {
         console.log('salvo img con idAsta:', idAsta);
         const formData = await getImageInFormdata();
         formData.append('idAsta', idAsta);
-        const response = postRestWithtoken('asta/AggiornaImgAsta',formData);
+        const response = postRestWithtoken('asta/AggiornaImgAsta', formData);
         return response;
     } catch (error) {
         console.error("Errore durante il caricamento dell'immagine:", error);
@@ -15,19 +15,15 @@ export async function uploadImages() {
     }
 }
 
-export async function salvaImaginiAsta(idAsta){
+export async function salvaImaginiAsta(idAsta) {
     try {
         console.log('salvo img con idAsta:', idAsta);
         const formData = await getImageInFormdata();
         formData.append('idAsta', idAsta);
-        const response = postRestWithtoken('asta/AggiornaImgAsta',formData);
+        const response = postRestWithtoken('asta/AggiornaImgAsta', formData);
         return response;
-    }catch
-    (error) {
+    } catch (error) {
         console.error("Errore durante il caricamento dell'immagine:", error);
         throw new Error("Impossibile caricare l'immagine");
     }
-
 }
-
-

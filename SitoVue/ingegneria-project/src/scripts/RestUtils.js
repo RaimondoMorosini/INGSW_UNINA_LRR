@@ -51,15 +51,7 @@ async function postRestWithtoken(path, data) {
             Authorization: `Bearer ${token}`,
             'User-Agent': 'NomeDellApplicazione/versione',
         };
-        console.log(
-            'Post path:',
-            path,
-            ' dati body: ',
-            data
-            ,
-            ' headers: ',
-            headers
-        );
+        console.log('Post path:', path, ' dati body: ', data, ' headers: ', headers);
         const response = await axios.post(`${path}`, data, headers);
         console.log(' response.data:', response.data);
         delete axios.defaults.headers.common['Authorization'];

@@ -142,8 +142,6 @@ onMounted(async () => {
     }
 });
 
-
-
 const setCategoriaSelezionata = () => {
     try {
         //se la categoria è selezionata allora imposta come filtro di ricerca su categoria: la categoria selezionata
@@ -251,7 +249,7 @@ const OnCLickCerca = async (paginaCliccata) => {
         response = await axios.post('http://localhost:8081/public/asta/getAllAste', parametriBody); //Otteniamo tutte le aste che corrispondono al criterio di ricerca
         aste.value = response.data; // Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
 
-        console.log("messaggio...postaman:\n ");
+        console.log('messaggio...postaman:\n ');
         console.log(JSON.stringify(parametriBody));
     } catch (error) {
         console.error('Si è verificato un errore:', error);
@@ -270,15 +268,11 @@ const OnCLickCerca = async (paginaCliccata) => {
 };
 </script>
 
-
 <style>
-
-.p-checkbox{
-
+.p-checkbox {
     width: 20px;
     height: 20px;
     background-color: #f0f0f0;
     border: 1px solid #ccc;
 }
-
 </style>

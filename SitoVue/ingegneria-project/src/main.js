@@ -49,23 +49,22 @@ const MyPreset = definePreset(Aura, {
             700: '{fuchsia.700}',
             800: '{fuchsia.800}',
             900: '{fuchsia.900}',
-            950: '{fuchsia.950}'
-        }
-    }
+            950: '{fuchsia.950}',
+        },
+    },
 });
 
-
 // inizializazione primevue
-app.use(PrimeVue, { 
-    ripple: true ,
-    theme:{
+app.use(PrimeVue, {
+    ripple: true,
+    theme: {
         preset: MyPreset,
         options: {
             prefix: 'p',
             darkModeSelector: 'system',
-            cssLayer: false
-        }
-    }
+            cssLayer: false,
+        },
+    },
 });
 app.use(ToastService);
 
