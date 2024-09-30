@@ -52,12 +52,11 @@
             Finalizza
         </button>
         success: {{ success }}
-        
     </div>
 </template>
 
 <script setup>
-import { creaAsta} from '../../service/astaService.js';
+import { creaAsta } from '../../service/astaService.js';
 import { useAstaStore } from '../../stores/astaStore.js';
 import { onMounted } from 'vue';
 
@@ -71,7 +70,6 @@ const categoriaSelezionata = function (obj) {
     }
     return keys;
 };
-
 
 const categoriaInviata = categoriaSelezionata(storeInstance.asta.categoria);
 
@@ -94,7 +92,7 @@ const goToPreviousForm = () => {
 };
 
 onMounted(() => {
-    console.log('test gettere asta: ',storeInstance.getFormattedData());
+    console.log('test gettere asta: ', storeInstance.getFormattedData());
     storeInstance.updateAsta({ step: 3 });
 });
 
@@ -109,7 +107,6 @@ const gestioneInvio = () => {
             console.log('error: ', error);
             error = error;
         });
-    
 };
 </script>
 

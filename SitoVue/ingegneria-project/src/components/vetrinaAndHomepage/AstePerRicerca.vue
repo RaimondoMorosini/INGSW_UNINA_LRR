@@ -1,49 +1,44 @@
 <template>
     <div class="card p-fluid flex flex-wrap gap-3">
-      <div class="sezione-superiore w-full">
-        <barraDeiFIltriPrincipale 
-          @ordineSelezionato="setCampiOrdinamento"
-          @prezzoMinSelezionato="setPrezzoMin"
-          @prezzoMaxSelezionato="setPrezzoMax" 
-        />
-      </div>
-  
-      <div class="sezione-centrale">
-        <CaratteristicheProdotto 
-          v-if="props.propRicaricaComponenteCaratteristiche"
-          :propCategoria="props.propCategoriaCercata" 
-          @caratteristicheSelezionate="setCaratteristiche" 
-        />
-        <div v-else></div>
-  
-        <CaricamentoAste v-if="props.propLoading" />
-  
-        <div v-else class="card mx-16 w-auto">
-          <DataView :value="products">
-            <template #list="slotProps">
-              <div class="grid-nogutter grid">
-                <ProductItem
-                  v-for="(item, index) in slotProps.items" 
-                  :key="index" 
-                  :item="item"
-                    :index="index"
-                  class="col-12 mt-4 contenitore-articolo"
-                ></ProductItem>
-                
-              </div>
-            </template>
-          </DataView>
+        <div class="sezione-superiore w-full">
+            <barraDeiFIltriPrincipale
+                @ordineSelezionato="setCampiOrdinamento"
+                @prezzoMinSelezionato="setPrezzoMin"
+                @prezzoMaxSelezionato="setPrezzoMax"
+            />
         </div>
-      </div>
+
+        <div class="sezione-centrale">
+            <CaratteristicheProdotto
+                v-if="props.propRicaricaComponenteCaratteristiche"
+                :propCategoria="props.propCategoriaCercata"
+                @caratteristicheSelezionate="setCaratteristiche"
+            />
+            <div v-else></div>
+
+            <CaricamentoAste v-if="props.propLoading" />
+
+            <div v-else class="card mx-16 w-auto">
+                <DataView :value="products">
+                    <template #list="slotProps">
+                        <div class="grid-nogutter grid">
+                            <ProductItem
+                                v-for="(item, index) in slotProps.items"
+                                :key="index"
+                                :item="item"
+                                :index="index"
+                                class="col-12 contenitore-articolo mt-4"
+                            ></ProductItem>
+                        </div>
+                    </template>
+                </DataView>
+            </div>
+        </div>
     </div>
-  
-    <Paginator 
-      :rows="5" 
-      :totalRecords="props.propNumeroAste" 
-      @page="onPage"
-    ></Paginator>
-  </template>
-  
+
+    <Paginator :rows="5" :totalRecords="props.propNumeroAste" @page="onPage"></Paginator>
+</template>
+
 <script setup>
 import DataView from 'primevue/dataview';
 import Paginator from 'primevue/paginator';
@@ -102,7 +97,6 @@ const setPrezzoMin = (prezzoMin) => {
 const setPrezzoMax = (prezzoMax) => {
     emit('prezzoMaxSelezionato', prezzoMax);
 };
-
 </script>
 
 <style scoped>
@@ -116,14 +110,11 @@ const setPrezzoMax = (prezzoMax) => {
     flex-direction: column;
 }
 
-.contenitore-articolo{
-
+.contenitore-articolo {
     cursor: pointer;
-    
 }
 
-.titolo-articolo:hover{
-
+.titolo-articolo:hover {
     font-size: 20px !important;
     text-decoration: underline;
 }

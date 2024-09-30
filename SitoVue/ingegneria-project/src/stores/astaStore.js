@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { getImageInFormdata} from '../service/astaService.js';
+import { getImageInFormdata } from '../service/astaService.js';
 
 // Funzione per convertire Base64 in Blob
 function srcToFile(base64, nomeFile) {
@@ -22,9 +22,9 @@ function srcToFile(base64, nomeFile) {
     }
     let byteArray = new Uint8Array(byteNumbers);
     let tipo = base64.startsWith('data:image/png;base64,') ? 'image/png' : 'image/jpeg';
-    let blob = new Blob([byteArray], {type: tipo});
+    let blob = new Blob([byteArray], { type: tipo });
 
-    return new File([blob], nomeFile, { type: 'image/jpeg' })
+    return new File([blob], nomeFile, { type: 'image/jpeg' });
 }
 
 export const useAstaStore = defineStore('asta', {
@@ -43,35 +43,34 @@ export const useAstaStore = defineStore('asta', {
             dataInizio: '',
             immaginiSalvate: [],
             caratteristiche: {},
-
         },
     }),
     getters: {
         getAsta() {
             return asta;
         },
-        
     },
     actions: {
         updateAsta(newData) {
             this.asta = { ...this.asta, ...newData };
         },
-         async getFormattedData() {
+        async getFormattedData() {
             const formData = await getImageInFormdata();
             const categoriaSalvata = Object.keys(this.asta.categoria)[0];
             const file = this.asta.immaginiSalvate;
             file.forEach((f) => {
-            formData.append('file', srcToFile(f.src, f.name));
-                });
+                formData.append('file', srcToFile(f.src, f.name));
+            });
 
-                
             return {
                 datiProdotto: {
                     nomeProdotto: this.asta.nomeProdotto,
                     descrizioneProdotto: this.asta.descrizione,
                     immagini: formData,
                     categoriaProdotto: categoriaSalvata,
-                    caratteristicheProdotto: Object.entries(this.asta.caratteristiche).map(([idCaratteristica, valore]) => ({ idCaratteristica, valore })),
+                    caratteristicheProdotto: Object.entries(this.asta.caratteristiche).map(
+                        ([idCaratteristica, valore]) => ({ idCaratteristica, valore })
+                    ),
                 },
                 datiAsta: {
                     baseAsta: parseFloat(this.asta.prezzoBase),
@@ -81,7 +80,7 @@ export const useAstaStore = defineStore('asta', {
                     datiExtraJson: JSON.stringify({
                         tempoEstensione: parseFloat(this.asta.durataEstensione),
                         quotaFissaPerLaPuntata: parseFloat(this.asta.incrementoMinimo),
-                        astaId: 8, 
+                        astaId: 8,
                     }),
                 },
             };

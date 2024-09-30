@@ -1,18 +1,20 @@
 <template>
-  <div>
-    <p>{{ giorni }} giorni, {{ ore }} ore, {{ minuti }} minuti, {{ secondi }} secondi rimanenti</p>
-    {{ remainingTime }}
-  </div>
+    <div>
+        <p>
+            {{ giorni }} giorni, {{ ore }} ore, {{ minuti }} minuti, {{ secondi }} secondi rimanenti
+        </p>
+        {{ remainingTime }}
+    </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount , watch} from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
 
 const props = defineProps({
-  unixTimestamp: {
-    type: Number,
-    required: true
-  }
+    unixTimestamp: {
+        type: Number,
+        required: true,
+    },
 });
 
 const emit = defineEmits(['update:remainingTime']);
@@ -27,30 +29,33 @@ const secondi = computed(() => remainingTime.value % 60);
 let countdownInterval;
 
 const startCountdown = () => {
-  clearInterval(countdownInterval);
-  countdownInterval = setInterval(() => {
-    const currentTime = Math.floor(Date.now()); // Ottieni il tempo corrente in secondi
-    remainingTime.value = Math.floor((props.unixTimestamp - currentTime)/1000);
-    if (remainingTime.value > 0) {
-      emit('update:remainingTime', remainingTime.value);
-    } else {
-      clearInterval(countdownInterval);
-    }
-  }, 1000);
+    clearInterval(countdownInterval);
+    countdownInterval = setInterval(() => {
+        const currentTime = Math.floor(Date.now()); // Ottieni il tempo corrente in secondi
+        remainingTime.value = Math.floor((props.unixTimestamp - currentTime) / 1000);
+        if (remainingTime.value > 0) {
+            emit('update:remainingTime', remainingTime.value);
+        } else {
+            clearInterval(countdownInterval);
+        }
+    }, 1000);
 };
-watch(() => props.unixTimestamp, (newTimestamp, oldTimestamp) => {
-    if (newTimestamp !== oldTimestamp) {
-        startCountdown();
+watch(
+    () => props.unixTimestamp,
+    (newTimestamp, oldTimestamp) => {
+        if (newTimestamp !== oldTimestamp) {
+            startCountdown();
+        }
     }
-});
+);
 
 // Inizializza il countdown al montaggio
 onMounted(() => {
-  startCountdown();
+    startCountdown();
 });
 
 // Pulisci l'intervallo quando il componente viene smontato
 onBeforeUnmount(() => {
-  clearInterval(countdownInterval);
+    clearInterval(countdownInterval);
 });
 </script>

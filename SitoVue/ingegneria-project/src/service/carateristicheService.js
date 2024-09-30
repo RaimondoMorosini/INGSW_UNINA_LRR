@@ -4,11 +4,11 @@ async function getCaratteristiche(categoria) {
         const response = await getRest(
             'public/getCaratteristicheDaCategoria?categoria=' + categoria
         ); //Get delle caratteristihce relative alla categoria cercata
-        response.forEach(element => {
+        response.forEach((element) => {
             // Ordina le caratteristiche in base ai numeri presenti se data.tipo = 'numero'
-        if (element.tipoCaratteristica === 'numero')
-            element.opzioniSelezionabili.sort(compareStringsByNumbers); // Ordina le caratteristiche in base ai numeri presenti
-        else element.opzioniSelezionabili.sort(); // Ordina le caratteristiche in ordine alfabetico
+            if (element.tipoCaratteristica === 'numero')
+                element.opzioniSelezionabili.sort(compareStringsByNumbers); // Ordina le caratteristiche in base ai numeri presenti
+            else element.opzioniSelezionabili.sort(); // Ordina le caratteristiche in ordine alfabetico
         });
         return response;
     } catch (error) {
@@ -40,36 +40,34 @@ function compareStringsByNumbers(a, b) {
 }
 
 function getArrayOpzionePerMultiSelect(opzioni) {
-
     const arrayDelleOpzioniFormattato = new Array();
 
-    opzioni.forEach( (opzione) => {
-    
+    opzioni.forEach((opzione) => {
         const oggettoOpzione = {
-
-            name: opzione
+            name: opzione,
         };
 
-        arrayDelleOpzioniFormattato.push(oggettoOpzione)
-});
+        arrayDelleOpzioniFormattato.push(oggettoOpzione);
+    });
 
-       return arrayDelleOpzioniFormattato; 
+    return arrayDelleOpzioniFormattato;
 }
 
-function getArrayOpzionePerChiamataAxsios(opzioni){
-
+function getArrayOpzionePerChiamataAxsios(opzioni) {
     const arrayDelleOpzioniFormattato = new Array();
 
-    opzioni.forEach( (opzione) => {
-
+    opzioni.forEach((opzione) => {
         arrayDelleOpzioniFormattato.push(opzione.name);
     });
 
     return arrayDelleOpzioniFormattato;
 }
 
-function getCaratteristicheSelezionateDTO(caratteristicheSelezionateDTO, idCaratteristica, valoriSelezionati) {
-
+function getCaratteristicheSelezionateDTO(
+    caratteristicheSelezionateDTO,
+    idCaratteristica,
+    valoriSelezionati
+) {
     if (valoriSelezionati.length === 0) {
         const index = caratteristicheSelezionateDTO.findIndex(
             (obj) => obj.idCaratteristica === idCaratteristica
@@ -97,5 +95,9 @@ function getCaratteristicheSelezionateDTO(caratteristicheSelezionateDTO, idCarat
     return caratteristicheSelezionateDTO;
 }
 
-
-export { getCaratteristiche, getArrayOpzionePerMultiSelect, getArrayOpzionePerChiamataAxsios, getCaratteristicheSelezionateDTO };
+export {
+    getCaratteristiche,
+    getArrayOpzionePerMultiSelect,
+    getArrayOpzionePerChiamataAxsios,
+    getCaratteristicheSelezionateDTO,
+};

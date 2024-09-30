@@ -1,6 +1,6 @@
 <script setup>
 import Dropdown from 'primevue/dropdown';
-import { defineProps, ref ,defineEmits,onMounted,onUnmounted} from 'vue';
+import { defineProps, ref, defineEmits, onMounted, onUnmounted } from 'vue';
 const props = defineProps({
     label: String,
     options: Array,
@@ -12,7 +12,7 @@ const props = defineProps({
 
 const selectedValue = ref(null);
 
-const emit = defineEmits([ 'update:modelValue']);
+const emit = defineEmits(['update:modelValue']);
 const handleChange = (newValue) => {
     selectedValue.value = newValue.value;
     emit('update:modelValue', newValue.value);
@@ -21,7 +21,6 @@ const handleChange = (newValue) => {
 onMounted(() => {
     selectedValue.value = props.modelValue;
 });
-
 </script>
 
 <template>

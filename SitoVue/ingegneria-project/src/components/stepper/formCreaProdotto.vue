@@ -1,40 +1,43 @@
 <template>
     <form @submit.prevent="gestioneInvio">
         <main
-            class="mt-5 flex h-auto w-[100%] min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row"
+            class="mt-5 flex h-auto min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row"
         >
-            <div class="flex h-4col w-[100%] auto-rows-max flex-col justify-between gap-3 px-2">
-                <div class="formSpace">
-                    <label for="nomeProdotto">Nome Prodotto</label>
-                    <input
-                        class="w-[60%] rounded md:w-[70%]"
-                        type="text"
-                        id="nomeProdotto"
-                        v-model="nomeProdotto"
-                    />
+            <div class="h-4col lg:w-6col auto-rows-max justify-between gap-3 px-2">
+                <div class="formSpace pt-6">
+                    <FloatLabel>
+                        <InputText
+                            class="w-[100%] rounded"
+                            id="nomeProdotto"
+                            v-model="nomeProdotto"
+                        />
+                        <label for="nomeProdotto">Nome Prodotto</label>
+                    </FloatLabel>
                 </div>
-                <div class="formSpace">
-                    <label for="descrizione">Descrizione Prodotto</label>
-                    <textarea
-                        rows="5"
-                        class="w-[60%] rounded md:w-[70%]"
-                        id="descrizione"
-                        v-model="descrizione"
-                    />
+                <div class="formSpace pt-6">
+                    <FloatLabel>
+                        <InputText
+                            id="descrizione"
+                            class="min-h-[10rem] w-[100%] rounded"
+                            v-model="descrizione"
+                        />
+                        <label for="descrizione">Descrizione Prodotto</label>
+                    </FloatLabel>
                 </div>
-                <div class="formSpace">
-                    <label for="prezzoBase">Prezzo Base</label>
-                    <input
-                        class="w-[60%] rounded md:w-[70%]"
-                        type="number"
-                        id="prezzoBase"
-                        v-model="prezzoBase"
-                    />
+                <div class="formSpace pt-6">
+                    <FloatLabel>
+                        <InputNumber
+                            class="w-[100%] rounded"
+                            id="prezzoBase"
+                            v-model="prezzoBase"
+                        />
+                        <label for="prezzoBase">Prezzo Base</label>
+                    </FloatLabel>
                 </div>
 
-                <InputGroup class="categoriaSelector w-[100%]">
-                    <InputGroupAddon class="bg-slate-100 ring-1 ring-black">
-                        <i class="pi pi-th-large" style="color: #000"></i>
+                <InputGroup class="categoriaSelector pt-6">
+                    <InputGroupAddon class="ring-1 ring-black">
+                        <i class="pi pi-th-large"></i>
                     </InputGroupAddon>
                     <TreeSelect
                         id="categoria"
@@ -42,11 +45,11 @@
                         :options="nodes"
                         option-label="name"
                         placeholder="Seleziona Categoria"
-                        class="rounded-r bg-slate-100 text-black ring-1 ring-black"
+                        class="rounded-r text-black ring-1 ring-black"
                     />
                 </InputGroup>
             </div>
-            <div class="flex h-[100%] w-[100%] justify-center px-2 lg:justify-start">
+            <div class="flex justify-center px-2 lg:justify-start">
                 <ImageUploader />
             </div>
         </main>
@@ -58,17 +61,18 @@
 </template>
 
 <script setup>
-
+import InputNumber from 'primevue/inputnumber';
+import FloatLabel from 'primevue/floatlabel';
+import InputText from 'primevue/inputtext';
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 import TreeSelect from 'primevue/treeselect';
 import ImageUploader from './ImageUploader.vue';
-import { onMounted,onUnmounted, ref, defineEmits } from 'vue';
+import { onMounted, onUnmounted, ref, defineEmits } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
-import{ getCategorie} from '../../service/categoriaService.js';
+import { getCategorie } from '../../service/categoriaService.js';
 
 const nodes = ref([]);
-
 
 const storeInstance = useAstaStore();
 const emit = defineEmits(['update:active']);
@@ -143,11 +147,6 @@ label {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: bold;
-}
-.formSpace {
-    justify-content: space-between;
-    display: flex;
-    direction: column;
 }
 
 button.bottone {

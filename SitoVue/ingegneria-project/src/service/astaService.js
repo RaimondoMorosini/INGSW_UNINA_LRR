@@ -1,5 +1,5 @@
-import {postRestWithtoken,postRest} from '../scripts/RestUtils.js';
-import {useAstaStore} from '../stores/astaStore.js'
+import { postRestWithtoken, postRest } from '../scripts/RestUtils.js';
+import { useAstaStore } from '../stores/astaStore.js';
 import { salvaImaginiAsta } from '../scripts/ImageUploadService.js';
 
 function srcToFile(base64, nomeFile) {
@@ -22,16 +22,15 @@ function srcToFile(base64, nomeFile) {
     }
     let byteArray = new Uint8Array(byteNumbers);
     let tipo = base64.startsWith('data:image/png;base64,') ? 'image/png' : 'image/jpeg';
-    let blob = new Blob([byteArray], {type: tipo});
+    let blob = new Blob([byteArray], { type: tipo });
 
-    return new File([blob], nomeFile, { type: 'image/jpeg' })
+    return new File([blob], nomeFile, { type: 'image/jpeg' });
 }
 
-
 export async function creaAsta() {
-    const datiAsta =await useAstaStore().getFormattedData();
+    const datiAsta = await useAstaStore().getFormattedData();
     console.log('datiAsta:\n', datiAsta);
-    datiAsta.datiProdotto.immagini=[];
+    datiAsta.datiProdotto.immagini = [];
     try {
         const response = await postRestWithtoken('asta/creaasta', datiAsta);
         console.log('log ora recupero idasta e salvo le img:', response);
@@ -42,12 +41,11 @@ export async function creaAsta() {
     } catch (error) {
         console.error("Errore durante la creazione dell'asta:", error);
         throw new Error("Impossibile creare l'asta");
-    }   
-
+    }
 }
 
-export async function getImageInFormdata(){
-   const formData = new FormData();
+export async function getImageInFormdata() {
+    const formData = new FormData();
     useAstaStore().asta.immaginiSalvate.forEach((f) => {
         console.log('f:', f);
         // La tua stringa Base64
@@ -56,11 +54,9 @@ export async function getImageInFormdata(){
         const nomeFile = f.name;
 
         // Convertire la stringa Base64 in un File
-        const file1= srcToFile(f.src, f.name);
+        const file1 = srcToFile(f.src, f.name);
 
         formData.append('files', file1, f.name);
- 
     });
     return formData;
-
 }
