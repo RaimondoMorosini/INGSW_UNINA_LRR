@@ -1,37 +1,51 @@
 <template>
     <form @submit.prevent="gestioneInvio">
         <label for="asta">Seleziona tipo Asta</label>
-        <select name="tipoAsta" id="asta" v-model="tipoAsta" class="rounded">
+        <select name="tipoAsta" id="asta" v-model="tipoAsta" class="rounded bg-inherit">
             <option value="asta_inglese">Asta Inglese</option>
             <option value="asta_silenziosa">Asta Silenziosa</option>
         </select>
 
         <div
             v-if="tipoAsta === 'asta_inglese'"
-            class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black"
+            class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
             ASTA INGLESE
-            <div class="formSpace px-2 lg:pr-9">
-                <label for="incrementoMinimo">Incremento minimo</label>
-                <input
-                    class="w-[60%] rounded"
-                    type="number"
-                    id="incrementoMinimo"
-                    v-model="incrementoMinimo"
-                />
+            <div class="formSpace  pt-5 w-[100%] lg:pr-9">
+
+                 
+                        <InputNumber
+                            id="incrementoMinimo"
+                            class="w-[100%] rounded"
+                            v-model="incrementoMinimo"
+                            prefix="€ " 
+                        />
+                        <label for="incrementoMinimo">Incremento minimo</label>
+                     
+                
             </div>
-            <div class="formSpace px-2 lg:pr-9">
-                <label for="durataEstensione">Durata estensione</label>
-                <input
-                    type="number"
-                    class="w-[60%] rounded"
-                    id="durataEstensione"
-                    v-model="durataEstensione"
-                />
+            <div class="formSpace pt-5 lg:pr-9">
+                 
+                        <InputNumber
+                            inputId="integeronly" fluid
+                            id="durataEstensione"
+                            class="w-[100%] rounded"
+                            v-model="durataEstensione"
+                            prefix="Ore estensione: " 
+                        />
+                        <label for="durataEstensione">Durata estensione</label>
+                     
+                
+              
             </div>
-            <div class="formSpace px-2 lg:pr-9">
-                <label for="prezzoBase">Data Scadenza</label>
-                <input class="w-[60%] rounded" type="date" id="prezzoBase" v-model="scadenzaAsta" />
+            <div class="formSpace pt-5 lg:pr-9">
+                 
+                    <DatePicker :minDate="minDate" showIcon="true" fluid v-model="scadenzaAsta" id="scadenzaAsta" inputId="birth_date" 
+                    class="w-[60%] rounded bg-inherit"/>
+                    <label for="scadenzaAsta">Data Scadenza</label>
+                 
+                
+                
             </div>
         </div>
 
@@ -57,8 +71,22 @@
 </template>
 
 <script setup>
+import InputNumber from 'primevue/inputnumber';
+import FloatLabel from 'primevue/floatlabel';
+import DatePicker from 'primevue/datepicker';
+
 import { defineEmits, ref, onMounted } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
+
+let today = new Date();
+let nowMonth = today.getMonth();
+let nowYear = today.getFullYear();
+
+const minDate = ref(new Date());
+
+minDate.value.setMonth(nowMonth);
+minDate.value.setFullYear(nowYear);
+
 
 const storeInstance = useAstaStore();
 
