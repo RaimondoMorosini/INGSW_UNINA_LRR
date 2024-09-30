@@ -1,46 +1,14 @@
 <template>
-    <div class="contenitore_colonne">
-        <div class="colonna">
-            <ImmaginiProdotto v-if="item" :prodotto="item" />
-        </div>
-        <div class="colonna">
-            <div class="asta" v-if="item">
-                <h1>{{ item.nome }} (Categoria: {{ item.categoria }})</h1>
-                <h1>qui andrà il timer.....</h1>
-                <div class="dettagli">
-                    <p><strong>Base d'asta:</strong> {{ item.baseAsta }} €</p>
-                    <p><strong>Prezzo attuale:</strong> {{ item.prezzoAttuale }} €</p>
-                    <p><strong>Tipo d'asta:</strong> {{ item.tipoAsta }}</p>
-                    <p>
-                        <strong>Data di scadenza:</strong>
-                        {{
-                            new Date(item.dataScadenza).toLocaleString('it-IT', { timeZone: 'GMT' })
-                        }}
-                        GMT
-                    </p>
-                    <p><strong>Creato da:</strong> {{ item.emailUtenteCreatore }}</p>
-                    <button
-                        @click="faiOfferta"
-                        class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-                    >
-                        Fai un'offerta
-                    </button>
-                    <Countdown
-                        :unixTimestamp="item.dataScadenza"
-                        @update:remainingTime="tempoInSecondi = $event"
-                    ></Countdown>
-                    secondi rimanenti: {{ tempoInSecondi }}
-                </div>
-                <div class="descrizione">
-                    <h2>Descrizione</h2>
-                    <p>{{ item.descrizione }}</p>
-                </div>
-            </div>
-            <div v-else>
-                <p>Caricamento in corso...</p>
-            </div>
-        </div>
+
+  <div class="contenitore_colonne">
+
+    <div class="colonna">
+      <ImmaginiProdotto v-if="item" :prodotto="item" />
     </div>
+  <div class="colonna">
+    <InfoAstaProdotto v-if="item" :prodotto="item" />
+  </div>
+  </div>
 </template>
 
 <script setup>
@@ -50,6 +18,7 @@ import { getInfoAstaProdotto } from '../service/PaginaProdottoAstaService';
 import { mantieniAggiornamenti, disconnettiti } from '../scripts/websocket/websocket.js';
 import Countdown from '../components/PaginaAsta/countdown.vue';
 import ImmaginiProdotto from '../components/PaginaAsta/ImmaginiProdotto.vue';
+import InfoAstaProdotto from '../components/PaginaAsta/InfoAstaProdotto.vue'
 
 const route = useRoute();
 const astaId = route.params.id;
