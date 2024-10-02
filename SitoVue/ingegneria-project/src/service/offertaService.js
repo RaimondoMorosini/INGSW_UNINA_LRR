@@ -1,5 +1,5 @@
 import {postRestWithtoken,postRest} from '../scripts/RestUtils.js';
-
+import { TipoAsta } from './astaService.js';
 export async function faiOfferta(prezzoProposto, idAsta) {
     const payload = {
         prezzoProposto: prezzoProposto,

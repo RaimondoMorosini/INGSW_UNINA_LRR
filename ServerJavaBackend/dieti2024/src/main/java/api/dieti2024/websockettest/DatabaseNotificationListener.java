@@ -1,5 +1,11 @@
 package api.dieti2024.websockettest;
 
+import api.dieti2024.exceptions.ApiException;
+import api.dieti2024.model.Offerta;
+import api.dieti2024.util.JsonUtil;
+import api.dieti2024.util.WebSocketUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.postgresql.PGConnection;
 import org.postgresql.PGNotification;
@@ -10,6 +16,8 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @Component
@@ -19,6 +27,8 @@ public class DatabaseNotificationListener {
     private DataSource dataSource;
 
     private PGConnection pgConnection;
+    @Autowired
+    private WebSocketUtil webSocketUtil;
 
     @PostConstruct
     public void listen() {
@@ -42,6 +52,17 @@ public class DatabaseNotificationListener {
                 if (notifications != null) {
                     for (PGNotification notification : notifications) {
                         System.out.println("Received notification: " + notification.getParameter());
+
+                        try {
+                            Offerta offerta = JsonUtil.fromJson(notification.getParameter(), Offerta.class);
+                            inviaNotificaNuovaOfferta(offerta);
+                        }catch(ApiException e){
+                            //e.printStackTrace();
+                        }
+                        catch (Exception e) {
+                            //e.printStackTrace();
+                        }
+
                     }
                 }
 
@@ -50,5 +71,20 @@ public class DatabaseNotificationListener {
                 //e.printStackTrace();
             }
         }
+    }
+    private void inviaNotificaNuovaOfferta(Offerta offerta) {
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("message", "Un utente ha fatto un'offerta:");
+        messageMap.put("offerta", offerta);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonMessage = "";
+        try {
+            jsonMessage = objectMapper.writeValueAsString(messageMap);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        webSocketUtil.inviaMessaggio(jsonMessage, "/asta/" + offerta.getAstaId());
+
     }
 }

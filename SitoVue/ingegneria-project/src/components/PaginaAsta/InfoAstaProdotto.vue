@@ -1,28 +1,21 @@
 <template>
     <Card style="width: 25rem; overflow: hidden">
         <template #header>
-            
+
         </template>
-        
+
         <template #content>
             <h1 class="font-bold text-xl">Scadenza asta</h1>
-            <Countdown :unixTimestamp="dataScadenza" @update:remainingTime="tempoInSecondi = $event" />
+            <Countdown :unixTimestamp="props.prodotto.dataScadenza" @update:remainingTime="tempoInSecondi = $event" />
 
-            <BottoneOfferta v-if="tipoAsta==='asta_inglese'" 
-            :tipoAsta="tipoAsta" 
-            :prezzoAttuale="props.prodotto.prezzoAttuale" 
-            :incrementoOfferta="1" 
-            :faiOfferta="faiOffertaParziale" />
+            <BottoneOfferta v-if="tipoAsta === 'asta_inglese'" :tipoAsta="tipoAsta"
+                :prezzoAttuale="props.prodotto.prezzoAttuale" :incrementoOfferta="incrementoOfferta" :faiOfferta="faiOffertaParziale" />
 
-            <BottoneOfferta v-else-if="tipoAsta==='asta_silenziosa'" 
-            :tipoAsta="tipoAsta" 
-            :baseAsta="baseAsta" 
-            :faiOfferta="faiOffertaParziale" />
+            <BottoneOfferta v-else-if="tipoAsta === 'asta_silenziosa'" :tipoAsta="props.prodotto.tipoAsta" :baseAsta="props.prodotto.baseAsta"
+                :faiOfferta="faiOffertaParziale" />
 
-            <BottoneOfferta v-else
-            :tipoAsta="tipoAsta" 
-            :prezzoAttuale="prezzoAttuale" 
-            :faiOfferta="faiOffertaParziale"/>
+            <BottoneOfferta v-else :tipoAsta="props.prodotto.tipoAsta" :prezzoAttuale="props.prodotto.prezzoAttuale"
+                :faiOfferta="faiOffertaParziale" />
 
         </template>
         <template #footer>
@@ -38,40 +31,43 @@ import Card from 'primevue/card';
 import Countdown from '../PaginaAsta/countdown.vue';
 import BottoneOfferta from "../PaginaAsta/BottoneOfferta.vue";
 import { faiOfferta } from '../../service/offertaService.js';
-
-const tempoInSecondi = ref(0);
-const dataScadenza = ref(null);
-const tipoAsta = ref(null);
-const baseAsta = ref(null);
-const idAsta = ref(null);
-const prezzoAttuale = ref(null);
+import { getDatiastaInglese } from '../../service/PaginaProdottoAstaService';
 
 
 const props = defineProps([
     'prodotto'
 ]);
 
-onMounted(() => {
+const tipoAsta = ref(null);
+const datiExtra = ref(null);
+const incrementoOfferta = ref();
 
-    dataScadenza.value = props.prodotto.dataScadenza;
+onMounted(async () => {
+
     tipoAsta.value = props.prodotto.tipoAsta;
-    baseAsta.value = props.prodotto.baseAsta;
-    idAsta.value = props.idAsta;
-    prezzoAttuale.value = props.prodotto.prezzoAttuale;
-    console.log(props.prodotto.value)
+
+    if (tipoAsta.value == 'asta_inglese') {
+
+        try {
+            datiExtra.value = await getDatiastaInglese(props.prodotto.idAsta);
+                } catch (e) {
+            console.error("Errore richiesta datiExtra:", e);
+        }
+
+        incrementoOfferta.value = datiExtra.value.quotaFissaPerLaPuntata;
+
+    }
 });
 
 const faiOffertaParziale = (prezzoProposto) => {
-  return faiOfferta(prezzoProposto, props.prodotto.idAsta);
+    return faiOfferta(prezzoProposto, props.prodotto.idAsta);
 };
 
 </script>
 
 <style>
-
-.titolo_prodotto{
+.titolo_prodotto {
 
     font-size: xx-large;
 }
-
 </style>
