@@ -6,7 +6,7 @@
       <ImmaginiProdotto v-if="item" :prodotto="item" />
     </div>
   <div class="colonna">
-    <InfoAstaProdotto v-if="item" :prodotto="item" />
+    <InfoAstaProdotto v-if="item" :prodotto="item" :utenteUltimaOfferta="utenteUltimaOfferta" />
   </div>
   </div>
 </template>
@@ -22,6 +22,7 @@ import InfoAstaProdotto from '../components/PaginaAsta/InfoAstaProdotto.vue'
 const route = useRoute();
 const astaId = route.params.id;
 const item = ref(null);
+const utenteUltimaOfferta= ref(null);
 const stomp1 = ref(null);
 const datiExtra = ref(null);
 onMounted(async () => {
@@ -57,7 +58,7 @@ function handleMessage(message) {
         astaId: data.offerta.astaId,
         offertaVincente: data.offerta.offertaVincente
     };
-    
+    utenteUltimaOfferta.value=offerta.emailUtente;
     switch (item.value.tipoAsta) {
         case 'asta_inglese':
             if (offerta.prezzoProposto > item.value.prezzoAttuale) {
