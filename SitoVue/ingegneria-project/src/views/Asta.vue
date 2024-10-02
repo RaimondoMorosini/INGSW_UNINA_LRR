@@ -43,7 +43,14 @@ onUnmounted(() => {
 function handleMessage(message) {
     console.log('Messaggio ricevuto dalla websocket:', message);
     const data = JSON.parse(message);
-    const offerta = data.offerta;
+    const offerta = {
+        id: data.offerta.id,
+        tempoOfferta: data.offerta.tempoOfferta,
+        prezzoProposto: data.offerta.prezzoProposto,
+        emailUtente: data.offerta.emailUtente,
+        astaId: data.offerta.astaId,
+        offertaVincente: data.offerta.offertaVincente
+    };
     switch (item.value.tipoAsta) {
         case 'asta_inglese':
             if (offerta.prezzoProposto > item.value.prezzoAttuale) {
