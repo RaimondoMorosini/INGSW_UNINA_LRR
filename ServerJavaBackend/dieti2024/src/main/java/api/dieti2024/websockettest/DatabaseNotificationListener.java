@@ -1,5 +1,6 @@
 package api.dieti2024.websockettest;
 
+import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Offerta;
 import api.dieti2024.util.JsonUtil;
 import api.dieti2024.util.WebSocketUtil;
@@ -51,10 +52,14 @@ public class DatabaseNotificationListener {
                 if (notifications != null) {
                     for (PGNotification notification : notifications) {
                         System.out.println("Received notification: " + notification.getParameter());
-                        Offerta offerta = JsonUtil.fromJson(notification.getParameter(), Offerta.class);
+
                         try {
+                            Offerta offerta = JsonUtil.fromJson(notification.getParameter(), Offerta.class);
                             inviaNotificaNuovaOfferta(offerta);
-                        } catch (Exception e) {
+                        }catch(ApiException e){
+                            //e.printStackTrace();
+                        }
+                        catch (Exception e) {
                             //e.printStackTrace();
                         }
 
