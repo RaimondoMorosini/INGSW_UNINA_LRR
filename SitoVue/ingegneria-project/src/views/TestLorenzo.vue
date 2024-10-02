@@ -1,58 +1,67 @@
 <template>
-    <div class="flex h-4col w-[100%] auto-rows-max flex-col justify-between gap-3 px-2">
-        <div class="formSpace pt-6">
-            <FloatLabel>
-                <InputText
-                    class="w-[60%] rounded md:w-[70%]"
-                    id="nomeProdotto"
-                    v-model="nomeProdotto"
-                />
-                <label for="nomeProdotto">Nome Prodotto</label>
-            </FloatLabel>
-        </div>
-        <div class="formSpace pt-6">
-            <FloatLabel>
-                <InputText
-                    id="descrizione"
-                    class="min-h-[10rem] w-[60%] rounded md:w-[70%]"
-                    v-model="descrizione"
-                />
-                <label for="descrizione">Descrizione Prodotto</label>
-            </FloatLabel>
-        </div>
-        <div class="formSpace pt-6">
-            <FloatLabel>
-                <InputNumber
-                    class="w-[60%] rounded md:w-[70%]"
-                    id="prezzoBase"
-                    v-model="prezzoBase"
-                />
-                <label for="prezzoBase">Prezzo Base</label>
-            </FloatLabel>
-        </div>
-
-        <InputGroup class="categoriaSelector w-[100%] pt-6">
-            <InputGroupAddon class="bg-slate-100 ring-1 ring-black">
-                <i class="pi pi-th-large" style="color: #000"></i>
-            </InputGroupAddon>
-            <TreeSelect
-                id="categoria"
-                v-model="selectedCategory"
-                :options="nodes"
-                option-label="name"
-                placeholder="Seleziona Categoria"
-                class="rounded-r bg-slate-100 text-black ring-1 ring-black"
-            />
-        </InputGroup>
+<Stepper value="1">
+    <div class="card flex justify-center">
+        <StepList class="basis-[50rem]">
+            <Step value="1">
+                <span class="block sm:hidden">Descrizione Prodotto</span>
+                <span class="hidden sm:block">
+                    <i class="pi pi-cart-arrow-down"></i>
+                </span>
+            </Step>
+            <Step value="2">
+                <span class="block sm:hidden">Seleziona Filtri</span>
+                <span class="hidden sm:block">
+                    <i class="pi pi-filter"></i>
+                </span>
+            </Step>
+            <Step value="3">
+                <span class="block sm:hidden">Dettagli Asta</span>
+                <span class="hidden sm:block">
+                    <i class="pi pi-barcode"></i>
+                </span>
+            </Step>
+            <Step value="4">
+                <span class="block sm:hidden">Revisione Dati Inseriti</span>
+                <span class="hidden sm:block">
+                    <i class="pi pi-check-circle"></i>
+                </span></Step>
+        </StepList>
     </div>
+    <StepPanels>
+        <StepPanel v-slot="{ activateCallback }" value="1">
+            <CreaProdotto/>
+            <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('2')" />
+        </StepPanel>
+        <StepPanel v-slot="{ activateCallback }" value="2">
+            <SelezionaFiltri/>
+            <Button label="Back" severity="secondary" icon="pi pi-arrow-left" @click="activateCallback('1')" />
+            <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('3')" />
+        </StepPanel>
+        <StepPanel v-slot="{ activateCallback }" value="3">
+            <SelezioneTipoAsta/>
+            <Button label="Back" severity="secondary" icon="pi pi-arrow-left" @click="activateCallback('2')" />
+            <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('4')" />
+        </StepPanel>
+        <StepPanel v-slot="{ activateCallback }" value="4">
+            <Review/>
+            <Button label="Back" severity="secondary" icon="pi pi-arrow-left" @click="activateCallback('2')" />
+            <Button label="Post" icon="pi pi-arrow-right" iconPos="right" />
+        </StepPanel>
+    </StepPanels>
+</Stepper>
 </template>
 
 <script setup>
-import InputNumber from 'primevue/inputnumber';
-import FloatLabel from 'primevue/floatlabel';
-import InputText from 'primevue/inputtext';
-import InputGroup from 'primevue/inputgroup';
-import InputGroupAddon from 'primevue/inputgroupaddon';
-import TreeSelect from 'primevue/treeselect';
+import SelezioneTipoAsta from '../components/stepper/dettagliCreaAsta.vue';
 import CreaProdotto from '../components/stepper/formCreaProdotto.vue';
+import SelezionaFiltri from '../components/stepper/impostaFiltriCreaProdotto.vue';
+import Review from '../components/stepper/reviewAsta.vue';
+
+import Button from 'primevue/button';
+import Stepper from 'primevue/stepper';
+import StepList from 'primevue/steplist';
+import StepPanels from 'primevue/steppanels';
+import StepItem from 'primevue/stepitem';
+import Step from 'primevue/step';
+import StepPanel from 'primevue/steppanel';
 </script>

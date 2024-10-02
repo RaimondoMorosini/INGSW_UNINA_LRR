@@ -1,5 +1,5 @@
 <template>
-
+    
     <div class="card">
         <Steps
             :readonly="false"
@@ -9,9 +9,6 @@
         />
     </div>
     
-
-    
-    
     <CreaProdotto @update:active="updateCurrentForm($event)" v-if="active === 0" />
     <SelezionaFiltri @update:active="updateCurrentForm($event)" v-if="active === 1" />
     <SelezioneTipoAsta @update:active="updateCurrentForm($event)" v-if="active === 2" />
@@ -19,6 +16,10 @@
 </template>
 
 <script setup>
+import Stepper from 'primevue/stepper';
+import StepPanels from 'primevue/steppanels';
+import StepItem from 'primevue/stepitem';
+import StepPanel from 'primevue/steppanel';
 import StepList from 'primevue/steplist';
 import Steps from 'primevue/steps';
 import Step from 'primevue/step';
