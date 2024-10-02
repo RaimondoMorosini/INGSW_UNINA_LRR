@@ -1,5 +1,4 @@
 <template>
-    
     <div class="card">
         <Steps
             :readonly="false"
@@ -8,7 +7,7 @@
             v-model:activeStep="active"
         />
     </div>
-    
+
     <CreaProdotto @update:active="updateCurrentForm($event)" v-if="active === 0" />
     <SelezionaFiltri @update:active="updateCurrentForm($event)" v-if="active === 1" />
     <SelezioneTipoAsta @update:active="updateCurrentForm($event)" v-if="active === 2" />
@@ -39,7 +38,6 @@ const updateCurrentForm = (value) => {
 const items = ref([
     {
         label: 'Descrizione Prodotto',
-        
     },
     {
         label: 'Selezione Filtri',

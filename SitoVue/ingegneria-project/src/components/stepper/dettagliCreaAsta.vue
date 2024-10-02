@@ -11,41 +11,37 @@
             class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
             ASTA INGLESE
-            <div class="formSpace  pt-5 w-[100%] lg:pr-9">
-
-                 
-                        <InputNumber
-                            id="incrementoMinimo"
-                            class="w-[100%] rounded"
-                            v-model="incrementoMinimo"
-                            prefix="€ " 
-                        />
-                        <label for="incrementoMinimo">Incremento minimo</label>
-                     
-                
+            <div class="formSpace w-[100%] pt-5 lg:pr-9">
+                <InputNumber
+                    id="incrementoMinimo"
+                    class="w-[100%] rounded"
+                    v-model="incrementoMinimo"
+                    prefix="€ "
+                />
+                <label for="incrementoMinimo">Incremento minimo</label>
             </div>
             <div class="formSpace pt-5 lg:pr-9">
-                 
-                        <InputNumber
-                            inputId="integeronly" fluid
-                            id="durataEstensione"
-                            class="w-[100%] rounded"
-                            v-model="durataEstensione"
-                            prefix="Ore estensione: " 
-                        />
-                        <label for="durataEstensione">Durata estensione</label>
-                     
-                
-              
+                <InputNumber
+                    inputId="integeronly"
+                    fluid
+                    id="durataEstensione"
+                    class="w-[100%] rounded"
+                    v-model="durataEstensione"
+                    prefix="Ore estensione: "
+                />
+                <label for="durataEstensione">Durata estensione</label>
             </div>
             <div class="formSpace pt-5 lg:pr-9">
-                 
-                    <DatePicker :minDate="minDate" showIcon="true" fluid v-model="scadenzaAsta" id="scadenzaAsta" inputId="birth_date" 
-                    class="w-[60%] rounded bg-inherit"/>
-                    <label for="scadenzaAsta">Data Scadenza</label>
-                 
-                
-                
+                <DatePicker
+                    :minDate="minDate"
+                    showIcon="true"
+                    fluid
+                    v-model="scadenzaAsta"
+                    id="scadenzaAsta"
+                    inputId="birth_date"
+                    class="w-[60%] rounded bg-inherit"
+                />
+                <label for="scadenzaAsta">Data Scadenza</label>
             </div>
         </div>
 
@@ -86,7 +82,6 @@ const minDate = ref(new Date());
 
 minDate.value.setMonth(nowMonth);
 minDate.value.setFullYear(nowYear);
-
 
 const storeInstance = useAstaStore();
 

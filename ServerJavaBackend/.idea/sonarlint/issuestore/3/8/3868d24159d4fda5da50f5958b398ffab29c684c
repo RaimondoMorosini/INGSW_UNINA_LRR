@@ -1,8 +1,16 @@
 
-X
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ
-Q	java:S125""<This block of commented-out lines of code should be removed.(†€éˆ
-t
-java:S21421"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ÿ“¿Å
-E	java:S106,"+Replace this use of System.out by a logger.(·ž­Ãùÿÿÿÿ
-Q	java:S1252"<This block of commented-out lines of code should be removed.(†€éˆ
+W
+java:S11418"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8úµíê¤2
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8«¶íê¤2
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8¶¶íê¤2
+X	java:S125,"<This block of commented-out lines of code should be removed.(†€éˆ8Å¶íê¤2
+o
+java:S37760"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(÷ŽëÃ8î¶íê¤2
+{
+java:S2142F"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ÿ“¿Å8ƒ·íê¤2
+L	java:S1066"+Replace this use of System.out by a logger.(·ž­Ãùÿÿÿÿ8»·íê¤2
+X	java:S125<"<This block of commented-out lines of code should be removed.(†€éˆ8É¼íê¤2
+X	java:S125?"<This block of commented-out lines of code should be removed.(†€éˆ8Ê¼íê¤2
+X	java:S125G"<This block of commented-out lines of code should be removed.(†€éˆ8Ò¼íê¤2
