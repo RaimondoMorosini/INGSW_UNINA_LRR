@@ -24,7 +24,6 @@ const route = useRoute();
 const astaId = route.params.id;
 const item = ref(null);
 const stomp1 = ref(null);
-const tempoInSecondi = ref(0);
 
 onMounted(async () => {
     try {
@@ -95,20 +94,10 @@ function faiOfferta() {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra leggera per profondità */
 }
 
-.asta {
-    max-width: 600px;
-    margin: 0 auto;
+@media (max-width: 768px) {
+  .contenitore_colonne {
+    flex-direction: column; /* Disposizione in colonna per schermi piccoli */
+  }
 }
 
-.immagine-prodotto {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 10px 0;
-}
-
-.dettagli,
-.descrizione {
-    margin: 20px 0;
-}
 </style>

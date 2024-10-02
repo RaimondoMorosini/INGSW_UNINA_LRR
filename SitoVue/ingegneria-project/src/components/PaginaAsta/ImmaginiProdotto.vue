@@ -1,37 +1,31 @@
 <template>
     <div class="card">
-        <Galleria
-            :value="images"
-            :responsiveOptions="responsiveOptions"
-            :numVisible="3"
-            containerStyle="max-width: 640px"
-        >
+        <h1 class="my-2 text-3xl font-bold">{{ prodotto.nome }}</h1>
+        <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="3"
+            containerStyle="max-width: 640px">
             <template #item="slotProps">
-                <img
-                    :src="slotProps.item.itemImageSrc"
-                    :alt="slotProps.item.alt"
-                    style="width: 100%"
-                />
+                <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%" />
             </template>
             <template #thumbnail="slotProps">
                 <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt" />
             </template>
         </Galleria>
+        <Card class="my-2">
+            <template #content>
+                <Accordion value="0">
+                    <AccordionPanel value="0">
+                        <AccordionHeader>Descrizione prodotto</AccordionHeader>
+                        <AccordionContent>
+                            <p class="descrizione-prodotto">
+                                {{ props.prodotto.descrizione }}
+                            </p>
+                        </AccordionContent>
+                    </AccordionPanel>
+                </Accordion>
+            </template>
+        </Card>
     </div>
-    <Card>
-        <template #content>
-            <Accordion value="0">
-                <AccordionPanel value="0">
-                    <AccordionHeader>Descrizione prodotto</AccordionHeader>
-                    <AccordionContent>
-                        <p class="descrizione-prodotto">
-                            {{ props.prodotto.descrizione }}
-                        </p>
-                    </AccordionContent>
-                </AccordionPanel>
-            </Accordion>
-        </template>
-    </Card>
+
 </template>
 
 <script setup>
@@ -87,15 +81,22 @@ const responsiveOptions = ref([
     /* Arrotonda gli angoli delle miniature */
 }
 
-.descrizione-prodotto{
+.descrizione-prodotto {
 
-  font-family: 'Lora', serif; /* Font elegante */
-  font-size: 16px;            /* Dimensione del testo leggibile e chiara */
-  font-weight: 400;           /* Peso normale per un aspetto naturale */
-  line-height: 1.6;           /* Aumenta la leggibilità con più spazio tra le righe */
-  color: #333;                /* Un colore scuro ma non completamente nero per un aspetto più morbido */
-  letter-spacing: 0.5px;      /* Leggero spazio tra le lettere per migliorare la leggibilità */
-  text-align: justify;        /* Giustifica il testo per un aspetto più professionale */
-  margin: 20px 0;             
+    font-family: 'Lora', serif;
+    /* Font elegante */
+    font-size: 16px;
+    /* Dimensione del testo leggibile e chiara */
+    font-weight: 400;
+    /* Peso normale per un aspetto naturale */
+    line-height: 1.6;
+    /* Aumenta la leggibilità con più spazio tra le righe */
+    color: #333;
+    /* Un colore scuro ma non completamente nero per un aspetto più morbido */
+    letter-spacing: 0.5px;
+    /* Leggero spazio tra le lettere per migliorare la leggibilità */
+    text-align: justify;
+    /* Giustifica il testo per un aspetto più professionale */
+    margin: 20px 0;
 }
 </style>
