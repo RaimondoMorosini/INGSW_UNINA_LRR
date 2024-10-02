@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class OffertaService {
 
+
 final
 OffertaRepository offertaRepository;
 
@@ -101,4 +102,6 @@ AstaRepository astaRepository;
         offerta.setOffertaVincente(true);
         return offertaRepository.save(offerta);
     }
+
+
 }
