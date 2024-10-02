@@ -16,7 +16,7 @@
                 <img
                     src="../../assets/img/placeholder/placeholder.png"
                     alt="Immagine temporanea placeholder"
-                    class="immagine shadow px-2 lg:px-64 py-2"
+                    class="immagine px-2 py-2 shadow lg:px-64"
                 />
             </div>
             <div v-else class="jumbotron w-[100%] shadow">

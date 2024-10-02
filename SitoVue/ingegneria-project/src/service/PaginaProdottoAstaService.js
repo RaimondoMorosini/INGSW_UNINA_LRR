@@ -11,7 +11,7 @@ async function getInfoAstaProdotto(idAsta) {
 }
 
 async function getDatiastaInglese(idAsta) {
-try {
+    try {
         const response = await getRest('public/prodottoasta/extra/' + idAsta);
         return response;
     } catch (error) {

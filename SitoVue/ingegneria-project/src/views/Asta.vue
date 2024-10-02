@@ -1,14 +1,12 @@
 <template>
-
-  <div class="contenitore_colonne">
-
-    <div class="colonna">
-      <ImmaginiProdotto v-if="item" :prodotto="item" />
+    <div class="contenitore_colonne">
+        <div class="colonna">
+            <ImmaginiProdotto v-if="item" :prodotto="item" />
+        </div>
+        <div class="colonna">
+            <InfoAstaProdotto v-if="item" :prodotto="item" />
+        </div>
     </div>
-  <div class="colonna">
-    <InfoAstaProdotto v-if="item" :prodotto="item" />
-  </div>
-  </div>
 </template>
 
 <script setup>
@@ -18,7 +16,7 @@ import { getInfoAstaProdotto } from '../service/PaginaProdottoAstaService';
 import { mantieniAggiornamenti, disconnettiti } from '../scripts/websocket/websocket.js';
 import Countdown from '../components/PaginaAsta/countdown.vue';
 import ImmaginiProdotto from '../components/PaginaAsta/ImmaginiProdotto.vue';
-import InfoAstaProdotto from '../components/PaginaAsta/InfoAstaProdotto.vue'
+import InfoAstaProdotto from '../components/PaginaAsta/InfoAstaProdotto.vue';
 
 const route = useRoute();
 const astaId = route.params.id;
@@ -49,7 +47,7 @@ function handleMessage(message) {
         prezzoProposto: data.offerta.prezzoProposto,
         emailUtente: data.offerta.emailUtente,
         astaId: data.offerta.astaId,
-        offertaVincente: data.offerta.offertaVincente
+        offertaVincente: data.offerta.offertaVincente,
     };
     switch (item.value.tipoAsta) {
         case 'asta_inglese':
@@ -102,9 +100,8 @@ function faiOfferta() {
 }
 
 @media (max-width: 768px) {
-  .contenitore_colonne {
-    flex-direction: column; /* Disposizione in colonna per schermi piccoli */
-  }
+    .contenitore_colonne {
+        flex-direction: column; /* Disposizione in colonna per schermi piccoli */
+    }
 }
-
 </style>
