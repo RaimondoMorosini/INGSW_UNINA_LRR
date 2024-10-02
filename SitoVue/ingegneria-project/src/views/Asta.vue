@@ -12,9 +12,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { getInfoAstaProdotto } from '../service/PaginaProdottoAstaService';
+import { getInfoAstaProdotto ,getDatiastaInglese} from '../service/PaginaProdottoAstaService';
 import { mantieniAggiornamenti, disconnettiti } from '../scripts/websocket/websocket.js';
-import Countdown from '../components/PaginaAsta/countdown.vue';
 import ImmaginiProdotto from '../components/PaginaAsta/ImmaginiProdotto.vue';
 import InfoAstaProdotto from '../components/PaginaAsta/InfoAstaProdotto.vue';
 
@@ -22,14 +21,21 @@ const route = useRoute();
 const astaId = route.params.id;
 const item = ref(null);
 const stomp1 = ref(null);
-
+const datiExtra = ref(null);
 onMounted(async () => {
     try {
         console.log('Caricamento asta in corso...');
         item.value = await getInfoAstaProdotto(astaId);
+        
     } catch (e) {
         console.error("Errore durante il caricamento dell'asta:", e);
     }
+    try {
+        datiExtra.value = await getDatiastaInglese(astaId);
+    } catch (e) {
+        console.error("Errore richiesta datiExtra:", e);
+    }
+    console.log('datiExtra:', datiExtra.value);
     stomp1.value = mantieniAggiornamenti('/asta/' + astaId, handleMessage);
 });
 
@@ -49,11 +55,14 @@ function handleMessage(message) {
         astaId: data.offerta.astaId,
         offertaVincente: data.offerta.offertaVincente,
     };
+    
     switch (item.value.tipoAsta) {
         case 'asta_inglese':
             if (offerta.prezzoProposto > item.value.prezzoAttuale) {
                 item.value.prezzoAttuale = offerta.prezzoProposto;
-                item.value.dataScadenza = offerta.tempoOfferta + 60000;
+                item.value.dataScadenza = offerta.tempoOfferta + datiExtra.value.tempoEstensione;
+                console.log('tempoEstensione:', 
+                offerta.tempoOfferta + datiExtra.value.tempoEstensione);
                 console.log('Prezzo attuale aggiornato:', item.value.prezzoAttuale);
                 console.log('Tempo rimanente:', offerta.tempoOfferta);
             }
