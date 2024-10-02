@@ -6,7 +6,7 @@
       <div v-if="tipoAsta === TipoAsta.INGLESE" class="content">
         <p class="info">Il prezzo attuale è: <span class="highlight">{{ prezzoAttuale }}€</span></p>
         <p class="info">L'offerta sarà aumentata di <span class="highlight">{{ incrementoOfferta }}€</span></p>
-        <button @click="aumentaOfferta" class="button green">Aumenta Offerta</button>
+        <button @click="aumentaOfferta" class="button green text-xl">PUNTA</button>
       </div>
 
       <div v-else-if="tipoAsta === TipoAsta.INVERSA" class="content">
@@ -146,6 +146,7 @@ const inviaOffertaSilenziosa = () => {
   padding: 0.5rem 1rem;
   border-radius: 9999px;
   color: #fff;
+  width: 250px; /* Larghezza */
 }
 .green {
   background-color: #48bb78;
