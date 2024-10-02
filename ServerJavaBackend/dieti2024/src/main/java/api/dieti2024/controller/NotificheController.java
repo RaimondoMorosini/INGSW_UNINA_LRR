@@ -1,26 +1,44 @@
 package api.dieti2024.controller;
 
 import api.dieti2024.dto.NotificaDTO;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.stereotype.Controller;
+import api.dieti2024.service.NotificaService;
+import api.dieti2024.util.ControllerRestUtil;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Objects;
+import java.util.List;
 
-@Controller
+@RestController
 public class NotificheController {
 
-    @MessageMapping("/notifica")
-    @SendTo("/topic/notifica")
-    public NotificaDTO inviaNotifica(@Payload NotificaDTO notificaDTO) {
-        return notificaDTO;
+    private final NotificaService notificaService;
+
+    public NotificheController(NotificaService notificaService) {
+        this.notificaService = notificaService;
     }
 
-    public NotificaDTO addUtente(@Payload NotificaDTO notificaDTO, SimpMessageHeaderAccessor headerAccessor) {
-        // aggiungo l'utente alla sessione tramite l'email per poterlo identificare
-        Objects.requireNonNull(headerAccessor.getSessionAttributes()).put("email", notificaDTO.email());
-        return notificaDTO;
+
+    @GetMapping("/numeroNotificheTotali")
+    public int getNumeroNotificheTotali() {
+        String email = ControllerRestUtil.getEmailOfUtenteCorrente();
+        return notificaService.getNumeroNotificheTotali(email);
     }
+    @GetMapping("/numeroNotificheNonVisualizzate")
+    public int getNumeroNotificheNonVisualizzate() {
+       String email = ControllerRestUtil.getEmailOfUtenteCorrente();
+        return notificaService.getNumeroNotificheNonVisualizzate(email);
+    }
+    @GetMapping("/notificheTotali")
+    public List<NotificaDTO> getNotificheTotali(@RequestParam int numeroElementi, @RequestParam int numeroPagina) {
+        String email = ControllerRestUtil.getEmailOfUtenteCorrente();
+        return notificaService.getNotificheUtente(email, numeroElementi, numeroPagina);
+
+    }
+    @GetMapping("/notificheNonVisualizzate")
+    public List<NotificaDTO> getNotificheNonVisualizzate(@RequestParam int numeroElementi, @RequestParam int numeroPagina) {
+        String email = ControllerRestUtil.getEmailOfUtenteCorrente();
+        return notificaService.getNotificheNonVisualizzateUtente(email, numeroElementi, numeroPagina);
+    }
+
 }
