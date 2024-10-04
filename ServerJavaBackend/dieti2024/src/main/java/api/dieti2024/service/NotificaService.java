@@ -43,6 +43,7 @@ public class NotificaService {
         listaDiNotifiche.forEach(notifica -> {
             NotificaDTO notificaDTO = NotificaDTO.builder()
                     .emailUtente(notifica.getUtente())
+                    .dataUnixTimeMilliseconds(notifica.getDataUnixTimeMilliseconds())
                     .oggettoDellaNotifica(notifica.getOggettoMessaggio())
                     .messaggio(notifica.getMessaggio())
                     .AstaId(notifica.getAsta())
@@ -53,6 +54,13 @@ public class NotificaService {
         return listaDiNotificheDTO;
     }
 
-
-
+public void segnaNotificheVisualizzate(String email, List<Integer> idNotifiche) {
+    idNotifiche.forEach(idNotifica -> {
+        notificaRepository.findByIdAndAndUtente(idNotifica, email)
+                .ifPresent(notifica -> {
+                    notifica.setVisualizzato(true);
+                    notificaRepository.save(notifica);
+                });
+    });
+}
 }
