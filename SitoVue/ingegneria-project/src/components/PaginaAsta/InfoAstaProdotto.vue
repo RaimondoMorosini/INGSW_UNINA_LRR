@@ -17,6 +17,7 @@
             <BottoneOfferta v-else :tipoAsta="props.prodotto.tipoAsta" :prezzoAttuale="props.prodotto.prezzoAttuale"
                 :faiOfferta="faiOffertaParziale" />
 
+                    {{ utenteUltimaOfferta }}
         </template>
         <template #footer>
             <div class="flex gap-4 mt-1">
@@ -35,8 +36,10 @@ import { getDatiastaInglese } from '../../service/PaginaProdottoAstaService';
 
 
 const props = defineProps([
-    'prodotto'
+    'prodotto',
+    'utenteUltimaOfferta'
 ]);
+
 
 const tipoAsta = ref(null);
 const datiExtra = ref(null);

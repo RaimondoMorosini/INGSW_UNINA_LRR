@@ -4,9 +4,9 @@
       <h2 class="title">{{ titoloAsta }}</h2>
 
       <div v-if="tipoAsta === TipoAsta.INGLESE" class="content">
-        <p class="info">Il prezzo attuale è: <span class="highlight">{{ prezzoAttuale }}€</span></p>
-        <p class="info">L'offerta sarà aumentata di <span class="highlight">{{ incrementoOfferta }}€</span></p>
+        <p class="info text-base">{{ testoPrezzo }} <span>{{ prezzoAttuale }}€</span></p>
         <button @click="aumentaOfferta" class="button green text-xl">PUNTA</button>
+        <p class="info text-base">Incremento per ogni puntata:  <span class="font-bold">{{ incrementoOfferta }}€</span></p>
       </div>
 
       <div v-else-if="tipoAsta === TipoAsta.INVERSA" class="content">
@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { defineProps } from 'vue';
 import { TipoAsta } from '../../service/astaService.js';
 
@@ -54,10 +54,20 @@ const props = defineProps({
     type: Function,
     required: true
   }
+
 });
+
+//console.log("offerta: ", props.offerta);
 
 const nuovaOfferta = ref(0);
 const errore = ref('');
+
+// Variabili reattive per lo stile CSS
+const coloreOffertaUtente = ref('green');
+const sizeTestoPrezzo = ref('large');
+const fontWeight = ref('600');
+const testoPrezzo = ref('Prezzo attuale:')
+
 
 const titoliAsta = {
   [TipoAsta.INGLESE]: 'Asta Inglese',
@@ -97,6 +107,26 @@ const inviaOffertaSilenziosa = () => {
     errore.value = "L'offerta deve essere superiore alla base d'asta.";
   }
 };
+
+// Animazione refresh puntata asta inglese
+watch(() => props.prezzoAttuale, (newVal) => {
+  console.log("Entro nel wathccccc");
+  changeStyle();
+});
+
+// Funzione di animazione reflesh asta inglese
+const changeStyle = () => {
+  coloreOffertaUtente.value = 'red';
+  sizeTestoPrezzo.value = 'xx-large';
+  testoPrezzo.value = 'Nuova offerta:';
+  setTimeout(() => {
+    coloreOffertaUtente.value = 'black';
+    sizeTestoPrezzo.value = 'large';
+    testoPrezzo.value = 'Prezzo attuale:';
+  }, 2000); // Pausa di 2000 millisecondi (2 secondi)
+  
+};
+
 </script>
 
 <style scoped>
@@ -126,12 +156,14 @@ const inviaOffertaSilenziosa = () => {
   text-align: center;
 }
 .info {
-  font-size: 1.125rem;
+
   color: #4a5568;
 }
-.highlight {
-  font-weight: 600;
+
+.dynamic-text {
+  transition: all 0.3s ease; /* Aggiungi transizioni per vedere meglio il cambiamento */
 }
+
 .input {
   border: 1px solid #e2e8f0;
   border-radius: 0.375rem;
