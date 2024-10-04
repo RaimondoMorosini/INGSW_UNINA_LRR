@@ -1,9 +1,8 @@
 <template>
-    <div>
-        <p class="timer">
-            {{ giorni }} giorni, {{ ore }} ore, {{ minuti }} minuti, {{ secondi }} secondi rimanenti
-        </p>
-    </div>
+  <div>
+    <p class="timer">{{ giorni }} giorni, {{ ore }} ore, {{ minuti }} minuti, {{ secondi }} secondi rimanenti</p>
+    
+  </div>
 </template>
 
 <script setup>
@@ -60,8 +59,11 @@ onBeforeUnmount(() => {
 </script>
 
 <style>
-.timer {
-    font-size: 16px;
-    font-style: italic;
+
+.timer{
+
+  font-size: 16px;
+  font-style: italic;
 }
+
 </style>

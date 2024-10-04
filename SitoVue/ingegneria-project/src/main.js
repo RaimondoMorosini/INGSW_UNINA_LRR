@@ -14,6 +14,7 @@ import App from './App.vue'; // App.vue
 import './assets/css/tailwind.css'; // tailwindcss
 import router from './router'; // router
 
+
 // Crea l'istanza dell'app Vue e usa il router
 const app = createApp(App).use(router);
 

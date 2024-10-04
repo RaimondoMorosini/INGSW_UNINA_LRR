@@ -121,7 +121,7 @@ const gestioneInvio = () => {
         prezzoBase: prezzoBase.value,
         categoria: selectedCategory,
     });
-    emit('update:active', 2);
+    //emit('update:active', 1);
 };
 </script>
 
