@@ -14,7 +14,7 @@
             <span class="label">prezzo Base:</span>
             <span class="campo w-[100%] lg:w-[45rem]">€ {{ storeInstance.asta.prezzoBase }}</span>
             <span class="label">tipo Asta:</span>
-            <span class="campo w-[100%] lg:w-[45rem]">{{ storeInstance.asta.tipoAsta }}</span>
+            <span class="campo w-[100%] lg:w-[45rem]">{{tipoAstaNew }}</span>
 
             <span v-if="tipoAsta === 'asta_inglese'">
                 <span class="label">incremento minimo:</span>
@@ -28,21 +28,24 @@
             </span>
 
             <span class="label">scadenza asta:</span>
-            <span class="campo w-[100%] lg:w-[45rem]">{{ storeInstance.asta.scadenzaAsta }}</span>
+            
+            <span class="campo w-[100%] lg:w-[45rem]">{{scadenzaAsta}}</span>
         </div>
         <div class="grid w-[100%] grid-cols-4 gap-2 px-5 py-3">
             <img
-                :src="storeInstance.asta.immaginiSalvate[0]"
+                :src="storeInstance.asta.immaginiSalvate[0].src"
                 alt="Immagine Copertina"
                 class="col-span-4 h-[9rem] shadow ring-2 ring-[#cc85f5] lg:h-[12rem]"
             />
             <div v-for="image in storeInstance.asta.immaginiSalvate">
-                <img :src="image" alt="immagine caricata" class="h-[7rem] shadow lg:h-[10rem]" />
+                
+                <img :src="image.src" alt="immagine caricata" class="h-[7rem] shadow lg:h-[10rem]" />
             </div>
         </div>
     </div>
     <div class="buttonArea flex">
         <button class="bottone mx-3 my-3 px-5" @click="goToPreviousForm" type="button">
+            <i class="pi pi-arrow-left"></i>
             Precedente
         </button>
         <button
@@ -50,7 +53,10 @@
             @click="gestioneInvio"
         >
             Finalizza
+            <i class="pi pi-check"></i>
         </button>
+    </div>
+    <div class="test">
         success: {{ success }}
     </div>
 </template>
@@ -58,7 +64,7 @@
 <script setup>
 import { creaAsta } from '../../service/astaService.js';
 import { useAstaStore } from '../../stores/astaStore.js';
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const storeInstance = useAstaStore();
 
@@ -79,16 +85,28 @@ const datiExtra = JSON.stringify({
     astaId: 0,
 });
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const scadenzaAsta = ref(storeInstance.asta.scadenzaAsta);
+
+
 const date = new Date();
 const timestamp = date.getTime() / 1000;
 
-const emit = defineEmits(['update:active']);
+const tipoAsta = storeInstance.asta.tipoAsta 
+let tipoAstaSplit = tipoAsta.split('_')
+let tipoAstaNew = capitalizeFirstLetter(tipoAstaSplit[0])+' '+capitalizeFirstLetter(tipoAstaSplit[1]);
+
+
+const emit = defineEmits(['decrease-page','finalize']);
 let success = false;
 let error = '';
 
 const goToPreviousForm = () => {
     // Emit event to notify parent component to move to   the previous form section
-    emit('update:active', 2);
+    emit('decrease-page');
 };
 
 onMounted(() => {
@@ -107,6 +125,7 @@ const gestioneInvio = () => {
             console.log('error: ', error);
             error = error;
         });
+        emit('finalize');
 };
 </script>
 
@@ -138,5 +157,16 @@ span.label {
     font-size: 1.1rem;
     font-weight: bold;
     color: #cc85f5;
+}
+
+.btn-close {
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #dc3545;
 }
 </style>

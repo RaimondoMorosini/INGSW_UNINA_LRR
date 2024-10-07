@@ -1,92 +1,67 @@
 <template>
-    <div class="card">
-        <Steps
-            :readonly="false"
-            class="label py-2 text-[0.8rem] lg:text-[1rem]"
-            :model="items"
-            v-model:activeStep="active"
-        />
-    </div>
-
-    <CreaProdotto @update:active="updateCurrentForm($event)" v-if="active === 0" />
-    <SelezionaFiltri @update:active="updateCurrentForm($event)" v-if="active === 1" />
-    <SelezioneTipoAsta @update:active="updateCurrentForm($event)" v-if="active === 2" />
-    <Review @update:active="updateCurrentForm($event)" v-if="active === 3" />
+    <Stepper value="1">
+        <div class="card flex justify-center">
+            <StepList class="basis-[90%]">
+                <Step value="1">
+                    <span class="hidden lg:block">Descrizione Prodotto</span>
+                    <span class="block lg:hidden">
+                        <i class="pi pi-gift"></i>
+                    </span>
+                </Step>
+                <Step value="2">
+                    <span class="hidden lg:block">Seleziona Filtri</span>
+                    <span class="block lg:hidden">
+                        <i class="pi pi-filter"></i>
+                    </span>
+                </Step>
+                <Step value="3">
+                    <span class="hidden lg:block">Dettagli Asta</span>
+                    <span class="block lg:hidden">
+                        <i class="pi pi-barcode"></i>
+                    </span>
+                </Step>
+                <Step value="4">
+                    <span class="hidden lg:block">Revisione Dati Inseriti</span>
+                    <span class="block lg:hidden">
+                        <i class="pi pi-check-circle"></i>
+                    </span>
+                </Step>
+            </StepList>
+        </div>
+        <StepPanels>
+            <StepPanel v-slot="{ activateCallback }" value="1">
+                <CreaProdotto @increase-page="activateCallback('2')"/>
+                
+            </StepPanel>
+            <StepPanel v-slot="{ activateCallback }" value="2">
+                <SelezionaFiltri @decrease-page="activateCallback('1')" @increase-page="activateCallback('3')"/>
+                
+            </StepPanel>
+            <StepPanel v-slot="{ activateCallback }" value="3">
+                <SelezioneTipoAsta @decrease-page="activateCallback('2')" @increase-page="activateCallback('4')" />
+            </StepPanel>
+            <StepPanel v-slot="{ activateCallback }" value="4">
+                <Review @decrease-page="activateCallback('3')" />
+                
+            </StepPanel>
+        </StepPanels>
+    </Stepper>
 </template>
 
 <script setup>
-import Stepper from 'primevue/stepper';
-import StepPanels from 'primevue/steppanels';
-import StepItem from 'primevue/stepitem';
-import StepPanel from 'primevue/steppanel';
-import StepList from 'primevue/steplist';
-import Steps from 'primevue/steps';
-import Step from 'primevue/step';
-import { ref } from 'vue';
+import { ref,defineProps,watch } from 'vue';
 import SelezioneTipoAsta from '../components/stepper/dettagliCreaAsta.vue';
 import CreaProdotto from '../components/stepper/formCreaProdotto.vue';
 import SelezionaFiltri from '../components/stepper/impostaFiltriCreaProdotto.vue';
 import Review from '../components/stepper/reviewAsta.vue';
 
-const active = ref(0);
-const loading = ref(false);
+import Button from 'primevue/button';
+import Stepper from 'primevue/stepper';
+import StepList from 'primevue/steplist';
+import StepPanels from 'primevue/steppanels';
+import Step from 'primevue/step';
+import StepPanel from 'primevue/steppanel';
 
-const updateCurrentForm = (value) => {
-    active.value = value;
-};
 
-const items = ref([
-    {
-        label: 'Descrizione Prodotto',
-    },
-    {
-        label: 'Selezione Filtri',
-    },
-    {
-        label: 'Dettagli Asta',
-    },
-    {
-        label: 'Revisione Dati Inseriti',
-    },
-]);
 
-const asta = ref({
-    nomeProdotto: '',
-    descrizione: '',
-    prezzoBase: 0,
-    categorie: '[]',
-    immagini: '[]',
-    tipo: '',
-    scadenza: '',
-    estenzione: '',
-    incrementoMinimo: 0,
-});
-
-const ricevutoProdotto = (contenuto) => {};
-const finalize = () => {
-    loading.value = true;
-};
 </script>
-
-<style scoped>
-.bottone {
-    background-color: #cc85f5;
-    padding: 10px 20px;
-    color: white;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    font-weight: bold;
-}
-.bottone:hover {
-    background-color: #7c3aed;
-}
-
-.label {
-    text-align: center;
-    display: block;
-    margin: 25px 0 15px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: bold;
-}
-</style>

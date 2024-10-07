@@ -1,4 +1,5 @@
 <template>
+    
     <form @submit.prevent="gestioneInvio">
         <label for="asta">Seleziona tipo Asta</label>
         <select name="tipoAsta" id="asta" v-model="tipoAsta" class="rounded bg-inherit">
@@ -24,6 +25,9 @@
                 <InputNumber
                     inputId="integeronly"
                     fluid
+                    showButtons 
+                    :min="1" 
+                    :max="24"
                     id="durataEstensione"
                     class="w-[100%] rounded"
                     v-model="durataEstensione"
@@ -33,6 +37,7 @@
             </div>
             <div class="formSpace pt-5 lg:pr-9">
                 <DatePicker
+                    dateFormat="dd/mm/yy" 
                     :minDate="minDate"
                     showIcon="true"
                     fluid
@@ -53,15 +58,29 @@
 
             <div class="formSpace px-2 lg:pr-9">
                 <label for="prezzoBase">Data Scadenza</label>
-                <input class="w-[60%] rounded" type="date" id="prezzoBase" v-model="scadenzaAsta" />
+                <DatePicker
+                    dateFormat="dd/mm/yy" 
+                    :minDate="minDate"
+                    :maxDate="maxDate"
+                    showIcon="true"
+                    fluid
+                    v-model="scadenzaAsta"
+                    id="scadenzaAsta"
+                    inputId="birth_date"
+                    class="w-[60%] rounded bg-inherit"
+                />
             </div>
         </div>
 
         <div class="areaBottoni mx-4 flex justify-around gap-5 px-4">
             <button class="previous bottone px-5" @click="goToPreviousForm" type="button">
+                <i class="pi pi-arrow-left"></i>
                 Precedente
             </button>
-            <button class="bottone px-5" type="submit">Successivo</button>
+            <button class="bottone px-5" type="submit">
+                Successivo
+                <i class="pi pi-arrow-right"></i>
+            </button>
         </div>
     </form>
 </template>
@@ -74,14 +93,20 @@ import DatePicker from 'primevue/datepicker';
 import { defineEmits, ref, onMounted } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
 
+const emit = defineEmits('decrease-page','increase-page')
+
 let today = new Date();
 let nowMonth = today.getMonth();
 let nowYear = today.getFullYear();
 
 const minDate = ref(new Date());
+const maxDate = ref(new Date());
 
 minDate.value.setMonth(nowMonth);
 minDate.value.setFullYear(nowYear);
+
+maxDate.value.setMonth(nowMonth);
+maxDate.value.setFullYear(nowYear+1);
 
 const storeInstance = useAstaStore();
 
@@ -91,13 +116,16 @@ const incrementoMinimo = ref(storeInstance.asta.incrementoMinimo);
 const durataEstensione = ref(storeInstance.asta.durataEstensione);
 const scadenzaAsta = ref(storeInstance.asta.scadenzaAsta);
 
+
+
 onMounted(() => {
     storeInstance.updateAsta({ step: 2 });
 });
 
-const emit = defineEmits(['update:active']);
 
 const gestioneInvio = () => {
+    
+    //console.log(scadenzaAsta)
     if (tipoAsta === 'asta_inglese') {
         if (!incrementoMinimo.value || !durataEstensione.value || !scadenzaAsta.value) {
             alert('Asta Inglese: Inserire tutti i campi');
@@ -124,11 +152,11 @@ const gestioneInvio = () => {
             step: 2,
         });
     }
-    emit('update:active', 3);
+    emit('increase-page');
 };
 const goToPreviousForm = () => {
     // Emit event to notify parent component to move to   the previous form section
-    emit('update:active', 1);
+    emit('decrease-page');
 };
 </script>
 
