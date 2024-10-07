@@ -9,7 +9,7 @@
                         <InputText
                             class="w-[100%] rounded"
                             id="nomeProdotto"
-                            v-model="  nomeProdotto"
+                            v-model="nomeProdotto"
                         />
                         <label for="nomeProdotto">Nome Prodotto</label>
                     </FloatLabel>
@@ -19,7 +19,7 @@
                         <InputText
                             id="descrizione"
                             class="min-h-[10rem] w-[100%] rounded"
-                            v-model="  descrizione"
+                            v-model="descrizione"
                         />
                         <label for="descrizione">Descrizione Prodotto</label>
                     </FloatLabel>
@@ -29,7 +29,7 @@
                         <InputNumber
                             class="w-[100%] rounded"
                             id="prezzoBase"
-                            v-model="  prezzoBase"
+                            v-model="prezzoBase"
                         />
                         <label for="prezzoBase">Prezzo Base</label>
                     </FloatLabel>
@@ -41,7 +41,7 @@
                     </InputGroupAddon>
                     <TreeSelect
                         id="categoria"
-                        v-model="  selectedCategory"
+                        v-model="selectedCategory"
                         :options="nodes"
                         option-label="name"
                         placeholder="Seleziona Categoria"
@@ -51,21 +51,20 @@
             </div>
             <div class="flex justify-center p-2 lg:w-[50%] lg:justify-start">
                 <ImageUploader />
+                <!--
+                
+                -->
+                
             </div>
         </main>
 
         <div class="areaBottoni my-4 px-10">
-            <button class="bottone" type="submit">
-                Successivo
-                <i class="pi pi-arrow-right"></i>
-            </button>
+            <button class="bottone" type="submit">Successivo</button>
         </div>
     </form>
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref, defineEmits ,defineProps} from 'vue';
-
 import InputNumber from 'primevue/inputnumber';
 import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
@@ -73,17 +72,19 @@ import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 import TreeSelect from 'primevue/treeselect';
 import ImageUploader from './ImageUploader.vue';
+import { onMounted, onUnmounted, ref, defineEmits } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
 import { getCategorie } from '../../service/categoriaService.js';
 
-const emit = defineEmits('increase-page','decrease-page');
-
 const nodes = ref([]);
-const astaStoreInstance = useAstaStore();
-const selectedCategory = ref(astaStoreInstance.asta.categoria);
-const nomeProdotto = ref(astaStoreInstance.asta.nomeProdotto);
-const descrizione = ref(astaStoreInstance.asta.descrizione);
-const prezzoBase = ref(astaStoreInstance.asta.prezzoBase);
+
+const storeInstance = useAstaStore();
+const emit = defineEmits('increase-page','decreasse-page');
+const selectedCategory = ref(storeInstance.asta.categoria);
+const nomeProdotto = ref(storeInstance.asta.nomeProdotto);
+const descrizione = ref(storeInstance.asta.descrizione);
+const prezzoBase = ref(storeInstance.asta.prezzoBase);
+
 
 const categoriaSelezionata = function (obj) {
     let keys = '';
@@ -93,10 +94,10 @@ const categoriaSelezionata = function (obj) {
     return keys;
 };
 
-const categoriaSalvata = ref(categoriaSelezionata(astaStoreInstance.asta.categoria));
+const categoriaSalvata = ref(categoriaSelezionata(storeInstance.asta.categoria));
 
 onMounted(() => {
-    astaStoreInstance.updateAsta({
+    storeInstance.updateAsta({
         step: 0,
     });
     getCategorie().then((response) => {
@@ -104,27 +105,26 @@ onMounted(() => {
     });
 });
 onUnmounted(() => {
-    astaStoreInstance.updateAsta({
-        nomeProdotto:   nomeProdotto.value,
-        descrizione:   descrizione.value,
-        prezzoBase:   prezzoBase.value,
-        categoria:   selectedCategory,
+    storeInstance.updateAsta({
+        nomeProdotto: nomeProdotto.value,
+        descrizione: descrizione.value,
+        prezzoBase: prezzoBase.value,
+        categoria: selectedCategory,
     });
 });
 
 const gestioneInvio = () => {
-    if (!  nomeProdotto.value || !  descrizione.value || !  prezzoBase.value || !  categoriaSalvata) {
+    if (!nomeProdotto.value || !descrizione.value || !prezzoBase.value || !categoriaSalvata) {
         alert('Compila tutti i campi.');
         return;
     }
 
-    astaStoreInstance.updateAsta({
-        nomeProdotto:   nomeProdotto.value,
-        descrizione:   descrizione.value,
-        prezzoBase:   prezzoBase.value,
-        categoria:   selectedCategory,
+    storeInstance.updateAsta({
+        nomeProdotto: nomeProdotto.value,
+        descrizione: descrizione.value,
+        prezzoBase: prezzoBase.value,
+        categoria: selectedCategory,
     });
-    //activateCallback('2');
     emit('increase-page');
 };
 </script>

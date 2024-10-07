@@ -30,17 +30,31 @@
         </div>
         <StepPanels>
             <StepPanel v-slot="{ activateCallback }" value="1">
+
+                    
+                 
                 <CreaProdotto @increase-page="activateCallback('2')"/>
                 
             </StepPanel>
             <StepPanel v-slot="{ activateCallback }" value="2">
+                <SelezionaFiltri />
+
+                        @click="activateCallback('3')"
+                    />
+                
                 <SelezionaFiltri @decrease-page="activateCallback('1')" @increase-page="activateCallback('3')"/>
                 
             </StepPanel>
             <StepPanel v-slot="{ activateCallback }" value="3">
+                <SelezioneTipoAsta />
+
+                        "
+                    />
+                
                 <SelezioneTipoAsta @decrease-page="activateCallback('2')" @increase-page="activateCallback('4')" />
             </StepPanel>
             <StepPanel v-slot="{ activateCallback }" value="4">
+                
                 <Review @decrease-page="activateCallback('3')" />
                 
             </StepPanel>
@@ -48,76 +62,81 @@
     </Stepper>
 </template>
 
+
+
 <script setup>
-import { ref,defineProps,watch } from 'vue';
+import Stepper from 'primevue/stepper';
+import StepPanels from 'primevue/steppanels';
+
+import StepPanel from 'primevue/steppanel';
+import StepList from 'primevue/steplist';
+
+import Step from 'primevue/step';
+import { ref } from 'vue';
 import SelezioneTipoAsta from '../components/stepper/dettagliCreaAsta.vue';
 import CreaProdotto from '../components/stepper/formCreaProdotto.vue';
 import SelezionaFiltri from '../components/stepper/impostaFiltriCreaProdotto.vue';
 import Review from '../components/stepper/reviewAsta.vue';
 
-import Button from 'primevue/button';
-import Stepper from 'primevue/stepper';
-import StepList from 'primevue/steplist';
-import StepPanels from 'primevue/steppanels';
-import StepItem from 'primevue/stepitem';
-import Step from 'primevue/step';
-import StepPanel from 'primevue/steppanel';
+const active = ref(0);
+const loading = ref(false);
 
-const datiProdottoInseriti = () => {
-    if (!nomeProdotto.value || !descrizione.value || !prezzoBase.value || !categoriaSalvata) {
-        alert('Compila tutti i campi.');
-        return;
-    }
-
-    storeInstance.updateAsta({
-        nomeProdotto: nomeProdotto.value,
-        descrizione: descrizione.value,
-        prezzoBase: prezzoBase.value,
-        categoria: selectedCategory,
-    });
-    activateCallback('2');
+const updateCurrentForm = (value) => {
+    active.value = value;
 };
 
-const tipoAstaInserito = () => {
-    if (tipoAsta === 'asta_inglese') {
-        if (!incrementoMinimo.value || !durataEstensione.value || !scadenzaAsta.value) {
-            alert('Asta Inglese: Inserire tutti i campi');
-            return;
-        }
-    } else if (!scadenzaAsta.value) {
-        alert('Asta Silenziosa: Inserire tutti i campi');
-        return;
-    }
+const items = ref([
+    {
+        label: 'Descrizione Prodotto',
+    },
+    {
+        label: 'Selezione Filtri',
+    },
+    {
+        label: 'Dettagli Asta',
+    },
+    {
+        label: 'Revisione Dati Inseriti',
+    },
+]);
 
-    // Emit event to notify parent component to move to the next form section
-    if (tipoAsta.value) {
-        storeInstance.updateAsta({
-            tipoAsta: 'asta_silenziosa',
-            scadenzaAsta: scadenzaAsta.value,
-            step: 2,
-        });
-    } else {
-        storeInstance.updateAsta({
-            tipoAsta: 'asta_inglese',
-            scadenzaAsta: scadenzaAsta.value,
-            incrementoMinimo: incrementoMinimo.value,
-            durataEstensione: durataEstensione.value,
-            step: 2,
-        });
-    }
-    emit('update:active', 3);
-};
+const asta = ref({
+    nomeProdotto: '',
+    descrizione: '',
+    prezzoBase: 0,
+    categorie: '[]',
+    immagini: '[]',
+    tipo: '',
+    scadenza: '',
+    estenzione: '',
+    incrementoMinimo: 0,
+});
 
-const postAsta = () => {
-    //path = asta/creaAsta
-    creaAsta()
-        .then((response) => {
-            console.log('response: ', response);
-            success = true;
-        })
-        .catch((error) => {
-            console.log('error: ', error);
-            error = error;
-        });
+const ricevutoProdotto = (contenuto) => {};
+const finalize = () => {
+    loading.value = true;
 };
 </script>
+
+<style scoped>
+.bottone {
+    background-color: #cc85f5;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+.bottone:hover {
+    background-color: #7c3aed;
+}
+
+.label {
+    text-align: center;
+    display: block;
+    margin: 25px 0 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+</style>

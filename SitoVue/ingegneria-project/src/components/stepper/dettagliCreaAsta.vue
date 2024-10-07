@@ -1,20 +1,25 @@
 <template>
-    
     <form @submit.prevent="gestioneInvio">
         <label for="asta">Seleziona tipo Asta</label>
-        <select name="tipoAsta" id="asta" v-model="tipoAsta" class="rounded bg-inherit">
-            <option value="asta_inglese">Asta Inglese</option>
-            <option value="asta_silenziosa">Asta Silenziosa</option>
-        </select>
 
+        <div class="py-2 gap-2 flex justify-center" >
+            <span v-if="!checked" class="ring-1 ring-[#cc85f5] text-bold text-xl rounded px-2 py-2">ASTA INGLESE</span>
+           
+            <span v-if="checked" class=" text-bold text-xl rounded px-2 py-2">ASTA INGLESE</span>
+            <ToggleSwitch v-model="checked" class="my-2"/>
+            <span v-if="checked" class="ring-1 ring-[#cc85f5] text-bold text-xl rounded px-2 py-2">ASTA SILENZIOSA</span>
+            
+            <span v-if="!checked" class=" text-bold text-xl rounded px-2 py-2">ASTA SILENZIOSA</span>
+        </div>
+
+        <!--v-if="tipoAsta === 'asta_inglese'"-->
         <div
-            v-if="tipoAsta === 'asta_inglese'"
+            v-if="!checked"
             class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
             ASTA INGLESE
             <div class="formSpace  pt-5 w-[100%] lg:pr-9">
 
-                 
                         <InputNumber
                             id="incrementoMinimo"
                             class="w-[100%] rounded"
@@ -22,16 +27,12 @@
                             prefix="€ " 
                         />
                         <label for="incrementoMinimo">Incremento minimo</label>
-                     
-                
+                      
             </div>
             <div class="formSpace pt-5 lg:pr-9">
                 <InputNumber
                     inputId="integeronly"
                     fluid
-                    showButtons 
-                    :min="1" 
-                    :max="24"
                     id="durataEstensione"
                     class="w-[100%] rounded"
                     v-model="durataEstensione"
@@ -39,9 +40,9 @@
                 />
                 <label for="durataEstensione">Durata estensione</label>
             </div>
-            <div class="formSpace pt-5 lg:pr-9">
+            <div class="formSpace bg-inherit pt-5 lg:pr-9">
                 <DatePicker
-                    dateFormat="dd/mm/yy" 
+                    dateFormat="dd/mm/yy"
                     :minDate="minDate"
                     showIcon="true"
                     fluid
@@ -54,18 +55,17 @@
             </div>
         </div>
 
+        <!--v-if="tipoAsta === 'asta_silenziosa'"-->
         <div
-            v-if="tipoAsta === 'asta_silenziosa'"
-            class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-black"
+            v-if="checked"
+            class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
             ASTA Silenziosa
 
             <div class="formSpace px-2 lg:pr-9">
-                <label for="prezzoBase">Data Scadenza</label>
                 <DatePicker
-                    dateFormat="dd/mm/yy" 
+                    dateFormat="dd/mm/yy"
                     :minDate="minDate"
-                    :maxDate="maxDate"
                     showIcon="true"
                     fluid
                     v-model="scadenzaAsta"
@@ -73,23 +73,21 @@
                     inputId="birth_date"
                     class="w-[60%] rounded bg-inherit"
                 />
+                <label for="scadenzaAsta">Data Scadenza</label>
             </div>
         </div>
 
         <div class="areaBottoni mx-4 flex justify-around gap-5 px-4">
             <button class="previous bottone px-5" @click="goToPreviousForm" type="button">
-                <i class="pi pi-arrow-left"></i>
                 Precedente
             </button>
-            <button class="bottone px-5" type="submit">
-                Successivo
-                <i class="pi pi-arrow-right"></i>
-            </button>
+            <button class="bottone px-5" type="submit">Successivo</button>
         </div>
     </form>
 </template>
 
 <script setup>
+import ToggleSwitch from 'primevue/toggleswitch';
 import InputNumber from 'primevue/inputnumber';
 import FloatLabel from 'primevue/floatlabel';
 import DatePicker from 'primevue/datepicker';
@@ -97,14 +95,12 @@ import DatePicker from 'primevue/datepicker';
 import { defineEmits, ref, onMounted } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
 
-const emit = defineEmits('decrease-page','increase-page')
-
+const checked = ref(null)
 let today = new Date();
 let nowMonth = today.getMonth();
 let nowYear = today.getFullYear();
 
 const minDate = ref(new Date());
-const maxDate = ref(new Date());
 
 minDate.value.setMonth(nowMonth);
 minDate.value.setFullYear(nowYear);
@@ -113,21 +109,24 @@ const storeInstance = useAstaStore();
 
 const tipoAsta = ref(storeInstance.asta.tipoAsta);
 
+
+
 const incrementoMinimo = ref(storeInstance.asta.incrementoMinimo);
 const durataEstensione = ref(storeInstance.asta.durataEstensione);
 const scadenzaAsta = ref(storeInstance.asta.scadenzaAsta);
 
-
-
 onMounted(() => {
     storeInstance.updateAsta({ step: 2 });
+    if (tipoAsta==='asta_silenziosa'){
+        checked=true;
+    }
 });
 
+const emit = defineEmits('increase-page', 'decrease-page');
 
 const gestioneInvio = () => {
-    
-    //console.log(scadenzaAsta)
-    if (tipoAsta === 'asta_inglese') {
+    if (checked==false) {
+
         if (!incrementoMinimo.value || !durataEstensione.value || !scadenzaAsta.value) {
             alert('Asta Inglese: Inserire tutti i campi');
             return;

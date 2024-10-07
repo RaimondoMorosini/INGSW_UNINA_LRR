@@ -6,7 +6,6 @@ function checkEsisteDato(nomeDato) {
 
 // Funzione per ottenere un cookie dal nome specificato
 function getDato(nomeCookie) {
-    console.log('nome: ' , nomeCookie);
     const cookies = document.cookie.split(';');
     for (let element of cookies) {
         const cookie = element.trim();
@@ -20,8 +19,6 @@ function getDato(nomeCookie) {
 
 // Funzione per inserire un cookie di sessione
 function inserisciDato(nome, valore) {
-    console.log('nome: ' , nome);
-    console.log('valore: ' , valore);
     valore = JSON.stringify(valore);
     document.cookie = nome + '=' + valore + ';path=/';
 }

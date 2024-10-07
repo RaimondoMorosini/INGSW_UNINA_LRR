@@ -119,9 +119,8 @@ function rimuoviImmagine(indice) {
 }
 
 onMounted(() => {
-    store.asta.immaginiSalvate = getDato('immaginiSalvate');
+    //store.asta.immaginiSalvate = getDato('immaginiSalvate');
 });
-
 onUnmounted(() => {
     inserisciDato('immaginiSalvate', store.asta.immaginiSalvate);
 });

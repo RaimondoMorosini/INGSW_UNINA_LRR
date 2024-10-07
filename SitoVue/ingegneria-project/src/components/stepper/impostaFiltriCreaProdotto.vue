@@ -20,13 +20,9 @@
                     @click="goToPreviousForm"
                     type="button"
                 >
-                <i class="pi pi-arrow-left"></i>
                     Precedente
                 </button>
-                <button class="bottone w-[30%] px-5" type="submit">
-                    Successivo
-                    <i class="pi pi-arrow-right"></i>
-                </button>
+                <button class="bottone w-[30%] px-5" type="submit">Successivo</button>
             </div>
         </form>
     </div>
@@ -37,8 +33,8 @@ import { defineEmits, onBeforeMount, onUnmounted, ref } from 'vue';
 import { getCaratteristiche } from '../../service/carateristicheService.js';
 import { useAstaStore } from '../../stores/astaStore.js';
 import InputField from './InputField.vue';
-const emit = defineEmits('increase-page','decrease-page');
 
+const emit = defineEmits('increase-page','decrease-page');
 
 const gestioneInvio = () => {
     emit('increase-page');
@@ -79,18 +75,17 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-button.bottone {
+.bottone {
     background-color: #cc85f5;
+    margin: 10px;
     padding: 10px 20px;
     color: white;
     border-radius: 5px;
     font-size: 1.1rem;
     font-weight: bold;
     width: 50%;
-    margin: 10px;
 }
-
-button.bottone:hover {
+.bottone:hover {
     background-color: #7c3aed;
 }
 </style>
