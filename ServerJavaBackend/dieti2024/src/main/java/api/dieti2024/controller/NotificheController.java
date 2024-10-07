@@ -4,6 +4,7 @@ import api.dieti2024.dto.NotificaDTO;
 import api.dieti2024.service.NotificaService;
 import api.dieti2024.util.ControllerRestUtil;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,5 +41,10 @@ public class NotificheController {
         String email = ControllerRestUtil.getEmailOfUtenteCorrente();
         return notificaService.getNotificheNonVisualizzateUtente(email, numeroElementi, numeroPagina);
     }
-
+    //todo implementare il metodo per segnare le notifiche come visualizzate
+    @PutMapping("/segnaNotificheVisualizzate")
+    public void segnaNotificheVisualizzate(@RequestParam("idNotifiche") List<Integer> idNotifiche){
+        String email = ControllerRestUtil.getEmailOfUtenteCorrente();
+        notificaService.segnaNotificheVisualizzate(email, idNotifiche);
+    }
 }

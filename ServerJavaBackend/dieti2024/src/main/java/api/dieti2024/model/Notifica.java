@@ -28,4 +28,9 @@ public class Notifica {
 
     @Column(name = "visualizzato", nullable = false)
     private boolean visualizzato = false;
+
+
+    @Column(name = "dataunixtimemilliseconds", nullable = false)
+    private long dataUnixTimeMilliseconds;
+
 }

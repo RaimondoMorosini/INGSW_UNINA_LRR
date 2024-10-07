@@ -1,18 +1,10 @@
 <template>
     <div class="card">
         <h1 class="my-2 text-3xl font-bold">{{ prodotto.nome }}</h1>
-        <Galleria
-            :value="images"
-            :responsiveOptions="responsiveOptions"
-            :numVisible="3"
-            containerStyle="max-width: 640px"
-        >
+        <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="3"
+            containerStyle="max-width: 640px">
             <template #item="slotProps">
-                <img
-                    :src="slotProps.item.itemImageSrc"
-                    :alt="slotProps.item.alt"
-                    style="width: 100%"
-                />
+                <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%" />
             </template>
             <template #thumbnail="slotProps">
                 <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt" />
@@ -33,6 +25,7 @@
             </template>
         </Card>
     </div>
+
 </template>
 
 <script setup>
@@ -62,6 +55,7 @@ const responsiveOptions = ref([
         numVisible: 1,
     },
 ]);
+
 </script>
 
 <style>
@@ -88,6 +82,7 @@ const responsiveOptions = ref([
 }
 
 .descrizione-prodotto {
+
     font-family: 'Lora', serif;
     /* Font elegante */
     font-size: 16px;

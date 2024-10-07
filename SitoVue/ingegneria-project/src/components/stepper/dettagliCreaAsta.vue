@@ -12,14 +12,18 @@
             class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
             ASTA INGLESE
-            <div class="formSpace w-[100%] pt-5 lg:pr-9">
-                <InputNumber
-                    id="incrementoMinimo"
-                    class="w-[100%] rounded"
-                    v-model="incrementoMinimo"
-                    prefix="€ "
-                />
-                <label for="incrementoMinimo">Incremento minimo</label>
+            <div class="formSpace  pt-5 w-[100%] lg:pr-9">
+
+                 
+                        <InputNumber
+                            id="incrementoMinimo"
+                            class="w-[100%] rounded"
+                            v-model="incrementoMinimo"
+                            prefix="€ " 
+                        />
+                        <label for="incrementoMinimo">Incremento minimo</label>
+                     
+                
             </div>
             <div class="formSpace pt-5 lg:pr-9">
                 <InputNumber
@@ -104,9 +108,6 @@ const maxDate = ref(new Date());
 
 minDate.value.setMonth(nowMonth);
 minDate.value.setFullYear(nowYear);
-
-maxDate.value.setMonth(nowMonth);
-maxDate.value.setFullYear(nowYear+1);
 
 const storeInstance = useAstaStore();
 
