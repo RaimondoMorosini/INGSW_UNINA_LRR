@@ -8,7 +8,7 @@
   <div class="colonna">
     <InfoAstaProdotto v-if="item" :prodotto="item" :utenteUltimaOfferta="utenteUltimaOfferta" />
   </div>
-  
+  </div>
 </template>
 
 <script setup>
