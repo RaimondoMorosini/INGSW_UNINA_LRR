@@ -1,5 +1,6 @@
 package api.dieti2024.service;
 
+import api.dieti2024.dto.OffertaAstaIngleseDTO;
 import api.dieti2024.dto.OffertaDto;
 import api.dieti2024.dto.OffertaVincenteDto;
 import api.dieti2024.exceptions.ApiException;
@@ -15,6 +16,10 @@ import api.dieti2024.util.ControllerRestUtil;
 import api.dieti2024.util.TipoAsta;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OffertaService {
@@ -103,5 +108,19 @@ AstaRepository astaRepository;
         return offertaRepository.save(offerta);
     }
 
+    public List<OffertaAstaIngleseDTO> getOfferteAstaInglese(int idAsta) {
 
+       List<Offerta> offerte = offertaRepository.getOfferteByIdAsta(idAsta);
+
+       List<OffertaAstaIngleseDTO> offerteDTO = new ArrayList<>();
+
+       for(Offerta offerta : offerte){
+
+           OffertaAstaIngleseDTO offertaDTO = new OffertaAstaIngleseDTO(offerta.getEmailUtente(),offerta.getPrezzoProposto(),
+                   offerta.getTempoOfferta());
+           offerteDTO.add(offertaDTO);
+       }
+
+       return offerteDTO;
+    }
 }

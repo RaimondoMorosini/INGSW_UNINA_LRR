@@ -1,16 +1,18 @@
 package api.dieti2024.controller;
 
+import api.dieti2024.dto.OffertaAstaIngleseDTO;
 import api.dieti2024.dto.OffertaDto;
 import api.dieti2024.dto.OffertaVincenteDto;
+import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.model.Offerta;
 import api.dieti2024.service.OffertaService;
 import api.dieti2024.util.CalendarioUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -19,6 +21,11 @@ public class OffertaController {
     final SimpMessagingTemplate simpleMessagingTemplate;
 
     final OffertaService offertaService;
+
+    @GetMapping("/public/offerteAstaInglese/{idAssta}")
+    public List<OffertaAstaIngleseDTO> getInfoProdottoAsta(@PathVariable int idAssta) {
+       return offertaService.getOfferteAstaInglese(idAssta);
+    }
 
     @Autowired
     public OffertaController(SimpMessagingTemplate simpleMessagingTemplate, OffertaService offertaService) {
