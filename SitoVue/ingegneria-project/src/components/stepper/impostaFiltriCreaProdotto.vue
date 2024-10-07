@@ -33,14 +33,15 @@ import { defineEmits, onBeforeMount, onUnmounted, ref } from 'vue';
 import { getCaratteristiche } from '../../service/carateristicheService.js';
 import { useAstaStore } from '../../stores/astaStore.js';
 import InputField from './InputField.vue';
-const emit = defineEmits(['update:active']);
+
+const emit = defineEmits('increase-page','decrease-page');
 
 const gestioneInvio = () => {
-    emit('update:active', 2);
+    emit('increase-page');
 };
 
 const goToPreviousForm = () => {
-    emit('update:active', 0);
+    emit('decrease-page');
 };
 
 const arrayValoriSelezionati = ref({});
@@ -74,5 +75,17 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* Stili rimossi per brevità */
+.bottone {
+    background-color: #cc85f5;
+    margin: 10px;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    width: 50%;
+}
+.bottone:hover {
+    background-color: #7c3aed;
+}
 </style>

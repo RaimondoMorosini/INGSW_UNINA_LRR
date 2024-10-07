@@ -51,6 +51,10 @@
             </div>
             <div class="flex justify-center p-2 lg:w-[50%] lg:justify-start">
                 <ImageUploader />
+                <!--
+                
+                -->
+                
             </div>
         </main>
 
@@ -75,12 +79,12 @@ import { getCategorie } from '../../service/categoriaService.js';
 const nodes = ref([]);
 
 const storeInstance = useAstaStore();
-const emit = defineEmits(['update:active']);
+const emit = defineEmits('increase-page','decreasse-page');
 const selectedCategory = ref(storeInstance.asta.categoria);
 const nomeProdotto = ref(storeInstance.asta.nomeProdotto);
 const descrizione = ref(storeInstance.asta.descrizione);
 const prezzoBase = ref(storeInstance.asta.prezzoBase);
-const immagini = ref(null);
+
 
 const categoriaSelezionata = function (obj) {
     let keys = '';
@@ -121,7 +125,7 @@ const gestioneInvio = () => {
         prezzoBase: prezzoBase.value,
         categoria: selectedCategory,
     });
-    //emit('update:active', 1);
+    emit('increase-page');
 };
 </script>
 
