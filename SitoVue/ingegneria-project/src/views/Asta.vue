@@ -5,9 +5,13 @@
     <div class="colonna">
       <ImmaginiProdotto v-if="item" :prodotto="item" />
     </div>
-  <div class="colonna">
-    <InfoAstaProdotto v-if="item" :prodotto="item" :utenteUltimaOfferta="utenteUltimaOfferta" />
-  </div>
+    <div class="colonna">
+        <InfoAstaProdotto v-if="item" :prodotto="item" :utenteUltimaOfferta="utenteUltimaOfferta" />
+    </div>
+    <div class="colonna">
+        <PartecipantiAsta v-if="offerte" :offerte="offerte"/>
+    </div>
+
   </div>
 </template>
 
@@ -15,16 +19,20 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { getInfoAstaProdotto ,getDatiastaInglese} from '../service/PaginaProdottoAstaService';
+import {getOfferteAstaIinglese} from '../service/offertaService';
 import { mantieniAggiornamenti, disconnettiti } from '../scripts/websocket/websocket.js';
 import ImmaginiProdotto from '../components/PaginaAsta/ImmaginiProdotto.vue';
 import InfoAstaProdotto from '../components/PaginaAsta/InfoAstaProdotto.vue'
+import PartecipantiAsta from '../components/PaginaAsta/PartecipantiAsta.vue'
 
 const route = useRoute();
 const astaId = route.params.id;
 const item = ref(null);
+const offerte = ref(null)
 const utenteUltimaOfferta= ref(null);
 const stomp1 = ref(null);
 const datiExtra = ref(null);
+
 onMounted(async () => {
     try {
         console.log('Caricamento asta in corso...');
@@ -37,6 +45,11 @@ onMounted(async () => {
         datiExtra.value = await getDatiastaInglese(astaId);
     } catch (e) {
         console.error("Errore richiesta datiExtra:", e);
+    }
+    try{
+        offerte.value = await getOfferteAstaIinglese(astaId);
+    } catch (e) {
+        console.log("Errore durante il carimento delle offerte:",e);
     }
     console.log('datiExtra:', datiExtra.value);
     stomp1.value = mantieniAggiornamenti('/asta/' + astaId, handleMessage);
@@ -58,6 +71,7 @@ function handleMessage(message) {
         astaId: data.offerta.astaId,
         offertaVincente: data.offerta.offertaVincente
     };
+    offerte.value.push(offerta);
     utenteUltimaOfferta.value=offerta.emailUtente;
     switch (item.value.tipoAsta) {
         case 'asta_inglese':
