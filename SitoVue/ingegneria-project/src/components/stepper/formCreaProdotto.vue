@@ -1,9 +1,9 @@
 <template>
     <form @submit.prevent="gestioneInvio">
         <main
-            class="mt-5 flex h-auto min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row"
+            class="mt-5 flex min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row"
         >
-            <div class="h-4col auto-rows-max justify-between gap-3 px-2 lg:w-[50%]">
+            <div class="auto-rows-max justify-between gap-3 px-2 lg:w-[50%]">
                 <div class="formSpace pt-6">
                     <FloatLabel>
                         <InputText
@@ -51,20 +51,17 @@
             </div>
             <div class="flex justify-center p-2 lg:w-[50%] lg:justify-start">
                 <ImageUploader />
-                <!--
-                
-                -->
-                
             </div>
         </main>
 
-        <div class="areaBottoni my-4 px-10">
-            <button class="bottone" type="submit">Successivo</button>
+        <div class="areaBottoni my-4 px-10 flex justify-around gap-5">
+            <Button class="w-[45%]" size="large" @click="gestioneInvio" ><span class="text-white font-bold">Successivo <i class="pi pi-arrow-right"></i></span></Button>
         </div>
     </form>
 </template>
 
 <script setup>
+import Button from 'primevue/button';
 import InputNumber from 'primevue/inputnumber';
 import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
@@ -79,12 +76,11 @@ import { getCategorie } from '../../service/categoriaService.js';
 const nodes = ref([]);
 
 const storeInstance = useAstaStore();
-const emit = defineEmits('increase-page','decreasse-page');
+const emit = defineEmits('increase-page', 'decreasse-page');
 const selectedCategory = ref(storeInstance.asta.categoria);
 const nomeProdotto = ref(storeInstance.asta.nomeProdotto);
 const descrizione = ref(storeInstance.asta.descrizione);
 const prezzoBase = ref(storeInstance.asta.prezzoBase);
-
 
 const categoriaSelezionata = function (obj) {
     let keys = '';
@@ -130,16 +126,7 @@ const gestioneInvio = () => {
 </script>
 
 <style scoped>
-#imgInp {
-    width: 100%;
-    background: #cc85f5;
-    color: #fff;
-    padding: 40px 15px;
-    text-align: center;
-    border-radius: 10px;
-    border: 3px dashed #fff;
-    font-size: 20px;
-}
+
 form {
     text-align: center;
 }

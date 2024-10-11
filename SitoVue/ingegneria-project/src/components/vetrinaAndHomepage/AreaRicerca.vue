@@ -4,13 +4,13 @@
     >
         <!-- INPUT TESTO PER CERCARE UNA SOTTOSTRINGA DI UN TITOLO DI UN ASTA -->
         <InputGroup class="h-14 w-[100%] lg:w-[33%]">
-            <InputGroupAddon class="bg-primario-100">
+            <InputGroupAddon class="bg-primario-400">
                 <i class="pi pi-search" style="color: #424242"></i>
             </InputGroupAddon>
             <InputText
                 v-model="nomeProdottoCercato"
                 placeholder="Search"
-                class="w-[100%] rounded-r bg-primario-100/50 text-black"
+                class="w-[100%] rounded-r bg-primario-400/50 text-black"
             >
                 <template #imputtexticon>
                     <i class="pi pi-search" style="color: #424242"></i>
@@ -20,7 +20,7 @@
 
         <!-- CASSELLA CATEGORIE -->
         <InputGroup class="h-14 w-[100%] lg:w-[33%]">
-            <InputGroupAddon class="bg-primario-100">
+            <InputGroupAddon class="bg-primario-400">
                 <i class="pi pi-th-large" style="color: #424242"></i>
             </InputGroupAddon>
             <TreeSelect
@@ -30,13 +30,13 @@
                 :options="gerarchiaCategorie"
                 option-label="name"
                 placeholder="Seleziona Categoria"
-                class="w-[100%] rounded-r bg-primario-100/50 text-black"
+                class="w-[100%] rounded-r bg-primario-400/50 text-black"
             />
         </InputGroup>
 
         <!-- CASSELLA TIPI DI ASTA -->
         <InputGroup class="h-14 w-[100%] lg:w-[33%]">
-            <InputGroupAddon class="bg-primario-100">
+            <InputGroupAddon class="bg-primario-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                     <g id="asta">
                         <path
@@ -54,13 +54,13 @@
                 optionLabel="name"
                 placeholder="Seleziona aste"
                 :maxSelectedLabels="3"
-                class="w-[100%] rounded-r bg-primario-100/50 text-black"
+                class="w-[100%] rounded-r bg-primario-400/50 text-black"
             />
         </InputGroup>
 
         <!-- BOTTONE CERCA-->
         <button
-            class="h-14 w-[100%] rounded bg-primario-100 text-white lg:w-[10%]"
+            class="h-14 w-[100%] rounded bg-primario-400 text-white lg:w-[10%]"
             @click="OnCLickCerca(false)"
         >
             Cerca aste

@@ -1,8 +1,9 @@
 <template>
-    <button class="button__logout" @click="handleLogout">Log Out</button>
+    <Button @click="handleLogout" class="button__logout ring-2 ring-slate-300/80"><span class="text-white font-bold">Log Out </span></Button>
 </template>
 
 <script setup>
+import Button from 'primevue/button';
 import { useAuth0 } from '@auth0/auth0-vue';
 
 const { logout } = useAuth0();

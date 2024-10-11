@@ -1,9 +1,10 @@
 <template>
-    <button class="button__sign-up" @click="handleSignUp">Sign Up</button>
+    <Button @click="handleSignUp" class="button__sign-up ring-2 ring-slate-300/80"><span class="text-white font-bold">Registati </span></Button>
 </template>
 
 <script setup>
 import { useAuth0 } from '@auth0/auth0-vue';
+import Button from 'primevue/button';
 
 const { loginWithRedirect } = useAuth0();
 

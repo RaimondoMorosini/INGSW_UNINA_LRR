@@ -2,14 +2,22 @@
     <form @submit.prevent="gestioneInvio">
         <label for="asta">Seleziona tipo Asta</label>
 
-        <div class="py-2 gap-2 flex justify-center" >
-            <span v-if="!checked" class="ring-1 ring-[#cc85f5] text-bold text-xl rounded px-2 py-2">ASTA INGLESE</span>
-           
-            <span v-if="checked" class=" text-bold text-xl rounded px-2 py-2">ASTA INGLESE</span>
-            <ToggleSwitch v-model="checked" class="my-2"/>
-            <span v-if="checked" class="ring-1 ring-[#cc85f5] text-bold text-xl rounded px-2 py-2">ASTA SILENZIOSA</span>
-            
-            <span v-if="!checked" class=" text-bold text-xl rounded px-2 py-2">ASTA SILENZIOSA</span>
+        <div class="flex justify-center gap-2 py-2">
+            <span
+                v-if="!checked"
+                class="text-bold rounded bg-slate-100/50 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
+                >ASTA INGLESE</span
+            >
+
+            <span v-if="checked" class="text-bold rounded px-2 py-2 text-xl">ASTA INGLESE</span>
+            <ToggleSwitch v-model="checked" class="my-2" />
+            <span
+                v-if="checked"
+                class="text-bold rounded bg-slate-100/50 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
+                >ASTA SILENZIOSA</span
+            >
+
+            <span v-if="!checked" class="text-bold rounded px-2 py-2 text-xl">ASTA SILENZIOSA</span>
         </div>
 
         <!--v-if="tipoAsta === 'asta_inglese'"-->
@@ -18,16 +26,14 @@
             class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
             ASTA INGLESE
-            <div class="formSpace  pt-5 w-[100%] lg:pr-9">
-
-                        <InputNumber
-                            id="incrementoMinimo"
-                            class="w-[100%] rounded"
-                            v-model="incrementoMinimo"
-                            prefix="€ " 
-                        />
-                        <label for="incrementoMinimo">Incremento minimo</label>
-                      
+            <div class="formSpace w-[100%] pt-5 lg:pr-9">
+                <InputNumber
+                    id="incrementoMinimo"
+                    class="w-[100%] rounded"
+                    v-model="incrementoMinimo"
+                    prefix="€ "
+                />
+                <label for="incrementoMinimo">Incremento minimo</label>
             </div>
             <div class="formSpace pt-5 lg:pr-9">
                 <InputNumber
@@ -58,7 +64,7 @@
         <!--v-if="tipoAsta === 'asta_silenziosa'"-->
         <div
             v-if="checked"
-            class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-[#cc85f5]"
+            class="mx-2 my-2 flex flex-col gap-2 bg-slate-100/50 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
             ASTA Silenziosa
 
@@ -71,17 +77,15 @@
                     v-model="scadenzaAsta"
                     id="scadenzaAsta"
                     inputId="birth_date"
-                    class="w-[60%] rounded bg-inherit"
+                    class="w-[60%] rounded "
                 />
                 <label for="scadenzaAsta">Data Scadenza</label>
             </div>
         </div>
 
         <div class="areaBottoni mx-4 flex justify-around gap-5 px-4">
-            <button class="previous bottone px-5" @click="goToPreviousForm" type="button">
-                Precedente
-            </button>
-            <button class="bottone px-5" type="submit">Successivo</button>
+            <Button class="w-[45%]" size="large" @click="goToPreviousForm" ><span class="text-white font-bold"><i class="pi pi-arrow-left"></i> Precedente</span></Button>
+            <Button class="w-[45%]" size="large" @click="gestioneInvio" ><span class="text-white font-bold">Successivo <i class="pi pi-arrow-right"></i></span></Button>
         </div>
     </form>
 </template>
@@ -90,12 +94,13 @@
 import ToggleSwitch from 'primevue/toggleswitch';
 import InputNumber from 'primevue/inputnumber';
 import FloatLabel from 'primevue/floatlabel';
+import Button from 'primevue/button';
 import DatePicker from 'primevue/datepicker';
 
 import { defineEmits, ref, onMounted } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
 
-const checked = ref(null)
+const checked = ref(null);
 let today = new Date();
 let nowMonth = today.getMonth();
 let nowYear = today.getFullYear();
@@ -109,24 +114,21 @@ const storeInstance = useAstaStore();
 
 const tipoAsta = ref(storeInstance.asta.tipoAsta);
 
-
-
 const incrementoMinimo = ref(storeInstance.asta.incrementoMinimo);
 const durataEstensione = ref(storeInstance.asta.durataEstensione);
 const scadenzaAsta = ref(storeInstance.asta.scadenzaAsta);
 
 onMounted(() => {
     storeInstance.updateAsta({ step: 2 });
-    if (tipoAsta==='asta_silenziosa'){
-        checked=true;
+    if (tipoAsta === 'asta_silenziosa') {
+        checked = true;
     }
 });
 
 const emit = defineEmits('increase-page', 'decrease-page');
 
 const gestioneInvio = () => {
-    if (checked==false) {
-
+    if (checked == false) {
         if (!incrementoMinimo.value || !durataEstensione.value || !scadenzaAsta.value) {
             alert('Asta Inglese: Inserire tutti i campi');
             return;

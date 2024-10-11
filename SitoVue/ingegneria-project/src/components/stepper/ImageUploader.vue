@@ -1,11 +1,11 @@
 <template>
     <div id="app">
         <div class="container flex w-full flex-col content-center items-center justify-center py-2">
-            <div class="drop-area" @dragover.prevent @dragenter.prevent @drop.prevent="onDrop">
-                <label class="custom-file-upload flex flex-col items-center gap-0 text-4xl">
+            <div class="drop-area ring-1 ring-primario-400" @dragover.prevent @dragenter.prevent @drop.prevent="onDrop">
+                <label class="custom-file-upload bg-primario-400 hover:bg-primario-300 flex flex-col items-center gap-0 text-4xl">
                     <input type="file" accept="image/*" multiple @change="onFileChange" />
-                    <i class="bi bi-camera"></i>
-                    <i class="bi bi-box-arrow-in-down"></i>
+                    <i class="pi pi-camera py-2" style="font-size: 2.5rem"></i>
+                    <i class="pi pi-file-plus py-2" style="font-size: 2.5rem"></i>
                 </label>
             </div>
 
@@ -16,24 +16,25 @@
                 <img
                     src="../../assets/img/placeholder/placeholder.png"
                     alt="Immagine temporanea placeholder"
-                    class="immagine shadow px-2 lg:px-64 py-2"
+                    class="immagine px-2 py-2 shadow lg:px-64"
                 />
             </div>
-            <div v-else class="jumbotron w-[100%] shadow">
+            <div v-else class="jumbotron ring-1 ring-primario-400 w-[100%] shadow">
                 <div class="immagini-container grid grid-cols-4 justify-between gap-2">
                     <div
                         v-for="(immagine, indice) in store.asta.immaginiSalvate"
                         :key="indice"
                         class="immagine shadow"
                     >
-                        <button type="button" @click="rimuoviImmagine(indice)" class="btn-close">
-                            &times;
-                        </button>
-                        <img
-                            class="preview h-28 shadow lg:max-h-32"
+                        
+                        <Button size="small" severity="danger" class="absolute left-0" outlined icon="pi pi-times" @click="rimuoviImmagine(indice)"></Button>
+                        <div class="p-2 flex rounded text-center align-middle justify-center bg-slate-50/10">
+                            <img
+                            class="preview shadow lg:max-h-64 max-h-64 "
                             :src="immagine.src"
                             alt="Catalogo immagini prodotto"
                         />
+                        </div>
                         <div class="img-name">{{ immagine.name }}</div>
                         <div>file {{ immagine.file }}</div>
                     </div>
@@ -45,7 +46,7 @@
         TODO: Da togliere quanto non più necessari test
         <button
             @click="eseguiChiamataAxios"
-            class="my-5 h-fit w-[100%] rounded bg-primario-100 px-5 py-5 text-xl font-semibold text-white"
+            class="my-5 h-fit w-[100%] rounded bg-primario-400 px-5 py-5 text-xl font-semibold text-white"
         >
             Esegui chiamata Axios
         </button>
@@ -54,6 +55,7 @@
 </template>
 
 <script setup>
+import Button from 'primevue/button'
 import { ref, onUnmounted, onMounted, computed } from 'vue';
 import { uploadImages } from '../../scripts/ImageUploadService.js';
 import { useAstaStore } from '../../stores/astaStore';
@@ -133,14 +135,12 @@ onUnmounted(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid #cd87f6;
     margin-bottom: 20px;
     cursor: pointer;
 }
 
 .jumbotron {
     padding: 20px;
-    border: 2px solid #cd87f6;
 }
 
 .immagini-container {
@@ -153,17 +153,6 @@ onUnmounted(() => {
     flex-direction: column;
     align-items: center;
     margin-bottom: 10px;
-}
-
-.btn-close {
-    position: absolute;
-    top: 2px;
-    right: 5px;
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: #dc3545;
 }
 
 .preview {
@@ -182,7 +171,6 @@ input[type='file'] {
 }
 
 .custom-file-upload {
-    background-color: #cc85f5;
     padding: 10px 5px;
     color: white;
     border-radius: 5px;
@@ -190,9 +178,6 @@ input[type='file'] {
     font-weight: bold;
     width: 50%;
     cursor: pointer;
-}
-.custom-file-upload:hover {
-    background-color: #7c3aed;
 }
 
 .icon-size {

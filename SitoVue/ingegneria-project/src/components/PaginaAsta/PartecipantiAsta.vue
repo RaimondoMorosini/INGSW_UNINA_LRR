@@ -1,8 +1,14 @@
 <template>
     <div class="card">
-        <DataTable :value="customers" paginator showGridlines :rows="5" dataKey="id" :loading="loading" >
-            <template #header>
-            </template>
+        <DataTable
+            :value="customers"
+            paginator
+            showGridlines
+            :rows="5"
+            dataKey="id"
+            :loading="loading"
+        >
+            <template #header> </template>
             <template #empty> Non ci sono partecipanti attualmente. </template>
             <template #loading> Caricamento asta. </template>
             <Column header="Utente" :filterMenuStyle="{ width: '10rem' }" style="min-width: 10rem">
@@ -19,9 +25,7 @@
                 </template>
             </Column>
             <Column header="Prezzo offerto" dataType="numeric" style="min-width: 10rem">
-                <template #body="{ data }">
-                    {{data.prezzoProposto}}€
-                </template>
+                <template #body="{ data }"> {{ data.prezzoProposto }}€ </template>
             </Column>
         </DataTable>
     </div>
@@ -36,12 +40,9 @@ import Column from 'primevue/column';
 const customers = ref();
 const loading = ref(true);
 
-const props = defineProps([
-    'offerte'
-]);
+const props = defineProps(['offerte']);
 
 onMounted(() => {
-
     CustomerService.initializeData(props.offerte);
     CustomerService.getCustomersXLarge().then((data) => {
         customers.value = getCustomers(data);
@@ -50,9 +51,8 @@ onMounted(() => {
 });
 
 const formatDate = (unixTime) => {
-
     // Converti il timestamp Unix in millisecondi
-    const date = new Date(unixTime); 
+    const date = new Date(unixTime);
     const day = String(date.getDate()).padStart(2, '0'); // Ottieni il giorno e aggiungi uno zero iniziale se necessario
     const month = String(date.getMonth() + 1).padStart(2, '0'); // I mesi partono da 0, quindi aggiungi 1
     const year = String(date.getFullYear()).slice(-2); // Prendi solo le ultime due cifre dell'anno
@@ -73,9 +73,7 @@ const getCustomers = (data) => {
 };
 
 watch(props.offerte, () => {
-   
     CustomerService.initializeData(props.offerte);
     customers.value = props.offerte;
 });
-
 </script>

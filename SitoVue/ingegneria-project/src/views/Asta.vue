@@ -1,35 +1,36 @@
 <template>
-
-  <div class="contenitore_colonne">
-
-    <div class="colonna">
-      <ImmaginiProdotto v-if="item" :prodotto="item" />
+    <div class="contenitore_colonne">
+        <div class="colonna">
+            <ImmaginiProdotto v-if="item" :prodotto="item" />
+        </div>
+        <div class="colonna">
+            <InfoAstaProdotto
+                v-if="item"
+                :prodotto="item"
+                :utenteUltimaOfferta="utenteUltimaOfferta"
+            />
+        </div>
+        <div class="colonna">
+            <PartecipantiAsta v-if="offerte" :offerte="offerte" />
+        </div>
     </div>
-    <div class="colonna">
-        <InfoAstaProdotto v-if="item" :prodotto="item" :utenteUltimaOfferta="utenteUltimaOfferta" />
-    </div>
-    <div class="colonna">
-        <PartecipantiAsta v-if="offerte" :offerte="offerte"/>
-    </div>
-
-  </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { getInfoAstaProdotto ,getDatiastaInglese} from '../service/PaginaProdottoAstaService';
-import {getOfferteAstaIinglese} from '../service/offertaService';
+import { getInfoAstaProdotto, getDatiastaInglese } from '../service/PaginaProdottoAstaService';
+import { getOfferteAstaIinglese } from '../service/offertaService';
 import { mantieniAggiornamenti, disconnettiti } from '../scripts/websocket/websocket.js';
 import ImmaginiProdotto from '../components/PaginaAsta/ImmaginiProdotto.vue';
-import InfoAstaProdotto from '../components/PaginaAsta/InfoAstaProdotto.vue'
-import PartecipantiAsta from '../components/PaginaAsta/PartecipantiAsta.vue'
+import InfoAstaProdotto from '../components/PaginaAsta/InfoAstaProdotto.vue';
+import PartecipantiAsta from '../components/PaginaAsta/PartecipantiAsta.vue';
 
 const route = useRoute();
 const astaId = route.params.id;
 const item = ref(null);
-const offerte = ref(null)
-const utenteUltimaOfferta= ref(null);
+const offerte = ref(null);
+const utenteUltimaOfferta = ref(null);
 const stomp1 = ref(null);
 const datiExtra = ref(null);
 
@@ -37,19 +38,18 @@ onMounted(async () => {
     try {
         console.log('Caricamento asta in corso...');
         item.value = await getInfoAstaProdotto(astaId);
-        
     } catch (e) {
         console.error("Errore durante il caricamento dell'asta:", e);
     }
     try {
         datiExtra.value = await getDatiastaInglese(astaId);
     } catch (e) {
-        console.error("Errore richiesta datiExtra:", e);
+        console.error('Errore richiesta datiExtra:', e);
     }
-    try{
+    try {
         offerte.value = await getOfferteAstaIinglese(astaId);
     } catch (e) {
-        console.log("Errore durante il carimento delle offerte:",e);
+        console.log('Errore durante il carimento delle offerte:', e);
     }
     console.log('datiExtra:', datiExtra.value);
     stomp1.value = mantieniAggiornamenti('/asta/' + astaId, handleMessage);
@@ -69,17 +69,19 @@ function handleMessage(message) {
         prezzoProposto: data.offerta.prezzoProposto,
         emailUtente: data.offerta.emailUtente,
         astaId: data.offerta.astaId,
-        offertaVincente: data.offerta.offertaVincente
+        offertaVincente: data.offerta.offertaVincente,
     };
     offerte.value.push(offerta);
-    utenteUltimaOfferta.value=offerta.emailUtente;
+    utenteUltimaOfferta.value = offerta.emailUtente;
     switch (item.value.tipoAsta) {
         case 'asta_inglese':
             if (offerta.prezzoProposto > item.value.prezzoAttuale) {
                 item.value.prezzoAttuale = offerta.prezzoProposto;
                 item.value.dataScadenza = offerta.tempoOfferta + datiExtra.value.tempoEstensione;
-                console.log('tempoEstensione:', 
-                offerta.tempoOfferta + datiExtra.value.tempoEstensione);
+                console.log(
+                    'tempoEstensione:',
+                    offerta.tempoOfferta + datiExtra.value.tempoEstensione
+                );
                 console.log('Prezzo attuale aggiornato:', item.value.prezzoAttuale);
                 console.log('Tempo rimanente:', offerta.tempoOfferta);
             }
@@ -126,9 +128,8 @@ function faiOfferta() {
 }
 
 @media (max-width: 768px) {
-  .contenitore_colonne {
-    flex-direction: column; /* Disposizione in colonna per schermi piccoli */
-  }
+    .contenitore_colonne {
+        flex-direction: column; /* Disposizione in colonna per schermi piccoli */
+    }
 }
-
 </style>

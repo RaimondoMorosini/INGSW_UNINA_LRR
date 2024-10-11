@@ -1,16 +1,16 @@
-import {postRestWithtoken,postRest,getRest} from '../scripts/RestUtils.js';
+import { postRestWithtoken, postRest, getRest } from '../scripts/RestUtils.js';
 import { TipoAsta } from './astaService.js';
 
 export async function faiOfferta(prezzoProposto, idAsta) {
     const payload = {
         prezzoProposto: prezzoProposto,
-        idAsta: idAsta
+        idAsta: idAsta,
     };
     try {
         const response = await postRestWithtoken('faiOfferta', payload);
         return response;
     } catch (error) {
-        console.error('Errore durante l\'invio dell\'offerta:', error);
+        console.error("Errore durante l'invio dell'offerta:", error);
         throw error;
     }
 }

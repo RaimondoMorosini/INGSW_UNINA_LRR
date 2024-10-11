@@ -1,5 +1,4 @@
 export const CustomerService = {
-
     data: [], // Array per memorizzare i dati
 
     initializeData(newData) {
@@ -26,10 +25,8 @@ export const CustomerService = {
         return Promise.resolve(this.getData());
     },
 
-
     // Aggiunge un nuovo oggetto all'array dei dati
     aggiungiOfferta(offerta) {
-
         this.data.push(offerta);
 
         // Ordina l'array in base al campo `tempo` in ordine decrescente
@@ -43,7 +40,8 @@ export const CustomerService = {
                   .join('&')
             : '';
 
-        return fetch('https://www.primefaces.org/data/customers?' + queryParams).then((res) => res.json());
-    }
-
+        return fetch('https://www.primefaces.org/data/customers?' + queryParams).then((res) =>
+            res.json()
+        );
+    },
 };

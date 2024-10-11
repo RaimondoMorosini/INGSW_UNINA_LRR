@@ -2,7 +2,7 @@
     <ul class="flex flex-row justify-between border-b-2 border-slate-300 px-3 py-2">
         <li
             @click="pagina = 1"
-            class="flex rounded px-2 py-1 hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80"
+            class="flex rounded px-2 py-1 hover:bg-primario-400 hover:ring-2 hover:ring-slate-300/80"
         >
             <span>
                 <i class="pi pi-user" style="font-size: 1.5rem; padding-right: 0.8rem"></i>
@@ -11,7 +11,7 @@
         </li>
         <li
             @click="pagina = 2"
-            class="flex rounded px-2 py-1 hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80"
+            class="flex rounded px-2 py-1 hover:bg-primario-400 hover:ring-2 hover:ring-slate-300/80"
         >
             <span>
                 <i class="pi pi-inbox" style="font-size: 1.5rem; padding-right: 0.8rem"></i>
@@ -20,7 +20,7 @@
         </li>
         <li
             @click="pagina = 3"
-            class="flex rounded px-2 py-1 hover:bg-primario-100 hover:ring-2 hover:ring-slate-300/80"
+            class="flex rounded px-2 py-1 hover:bg-primario-400 hover:ring-2 hover:ring-slate-300/80"
         >
             <span>
                 <i class="pi pi-shopping-bag" style="font-size: 1.5rem; padding-right: 0.8rem"></i>

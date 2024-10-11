@@ -1,7 +1,7 @@
 <template>
     <div>
         <form @submit.prevent="gestioneInvio">
-            <div class="mx-2 my-2 px-2 py-2 ring-2 ring-black">
+            <div class="mx-2 my-2 bg-slate-100/50 px-2 py-2">
                 <InputField
                     v-for="caratteristica in caratteristicheRelativeAllaCategoria"
                     :key="caratteristica.id"
@@ -15,26 +15,21 @@
             </div>
 
             <div class="areaBottoni flex justify-around gap-5">
-                <button
-                    class="previous bottone w-[30%] px-5"
-                    @click="goToPreviousForm"
-                    type="button"
-                >
-                    Precedente
-                </button>
-                <button class="bottone w-[30%] px-5" type="submit">Successivo</button>
+                <Button class="w-[45%]" size="large" @click="goToPreviousForm" ><span class="text-white font-bold"><i class="pi pi-arrow-left"></i> Precedente</span></Button>
+                <Button class="w-[45%]" size="large" @click="gestioneInvio" ><span class="text-white font-bold">Successivo <i class="pi pi-arrow-right"></i></span></Button>
             </div>
         </form>
     </div>
 </template>
 
 <script setup>
+import Button from 'primevue/button';
 import { defineEmits, onBeforeMount, onUnmounted, ref } from 'vue';
 import { getCaratteristiche } from '../../service/carateristicheService.js';
 import { useAstaStore } from '../../stores/astaStore.js';
 import InputField from './InputField.vue';
 
-const emit = defineEmits('increase-page','decrease-page');
+const emit = defineEmits('increase-page', 'decrease-page');
 
 const gestioneInvio = () => {
     emit('increase-page');

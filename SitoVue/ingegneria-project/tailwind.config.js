@@ -42,7 +42,8 @@ module.exports = {
                 'surface-800': 'rgb(var(--surface-800))',
                 'surface-900': 'rgb(var(--surface-900))',
                 'surface-950': 'rgb(var(--surface-950))',
-                primario: {
+                primario: { 
+                    /* vecchia tonalità di viola
                     100: '#cd87f6',
                     200: '#c169f4',
                     300: '#9752c0',
@@ -52,6 +53,18 @@ module.exports = {
                     700: '#673883',
                     800: '#522d69',
                     900: '#3e214e',
+                    */
+                    50: '#fdf4ff', 
+                    100: '#fae8ff', 
+                    200: '#f5d0fe', 
+                    300: '#f0abfc', 
+                    400: '#e879f9', 
+                    500: '#d946ef', 
+                    600: '#c026d3', 
+                    700: '#a21caf', 
+                    800: '#86198f', 
+                    900: '#701a75', 
+                    950: '#4a044e' 
                 },
                 secondario: {
                     // Esempio: Blu

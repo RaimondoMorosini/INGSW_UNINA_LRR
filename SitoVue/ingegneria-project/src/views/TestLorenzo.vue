@@ -30,39 +30,34 @@
         </div>
         <StepPanels>
             <StepPanel v-slot="{ activateCallback }" value="1">
-
-                    
-                 
-                <CreaProdotto @increase-page="activateCallback('2')"/>
-                
+                <CreaProdotto @increase-page="activateCallback('2')" />
             </StepPanel>
             <StepPanel v-slot="{ activateCallback }" value="2">
                 <SelezionaFiltri />
 
-                        @click="activateCallback('3')"
-                    />
-                
-                <SelezionaFiltri @decrease-page="activateCallback('1')" @increase-page="activateCallback('3')"/>
-                
+                @click="activateCallback('3')" />
+
+                <SelezionaFiltri
+                    @decrease-page="activateCallback('1')"
+                    @increase-page="activateCallback('3')"
+                />
             </StepPanel>
             <StepPanel v-slot="{ activateCallback }" value="3">
                 <SelezioneTipoAsta />
 
-                        "
-                    />
-                
-                <SelezioneTipoAsta @decrease-page="activateCallback('2')" @increase-page="activateCallback('4')" />
+                " />
+
+                <SelezioneTipoAsta
+                    @decrease-page="activateCallback('2')"
+                    @increase-page="activateCallback('4')"
+                />
             </StepPanel>
             <StepPanel v-slot="{ activateCallback }" value="4">
-                
                 <Review @decrease-page="activateCallback('3')" />
-                
             </StepPanel>
         </StepPanels>
     </Stepper>
 </template>
-
-
 
 <script setup>
 import Stepper from 'primevue/stepper';

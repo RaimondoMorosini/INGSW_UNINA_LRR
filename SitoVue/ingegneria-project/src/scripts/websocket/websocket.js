@@ -14,7 +14,7 @@ function mantieniAggiornamenti(topic, callback) {
         {},
         () => {
             console.log('Connesso al server WebSocket e al topic:', topic);
-            
+
             stompClient.subscribe(topic, (message) => {
                 console.log('Messaggio ricevuto dal topic: ', topic);
                 callback(message.body);

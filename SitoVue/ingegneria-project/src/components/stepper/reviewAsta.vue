@@ -14,7 +14,7 @@
             <span class="label">prezzo Base:</span>
             <span class="campo w-[100%] lg:w-[45rem]">€ {{ storeInstance.asta.prezzoBase }}</span>
             <span class="label">tipo Asta:</span>
-            <span class="campo w-[100%] lg:w-[45rem]">{{tipoAstaNew}}</span>
+            <span class="campo w-[100%] lg:w-[45rem]">{{ tipoAstaNew }}</span>
 
             <span v-if="tipoAsta === 'asta_inglese'">
                 <span class="label">incremento minimo:</span>
@@ -36,33 +36,38 @@
                 alt="Immagine Copertina"
                 class="col-span-4 h-[9rem] shadow ring-2 ring-[#cc85f5] lg:h-[12rem]"
             />
-            <div v-for="image in storeInstance.asta.immaginiSalvate" 
-            class="ring-0 ring-primario-100 rounded mr-5">
-                    <div class="rounded flex">
-                        <Button outlined severity="contrast" icon="pi pi-expand" size="small" @click="toFront(image)"/>
-                        <img :src="image.src" alt="Catalogo immagini prodotto" class="h-[7rem] shadow lg:h-[10rem]" />
-                    </div>       
+            <div
+                v-for="image in storeInstance.asta.immaginiSalvate"
+                class="mr-5 rounded ring-0 ring-primario-100"
+            >
+                <div class="flex rounded">
+                    <Button
+                        outlined
+                        severity="contrast"
+                        icon="pi pi-expand"
+                        size="small"
+                        @click="toFront(image)"
+                    />
+                    <img
+                        :src="image.src"
+                        alt="Catalogo immagini prodotto"
+                        class="h-[7rem] shadow lg:h-[10rem]"
+                    />
+                </div>
             </div>
         </div>
     </div>
-    <div class="buttonArea flex">
-        <button class="bottone mx-3 my-3 px-5" @click="goToPreviousForm" type="button">
-            Precedente
-        </button>
-        <button
-            class="bottone bg-gradient-to-tl from-danger-300/90 via-primario-100 to-secondario-300 px-5 hover:from-danger-400 hover:via-[#7c3aed] hover:to-secondario-400"
-            @click="gestioneInvio"
-        >
-            Finalizza
-        </button>
-        <!--success: {{ success }}-->
+    <div class="buttonArea flex justify-around">
+        <Button class="w-[45%]" size="large" @click="goToPreviousForm" ><span class="text-white font-bold"><i class="pi pi-arrow-left"></i> Precedente</span></Button>
+        <Button class="w-[45%] sp-button" size="large" @click="gestioneInvio" ><span class="text-white font-bold">Finalizza <i class="pi pi-check"></i></span></Button>
         
+        <!--success: {{ success }}-->
     </div>
 </template>
 
 <script setup>
 import Button from 'primevue/button';
-import { defineEmits,ref } from 'vue';
+import { defineEmits, ref } from 'vue';
 import { creaAsta } from '../../service/astaService.js';
 import { useAstaStore } from '../../stores/astaStore.js';
 import { onMounted } from 'vue';
@@ -82,9 +87,10 @@ const categoriaSelezionata = function (obj) {
     return keys;
 };
 
-const tipoAsta = storeInstance.asta.tipoAsta 
-let tipoAstaSplit = tipoAsta.split('_')
-let tipoAstaNew = capitalizeFirstLetter(tipoAstaSplit[0])+' '+capitalizeFirstLetter(tipoAstaSplit[1]);
+const tipoAsta = storeInstance.asta.tipoAsta;
+let tipoAstaSplit = tipoAsta.split('_');
+let tipoAstaNew =
+    capitalizeFirstLetter(tipoAstaSplit[0]) + ' ' + capitalizeFirstLetter(tipoAstaSplit[1]);
 
 const scadenzaAsta = ref(storeInstance.asta.scadenzaAsta);
 let dateScadenza = new Date(scadenzaAsta.value);
@@ -97,7 +103,7 @@ const datiExtra = JSON.stringify({
     astaId: 0,
 });
 
-const emit = defineEmits('decrease-page','finalize');
+const emit = defineEmits('decrease-page', 'finalize');
 let success = false;
 let error = '';
 
@@ -124,14 +130,13 @@ const gestioneInvio = () => {
         });
 };
 
-function toFront(newCover){
+function toFront(newCover) {
     let images = storeInstance.asta.immaginiSalvate;
     let index = images.indexOf(newCover);
     images.unshift(images.splice(index, 1)[0]);
     storeInstance.updateAsta({ step: 3 });
     console.log('images: ', images);
 }
-
 </script>
 
 <style scoped>
@@ -170,5 +175,13 @@ span.label {
     margin-bottom: 5px;
 }
 
-
+.sp-button{
+    background-image: linear-gradient(to top left, var(--tw-gradient-stops));
+    --tw-gradient-from:rgb(244 117 117 / 0.9) var(--tw-gradient-from-position);
+    --tw-gradient-to:rgb(244 117 117 / 0) var(--tw-gradient-from-position);
+    --tw-gradient-stops: var(var(--tw-gradient-from), var(--tw-gradient-to));
+    --tw-gradient-to: rgb(232 121 249 / 0)  var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), #e879f9 var(--tw-gradient-via-position), var(--tw-gradient-to);
+    --tw-gradient-to: #4d91ff var(--tw-gradient-to-position);
+}
 </style>
