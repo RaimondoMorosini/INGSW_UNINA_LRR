@@ -8,6 +8,11 @@
                     {{ testoPrezzo }} <span>{{ prezzoAttuale }}€</span>
                 </p>
                 <button @click="aumentaOfferta" class="button green text-xl">PUNTA</button>
+                <!-- usando Primevue
+                <Button @click="aumentaOfferta" size="large">
+                    <span class="text-[#1C1B22] font-bold" >PUNTA</span>
+                </Button>
+                -->
                 <p class="info text-base">
                     Incremento per ogni puntata:
                     <span class="font-bold">{{ incrementoOfferta }}€</span>
@@ -48,6 +53,7 @@
 </template>
 
 <script setup>
+import Button from 'primevue/button';
 import { ref, computed, watch } from 'vue';
 import { defineProps } from 'vue';
 import { TipoAsta } from '../../service/astaService.js';

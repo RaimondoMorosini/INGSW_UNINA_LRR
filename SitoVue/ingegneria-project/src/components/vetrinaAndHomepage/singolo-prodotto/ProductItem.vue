@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-4 rounded-md border p-4 shadow-md md:flex-row">
+    <div class="flex bg-primario-400 flex-col gap-4 rounded-md border p-4 shadow-md md:flex-row">
         <ProductImage
             class="w-full max-w-xs md:w-1/3"
             :urlFotoCopertina="item.immagini[0]"
@@ -20,7 +20,7 @@
                 icon="pi pi-shopping-cart"
                 label="Partecipa all'asta"
                 :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
-                class="w-full bg-primario-400   hover:bg-primario-300 focus:ring focus:ring-primario-400 md:w-auto"
+                class="w-full bg-primario-400 hover:bg-primario-300 focus:ring focus:ring-primario-400 md:w-auto"
             />
         </div>
     </div>

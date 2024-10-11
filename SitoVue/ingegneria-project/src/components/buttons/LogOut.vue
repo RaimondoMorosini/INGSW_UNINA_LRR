@@ -1,5 +1,5 @@
 <template>
-    <Button @click="handleLogout" class="button__logout ring-2 ring-slate-300/80"><span class="  font-bold">Log Out </span></Button>
+    <Button @click="handleLogout" class="button__logout ring-2 ring-slate-300/80"><span class="text-[#1C1B22] font-bold">Log Out </span></Button>
 </template>
 
 <script setup>

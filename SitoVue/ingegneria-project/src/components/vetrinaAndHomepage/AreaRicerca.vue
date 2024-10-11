@@ -59,7 +59,7 @@
         </InputGroup>
 
         <!-- BOTTONE CERCA-->
-        <Button class="w-[100%] lg:w-[10%]]" @click="OnCLickCerca(false)"><span class="font-bold text-white">Cerca Aste</span></Button>
+        <Button class="w-[100%] lg:w-[10%]]" @click="OnCLickCerca(false)"><span class="font-bold text-[#1C1B22]">Cerca Aste</span></Button>
     </div>
 
     <Vetrina v-if="vetrinaInstance.vetrinaShare" />

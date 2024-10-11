@@ -1,5 +1,5 @@
 <template>
-    <Button @click="handleSignUp" class="button__sign-up ring-2 ring-slate-300/80"><span class=" font-bold">Registati </span></Button>
+    <Button @click="handleSignUp" class="button__sign-up ring-2 ring-slate-300/80"><span class="text-[#1C1B22] font-bold">Registati </span></Button>
 </template>
 
 <script setup>
