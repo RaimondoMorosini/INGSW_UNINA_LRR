@@ -55,7 +55,7 @@
         </main>
 
         <div class="areaBottoni my-4 px-10 flex justify-around gap-5">
-            <Button class="w-[45%]" size="large" @click="gestioneInvio" ><span class="  font-bold">Successivo <i class="pi pi-arrow-right"></i></span></Button>
+            <Button class="w-[45%]" size="large" @click="gestioneInvio" ><span class="text-[#1C1B22] font-bold">Successivo <i class="pi pi-arrow-right"></i></span></Button>
         </div>
     </form>
 </template>

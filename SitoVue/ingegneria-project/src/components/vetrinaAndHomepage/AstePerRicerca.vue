@@ -27,7 +27,7 @@
                                 :key="index"
                                 :item="item"
                                 :index="index"
-                                class="col-12 contenitore-articolo mt-4"
+                                class="col-12  contenitore-articolo mt-4 "
                             ></ProductItem>
                         </div>
                     </template>
@@ -43,7 +43,6 @@
 import DataView from 'primevue/dataview';
 import Paginator from 'primevue/paginator';
 import 'primeflex/primeflex.css';
-//import 'primevue/resources/themes/aura-light-green/theme.css';
 import 'primeicons/primeicons.css';
 
 import { ref, watch, defineEmits } from 'vue';

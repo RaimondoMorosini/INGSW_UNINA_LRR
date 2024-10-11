@@ -48,10 +48,7 @@
         </InputGroup>
 
         <!-- BOTTONE CERCA-->
-        <Button class="w-[100%] lg:w-[10%]]" @click="OnCLickCerca(false)"><span class="font-bold text-white">Cerca Aste</span></Button>
-        <button class="h-14 w-[100%] rounded bg-primario-100 text-white lg:w-[10%]" @click="OnCLickCerca()">
-            Cerca aste
-        </button>
+        <Button class="w-[100%] lg:w-[10%]]" @click="OnCLickCerca(false)"><span class="font-bold text-[#1C1B22]">Cerca Aste</span></Button>
     </div>
 
     

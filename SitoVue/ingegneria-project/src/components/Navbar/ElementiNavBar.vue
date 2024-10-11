@@ -18,17 +18,17 @@
             <template v-if="isAuthenticated">
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'profilo' }">
-                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="  font-bold">Ciao {{ user.name }}</span></Button>
+                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="text-[#1C1B22]  font-bold">Ciao {{ user.name }}</span></Button>
                     </RouterLink>
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <router-link to="/profilo/notifiche">
-                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="  font-bold">Notifiche </span></Button>
+                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="text-[#1C1B22]  font-bold">Notifiche </span></Button>
                     </router-link>
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'about' }">
-                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="  font-bold">Le Tue Aste</span></Button>
+                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="text-[#1C1B22] font-bold">Le Tue Aste</span></Button>
                     </RouterLink>
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
@@ -36,7 +36,7 @@
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'creaAsta' }">
-                        <Button label="Crea Asta" class="sp-button w-[100%] ring-2 ring-slate-300/80"><span class="  font-bold">Crea Asta</span></Button>
+                        <Button label="Crea Asta" class="sp-button w-[100%] ring-2 ring-slate-300/80"><span class="text-[#1C1B22]  font-bold">Crea Asta</span></Button>
                     </RouterLink>
                 </li>
             </template>
