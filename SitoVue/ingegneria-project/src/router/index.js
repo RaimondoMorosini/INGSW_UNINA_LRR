@@ -103,6 +103,13 @@ const routes = [
     },
 
     {
+        path: '/aste',
+        name: 'aste',
+        component: () => import('@/views/Aste.vue'),
+        props: true,
+    },
+
+    {
         path: '/asta/:id',
         name: 'asta',
         component: () => import('@/views/Asta.vue'),

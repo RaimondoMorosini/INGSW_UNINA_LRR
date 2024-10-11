@@ -1,6 +1,7 @@
 <template>
     <div class="contenitore-caratteristiche">
-        <h1 class="text-2xl font-bold">Filtra:</h1>
+        <h1 v-if="caratteristicheRelativeAllaCategoria.length > 0" class="text-2xl font-bold">Filtra:</h1>
+        <h1 v-else class="text-base font-normal">Non sono disponibili filtri per questa categoria</h1>
         <div
             class="contenitore-caratteristica"
             v-for="(caratteristica, index) in caratteristicheRelativeAllaCategoria"
