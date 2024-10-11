@@ -39,7 +39,7 @@ export async function creaAsta() {
     console.log('datiAsta:\n', datiAsta);
     datiAsta.datiProdotto.immagini = [];
     try {
-        const response = await postRestWithtoken('asta/creaasta', datiAsta);
+        const response = await postRestWithtoken('asta/creaAsta', datiAsta);
         console.log('log ora recupero idasta e salvo le img:', response);
         const idAsta = response.idAsta;
         await salvaImaginiAsta(idAsta);

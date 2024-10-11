@@ -25,7 +25,7 @@ public class ProdottoAstaController {
     }
 
 
-    @PostMapping("/asta/creaasta")
+    @PostMapping("/asta/creaAsta")
     public ResponseEntity<String> addProdottoAsta(@RequestBody CreaAstaDTO datiPerCreazioneDtoInput) {
             int idAsta= astaFacadeService.creaAsta(datiPerCreazioneDtoInput);
             String json="{\"message\":\"Asta creata con successo\",\"idAsta\":"+idAsta+"}";
@@ -42,16 +42,16 @@ public class ProdottoAstaController {
         }
     }
 
-    @GetMapping("public/prodottoasta/{idAssta}")
-    public ResponseEntity<InfoDatiAstaDTO> getInfoProdottoAsta(@PathVariable int idAssta) {
-            InfoDatiAstaDTO dati= astaFacadeService.getInfoSingolaAsta(idAssta);
+    @GetMapping("public/prodottoAsta/{idAsta}")
+    public ResponseEntity<InfoDatiAstaDTO> getInfoProdottoAsta(@PathVariable int idAsta) {
+            InfoDatiAstaDTO dati= astaFacadeService.getInfoSingolaAsta(idAsta);
             return ResponseEntity.ok(dati);
     }
 
     //get dati extra delle asta
-    @GetMapping("public/prodottoasta/extra/{idAssta}")
-    public ResponseEntity<String> getExtraInfoProdottoAsta(@PathVariable int idAssta) {
-        String dati= astaFacadeService.getExtraInfoSingolaAsta(idAssta);
+    @GetMapping("public/prodottoAsta/extra/{idAsta}")
+    public ResponseEntity<String> getExtraInfoProdottoAsta(@PathVariable int idAsta) {
+        String dati= astaFacadeService.getExtraInfoSingolaAsta(idAsta);
         return ResponseEntity.ok(dati);
     }
 
