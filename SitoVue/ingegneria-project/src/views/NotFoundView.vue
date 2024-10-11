@@ -1,19 +1,15 @@
 <template>
     <div class="not-found">
         <h1>Errore 404</h1>
-        <p>La pagina che stai cercando non esiste.</p>
+        <p >La pagina che stai cercando non esiste.</p>
         <div class="pt-4">
-            <router-link
-                :to="{ name: 'home' }"
-                class="max-w-1col rounded bg-primario-300 px-2 py-1 hover:bg-primario-400"
-                >Back to home</router-link
-            >
+            <Button as="router-link" to="/"><span class="  font-bold">Torna alla pagina principale</span></Button>
         </div>
     </div>
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router';
+import Button from 'primevue/button';
 </script>
 
 <style scoped>
@@ -29,6 +25,5 @@ h1 {
 
 p {
     font-size: 18px;
-    color: #333333;
 }
 </style>

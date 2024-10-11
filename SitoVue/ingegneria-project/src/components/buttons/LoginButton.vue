@@ -1,5 +1,5 @@
 <template>
-    <Button @click="handleLogin" class="button__login ring-2 ring-slate-300/80"><span class="text-white font-bold">Log In </span></Button>
+    <Button @click="handleLogin" class="button__login ring-2 ring-slate-300/80"><span class="font-bold">Log In </span></Button>
 </template>
 
 <script setup>

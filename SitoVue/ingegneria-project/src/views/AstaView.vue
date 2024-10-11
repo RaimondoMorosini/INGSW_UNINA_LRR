@@ -1,7 +1,7 @@
 <template>
     <!--TODO: rimuovere i ring di supporto a pagina finita-->
     <div class="w-fill mx-5 my-3 flex flex-col justify-between gap-3 md:flex-row">
-        <aside class="bg-slate-100 ring-2 ring-black md:w-[25%]">
+        <aside class="bg-slate-100/10 ring-2 ring-black md:w-[25%]">
             <Galleria
                 :value="images"
                 :responsiveOptions="responsiveOptions"

@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <div class="container flex w-full flex-col content-center items-center justify-center py-2">
-            <div class="drop-area ring-1 ring-primario-400" @dragover.prevent @dragenter.prevent @drop.prevent="onDrop">
+            <div class="drop-area ring-1 ring-primario-400 rounded" @dragover.prevent @dragenter.prevent @drop.prevent="onDrop">
                 <label class="custom-file-upload bg-primario-400 hover:bg-primario-300 flex flex-col items-center gap-0 text-4xl">
                     <input type="file" accept="image/*" multiple @change="onFileChange" />
                     <i class="pi pi-camera py-2" style="font-size: 2.5rem"></i>
@@ -19,15 +19,14 @@
                     class="immagine px-2 py-2 shadow lg:px-64"
                 />
             </div>
-            <div v-else class="jumbotron ring-1 ring-primario-400 w-[100%] shadow">
-                <div class="immagini-container grid grid-cols-4 justify-between gap-2">
+            <div v-else class="jumbotron ring-1 ring-primario-400 w-[100%] rounded shadow">
+                <div class="immagini-container grid grid-cols-4 gap-2">
                     <div
                         v-for="(immagine, indice) in store.asta.immaginiSalvate"
                         :key="indice"
                         class="immagine shadow"
                     >
-                        
-                        <Button size="small" severity="danger" class="absolute left-0" outlined icon="pi pi-times" @click="rimuoviImmagine(indice)"></Button>
+                        <Button size="small" severity="danger" class="absolute top-0 right-0" outlined icon="pi pi-times" @click="rimuoviImmagine(indice)"></Button>
                         <div class="p-2 flex rounded text-center align-middle justify-center bg-slate-50/10">
                             <img
                             class="preview shadow lg:max-h-64 max-h-64 "
@@ -46,7 +45,7 @@
         TODO: Da togliere quanto non più necessari test
         <button
             @click="eseguiChiamataAxios"
-            class="my-5 h-fit w-[100%] rounded bg-primario-400 px-5 py-5 text-xl font-semibold text-white"
+            class="my-5 h-fit w-[100%] rounded bg-primario-400 px-5 py-5 text-xl font-semibold  "
         >
             Esegui chiamata Axios
         </button>
@@ -141,10 +140,6 @@ onUnmounted(() => {
 
 .jumbotron {
     padding: 20px;
-}
-
-.immagini-container {
-    gap: 10px;
 }
 
 .immagine {

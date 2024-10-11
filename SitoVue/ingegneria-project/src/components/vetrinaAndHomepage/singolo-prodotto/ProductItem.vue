@@ -20,7 +20,7 @@
                 icon="pi pi-shopping-cart"
                 label="Partecipa all'asta"
                 :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
-                class="w-full bg-primario-400 text-white hover:bg-primario-200 focus:ring focus:ring-primario-300 md:w-auto"
+                class="w-full bg-primario-400   hover:bg-primario-300 focus:ring focus:ring-primario-400 md:w-auto"
             />
         </div>
     </div>

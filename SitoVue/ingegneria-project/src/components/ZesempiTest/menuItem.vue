@@ -19,7 +19,7 @@ const props = defineProps({
 
 const menuItemClass = computed(() => {
     return cva(
-        'inline-flex items-center justify-center min-h-[32px] px-3 py-o.5 text-sm font-semibold  text-white ',
+        'inline-flex items-center justify-center min-h-[32px] px-3 py-o.5 text-sm font-semibold    ',
         {
             variants: {
                 intent: {

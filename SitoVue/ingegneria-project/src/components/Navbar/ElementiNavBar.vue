@@ -1,7 +1,7 @@
 <template>
     <div class="px-3">
         <ul
-            class="duration-400 absolute top-[100px] w-full border-b-2 border-t-2 border-slate-300 bg-primario-300/90 px-6 py-6 text-lg ease-in lg:static lg:flex lg:w-auto lg:items-center lg:border-transparent lg:bg-inherit lg:px-0 lg:pb-1"
+            class="duration-400 absolute top-[100px] w-full border-b-2 border-t-2 border-slate-300 bg-primario-400/90 px-6 py-6 text-lg ease-in lg:static lg:flex lg:w-auto lg:items-center lg:border-transparent lg:bg-inherit lg:px-0 lg:pb-1"
             :class="[open ? 'left-0 ' : 'left-[-100%] ']"
         >
             <template v-if="!isAuthenticated">
@@ -18,17 +18,17 @@
             <template v-if="isAuthenticated">
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'profilo' }">
-                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="text-white font-bold">Ciao {{ user.name }}</span></Button>
+                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="  font-bold">Ciao {{ user.name }}</span></Button>
                     </RouterLink>
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <router-link to="/profilo/notifiche">
-                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="text-white font-bold">Notifiche </span></Button>
+                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="  font-bold">Notifiche </span></Button>
                     </router-link>
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'about' }">
-                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="text-white font-bold">Le Tue Aste</span></Button>
+                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="  font-bold">Le Tue Aste</span></Button>
                     </RouterLink>
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
@@ -36,18 +36,17 @@
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'creaAsta' }">
-                        <Button label="Crea Asta" class="sp-button w-[100%] ring-2 ring-slate-300/80"><span class="text-white font-bold">Crea Asta</span></Button>
+                        <Button label="Crea Asta" class="sp-button w-[100%] ring-2 ring-slate-300/80"><span class="  font-bold">Crea Asta</span></Button>
                     </RouterLink>
                 </li>
             </template>
         </ul>
     </div>
 
-    <span
-        class="absolute right-6 top-6 rounded hover:bg-primario-300 hover:ring-2 hover:ring-slate-300/80 lg:hidden"
-        @click="MenuOpen()"
-    >
-        <i :class="[open ? 'bi bi-x icon-size' : 'bi bi-list icon-size']"></i>
+    <span  class="absolute right-6 top-8 lg:hidden">
+        <Button @click="MenuOpen()" size="small" plain text raised>
+            <i :class="[open ? 'pi pi-times icon-size' : 'pi pi-bars icon-size']"></i>
+        </Button>
     </span>
 </template>
 
@@ -74,7 +73,7 @@ function MenuClose() {
 
 <style scoped>
 .icon-size {
-    font-size: 40px;
+    font-size: 2rem;
 }
 
 .sp-button{

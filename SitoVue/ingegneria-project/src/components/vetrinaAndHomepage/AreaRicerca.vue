@@ -59,12 +59,7 @@
         </InputGroup>
 
         <!-- BOTTONE CERCA-->
-        <button
-            class="h-14 w-[100%] rounded bg-primario-400 text-white lg:w-[10%]"
-            @click="OnCLickCerca(false)"
-        >
-            Cerca aste
-        </button>
+        <Button class="w-[100%] lg:w-[10%]]" @click="OnCLickCerca(false)"><span class="font-bold text-white">Cerca Aste</span></Button>
     </div>
 
     <Vetrina v-if="vetrinaInstance.vetrinaShare" />
@@ -85,6 +80,7 @@
 </template>
 
 <script setup>
+import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import TreeSelect from 'primevue/treeselect';
 import InputGroup from 'primevue/inputgroup';

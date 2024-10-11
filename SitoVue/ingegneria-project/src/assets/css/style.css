@@ -5,9 +5,6 @@ html {
 body {
     font-family: var(--font-family);
     font-weight: normal;
-    background: var(--surface-ground);
-    color: var(--text-color);
-
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }

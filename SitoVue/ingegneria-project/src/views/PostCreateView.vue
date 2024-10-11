@@ -42,7 +42,7 @@ async function handleSubmit() {
                 </span>
             </div>
             <div>
-                <button class="rounded bg-blue-500 px-3 py-1.5 text-white hover:bg-blue-600">
+                <button class="rounded bg-blue-500 px-3 py-1 hover:bg-blue-600">
                     {{ form.processing ? 'Creating...' : 'Create' }}
                 </button>
             </div>

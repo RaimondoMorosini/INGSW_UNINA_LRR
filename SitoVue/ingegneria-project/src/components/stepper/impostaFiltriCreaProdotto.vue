@@ -15,8 +15,8 @@
             </div>
 
             <div class="areaBottoni flex justify-around gap-5">
-                <Button class="w-[45%]" size="large" @click="goToPreviousForm" ><span class="text-white font-bold"><i class="pi pi-arrow-left"></i> Precedente</span></Button>
-                <Button class="w-[45%]" size="large" @click="gestioneInvio" ><span class="text-white font-bold">Successivo <i class="pi pi-arrow-right"></i></span></Button>
+                <Button class="w-[45%]" size="large" @click="goToPreviousForm" ><span class="  font-bold"><i class="pi pi-arrow-left"></i> Precedente</span></Button>
+                <Button class="w-[45%]" size="large" @click="gestioneInvio" ><span class="  font-bold">Successivo <i class="pi pi-arrow-right"></i></span></Button>
             </div>
         </form>
     </div>
