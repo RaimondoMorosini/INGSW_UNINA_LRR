@@ -6,44 +6,54 @@
         >
             <template v-if="!isAuthenticated">
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
-                    <SignupButton class="w-[100%]"
-                    />
+                    <SignupButton class="w-[100%]" />
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
-                    <LoginButton class="w-[100%]"
-                    />
+                    <LoginButton class="w-[100%]" />
                 </li>
             </template>
 
             <template v-if="isAuthenticated">
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'profilo' }">
-                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="text-[#1C1B22]  font-bold">Ciao {{ user.name }}</span></Button>
+                        <Button class="w-[100%] ring-2 ring-slate-300/80"
+                            ><span class="font-bold text-[#1C1B22]"
+                                >Ciao {{ user.name }}</span
+                            ></Button
+                        >
                     </RouterLink>
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <router-link to="/profilo/notifiche">
-                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="text-[#1C1B22]  font-bold">Notifiche </span></Button>
+                        <Button class="w-[100%] ring-2 ring-slate-300/80"
+                            ><span class="font-bold text-[#1C1B22]">Notifiche </span></Button
+                        >
                     </router-link>
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'about' }">
-                        <Button class="ring-2 ring-slate-300/80 w-[100%]"><span class="text-[#1C1B22] font-bold">Le Tue Aste</span></Button>
+                        <Button class="w-[100%] ring-2 ring-slate-300/80"
+                            ><span class="font-bold text-[#1C1B22]">Le Tue Aste</span></Button
+                        >
                     </RouterLink>
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
-                    <LogoutButton class="w-[100%]"/>
+                    <LogoutButton class="w-[100%]" />
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'creaAsta' }">
-                        <Button label="Crea Asta" class="sp-button w-[100%] ring-2 ring-slate-300/80"><span class="text-[#1C1B22]  font-bold">Crea Asta</span></Button>
+                        <Button
+                            label="Crea Asta"
+                            class="sp-button w-[100%] ring-2 ring-slate-300/80"
+                            ><span class="font-bold text-[#1C1B22]">Crea Asta</span></Button
+                        >
                     </RouterLink>
                 </li>
             </template>
         </ul>
     </div>
 
-    <span  class="absolute right-6 top-8 lg:hidden">
+    <span class="absolute right-6 top-8 lg:hidden">
         <Button @click="MenuOpen()" size="small" plain text raised>
             <i :class="[open ? 'pi pi-times icon-size' : 'pi pi-bars icon-size']"></i>
         </Button>
@@ -76,13 +86,14 @@ function MenuClose() {
     font-size: 2rem;
 }
 
-.sp-button{
+.sp-button {
     background-image: linear-gradient(to top left, var(--tw-gradient-stops));
-    --tw-gradient-from:rgb(244 117 117 / 0.9) var(--tw-gradient-from-position);
-    --tw-gradient-to:rgb(244 117 117 / 0) var(--tw-gradient-from-position);
+    --tw-gradient-from: rgb(244 117 117 / 0.9) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(244 117 117 / 0) var(--tw-gradient-from-position);
     --tw-gradient-stops: var(var(--tw-gradient-from), var(--tw-gradient-to));
-    --tw-gradient-to: rgb(232 121 249 / 0)  var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-from), #e879f9 var(--tw-gradient-via-position), var(--tw-gradient-to);
+    --tw-gradient-to: rgb(232 121 249 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), #e879f9 var(--tw-gradient-via-position),
+        var(--tw-gradient-to);
     --tw-gradient-to: #4d91ff var(--tw-gradient-to-position);
 }
 </style>

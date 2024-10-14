@@ -1,5 +1,5 @@
 <template>
-    <div class="flex bg-primario-400 flex-col gap-4 rounded-md border p-4 shadow-md md:flex-row">
+    <div class="flex flex-col gap-4 rounded-md border p-4 shadow-md md:flex-row">
         <ProductImage
             class="w-full max-w-xs md:w-1/3"
             :urlFotoCopertina="item.immagini[0]"

@@ -1,7 +1,7 @@
 <template>
     <!--TODO: rimuovere i ring di supporto a pagina finita-->
     <div class="w-fill mx-5 my-3 flex flex-col justify-between gap-3 md:flex-row">
-        <aside class="bg-slate-100/10 ring-2 ring-black md:w-[25%]">
+        <aside class="bg-slate-100/20 ring-2 md:w-[25%]">
             <Galleria
                 :value="images"
                 :responsiveOptions="responsiveOptions"
@@ -21,13 +21,13 @@
             </Galleria>
         </aside>
 
-        <div class="bg-slate-100 ring-2 ring-black md:w-[75%]">
+        <div class="bg-slate-100/20 ring-2 md:w-[75%]">
             <h1>{{ auction.title }}</h1>
             <p>{{ auction.description }}</p>
             <p>Current Price: {{ auction.currentPrice }}</p>
         </div>
 
-        <div class="bg-slate-100 ring-2 ring-black md:w-[25%]">
+        <div class="bg-slate-100/20 ring-2 md:w-[25%]">
             <h2 class="text-lg">Offers</h2>
             <ul>
                 <li>Offer 1</li>
@@ -36,7 +36,7 @@
             </ul>
         </div>
     </div>
-    <div class="mx-5 my-3 bg-slate-100 ring-2 ring-black">
+    <div class="mx-5 my-3 bg-slate-100/20 ring-2">
         <Inglese />
     </div>
 </template>

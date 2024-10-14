@@ -5,7 +5,7 @@
         <div class="flex justify-center gap-2 py-2">
             <span
                 v-if="!checked"
-                class="text-bold rounded bg-slate-100/50 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
+                class="text-bold rounded bg-slate-100/20 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
                 >ASTA INGLESE</span
             >
 
@@ -13,7 +13,7 @@
             <ToggleSwitch v-model="checked" class="my-2" />
             <span
                 v-if="checked"
-                class="text-bold rounded bg-slate-100/50 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
+                class="text-bold rounded bg-slate-100/20 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
                 >ASTA SILENZIOSA</span
             >
 
@@ -21,10 +21,7 @@
         </div>
 
         <!--v-if="tipoAsta === 'asta_inglese'"-->
-        <div
-            v-if="!checked"
-            class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-[#cc85f5]"
-        >
+        <div v-if="!checked" class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-[#cc85f5]">
             ASTA INGLESE
             <div class="formSpace w-[100%] pt-5 lg:pr-9">
                 <InputNumber
@@ -64,7 +61,7 @@
         <!--v-if="tipoAsta === 'asta_silenziosa'"-->
         <div
             v-if="checked"
-            class="mx-2 my-2 flex flex-col gap-2 bg-slate-100/50 px-2 py-2 ring-2 ring-[#cc85f5]"
+            class="mx-2 my-2 flex flex-col gap-2 bg-slate-100/20 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
             ASTA Silenziosa
 
@@ -77,15 +74,22 @@
                     v-model="scadenzaAsta"
                     id="scadenzaAsta"
                     inputId="birth_date"
-                    class="w-[60%] rounded "
+                    class="w-[60%] rounded"
                 />
                 <label for="scadenzaAsta">Data Scadenza</label>
             </div>
         </div>
 
         <div class="areaBottoni mx-4 flex justify-around gap-5 px-4">
-            <Button class="w-[45%]" size="large" @click="goToPreviousForm" ><span class="text-[#1C1B22] font-bold"><i class="pi pi-arrow-left"></i> Precedente</span></Button>
-            <Button class="w-[45%]" size="large" @click="gestioneInvio" ><span class="text-[#1C1B22] font-bold">Successivo <i class="pi pi-arrow-right"></i></span></Button>
+            <Button class="w-[45%]" size="large" @click="goToPreviousForm"
+                ><span class="font-bold text-[#1C1B22]"
+                    ><i class="pi pi-arrow-left"></i> Precedente</span
+                ></Button
+            >
+            <Button class="w-[45%]" size="large" @click="gestioneInvio"
+                ><span class="font-bold text-[#1C1B22]"
+                    >Successivo <i class="pi pi-arrow-right"></i></span
+            ></Button>
         </div>
     </form>
 </template>
