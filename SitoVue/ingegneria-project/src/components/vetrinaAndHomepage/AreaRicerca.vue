@@ -36,22 +36,17 @@
                 </svg>
             </InputGroupAddon>
 
-            <MultiSelect
-                @change="setTipoAsteSelezionate"
-                v-model="selectedAuction"
-                :options="auctions"
-                optionLabel="name"
-                placeholder="Seleziona aste"
-                :maxSelectedLabels="3"
-                class="w-[100%] rounded-r bg-primario-400/50 text-black"
-            />
+            <MultiSelect @change="setTipoAsteSelezionate" v-model="selectedAuction" :options="auctions"
+                optionLabel="name" placeholder="Seleziona aste" :maxSelectedLabels="3"
+                class="w-[100%] rounded-r bg-primario-400/50 text-black" />
         </InputGroup>
 
         <!-- BOTTONE CERCA-->
-        <Button class="w-[100%] lg:w-[10%]]" @click="OnCLickCerca(false)"><span class="font-bold text-[#1C1B22]">Cerca Aste</span></Button>
+        <Button class="w-[100%] lg:w-[10%]]" @click="OnCLickCerca(false)"><span class="font-bold text-[#1C1B22]">Cerca
+                Aste</span></Button>
     </div>
 
-    
+
     <Vetrina />
 
 </template>
@@ -74,6 +69,9 @@ import Vetrina from './Vetrina.vue';
 
 import { useRouter } from 'vue-router';
 const router = useRouter(); // Usa il router
+
+import LZString from 'lz-string';
+
 
 //Lista dei tipi di aste
 const selectedAuction = ref();
@@ -98,7 +96,7 @@ onMounted(async () => {
         gerarchiaCategorie.value = await getCategorieRest();
     } catch (error) {
         console.error('Error categorie non trovate:', error);
-    } 
+    }
 });
 
 const setCategoriaSelezionata = () => {
@@ -145,12 +143,13 @@ const OnCLickCerca = () => {
             elementiPerPagina: 5,
             categoria: categoriaCercata.value,
             nomeProdotto: nomeProdottoCercato.value,
-            tipoAsta: tipoAstaCercata.value,
+            tipoAsta: JSON.stringify(tipoAstaCercata.value),
             prezzoMin: prezzoMin.value,
             prezzoMax: prezzoMax.value,
             campoOrdinamento: nomeOrdinamento.value,
             direzioneOrdinamento: direzioneOrdinamento.value,
-            lista: JSON.stringify([])
+            //caratteristiche: JSON.stringify([])
+            caratteristiche: LZString.compressToEncodedURIComponent(JSON.stringify([]))
         }
     });
 };
