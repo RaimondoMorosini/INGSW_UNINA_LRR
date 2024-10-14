@@ -58,9 +58,15 @@
         </div>
     </div>
     <div class="buttonArea flex justify-around">
-        <Button class="w-[45%]" size="large" @click="goToPreviousForm" ><span class="text-[#1C1B22] font-bold"><i class="pi pi-arrow-left"></i> Precedente</span></Button>
-        <Button class="w-[45%] sp-button" size="large" @click="gestioneInvio" ><span class="text-[#1C1B22] font-bold">Finalizza <i class="pi pi-check"></i></span></Button>
-        
+        <Button class="w-[45%]" size="large" @click="goToPreviousForm"
+            ><span class="font-bold text-[#1C1B22]"
+                ><i class="pi pi-arrow-left"></i> Precedente</span
+            ></Button
+        >
+        <Button class="sp-button w-[45%]" size="large" @click="gestioneInvio"
+            ><span class="font-bold text-[#1C1B22]">Finalizza <i class="pi pi-check"></i></span
+        ></Button>
+
         <!--success: {{ success }}-->
     </div>
 </template>
@@ -175,13 +181,14 @@ span.label {
     margin-bottom: 5px;
 }
 
-.sp-button{
+.sp-button {
     background-image: linear-gradient(to top left, var(--tw-gradient-stops));
-    --tw-gradient-from:rgb(244 117 117 / 0.9) var(--tw-gradient-from-position);
-    --tw-gradient-to:rgb(244 117 117 / 0) var(--tw-gradient-from-position);
+    --tw-gradient-from: rgb(244 117 117 / 0.9) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(244 117 117 / 0) var(--tw-gradient-from-position);
     --tw-gradient-stops: var(var(--tw-gradient-from), var(--tw-gradient-to));
-    --tw-gradient-to: rgb(232 121 249 / 0)  var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-from), #e879f9 var(--tw-gradient-via-position), var(--tw-gradient-to);
+    --tw-gradient-to: rgb(232 121 249 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), #e879f9 var(--tw-gradient-via-position),
+        var(--tw-gradient-to);
     --tw-gradient-to: #4d91ff var(--tw-gradient-to-position);
 }
 </style>

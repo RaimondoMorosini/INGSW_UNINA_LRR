@@ -45,7 +45,6 @@ import { ref, onMounted } from 'vue';
 import { ProductService } from '../../service/ProductService';
 import Skeleton from 'primevue/skeleton';
 
-
 onMounted(() => {
     ProductService.getProductsSmall().then((data) => (products.value = data.slice(0, 5)));
 });

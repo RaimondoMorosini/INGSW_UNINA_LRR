@@ -1,9 +1,11 @@
 <template>
     <div class="not-found">
         <h1>Errore 404</h1>
-        <p >La pagina che stai cercando non esiste.</p>
+        <p>La pagina che stai cercando non esiste.</p>
         <div class="pt-4">
-            <Button as="router-link" to="/"><span class="text-[#1C1B22] font-bold">Torna alla pagina principale</span></Button>
+            <Button as="router-link" to="/"
+                ><span class="font-bold text-[#1C1B22]">Torna alla pagina principale</span></Button
+            >
         </div>
     </div>
 </template>

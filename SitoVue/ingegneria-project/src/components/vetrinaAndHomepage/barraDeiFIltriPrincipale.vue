@@ -1,5 +1,5 @@
 <template>
-    <div class="flex h-auto w-full flex-row justify-center rounded border-solid bg-slate-100/10 p-2">
+    <div class="mx-5 flex h-auto w-full flex-row justify-center rounded bg-slate-100/20 p-2">
         <div class="mx-9 flex flex-col">
             <label for="currency-germany" class="mb-2 block font-bold"> Ordina per </label>
             <Dropdown

@@ -1,8 +1,6 @@
 <template>
     <form @submit.prevent="gestioneInvio">
-        <main
-            class="mt-5 flex min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row"
-        >
+        <main class="mt-5 flex min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row">
             <div class="auto-rows-max justify-between gap-3 px-2 lg:w-[50%]">
                 <div class="formSpace pt-6">
                     <FloatLabel>
@@ -54,8 +52,11 @@
             </div>
         </main>
 
-        <div class="areaBottoni my-4 px-10 flex justify-around gap-5">
-            <Button class="w-[45%]" size="large" @click="gestioneInvio" ><span class="text-[#1C1B22] font-bold">Successivo <i class="pi pi-arrow-right"></i></span></Button>
+        <div class="areaBottoni my-4 flex justify-around gap-5 px-10">
+            <Button class="w-[45%]" size="large" @click="gestioneInvio"
+                ><span class="font-bold text-[#1C1B22]"
+                    >Successivo <i class="pi pi-arrow-right"></i></span
+            ></Button>
         </div>
     </form>
 </template>
@@ -126,7 +127,6 @@ const gestioneInvio = () => {
 </script>
 
 <style scoped>
-
 form {
     text-align: center;
 }
