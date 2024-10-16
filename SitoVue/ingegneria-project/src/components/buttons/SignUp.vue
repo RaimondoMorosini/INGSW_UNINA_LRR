@@ -1,6 +1,6 @@
 <template>
     <Button @click="handleSignUp" class="button__sign-up ring-2 ring-slate-300/80"
-        ><span class="font-bold text-[#1C1B22]">Registati </span></Button
+        ><span class="font-bold text-greyButton-400">Registati </span></Button
     >
 </template>
 

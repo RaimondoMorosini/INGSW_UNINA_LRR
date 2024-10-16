@@ -1,6 +1,6 @@
 <template>
-    <div class="mx-5 flex h-auto w-full flex-row justify-center rounded bg-slate-100/20 p-2">
-        <div class="mx-9 flex flex-col">
+    <div class=" flex h-auto flex-row justify-center rounded bg-slate-100/20 p-2">
+        <div class=" flex flex-col">
             <label for="currency-germany" class="mb-2 block font-bold"> Ordina per </label>
             <Dropdown
                 @change="setCampiOrdinamento"
@@ -8,11 +8,11 @@
                 :options="opzioniDiOrdinazione"
                 optionLabel="name"
                 placeholder="Ordina per"
-                class="dimensione mx-9 font-bold"
+                class="dimensione   font-bold"
             />
         </div>
 
-        <div class="mx-9 flex flex-col">
+        <div class="  flex flex-col">
             <label for="currency-germany" class="mb-2 block font-bold"> Prezzo minimo </label>
             <InputNumber
                 @input="setPrezzoMin($event)"
@@ -34,7 +34,7 @@
             </InputNumber>
         </div>
 
-        <div class="mx-9 flex flex-col">
+        <div class="  flex flex-col">
             <label for="currency-germany" class="mb-2 block font-bold"> Prezzo massimo </label>
             <InputNumber
                 @input="setPrezzoMax($event)"

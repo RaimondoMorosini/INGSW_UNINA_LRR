@@ -60,7 +60,7 @@
 
         <!-- BOTTONE CERCA-->
         <Button class="lg:w-[10%]] w-[100%]" @click="OnCLickCerca(false)"
-            ><span class="font-bold text-[#1C1B22]">Cerca Aste</span></Button
+            ><span class="font-bold text-greyButton-400">Cerca Aste</span></Button
         >
     </div>
 

@@ -105,14 +105,14 @@ const routes = [
     {
         path: '/aste',
         name: 'aste',
-        component: () => import('@/views/Aste.vue'),
+        component: () => import('@/views/SearchAsteView'),
         props: true,
     },
 
     {
         path: '/asta/:id',
         name: 'asta',
-        component: () => import('@/views/Asta.vue'),
+        component: () => import('@/views/AstaView.vue'),
         props: true,
     },
 

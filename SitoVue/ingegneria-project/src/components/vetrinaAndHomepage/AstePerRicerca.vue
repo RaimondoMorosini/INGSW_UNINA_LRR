@@ -1,5 +1,5 @@
 <template>
-    <div class="card p-fluid flex flex-wrap gap-3">
+    <div class="card justify-between gap-3">
         <div class="sezione-superiore w-full">
             <barraDeiFIltriPrincipale
                 @ordineSelezionato="setCampiOrdinamento"

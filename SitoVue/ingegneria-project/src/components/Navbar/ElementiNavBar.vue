@@ -17,7 +17,7 @@
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'profilo' }">
                         <Button class="w-[100%] ring-2 ring-slate-300/80"
-                            ><span class="font-bold text-[#1C1B22]"
+                            ><span class="font-bold text-greyButton-400"
                                 >Ciao {{ user.name }}</span
                             ></Button
                         >
@@ -26,14 +26,14 @@
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <router-link to="/profilo/notifiche">
                         <Button class="w-[100%] ring-2 ring-slate-300/80"
-                            ><span class="font-bold text-[#1C1B22]">Notifiche </span></Button
+                            ><span class="font-bold text-greyButton-400">Notifiche </span></Button
                         >
                     </router-link>
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'about' }">
                         <Button class="w-[100%] ring-2 ring-slate-300/80"
-                            ><span class="font-bold text-[#1C1B22]">Le Tue Aste</span></Button
+                            ><span class="font-bold text-greyButton-400">Le Tue Aste</span></Button
                         >
                     </RouterLink>
                 </li>
@@ -45,7 +45,7 @@
                         <Button
                             label="Crea Asta"
                             class="sp-button w-[100%] ring-2 ring-slate-300/80"
-                            ><span class="font-bold text-[#1C1B22]">Crea Asta</span></Button
+                            ><span class="font-bold text-greyButton-400">Crea Asta</span></Button
                         >
                     </RouterLink>
                 </li>

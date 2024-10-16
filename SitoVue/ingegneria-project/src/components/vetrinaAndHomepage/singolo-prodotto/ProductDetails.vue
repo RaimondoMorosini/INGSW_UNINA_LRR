@@ -1,10 +1,10 @@
 <template>
     <div
-        class="md:flex-column justify-content-between align-items-start flex flex-row gap-2 text-[#1C1B22]"
+        class="md:flex-column justify-content-between align-items-start flex flex-row gap-2 text-greyButton-400"
     >
         <div>
             <span class="text-sm font-medium">{{ categoria }}</span>
-            <div class="text-900 titolo-articolo mt-2 text-lg font-medium text-[#1C1B22]">
+            <div class="text-900 titolo-articolo mt-2 text-lg font-medium text-greyButton-400">
                 {{ titoloProdotto }}
             </div>
             <div>Venditore: {{ venditore }}</div>
