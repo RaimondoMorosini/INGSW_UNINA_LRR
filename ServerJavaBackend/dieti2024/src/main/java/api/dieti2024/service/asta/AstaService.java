@@ -93,5 +93,13 @@ public class AstaService {
     public String getTipoAstaById(int idAssta) {
         return astaRepository.findById(idAssta).orElseThrow(() -> new ApiException("asta non trovata", HttpStatus.NOT_FOUND)).getTipoAsta();
     }
+
+    public boolean isScaduta(int idAsta) {
+        Asta asta = astaRepository.findById(idAsta).orElseThrow(() -> new ApiException("asta non trovata", HttpStatus.NOT_FOUND));
+        return CalendarioUtil.isTempoScaduto(CalendarioUtil.ottieniTempoAttuale(),asta.getDataScadenza());
+    }
+
+
+
 }
 

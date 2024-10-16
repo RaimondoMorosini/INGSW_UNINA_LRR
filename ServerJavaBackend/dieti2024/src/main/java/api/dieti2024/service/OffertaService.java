@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class OffertaService {
@@ -122,5 +121,19 @@ AstaRepository astaRepository;
        }
 
        return offerteDTO;
+    }
+
+    public Offerta getOffertaVincente(int idAsta) {
+        //if asta è scaduta
+        boolean isScaduta = astaService.isScaduta(idAsta);
+        if(!isScaduta)
+            throw new ApiException("asta ancora non si è conclusa", HttpStatus.BAD_REQUEST);
+        List<Offerta> offerte = offertaRepository.findByAstaIdAndOffertaVincenteIsTrue(idAsta);
+        if(offerte.isEmpty())
+            throw new ApiException("L'asta si è conclusa senza vincitore", HttpStatus.NOT_FOUND);
+        //aggiorna  dati vincitore
+        offertaRepository.aggiornaDatiVincitore(idAsta,offerte.get(0).getId());
+        return offerte.get(0);
+
     }
 }
