@@ -6,6 +6,14 @@ function mantieniAggiornamenti(topic, callback) {
     const socket = new SockJS('http://localhost:8081/websocket'); // Il percorso deve corrispondere a quello definito nel server Spring
     const stompClient = Stomp.over(socket);
 
+    // Configura il logging
+    stompClient.debug = (message) => {
+        // Controlla se il messaggio è un PING o PONG e non loggarlo
+        if (!message.includes('PING') && !message.includes('PONG')) {
+            console.log(message);
+        }
+    };
+    
     // Configura gli heartbeat in entrata e in uscita per mantenere viva la connessione
     stompClient.heartbeat.outgoing = 10000; // Invia heartbeat ogni 10 secondi
     stompClient.heartbeat.incoming = 10000; // Attendi heartbeat dal server ogni 10 secondi
@@ -25,6 +33,14 @@ function mantieniAggiornamenti(topic, callback) {
         }
     );
 
+    stompClient.onclose = () => {
+        console.log('Connessione WebSocket chiusa. Tentativo di riconnessione...');
+        // Riconnessione automatica
+        setTimeout(() => {
+            mantieniAggiornamenti(topic, callback);
+        }, 5000); // 5 secondi di attesa prima di riconnettersi
+    };
+    
     return stompClient;
 }
 
