@@ -2,7 +2,7 @@ import { getRest, postRest } from '../scripts/RestUtils.js';
 
 async function getInfoAstaProdotto(idAsta) {
     try {
-        const response = await getRest('public/prodottoasta/' + idAsta);
+        const response = await getRest('public/prodottoAsta/' + idAsta);
         return response;
     } catch (error) {
         console.error('Errore:', error);
@@ -12,7 +12,7 @@ async function getInfoAstaProdotto(idAsta) {
 
 async function getDatiastaInglese(idAsta) {
     try {
-        const response = await getRest('public/prodottoasta/extra/' + idAsta);
+        const response = await getRest('public/prodottoAsta/extra/' + idAsta);
         return response;
     } catch (error) {
         console.error('Errore:', error);

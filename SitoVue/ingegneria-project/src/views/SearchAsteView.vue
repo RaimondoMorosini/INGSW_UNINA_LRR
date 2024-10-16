@@ -76,6 +76,11 @@
         @prezzoMinSelezionato="setPrezzoMin($event)"
         @prezzoMaxSelezionato="setPrezzoMax($event)"
     />
+        :propCaratteristicheselezionate="caratteristicheSelezionate"
+        @numeroDiPaginaSelezionato="setPagina($event)" @caratteristicheSelezionate="setCaratteristiche($event)"
+        @ordineSelezionato="setCampiOrdinamento($event)" @prezzoMinSelezionato="setPrezzoMin($event)"
+        @prezzoMaxSelezionato="setPrezzoMax($event)" />
+
 </template>
 
 <script setup>
@@ -115,7 +120,7 @@ const categoriaCercata = ref(route.query.categoria); //Variabile passata al body
 const aste = ref(); //Variabile che contiene tutte le aste corrispodenti alla ricerca (la risposta della richiesta axsios)
 const isLoading = ref(true); //Variabile che true quando la richiesta axsios è in corso facendo caricare il tamplate di caricamento
 const numeroAsteTotali = ref(); //Contiene il numero di aste totali corrispodente alla ricerca
-const tipoAstaCercata = ref(route.query.tipoAsta); //Contiene la lista dei tipi di asta cercata
+const tipoAstaCercata = ref([]); //Contiene la lista dei tipi di asta cercata
 const nomeProdottoCercato = ref(route.query.nomeProdotto); //contiene la sottostringa del titolo del prodotto cercato
 const paginaSelezionata = ref(route.query.pagina); //Contiene la pagina selezionata
 const listaDiCaratteristicheSelezionate = ref([]); //Contiene la lista delle caratteristiche del prodotto che l'utente ha filtrato
@@ -125,6 +130,7 @@ const nomeOrdinamento = ref(route.query.campoOrdinamento);
 const direzioneOrdinamento = ref(route.query.direzioneOrdinamento);
 const prezzoMin = ref(route.query.prezzoMin);
 const prezzoMax = ref(route.query.prezzoMax);
+const caratteristicheSelezionate = ref([]);
 
 onMounted(async () => {
     try {
@@ -134,6 +140,9 @@ onMounted(async () => {
     }
 
     richiestaRicercaFiltrata();
+
+    caratteristicheSelezionate.value = JSON.parse(LZString.decompressFromEncodedURIComponent(route.query.caratteristiche));
+
 });
 
 const setCategoriaSelezionata = () => {
@@ -148,7 +157,7 @@ const setCategoriaSelezionata = () => {
 
 const setTipoAsteSelezionate = () => {
     try {
-        tipoAstaCercata = ref([]);
+        tipoAstaCercata.value = [];
 
         selectedAuction.value.forEach((asta) => {
             switch (asta.name) {
@@ -166,7 +175,7 @@ const setTipoAsteSelezionate = () => {
             }
         });
     } catch (error) {
-        tipoAstaCercata = ref([]);
+        tipoAstaCercata.value = [];
     }
 };
 
@@ -215,7 +224,7 @@ const onClickCerca = () => {
             elementiPerPagina: 5,
             categoria: categoriaCercata.value,
             nomeProdotto: nomeProdottoCercato.value,
-            tipoAsta: tipoAstaCercata.value,
+            tipoAsta: JSON.stringify(tipoAstaCercata.value),
             prezzoMin: prezzoMin.value,
             prezzoMax: prezzoMax.value,
             campoOrdinamento: nomeOrdinamento.value,
@@ -252,8 +261,9 @@ const richiestaRicercaFiltrata = async () => {
         elementiPerPagina: 5,
         categoria: route.query.categoria,
         nomeProdotto: route.query.nomeProdotto,
-        tipoAsta: route.query.tipoAsta,
-        caratteristicheSelezionate: JSON.parse(route.query.lista),
+        tipoAsta: JSON.parse(route.query.tipoAsta), 
+        //caratteristicheSelezionate: JSON.parse(route.query.caratteristiche),
+        caratteristicheSelezionate: JSON.parse(LZString.decompressFromEncodedURIComponent(route.query.caratteristiche)),
         prezzoMin: route.query.prezzoMin,
         prezzoMax: route.query.prezzoMax,
         campoOrdinamento: route.query.campoOrdinamento,

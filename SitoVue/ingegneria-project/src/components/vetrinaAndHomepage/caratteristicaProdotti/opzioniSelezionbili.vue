@@ -4,16 +4,8 @@
             <h1>{{ props.propNomeCaratteristica }}</h1>
         </div>
 
-        <MultiSelect
-            @change="OnChangeOpzioniSelezionate"
-            v-model="selectedOpzioni"
-            :options="opzioni"
-            filter
-            optionLabel="name"
-            placeholder="Opzioni"
-            :maxSelectedLabels="3"
-            class="md:w-20rem w-full"
-        />
+        <MultiSelect @change="OnChangeOpzioniSelezionate" v-model="selectedOpzioni" :options="opzioni" filter
+            optionLabel="name" placeholder="Opzioni" :maxSelectedLabels="3" class="md:w-20rem w-full" />
         <!--
     <div class="gruppo-opzioni" v-if="statoFinestra">
         <div class="flex-column flex gap-3 w-auto h-60 overflow-y-auto overflow-x-hidden scroll-personalizzato">
@@ -28,7 +20,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from 'vue';
+import { ref, defineEmits, onMounted, watch } from 'vue';
 import MultiSelect from 'primevue/multiselect';
 import { getArrayOpzionePerMultiSelect } from '../../../service/carateristicheService';
 
@@ -36,7 +28,7 @@ import 'primeflex/primeflex.css';
 //import 'primevue/resources/themes/aura-light-green/theme.css';
 import 'primeicons/primeicons.css';
 
-const props = defineProps(['propOpzioni', 'propNomeCaratteristica']);
+const props = defineProps(['propOpzioni', 'propNomeCaratteristica', 'propCaratteristicheselezionate']);
 const emit = defineEmits(['recuperoValoriSelezionati']);
 
 const opzioni = getArrayOpzionePerMultiSelect(props.propOpzioni);
@@ -45,6 +37,35 @@ const selectedOpzioni = ref([]);
 const OnChangeOpzioniSelezionate = () => {
     emit('recuperoValoriSelezionati', selectedOpzioni.value);
 };
+
+onMounted(() => {
+
+    selezionaOpzioni;
+});
+
+watch(
+    () => props.propCaratteristicheselezionate,
+    (newValue) => {
+        selezionaOpzioni();
+    }
+);
+
+// Funzione per controllare se i valori selezionati fanno match con le opzioni
+const selezionaOpzioni = () => {
+
+    selectedOpzioni.value = [];
+
+    props.propCaratteristicheselezionate.forEach(caratteristica => {
+        caratteristica.valoriSelezionati.forEach(valore => {
+            opzioni.forEach(opzione => {
+                if (valore === opzione.name) {
+                    selectedOpzioni.value.push(opzione);
+                }
+            });
+        });
+    });
+};
+
 </script>
 
 <style scoped>
