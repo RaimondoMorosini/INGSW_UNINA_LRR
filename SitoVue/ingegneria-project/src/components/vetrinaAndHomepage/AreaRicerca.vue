@@ -80,7 +80,6 @@ import Vetrina from './Vetrina.vue';
 import { useRouter } from 'vue-router';
 const router = useRouter(); // Usa il router
 
-import LZString from 'lz-string';
 
 
 //Lista dei tipi di aste
