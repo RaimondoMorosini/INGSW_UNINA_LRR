@@ -47,9 +47,15 @@
                 </svg>
             </InputGroupAddon>
 
-            <MultiSelect @change="setTipoAsteSelezionate" v-model="selectedAuction" :options="auctions"
-                optionLabel="name" placeholder="Seleziona aste" :maxSelectedLabels="3"
-                class="w-[100%] rounded-r bg-primario-400/50 text-black" />
+            <MultiSelect
+                @change="setTipoAsteSelezionate"
+                v-model="selectedAuction"
+                :options="auctions"
+                optionLabel="name"
+                placeholder="Seleziona aste"
+                :maxSelectedLabels="3"
+                class="w-[100%] rounded-r bg-primario-400/50 text-black"
+            />
         </InputGroup>
 
         <!-- BOTTONE CERCA-->
@@ -79,8 +85,6 @@ import Vetrina from './Vetrina.vue';
 
 import { useRouter } from 'vue-router';
 const router = useRouter(); // Usa il router
-
-
 
 //Lista dei tipi di aste
 const selectedAuction = ref();
@@ -151,7 +155,7 @@ const OnCLickCerca = () => {
             elementiPerPagina: 5,
             categoria: categoriaCercata.value,
             nomeProdotto: nomeProdottoCercato.value,
-            tipoAsta: JSON.stringify(tipoAstaCercata.value),
+            tipoAsta: tipoAstaCercata.value,
             prezzoMin: prezzoMin.value,
             prezzoMax: prezzoMax.value,
             campoOrdinamento: nomeOrdinamento.value,

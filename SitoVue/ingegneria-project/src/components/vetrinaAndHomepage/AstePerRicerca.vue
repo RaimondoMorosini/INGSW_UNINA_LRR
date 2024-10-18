@@ -12,7 +12,6 @@
             <CaratteristicheProdotto
                 v-if="props.propRicaricaComponenteCaratteristiche"
                 :propCategoria="props.propCategoriaCercata"
-                :propCaratteristicheselezionate="props.propCaratteristicheselezionate"
                 @caratteristicheSelezionate="setCaratteristiche"
             />
             <div v-else></div>
@@ -65,7 +64,6 @@ const props = defineProps([
     'propNumeroAste',
     'propCategoriaCercata',
     'propRicaricaComponenteCaratteristiche',
-    'propCaratteristicheselezionate'
 ]);
 
 const products = ref();
