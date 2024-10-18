@@ -16,8 +16,8 @@
             <template v-if="isAuthenticated">
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'profilo' }">
-                        <Button class="w-[100%] ring-2 ring-slate-300/80"
-                            ><span class="font-bold text-greyButton-400"
+                        <Button  severity="secondary" class="w-[100%]   "
+                            ><span class="font-bold  "
                                 >Ciao {{ user.name }}</span
                             ></Button
                         >
@@ -25,15 +25,15 @@
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <router-link to="/profilo/notifiche">
-                        <Button class="w-[100%] ring-2 ring-slate-300/80"
-                            ><span class="font-bold text-greyButton-400">Notifiche </span></Button
+                        <Button  severity="secondary" class="w-[100%]   "
+                            ><span class="font-bold  ">Notifiche </span></Button
                         >
                     </router-link>
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'about' }">
-                        <Button class="w-[100%] ring-2 ring-slate-300/80"
-                            ><span class="font-bold text-greyButton-400">Le Tue Aste</span></Button
+                        <Button  severity="secondary" class="w-[100%]   "
+                            ><span class="font-bold  ">Le Tue Aste</span></Button
                         >
                     </RouterLink>
                 </li>
@@ -43,9 +43,10 @@
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'creaAsta' }">
                         <Button
+                         severity="secondary"
                             label="Crea Asta"
-                            class="sp-button w-[100%] ring-2 ring-slate-300/80"
-                            ><span class="font-bold text-greyButton-400">Crea Asta</span></Button
+                            class="sp-button w-[100%]"
+                            ><span class="font-bold  ">Crea Asta</span></Button
                         >
                     </RouterLink>
                 </li>
@@ -54,7 +55,7 @@
     </div>
 
     <span class="absolute right-6 top-8 lg:hidden">
-        <Button @click="MenuOpen()" size="small" plain text raised>
+        <Button @click="MenuOpen()" size="small" plain  severity="secondary" class=" ">
             <i :class="[open ? 'pi pi-times icon-size' : 'pi pi-bars icon-size']"></i>
         </Button>
     </span>
@@ -84,6 +85,16 @@ function MenuClose() {
 <style scoped>
 .icon-size {
     font-size: 2rem;
+}
+
+.  {
+  background-color: var(--secondary-color);
+  color: var(--secondary-color-text);
+}
+
+. :hover {
+    --secondary-color: #3F3F46; 
+    --secondary-color-text: #D4D4D8;     /* Optional: Text color for better contrast */
 }
 
 .sp-button {

@@ -14,6 +14,7 @@ import App from './App.vue'; // App.vue
 import './assets/css/tailwind.css'; // tailwindcss
 import router from './router'; // router
 
+
 // Crea l'istanza dell'app Vue e usa il router
 const app = createApp(App).use(router);
 
@@ -48,8 +49,39 @@ const MyPreset = definePreset(Aura, {
             900: '{fuchsia.900}',
             950: '{fuchsia.950}',
         },
+        colorScheme: {
+            unified: {
+                surface: {
+                    0: '#ffffff',  // Same surface color for both modes
+                    50: '{slate.50}',
+                    100: '{slate.100}',
+                    200: '{slate.200}',
+                    300: '{slate.300}',
+                    400: '{slate.400}',
+                    500: '{slate.500}',
+                    600: '{slate.600}',
+                    700: '{slate.700}',
+                    800: '{slate.800}',
+                    900: '{slate.900}',
+                    950: '{slate.950}'
+                },
+                primary: {
+                    color: '{primary.400}',  // Same primary color
+                    contrastColor: '{surface.900}',
+                    hoverColor: '{primary.300}',
+                    activeColor: '{primary.200}'
+                },
+                highlight: {
+                    background: 'color-mix(in srgb, {primary.400}, transparent 84%)',  // Same highlight settings
+                    focusBackground: 'color-mix(in srgb, {primary.400}, transparent 76%)',
+                    color: 'rgba(255,255,255,.87)',
+                    focusColor: 'rgba(255,255,255,.87)'
+                }
+            }
+        }
     },
 });
+
 
 // inizializazione primevue
 app.use(PrimeVue, {
@@ -58,7 +90,7 @@ app.use(PrimeVue, {
         preset: MyPreset,
         options: {
             prefix: 'p',
-            darkModeSelector: 'system',
+            darkModeSelector: '.my-app-dark',
             cssLayer: false,
         },
     },

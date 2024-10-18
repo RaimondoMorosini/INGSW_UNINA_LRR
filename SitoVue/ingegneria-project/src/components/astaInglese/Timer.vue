@@ -3,34 +3,34 @@
 
     <div class="px-3 py-3">
         <div class="text-2xl">
-            <span class="rounded bg-slate-100/20 px-1 py-1" :class="{'double-digit': timer.days.value >= 10, 'single-digit': timer.days.value < 10}">{{ timer.days }}</span>
-            :<span class="rounded bg-slate-100/20 px-1 py-1" :class="{'double-digit': timer.hours.value >= 10, 'single-digit': timer.hours.value < 10}">{{ timer.hours }}</span>
-            :<span class="rounded bg-slate-100/20 px-1 py-1" :class="{'double-digit': timer.minutes.value >= 10, 'single-digit': timer.minutes.value < 10}">{{ timer.minutes }}</span>
-            :<span class="rounded bg-slate-100/20 px-1 py-1" :class="{'double-digit': timer.seconds.value >= 10, 'single-digit': timer.seconds.value < 10}">{{ timer.seconds }}</span>
+            <span class="rounded bg-slate-300/50 px-1 py-1" :class="{'double-digit': timer.days.value >= 10, 'single-digit': timer.days.value < 10}">{{ timer.days }}</span>
+            :<span class="rounded bg-slate-300/50 px-1 py-1" :class="{'double-digit': timer.hours.value >= 10, 'single-digit': timer.hours.value < 10}">{{ timer.hours }}</span>
+            :<span class="rounded bg-slate-300/50 px-1 py-1" :class="{'double-digit': timer.minutes.value >= 10, 'single-digit': timer.minutes.value < 10}">{{ timer.minutes }}</span>
+            :<span class="rounded bg-slate-300/50 px-1 py-1" :class="{'double-digit': timer.seconds.value >= 10, 'single-digit': timer.seconds.value < 10}">{{ timer.seconds }}</span>
  
         </div>
         
         <p>{{ timer.isRunning ? 'Running' : 'Not running' }}</p>
         <button
-            class="mx-1 rounded bg-primario-400 px-1 py-1 hover:bg-slate-100/20"
+            class="mx-1 rounded bg-primario-400 px-1 py-1  "
             @click="timer.start()"
         >
             Start
         </button>
         <button
-            class="mx-1 rounded bg-primario-400 px-1 py-1 hover:bg-slate-100/20"
+            class="mx-1 rounded bg-primario-400 px-1 py-1  "
             @click="timer.pause()"
         >
             Pause
         </button>
         <button
-            class="mx-1 rounded bg-primario-400 px-1 py-1 hover:bg-slate-100/20"
+            class="mx-1 rounded bg-primario-400 px-1 py-1  "
             @click="timer.resume()"
         >
             Resume
         </button>
         <button
-            class="mx-1 rounded bg-primario-400 px-1 py-1 hover:bg-slate-100/20"
+            class="mx-1 rounded bg-primario-400 px-1 py-1  "
             @click="restartFive()"
         >
             Restart

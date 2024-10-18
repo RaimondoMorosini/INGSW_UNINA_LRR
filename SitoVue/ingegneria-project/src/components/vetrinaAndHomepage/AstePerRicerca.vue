@@ -21,13 +21,13 @@
             <div v-else class="card mx-16 w-auto">
                 <DataView :value="products">
                     <template #list="slotProps">
-                        <div class="grid-nogutter grid">
+                        <div class="grid-nogutter grid ">
                             <ProductItem
                                 v-for="(item, index) in slotProps.items"
                                 :key="index"
                                 :item="item"
                                 :index="index"
-                                class="col-12 contenitore-articolo mt-4"
+                                class=" col-12 contenitore-articolo mt-4"
                             ></ProductItem>
                         </div>
                     </template>
@@ -111,6 +111,7 @@ const setPrezzoMax = (prezzoMax) => {
 
 .contenitore-articolo {
     cursor: pointer;
+    background-color: #c5c5c58a;
 }
 
 .titolo-articolo:hover {

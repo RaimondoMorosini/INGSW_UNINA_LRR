@@ -1,12 +1,10 @@
 <template>
     <Timer />
-    <InfoAstaProdotto/>
     </template>
 
 <script setup>
 import { useAstaStore } from '../stores/astaStore';
 import Timer from '../components/astaInglese/Timer.vue';
-import InfoAstaProdotto from '../components/PaginaAsta/InfoAstaProdotto.vue';
 
 const astaInstance = useAstaStore()
 let scadenza = astaInstance.asta.scadenzaAsta;
