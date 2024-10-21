@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from 'vue';
+import { ref, defineEmits, onMounted, watch } from 'vue';
 import MultiSelect from 'primevue/multiselect';
 import { getArrayOpzionePerMultiSelect } from '../../../service/carateristicheService';
 
@@ -36,7 +36,7 @@ import 'primeflex/primeflex.css';
 //import 'primevue/resources/themes/aura-light-green/theme.css';
 import 'primeicons/primeicons.css';
 
-const props = defineProps(['propOpzioni', 'propNomeCaratteristica']);
+const props = defineProps(['propOpzioni', 'propNomeCaratteristica', 'propCaratteristicheselezionate']);
 const emit = defineEmits(['recuperoValoriSelezionati']);
 
 const opzioni = getArrayOpzionePerMultiSelect(props.propOpzioni);
@@ -44,6 +44,35 @@ const selectedOpzioni = ref([]);
 
 const OnChangeOpzioniSelezionate = () => {
     emit('recuperoValoriSelezionati', selectedOpzioni.value);
+};
+
+onMounted(() => {
+
+    selezionaOpzioni();
+});
+
+watch(
+    () => props.propCaratteristicheselezionate,
+    (newValue) => {
+        selezionaOpzioni();
+    }
+);
+
+// Funzione per controllare se i valori selezionati fanno match con le opzioni
+const selezionaOpzioni = () => {
+    
+    console.log("props Caratteristicheeeeeeeeeeeeeeeee: ", props.propCaratteristicheselezionate);
+    selectedOpzioni.value = [];
+
+    props.propCaratteristicheselezionate.forEach(caratteristica => {
+        caratteristica.valoriSelezionati.forEach(valore => {
+            opzioni.forEach(opzione => {
+                if (valore === opzione.name) {
+                    selectedOpzioni.value.push(opzione);
+                }
+            });
+        });
+    });
 };
 </script>
 
