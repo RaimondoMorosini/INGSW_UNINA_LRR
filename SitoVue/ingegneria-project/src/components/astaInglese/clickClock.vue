@@ -1,5 +1,5 @@
 <template>
-    <div class=" bg-slate-300/50 p-2 rounded">
+    <div class=" bg-slate-200/20 p-2 rounded">
       <!-- Countdown Timer Component -->
       <Countdown 
         :deadline="scadenza.value"

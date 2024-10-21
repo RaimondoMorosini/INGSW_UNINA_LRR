@@ -3,6 +3,8 @@ import { RouterView } from "vue-router";
 import Navbar from "./components/Navbar/Navbar.vue";
 import Footer from "./components/Navbar/FooterApp.vue"
 
+
+
 </script>
 
 <template>

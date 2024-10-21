@@ -1,5 +1,5 @@
 <template>
-    <ul class="flex flex-row justify-between border-b-2 border-slate-300 bg-slate-200/50 px-3 py-2">
+    <ul class="flex flex-row justify-between border-b-2 border-slate-300 bg-slate-200/20 px-3 py-2">
         <li
             @click="pagina = 1"
             class="flex rounded px-2 py-1 font-bold hover:bg-primario-400 hover:text-greyButton-400 hover:ring-2 hover:ring-slate-200/50"

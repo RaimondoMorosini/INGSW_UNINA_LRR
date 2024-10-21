@@ -42,11 +42,15 @@
 <script setup>
 import { ref } from 'vue';
 import ToggleButton from 'primevue/togglebutton';
+import {useTokenStore} from '../../stores/tokenStore';
 
-const checked = ref(false)
+const storeInstance = useTokenStore();
+
+const checked = ref(storeInstance.darkMode)
 
 function toggleDarkMode() {
-    document.documentElement.classList.toggle('my-app-dark');
+    document.documentElement.classList.toggle('dark-mode-switch');
+    storeInstance.setDarkMode(checked);
 }
 </script>
 

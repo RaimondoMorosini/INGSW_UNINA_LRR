@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-col gap-3 px-3 py-3">
+    <div class="flex flex-col gap-3 px-2 py-3">
         <div
-            class="user-info-photo flex w-full flex-row items-center justify-between space-x-5 rounded bg-[#cbd5e1]/20 px-3 py-3 ring-1 ring-[#cbd5e1]"
+            class="user-info-photo flex w-full flex-row items-center justify-between space-x-5 rounded bg-slate-200/20 px-2 py-3 ring-1 ring-[#cbd5e1]"
         >
             <div class="flex flex-row space-x-1">
                 <img
@@ -23,7 +23,7 @@
             </RouterLink>
         </div>
 
-        <div class="Bio rounded bg-slate-200/50 px-3 ring-1 ring-[#cbd5e1]">
+        <div class="Bio rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
             <h1 class="text-xl">Bio:</h1>
             <p>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime ex delectus
@@ -32,12 +32,12 @@
             </p>
         </div>
 
-        <div class="Indirizzo rounded bg-slate-200/50 px-3 ring-1 ring-[#cbd5e1]">
+        <div class="Indirizzo rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
             <h1 class="text-xl">Indirizzo:</h1>
             {{ user.address }}
         </div>
 
-        <ul class="LinkAssociati rounded bg-slate-200/50 px-3 ring-1 ring-[#cbd5e1]">
+        <ul class="LinkAssociati rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
             <h1 class="text-xl">Collegamenti</h1>
             <li v-for="(link, index) in linkUtili" v-bind:key="index">
                 {{ link }}

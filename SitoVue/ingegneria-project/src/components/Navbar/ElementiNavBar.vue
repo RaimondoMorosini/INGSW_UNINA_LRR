@@ -87,16 +87,6 @@ function MenuClose() {
     font-size: 2rem;
 }
 
-.  {
-  background-color: var(--secondary-color);
-  color: var(--secondary-color-text);
-}
-
-. :hover {
-    --secondary-color: #3F3F46; 
-    --secondary-color-text: #D4D4D8;     /* Optional: Text color for better contrast */
-}
-
 .sp-button {
     background-image: linear-gradient(to top left, var(--tw-gradient-stops));
     --tw-gradient-from: rgb(244 117 117 / 0.9) var(--tw-gradient-from-position);

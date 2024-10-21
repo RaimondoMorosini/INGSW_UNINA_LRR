@@ -1,5 +1,5 @@
 <template>
-    <div class=" flex h-auto flex-row justify-center rounded bg-slate-300/50 p-2">
+    <div class=" flex h-auto flex-row justify-center rounded bg-slate-200/20 p-2">
         <div class=" flex flex-col">
             <label for="currency-germany" class="mb-2 block font-bold"> Ordina per </label>
             <Dropdown
@@ -8,7 +8,7 @@
                 :options="opzioniDiOrdinazione"
                 optionLabel="name"
                 placeholder="Ordina per"
-                class="dimensione   font-bold"
+                class="dimensione font-bold"
             />
         </div>
 

@@ -13,10 +13,27 @@ import { createApp, watch } from 'vue'; // Vue 3
 import App from './App.vue'; // App.vue
 import './assets/css/tailwind.css'; // tailwindcss
 import router from './router'; // router
+import { useTokenStore } from './stores/tokenStore';
+
 
 
 // Crea l'istanza dell'app Vue e usa il router
 const app = createApp(App).use(router);
+
+// inizializzazione pinia
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedState);
+
+// import state dagli store, testing nuovi modi per fare il persist
+//if (localStorage.getItem('state')) {
+//    pinia.state.value = JSON.parse(localStorage.getItem('state'));
+//}
+
+watch(pinia.state, (state) => {
+    localStorage.setItem('state', JSON.stringify(state));
+});
+
+app.use(pinia);
 
 // inizializzazione axios
 axios.defaults.baseURL = 'localhost:8081/';
@@ -33,6 +50,8 @@ app.use(
         },
     })
 );
+
+const tokenStoreInstance = useTokenStore();
 
 const MyPreset = definePreset(Aura, {
     semantic: {
@@ -90,27 +109,14 @@ app.use(PrimeVue, {
         preset: MyPreset,
         options: {
             prefix: 'p',
-            darkModeSelector: '.my-app-dark',
+            darkModeSelector: '.dark-mode-switch',
             cssLayer: false,
         },
     },
 });
 app.use(ToastService);
 
-// inizializzazione pinia
-const pinia = createPinia();
-pinia.use(piniaPluginPersistedState);
 
-// import state dagli store, testing nuovi modi per fare il persist
-//if (localStorage.getItem('state')) {
-//    pinia.state.value = JSON.parse(localStorage.getItem('state'));
-//}
-
-watch(pinia.state, (state) => {
-    localStorage.setItem('state', JSON.stringify(state));
-});
-
-app.use(pinia);
 
 // Monta l'app Vue
 app.mount('#app');
