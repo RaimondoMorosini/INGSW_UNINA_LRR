@@ -59,12 +59,12 @@
     </div>
     <div class="buttonArea flex justify-around">
         <Button class="w-[45%]" size="large" @click="goToPreviousForm"
-            ><span class="font-bold text-greyButton-400"
+            ><span class="font-bold text-black"
                 ><i class="pi pi-arrow-left"></i> Precedente</span
             ></Button
         >
         <Button class="sp-button w-[45%]" size="large" @click="gestioneInvio"
-            ><span class="font-bold text-greyButton-400">Finalizza <i class="pi pi-check"></i></span
+            ><span class="font-bold text-black">Finalizza <i class="pi pi-check"></i></span
         ></Button>
 
         <!--success: {{ success }}-->

@@ -4,7 +4,7 @@
     >
         <!-- INPUT TESTO PER CERCARE UNA SOTTOSTRINGA DI UN TITOLO DI UN ASTA -->
         <InputGroup class="h-14 w-[100%] lg:w-[33%]">
-            <Button><i class="pi pi-search  text-greyButton-400"></i></Button>
+            <Button><i class="pi pi-search  text-black"></i></Button>
             <InputText
                 v-model="nomeProdottoCercato"
                 placeholder="Search"
@@ -15,7 +15,7 @@
 
         <!-- CASSELLA CATEGORIE -->
         <InputGroup class="h-14 w-[100%] lg:w-[33%]">
-            <Button ><i class="pi pi-th-large  text-greyButton-400" ></i></Button>
+            <Button ><i class="pi pi-th-large  text-black" ></i></Button>
             <TreeSelect
                 @change="setCategoriaSelezionata"
                 id="idCategoria"
@@ -53,7 +53,7 @@
 
         <!-- BOTTONE CERCA-->
         <Button class="lg:w-[10%]] w-[100%]" @click="OnCLickCerca(false)"
-            ><span class="font-bold text-greyButton-400">Cerca Aste</span></Button
+            ><span class="font-bold text-black">Cerca Aste</span></Button
         >
     </div>
 

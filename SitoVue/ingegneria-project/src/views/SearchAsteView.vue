@@ -10,7 +10,7 @@
             <InputText
                 v-model="nomeProdottoCercato"
                 placeholder="Search"
-                class="w-[100%] rounded-r bg-primario-400/50 text-greyButton-400"
+                class="w-[100%] rounded-r  text-black"
             >
                 <template #imputtexticon>
                     <i class="pi pi-search" style="color: #424242"></i>
@@ -30,7 +30,7 @@
                 :options="gerarchiaCategorie"
                 option-label="name"
                 placeholder="Seleziona Categoria"
-                class="w-[100%] rounded-r bg-primario-400/50 text-greyButton-400"
+                class="w-[100%] rounded-r  text-black"
             />
         </InputGroup>
 
@@ -54,13 +54,13 @@
                 optionLabel="name"
                 placeholder="Seleziona aste"
                 :maxSelectedLabels="3"
-                class="w-[100%] rounded-r bg-primario-400/50 text-greyButton-400"
+                class="w-[100%] rounded-r  text-black"
             />
         </InputGroup>
 
         <!-- BOTTONE CERCA-->
         <Button class="h-14 w-[100%]  lg:w-[10%]" @click="onClickCerca()">
-            <span class="font-bold text-greyButton-400">Cerca Aste</span>
+            <span class="font-bold text-black">Cerca Aste</span>
         </Button>
     </div>
 

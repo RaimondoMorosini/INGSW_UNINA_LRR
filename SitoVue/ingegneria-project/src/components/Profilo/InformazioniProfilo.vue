@@ -19,7 +19,7 @@
                                 <button class="bottone">Modifica Profilo</button>
                 -->
 
-                <Button><span class="font-bold text-greyButton-400">Modifica Profilo</span> </Button>
+                <Button><span class="font-bold text-black">Modifica Profilo</span> </Button>
             </RouterLink>
         </div>
 
