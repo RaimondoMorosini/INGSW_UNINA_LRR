@@ -64,35 +64,16 @@
 <script setup>
 import Button from 'primevue/button';
 import { ref, onUnmounted, onMounted, computed } from 'vue';
-import { uploadImages } from '../../scripts/ImageUploadService.js';
 import { useAstaStore } from '../../stores/astaStore';
 import { inserisciDato, getDato } from '../../scripts/DatiUtils.js';
 const store = useAstaStore();
-const immagini = ref([]);
 const isEmpty = computed(() => {
     return store.asta.immaginiSalvate.length === 0;
 });
 
-function eseguiChiamataAxios() {
-    console.log('sto eseguendo la chiamata Axios');
-    // In questo caso, potresti voler implementare il codice per inviare l'immagine al server
-    // e gestire la risposta qui
-    console.log('Immagine caricata:', store.asta.immaginiSalvate);
-
-    if (store.asta.immaginiSalvate === null) {
-        alert("Seleziona un'immagine prima di caricare");
-        return;
-    }
-    uploadImages()
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-}
 function onFileChange(e) {
     aggiungiFile(e.target.files);
+    e.target.value = '';
 }
 
 function onDrop(e) {
@@ -105,7 +86,6 @@ function aggiungiFile(files) {
         console.log('file: ', element);
         store.asta.immaginiSalvate.push({ file: element, src: null, name: element.name });
     }
-    console.log('immagini: ', store.asta.immaginiSalvate);
     store.asta.immaginiSalvate.forEach((immagine, indice) => {
         if (!immagine.src) {
             const lettore = new FileReader();
@@ -113,7 +93,6 @@ function aggiungiFile(files) {
                 'load',
                 () => {
                     store.asta.immaginiSalvate[indice].src = lettore.result;
-                    console.log('lettore.result di indice ', indice, ' ', lettore.result);
                 },
                 false
             );
@@ -125,7 +104,7 @@ function aggiungiFile(files) {
 function rimuoviImmagine(indice) {
     console.log("sto rimuovendo l'immagine con indice ", indice);
     store.asta.immaginiSalvate.splice(indice, 1);
-   
+    
 }
 
 onMounted(() => {
