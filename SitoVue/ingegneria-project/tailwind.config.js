@@ -114,17 +114,6 @@ module.exports = {
                     800: '#b35900',
                     900: '#994d00',
                 },
-                greyButton: {
-                    100: '#E6E6E6', // lightest
-                    200: '#BFBFBF',
-                    300: '#999999',
-                    400: '#1C1B22', // Base color
-                    500: '#141316', // Darker shade
-                    600: '#0E0E10', // Darkest shade
-                    700: '#0A0A0C',
-                    800: '#050505',
-                    900: '#000000', // Black
-                  },
             },
             spacing: {
                 '1col': '74px',

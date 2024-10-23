@@ -1,32 +1,19 @@
 <template>
-    <Timer />
-    </template>
+    <div>
+      <Toast position="top-left" group="tl"/>
+      <h1>Toast Service Example</h1>
+      <Button label="Show Toast" @click="showTopLeft" />
+    </div>
+  </template>
+  
+  <script setup>
+  import Toast from 'primevue/toast'
+  import { useToast } from 'primevue/usetoast'; // Import the useToast hook
+  import Button from 'primevue/button';
+  const toast = useToast();
 
-<script setup>
-import { useAstaStore } from '../stores/astaStore';
-import Timer from '../components/astaInglese/Timer.vue';
-
-const astaInstance = useAstaStore()
-let scadenza = astaInstance.asta.scadenzaAsta;
-
-function isoToSeconds(isoString) {
-    // Parse the ISO string into a Date object
-    const date = new Date(isoString);
-    console.log(date);
-    // Convert the date to seconds since Unix Epoch
-    const seconds = Math.floor(date.getTime() / 1000);
-    
-    return seconds;
-}
-
-function getScadenzaSeconds(){
-    let secondsOnTimer=isoToSeconds(new Date( scadenza ));
-    let secondsToday=isoToSeconds(new Date());
-    console.log('scadenza:', secondsOnTimer-secondsToday)
-    return secondsOnTimer-secondsToday;
-}
-
-let seconds = getScadenzaSeconds();
-
-</script>
-
+  const showTopLeft = () => {
+    toast.add({ severity: 'info', summary: 'Info Message', detail: 'Message Content', group: 'tl', life: 3000 });
+};
+  </script>
+  
