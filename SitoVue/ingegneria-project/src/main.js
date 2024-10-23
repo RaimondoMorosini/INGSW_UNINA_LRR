@@ -13,9 +13,27 @@ import { createApp, watch } from 'vue'; // Vue 3
 import App from './App.vue'; // App.vue
 import './assets/css/tailwind.css'; // tailwindcss
 import router from './router'; // router
+import { useTokenStore } from './stores/tokenStore';
+
+
 
 // Crea l'istanza dell'app Vue e usa il router
 const app = createApp(App).use(router);
+
+// inizializzazione pinia
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedState);
+
+// import state dagli store, testing nuovi modi per fare il persist
+//if (localStorage.getItem('state')) {
+//    pinia.state.value = JSON.parse(localStorage.getItem('state'));
+//}
+
+watch(pinia.state, (state) => {
+    localStorage.setItem('state', JSON.stringify(state));
+});
+
+app.use(pinia);
 
 // inizializzazione axios
 axios.defaults.baseURL = 'localhost:8081/';
@@ -33,6 +51,8 @@ app.use(
     })
 );
 
+const tokenStoreInstance = useTokenStore();
+
 const MyPreset = definePreset(Aura, {
     semantic: {
         primary: {
@@ -48,8 +68,39 @@ const MyPreset = definePreset(Aura, {
             900: '{fuchsia.900}',
             950: '{fuchsia.950}',
         },
+        colorScheme: {
+            unified: {
+                surface: {
+                    0: '#ffffff',  // Same surface color for both modes
+                    50: '{slate.50}',
+                    100: '{slate.100}',
+                    200: '{slate.200}',
+                    300: '{slate.300}',
+                    400: '{slate.400}',
+                    500: '{slate.500}',
+                    600: '{slate.600}',
+                    700: '{slate.700}',
+                    800: '{slate.800}',
+                    900: '{slate.900}',
+                    950: '{slate.950}'
+                },
+                primary: {
+                    color: '{primary.400}',  // Same primary color
+                    contrastColor: '{surface.900}',
+                    hoverColor: '{primary.300}',
+                    activeColor: '{primary.200}'
+                },
+                highlight: {
+                    background: 'color-mix(in srgb, {primary.400}, transparent 84%)',  // Same highlight settings
+                    focusBackground: 'color-mix(in srgb, {primary.400}, transparent 76%)',
+                    color: 'rgba(255,255,255,.87)',
+                    focusColor: 'rgba(255,255,255,.87)'
+                }
+            }
+        }
     },
 });
+
 
 // inizializazione primevue
 app.use(PrimeVue, {
@@ -58,27 +109,14 @@ app.use(PrimeVue, {
         preset: MyPreset,
         options: {
             prefix: 'p',
-            darkModeSelector: 'system',
+            darkModeSelector: '.dark-mode-switch',
             cssLayer: false,
         },
     },
 });
 app.use(ToastService);
 
-// inizializzazione pinia
-const pinia = createPinia();
-pinia.use(piniaPluginPersistedState);
 
-// import state dagli store, testing nuovi modi per fare il persist
-//if (localStorage.getItem('state')) {
-//    pinia.state.value = JSON.parse(localStorage.getItem('state'));
-//}
-
-watch(pinia.state, (state) => {
-    localStorage.setItem('state', JSON.stringify(state));
-});
-
-app.use(pinia);
 
 // Monta l'app Vue
 app.mount('#app');

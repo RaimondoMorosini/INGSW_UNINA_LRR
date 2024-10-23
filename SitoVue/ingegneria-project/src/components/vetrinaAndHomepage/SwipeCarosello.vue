@@ -1,6 +1,6 @@
 <template>
     <Swiper
-        style="--swiper-navigation-color: #1c1b22 --swiper-pagination-color: #1c1b22"
+        style="--swiper-navigation-color: #1c1b22; --swiper-pagination-color: #1c1b22"
         :modules="[Autoplay, Pagination, Keyboard, Navigation]"
         :slidesPerView="1"
         :breakpoints="{
@@ -36,7 +36,7 @@
                 <img
                     :src="require(`@/assets/img/carosello/${photo}`)"
                     alt=""
-                    class="border-2 border-slate-400"
+                    class="border-2 border-greyButton-400"
                 />
             </RouterLink>
         </SwiperSlide>

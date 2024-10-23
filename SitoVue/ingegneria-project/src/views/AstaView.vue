@@ -1,72 +1,135 @@
 <template>
-    <!--TODO: rimuovere i ring di supporto a pagina finita-->
-    <div class="w-fill mx-5 my-3 flex flex-col justify-between gap-3 md:flex-row">
-        <aside class="bg-slate-100/20 ring-2 md:w-[25%]">
-            <Galleria
-                :value="images"
-                :responsiveOptions="responsiveOptions"
-                :numVisible="5"
-                containerStyle="max-width: 100%"
-            >
-                <template #item="slotProps">
-                    <img
-                        :src="slotProps.item.itemImageSrc"
-                        :alt="slotProps.item.alt"
-                        style="width: 100%"
-                    />
-                </template>
-                <template #thumbnail="slotProps">
-                    <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt" />
-                </template>
-            </Galleria>
-        </aside>
-
-        <div class="bg-slate-100/20 ring-2 md:w-[75%]">
-            <h1>{{ auction.title }}</h1>
-            <p>{{ auction.description }}</p>
-            <p>Current Price: {{ auction.currentPrice }}</p>
+    <div class="contenitore_colonne">
+        <div class="colonna">
+            <ImmaginiProdotto v-if="item" :prodotto="item" />
         </div>
-
-        <div class="bg-slate-100/20 ring-2 md:w-[25%]">
-            <h2 class="text-lg">Offers</h2>
-            <ul>
-                <li>Offer 1</li>
-                <li>Offer 2</li>
-                <li>Offer 3</li>
-            </ul>
+        <div class="colonna">
+            <InfoAstaProdotto
+                v-if="item"
+                :prodotto="item"
+                :utenteUltimaOfferta="utenteUltimaOfferta"
+            />
         </div>
-    </div>
-    <div class="mx-5 my-3 bg-slate-100/20 ring-2">
-        <Inglese />
+        <div class="colonna">
+            <PartecipantiAsta v-if="offerte" :offerte="offerte" />
+        </div>
     </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-import Inglese from '../components/astaInglese/SezioneInglese.vue';
-import { PhotoService } from '../scripts/PhotoService';
+import { ref, onMounted, onUnmounted } from 'vue';
+import { useRoute } from 'vue-router';
+import { getInfoAstaProdotto, getDatiastaInglese } from '../service/PaginaProdottoAstaService';
+import { getOfferteAstaIinglese } from '../service/offertaService';
+import { mantieniAggiornamenti, disconnettiti } from '../scripts/websocket/websocket.js';
+import ImmaginiProdotto from '../components/PaginaAsta/ImmaginiProdotto.vue';
+import InfoAstaProdotto from '../components/PaginaAsta/InfoAstaProdotto.vue';
+import PartecipantiAsta from '../components/PaginaAsta/PartecipantiAsta.vue';
 
-import Galleria from 'primevue/galleria';
+const route = useRoute();
+const astaId = route.params.id;
+const item = ref(null);
+const offerte = ref(null);
+const utenteUltimaOfferta = ref(null);
+const stomp1 = ref(null);
+const datiExtra = ref(null);
 
-const auction = ref({
-    title: 'Sample Auction',
-    description: 'This is a sample auction',
-    currentPrice: 100,
+onMounted(async () => {
+    try {
+        console.log('Caricamento asta in corso...');
+        item.value = await getInfoAstaProdotto(astaId);
+    } catch (e) {
+        console.error("Errore durante il caricamento dell'asta:", e);
+    }
+    try {
+        datiExtra.value = await getDatiastaInglese(astaId);
+    } catch (e) {
+        console.error('Errore richiesta datiExtra:', e);
+    }
+    try {
+        offerte.value = await getOfferteAstaIinglese(astaId);
+    } catch (e) {
+        console.log('Errore durante il carimento delle offerte:', e);
+    }
+    console.log('datiExtra:', datiExtra.value);
+    stomp1.value = mantieniAggiornamenti('/asta/' + astaId, handleMessage);
 });
 
-onMounted(() => {
-    PhotoService.getImages().then((data) => (images.value = data));
+onUnmounted(() => {
+    console.log('mounted');
+    disconnettiti(stomp1.value);
 });
 
-const images = ref();
-const responsiveOptions = ref([
-    {
-        breakpoint: '1300px',
-        numVisible: 4,
-    },
-    {
-        breakpoint: '575px',
-        numVisible: 1,
-    },
-]);
+function handleMessage(message) {
+    console.log('Messaggio ricevuto dalla websocket:', message);
+    const data = JSON.parse(message);
+    const offerta = {
+        id: data.offerta.id,
+        tempoOfferta: data.offerta.tempoOfferta,
+        prezzoProposto: data.offerta.prezzoProposto,
+        emailUtente: data.offerta.emailUtente,
+        astaId: data.offerta.astaId,
+        offertaVincente: data.offerta.offertaVincente,
+    };
+    offerte.value.push(offerta);
+    utenteUltimaOfferta.value = offerta.emailUtente;
+    switch (item.value.tipoAsta) {
+        case 'asta_inglese':
+            if (offerta.prezzoProposto > item.value.prezzoAttuale) {
+                item.value.prezzoAttuale = offerta.prezzoProposto;
+                item.value.dataScadenza = offerta.tempoOfferta + datiExtra.value.tempoEstensione;
+                console.log(
+                    'tempoEstensione:',
+                    offerta.tempoOfferta + datiExtra.value.tempoEstensione
+                );
+                console.log('Prezzo attuale aggiornato:', item.value.prezzoAttuale);
+                console.log('Tempo rimanente:', offerta.tempoOfferta);
+            }
+            break;
+        case 'asta_inversa':
+            if (offerta.prezzoProposto < item.value.prezzoAttuale) {
+                item.value.prezzoAttuale = offerta.prezzoProposto;
+                console.log('Prezzo attuale aggiornato:', item.value.prezzoAttuale);
+            }
+            break;
+        case 'asta_silenziosa':
+            alert("Qualcuno ha fatto un'offerta!");
+            break;
+        default:
+            console.warn("Tipo d'asta non riconosciuto:", item.value.tipoAsta);
+    }
+}
+
+function faiOfferta() {
+    console.log('Offerta fatta!');
+    //TODO chiamre il servizio per fare l'offerta
+}
 </script>
+
+<style scoped>
+.contenitore_colonne {
+    /* Abilita Flexbox */
+    display: flex;
+    /* Spazia le colonne uniformemente */
+    justify-content: space-between;
+}
+
+.colonna {
+    flex: 1; /* Ogni colonna occupa spazio uguale */
+    margin: 10px 10px; /* Margine tra le colonne, se necessario */
+    padding: 20px; /* Padding interno per le colonne */
+    background: linear-gradient(
+        to bottom,
+        #f0f0f0,
+        #ffffff
+    ); /* Sfondo grigio chiaro sfumato nel bianco */
+    border-radius: 8px; /* Angoli arrotondati per un aspetto più morbido */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra leggera per profondità */
+}
+
+@media (max-width: 768px) {
+    .contenitore_colonne {
+        flex-direction: column; /* Disposizione in colonna per schermi piccoli */
+    }
+}
+</style>

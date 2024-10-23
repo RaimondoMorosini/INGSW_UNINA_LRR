@@ -4,8 +4,16 @@
             <h1>{{ props.propNomeCaratteristica }}</h1>
         </div>
 
-        <MultiSelect @change="OnChangeOpzioniSelezionate" v-model="selectedOpzioni" :options="opzioni" filter
-            optionLabel="name" placeholder="Opzioni" :maxSelectedLabels="3" class="md:w-20rem w-full" />
+        <MultiSelect
+            @change="OnChangeOpzioniSelezionate"
+            v-model="selectedOpzioni"
+            :options="opzioni"
+            filter
+            optionLabel="name"
+            placeholder="Opzioni"
+            :maxSelectedLabels="3"
+            class="md:w-20rem w-full"
+        />
         <!--
     <div class="gruppo-opzioni" v-if="statoFinestra">
         <div class="flex-column flex gap-3 w-auto h-60 overflow-y-auto overflow-x-hidden scroll-personalizzato">
@@ -40,7 +48,7 @@ const OnChangeOpzioniSelezionate = () => {
 
 onMounted(() => {
 
-    selezionaOpzioni;
+    selezionaOpzioni();
 });
 
 watch(
@@ -52,7 +60,8 @@ watch(
 
 // Funzione per controllare se i valori selezionati fanno match con le opzioni
 const selezionaOpzioni = () => {
-
+    
+    console.log("props Caratteristicheeeeeeeeeeeeeeeee: ", props.propCaratteristicheselezionate);
     selectedOpzioni.value = [];
 
     props.propCaratteristicheselezionate.forEach(caratteristica => {
@@ -65,7 +74,6 @@ const selezionaOpzioni = () => {
         });
     });
 };
-
 </script>
 
 <style scoped>

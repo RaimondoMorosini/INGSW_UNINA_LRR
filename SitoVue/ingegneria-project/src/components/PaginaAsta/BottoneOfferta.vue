@@ -10,7 +10,7 @@
                 <button @click="aumentaOfferta" class="button green text-xl">PUNTA</button>
                 <!-- usando Primevue
                 <Button @click="aumentaOfferta" size="large">
-                    <span class="text-[#1C1B22] font-bold" >PUNTA</span>
+                    <span class="text-greyButton-400 font-bold" >PUNTA</span>
                 </Button>
                 -->
                 <p class="info text-base">

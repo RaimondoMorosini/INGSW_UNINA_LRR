@@ -1,5 +1,5 @@
 <template>
-    <div class="card p-fluid flex flex-wrap gap-3">
+    <div class="card justify-between gap-3">
         <div class="sezione-superiore w-full">
             <barraDeiFIltriPrincipale
                 @ordineSelezionato="setCampiOrdinamento"
@@ -28,7 +28,7 @@
                                 :key="index"
                                 :item="item"
                                 :index="index"
-                                class="col-12 contenitore-articolo mt-4"
+                                class=" col-12 contenitore-articolo mt-4"
                             ></ProductItem>
                         </div>
                     </template>
@@ -113,6 +113,7 @@ const setPrezzoMax = (prezzoMax) => {
 
 .contenitore-articolo {
     cursor: pointer;
+    background-color: rgb(226 232 240 / 0.2);
 }
 
 .titolo-articolo:hover {
@@ -121,7 +122,7 @@ const setPrezzoMax = (prezzoMax) => {
 }
 
 .contenitore-bottone {
-    border: 2px solid #c5c5c58a;
+    border: 2px solid rgb(226 232 240 / 0.2);
     border-radius: 1rem;
     padding: 1rem;
     color: white;

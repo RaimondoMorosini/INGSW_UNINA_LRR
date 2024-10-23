@@ -4,13 +4,13 @@
     >
         <!-- INPUT TESTO PER CERCARE UNA SOTTOSTRINGA DI UN TITOLO DI UN ASTA -->
         <InputGroup class="h-14 w-[100%] lg:w-[33%]">
-            <InputGroupAddon class="bg-primario-100">
+            <InputGroupAddon class="bg-primario-400">
                 <i class="pi pi-search" style="color: #424242"></i>
             </InputGroupAddon>
             <InputText
                 v-model="nomeProdottoCercato"
                 placeholder="Search"
-                class="w-[100%] rounded-r bg-primario-100/50 text-black"
+                class="w-[100%] rounded-r bg-primario-400/50 text-greyButton-400"
             >
                 <template #imputtexticon>
                     <i class="pi pi-search" style="color: #424242"></i>
@@ -20,7 +20,7 @@
 
         <!-- CASSELLA CATEGORIE -->
         <InputGroup class="h-14 w-[100%] lg:w-[33%]">
-            <InputGroupAddon class="bg-primario-100">
+            <InputGroupAddon class="bg-primario-400">
                 <i class="pi pi-th-large" style="color: #424242"></i>
             </InputGroupAddon>
             <TreeSelect
@@ -30,13 +30,13 @@
                 :options="gerarchiaCategorie"
                 option-label="name"
                 placeholder="Seleziona Categoria"
-                class="w-[100%] rounded-r bg-primario-100/50 text-black"
+                class="w-[100%] rounded-r bg-primario-400/50 text-greyButton-400"
             />
         </InputGroup>
 
         <!-- CASSELLA TIPI DI ASTA -->
         <InputGroup class="h-14 w-[100%] lg:w-[33%]">
-            <InputGroupAddon class="bg-primario-100">
+            <InputGroupAddon class="bg-primario-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                     <g id="asta">
                         <path
@@ -54,39 +54,33 @@
                 optionLabel="name"
                 placeholder="Seleziona aste"
                 :maxSelectedLabels="3"
-                class="w-[100%] rounded-r bg-primario-100/50 text-black"
+                class="w-[100%] rounded-r bg-primario-400/50 text-greyButton-400"
             />
         </InputGroup>
 
         <!-- BOTTONE CERCA-->
-        <button
-            class="h-14 w-[100%] rounded bg-primario-100 text-white lg:w-[10%]"
-            @click="onClickCerca()"
-        >
-            Cerca aste
-        </button>
+        <Button class="h-14 w-[100%]  lg:w-[10%]" @click="onClickCerca()">
+            <span class="font-bold text-greyButton-400">Cerca Aste</span>
+        </Button>
     </div>
 
-    <AstePerRicerca
+    <AstePerRicerca v-if="caratteristicheSelezionate"
         :propAste="aste"
         :propLoading="isLoading"
         :propNumeroAste="numeroAsteTotali"
         :propCategoriaCercata="categoriaCercata"
         :propRicaricaComponenteCaratteristiche="ricaraComponenteCaratteristiche"
+        :propCaratteristicheselezionate="caratteristicheSelezionate"
         @numeroDiPaginaSelezionato="setPagina($event)"
         @caratteristicheSelezionate="setCaratteristiche($event)"
         @ordineSelezionato="setCampiOrdinamento($event)"
         @prezzoMinSelezionato="setPrezzoMin($event)"
         @prezzoMaxSelezionato="setPrezzoMax($event)"
     />
-        :propCaratteristicheselezionate="caratteristicheSelezionate"
-        @numeroDiPaginaSelezionato="setPagina($event)" @caratteristicheSelezionate="setCaratteristiche($event)"
-        @ordineSelezionato="setCampiOrdinamento($event)" @prezzoMinSelezionato="setPrezzoMin($event)"
-        @prezzoMaxSelezionato="setPrezzoMax($event)" />
-
 </template>
 
 <script setup>
+import Button from 'primevue/button'
 import InputText from 'primevue/inputtext';
 import TreeSelect from 'primevue/treeselect';
 import InputGroup from 'primevue/inputgroup';
@@ -122,7 +116,7 @@ const categoriaCercata = ref(route.query.categoria); //Variabile passata al body
 const aste = ref(); //Variabile che contiene tutte le aste corrispodenti alla ricerca (la risposta della richiesta axsios)
 const isLoading = ref(true); //Variabile che true quando la richiesta axsios è in corso facendo caricare il tamplate di caricamento
 const numeroAsteTotali = ref(); //Contiene il numero di aste totali corrispodente alla ricerca
-const tipoAstaCercata = ref([]); //Contiene la lista dei tipi di asta cercata
+const tipoAstaCercata = ref(route.query.tipoAsta); //Contiene la lista dei tipi di asta cercata
 const nomeProdottoCercato = ref(route.query.nomeProdotto); //contiene la sottostringa del titolo del prodotto cercato
 const paginaSelezionata = ref(route.query.pagina); //Contiene la pagina selezionata
 const listaDiCaratteristicheSelezionate = ref([]); //Contiene la lista delle caratteristiche del prodotto che l'utente ha filtrato
@@ -132,7 +126,7 @@ const nomeOrdinamento = ref(route.query.campoOrdinamento);
 const direzioneOrdinamento = ref(route.query.direzioneOrdinamento);
 const prezzoMin = ref(route.query.prezzoMin);
 const prezzoMax = ref(route.query.prezzoMax);
-const caratteristicheSelezionate = ref([]);
+const caratteristicheSelezionate = ref(null);
 
 onMounted(async () => {
     try {
@@ -141,16 +135,37 @@ onMounted(async () => {
         console.error('Error categorie non trovate:', error);
     }
 
+    //Aggiorna input
+    selectedCategory.value = { [route.query.categoria]: true };
+    categoriaCercata.value = route.query.categoria;
+
+    caratteristicheSelezionate.value = JSON.parse(route.query.lista);
+
+    selectedAuction.value = inizializzaAsteSelezionate(JSON.parse(route.query.tipoAsta));
+
     richiestaRicercaFiltrata();
-
-    caratteristicheSelezionate.value = JSON.parse(LZString.decompressFromEncodedURIComponent(route.query.caratteristiche));
-
 });
+
+const inizializzaAsteSelezionate = (listaAste) => {
+  return listaAste.map((auctionType) => {
+    switch (auctionType) {
+      case 'asta_inglese':
+        return { name: 'Asta inglese', code: 'AI' };
+      case 'asta_silenziosa':
+        return { name: 'Asta silenziosa', code: 'AS' };
+      case 'asta_inversa':
+        return { name: 'Asta inversa', code: 'AIV' };
+      default:
+        return { name: 'Sconosciuta', code: 'S' };
+    }
+  });
+};
 
 const setCategoriaSelezionata = () => {
     try {
         //se la categoria è selezionata allora imposta come filtro di ricerca su categoria: la categoria selezionata
         categoriaCercata.value = Object.entries(selectedCategory.value)[0][0];
+        console.log("categoria selezionata:",selectedCategory)
     } catch (error) {
         //se la categoria non è selezionata allora imposta come filtro di riceca su categoria: "tutte"
         categoriaCercata.value = 'tutte';
@@ -159,7 +174,10 @@ const setCategoriaSelezionata = () => {
 
 const setTipoAsteSelezionate = () => {
     try {
-        tipoAstaCercata.value = [];
+
+        console.log("selectedAuctionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn:",selectedAuction)
+
+        tipoAstaCercata.value = ref([]);
 
         selectedAuction.value.forEach((asta) => {
             switch (asta.name) {
@@ -177,7 +195,7 @@ const setTipoAsteSelezionate = () => {
             }
         });
     } catch (error) {
-        tipoAstaCercata.value = [];
+        tipoAstaCercata.value = ref([]);
     }
 };
 
@@ -240,6 +258,14 @@ watch(
     () => route.query, // Osserva tutti i cambiamenti nella query
     (newQuery, oldQuery) => {
         if (newQuery !== oldQuery) {
+
+            //Aggiorna input
+            selectedCategory.value = { [route.query.categoria]: true };
+            categoriaCercata.value = route.query.categoria;
+            tipoAstaCercata.value = JSON.parse(route.query.tipoAsta);
+
+            caratteristicheSelezionate.value = JSON.parse(route.query.lista);
+
             // Chiama la funzione che desideri eseguire quando cambia la query
             richiestaRicercaFiltrata();
         }
@@ -263,9 +289,8 @@ const richiestaRicercaFiltrata = async () => {
         elementiPerPagina: 5,
         categoria: route.query.categoria,
         nomeProdotto: route.query.nomeProdotto,
-        tipoAsta: JSON.parse(route.query.tipoAsta), 
-        //caratteristicheSelezionate: JSON.parse(route.query.caratteristiche),
-        caratteristicheSelezionate: JSON.parse(LZString.decompressFromEncodedURIComponent(route.query.caratteristiche)),
+        tipoAsta: JSON.parse(route.query.tipoAsta),
+        caratteristicheSelezionate: JSON.parse(route.query.lista),
         prezzoMin: route.query.prezzoMin,
         prezzoMax: route.query.prezzoMax,
         campoOrdinamento: route.query.campoOrdinamento,

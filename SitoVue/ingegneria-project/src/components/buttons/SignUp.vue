@@ -1,6 +1,6 @@
 <template>
-    <Button @click="handleSignUp" class="button__sign-up ring-2 ring-slate-300/80"
-        ><span class="font-bold text-[#1C1B22]">Registati </span></Button
+    <Button severity="secondary" @click="handleSignUp" class="button__sign-up "
+        ><span class="font-bold ">Registati </span></Button
     >
 </template>
 
@@ -21,3 +21,10 @@ const handleSignUp = () => {
     });
 };
 </script>
+
+<style scoped>
+.my-custom-button {
+  background-color: var(--secondary-color);
+  color: var(--secondary-color-text);
+}
+</style>

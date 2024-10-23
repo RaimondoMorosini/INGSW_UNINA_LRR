@@ -1,8 +1,10 @@
 <template>
-    <div class="space-x-1 rounded bg-slate-100/20 px-2 py-1 md:flex md:flex-row">
-        <button class="edit__login hidden md:flex">Modifica Informazioni</button>
+    <div class="space-x-1 rounded  bg-slate-200/20 px-2 py-1 md:flex md:flex-row">
+        <Button severity="secondary" class="edit__login hidden md:flex">Modifica Informazioni</Button>
         <span> <i class="bi bi-pencil-square"></i> </span>
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+import  Button  from 'primevue/button';
+</script>

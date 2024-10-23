@@ -1,13 +1,13 @@
 <template>
-    <div class="flex flex-col gap-3 px-3 py-3">
+    <div class="flex flex-col gap-3 px-2 py-3">
         <div
-            class="user-info-photo flex w-full flex-row items-center justify-between space-x-5 rounded bg-[#cbd5e1]/20 px-3 py-3 ring-1 ring-[#cbd5e1]"
+            class="user-info-photo flex w-full flex-row items-center justify-between space-x-5 rounded bg-slate-200/20 px-2 py-3 ring-1 ring-[#cbd5e1]"
         >
             <div class="flex flex-row space-x-1">
                 <img
                     :src="user.picture"
                     alt="Immagine Profilo impostata"
-                    class="h-20 w-20 rounded-full border-primario-200"
+                    class="h-20 w-20 rounded-full border-primario-400"
                 />
                 <div class="User info">
                     <h2 class="mt-4 text-2xl font-semibold">{{ user.name }}</h2>
@@ -19,11 +19,11 @@
                                 <button class="bottone">Modifica Profilo</button>
                 -->
 
-                <Button><span class="font-bold text-[#1C1B22]">Modifica Profilo</span> </Button>
+                <Button><span class="font-bold text-greyButton-400">Modifica Profilo</span> </Button>
             </RouterLink>
         </div>
 
-        <div class="Bio rounded bg-[#cbd5e1]/20 px-3 ring-1 ring-[#cbd5e1]">
+        <div class="Bio rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
             <h1 class="text-xl">Bio:</h1>
             <p>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime ex delectus
@@ -32,12 +32,12 @@
             </p>
         </div>
 
-        <div class="Indirizzo rounded bg-[#cbd5e1]/20 px-3 ring-1 ring-[#cbd5e1]">
+        <div class="Indirizzo rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
             <h1 class="text-xl">Indirizzo:</h1>
             {{ user.address }}
         </div>
 
-        <ul class="LinkAssociati rounded bg-[#cbd5e1]/20 px-3 ring-1 ring-[#cbd5e1]">
+        <ul class="LinkAssociati rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
             <h1 class="text-xl">Collegamenti</h1>
             <li v-for="(link, index) in linkUtili" v-bind:key="index">
                 {{ link }}
@@ -55,18 +55,4 @@ const linkUtili = ['GitHub', 'LinkedIn', 'Twitter', 'Facebook'];
 const { user } = useAuth0();
 </script>
 
-<style scoped>
-.bottone {
-    background-color: #cc85f5;
-    padding: 10px 5px;
-    color: #cbd5e1;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    width: 50%;
-    margin: 10px;
-}
-.bottone:hover {
-    background-color: #7c3aed;
-}
-</style>
+

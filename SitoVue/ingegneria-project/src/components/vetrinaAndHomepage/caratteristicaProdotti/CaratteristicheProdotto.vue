@@ -11,10 +11,10 @@
             v-for="(caratteristica, index) in caratteristicheRelativeAllaCategoria"
         >
             <div class="linea-separatoria"></div>
-            <opzioniSelezionabili v-if="props.propCaratteristicheselezionate"
+            <opzioniSelezionabili 
                 :propOpzioni="caratteristica.opzioniSelezionabili"
                 :propNomeCaratteristica="caratteristica.nomeCaratteristica"
-                :propCaratteristicheselezionate="props.propCaratteristicheselezionate"
+                :propCaratteristicheselezionate="propCaratteristicheselezionate"
                 :key="index"
                 @recuperoValoriSelezionati="aggiornaOpzioniSelezionate(caratteristica.id, $event)"
             />

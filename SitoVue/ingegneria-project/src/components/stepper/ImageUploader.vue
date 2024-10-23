@@ -42,7 +42,7 @@
                             @click="rimuoviImmagine(indice)"
                         ></Button>
                         <div
-                            class="flex justify-center rounded bg-slate-100/20 p-2 text-center align-middle"
+                            class="flex justify-center rounded  bg-slate-200/20 p-2 text-center align-middle"
                         >
                             <img
                                 class="preview max-h-64 shadow lg:max-h-64"
