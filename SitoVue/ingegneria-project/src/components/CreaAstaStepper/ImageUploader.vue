@@ -73,6 +73,7 @@ const isEmpty = computed(() => {
 
 function onFileChange(e) {
     aggiungiFile(e.target.files);
+    e.target.value = '';
 }
 
 function onDrop(e) {
@@ -85,7 +86,6 @@ function aggiungiFile(files) {
         console.log('file: ', element);
         store.asta.immaginiSalvate.push({ file: element, src: null, name: element.name });
     }
-    console.log('immagini: ', store.asta.immaginiSalvate);
     store.asta.immaginiSalvate.forEach((immagine, indice) => {
         if (!immagine.src) {
             const lettore = new FileReader();
@@ -93,7 +93,6 @@ function aggiungiFile(files) {
                 'load',
                 () => {
                     store.asta.immaginiSalvate[indice].src = lettore.result;
-                    console.log('lettore.result di indice ', indice, ' ', lettore.result);
                 },
                 false
             );
@@ -105,7 +104,7 @@ function aggiungiFile(files) {
 function rimuoviImmagine(indice) {
     console.log("sto rimuovendo l'immagine con indice ", indice);
     store.asta.immaginiSalvate.splice(indice, 1);
-   
+    
 }
 
 onMounted(() => {
