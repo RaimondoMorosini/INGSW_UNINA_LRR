@@ -60,10 +60,10 @@ import StepList from 'primevue/steplist';
 
 import Step from 'primevue/step';
 import { ref } from 'vue';
-import SelezioneTipoAsta from '../components/stepper/dettagliCreaAsta.vue';
-import CreaProdotto from '../components/stepper/formCreaProdotto.vue';
-import SelezionaFiltri from '../components/stepper/impostaFiltriCreaProdotto.vue';
-import Review from '../components/stepper/reviewAsta.vue';
+import SelezioneTipoAsta from '../components/CreaAstaStepper/dettagliCreaAsta.vue';
+import CreaProdotto from '../components/CreaAstaStepper/formCreaProdotto.vue';
+import SelezionaFiltri from '../components/CreaAstaStepper/impostaFiltriCreaProdotto.vue';
+import Review from '../components/CreaAstaStepper/reviewAsta.vue';
 
 const active = ref(0);
 const loading = ref(false);

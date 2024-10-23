@@ -57,15 +57,7 @@
             </div>
         </div>
 
-        <!--
-        TODO: Da togliere quanto non più necessari test
-        <button
-            @click="eseguiChiamataAxios"
-            class="my-5 h-fit w-[100%] rounded bg-primario-400 px-5 py-5 text-xl font-semibold  "
-        >
-            Esegui chiamata Axios
-        </button>
-        -->
+        
     </div>
 </template>
 
@@ -133,6 +125,7 @@ function aggiungiFile(files) {
 function rimuoviImmagine(indice) {
     console.log("sto rimuovendo l'immagine con indice ", indice);
     store.asta.immaginiSalvate.splice(indice, 1);
+   
 }
 
 onMounted(() => {
