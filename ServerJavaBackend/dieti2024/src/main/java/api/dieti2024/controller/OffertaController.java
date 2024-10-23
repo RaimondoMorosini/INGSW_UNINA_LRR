@@ -3,12 +3,10 @@ package api.dieti2024.controller;
 import api.dieti2024.dto.OffertaAstaIngleseDTO;
 import api.dieti2024.dto.OffertaDto;
 import api.dieti2024.dto.OffertaVincenteDto;
-import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.model.Offerta;
 import api.dieti2024.service.OffertaService;
 import api.dieti2024.util.CalendarioUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +43,11 @@ public class OffertaController {
     @PostMapping("ConfermaOffertaVincente")
     public Offerta confermaOffertaVincente(@RequestBody OffertaVincenteDto offertaDto) {
         return offertaService.confermaOffertaVincente(offertaDto);
+    }
+    //get offerta vincente di un asta
+    @GetMapping("public/offertaVincente/{idAsta}")
+    public Offerta getOffertaVincente(@PathVariable int idAsta) {
+        return offertaService.getOffertaVincente(idAsta);
     }
 
 }

@@ -148,7 +148,7 @@ const OnCLickCerca = () => {
             elementiPerPagina: 5,
             categoria: categoriaCercata.value,
             nomeProdotto: nomeProdottoCercato.value,
-            tipoAsta: tipoAstaCercata.value,
+            tipoAsta: JSON.stringify(tipoAstaCercata.value),
             prezzoMin: prezzoMin.value,
             prezzoMax: prezzoMax.value,
             campoOrdinamento: nomeOrdinamento.value,

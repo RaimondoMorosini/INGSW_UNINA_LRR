@@ -64,12 +64,13 @@
         </Button>
     </div>
 
-    <AstePerRicerca
+    <AstePerRicerca v-if="caratteristicheSelezionate"
         :propAste="aste"
         :propLoading="isLoading"
         :propNumeroAste="numeroAsteTotali"
         :propCategoriaCercata="categoriaCercata"
         :propRicaricaComponenteCaratteristiche="ricaraComponenteCaratteristiche"
+        :propCaratteristicheselezionate="caratteristicheSelezionate"
         @numeroDiPaginaSelezionato="setPagina($event)"
         @caratteristicheSelezionate="setCaratteristiche($event)"
         @ordineSelezionato="setCampiOrdinamento($event)"
@@ -125,6 +126,7 @@ const nomeOrdinamento = ref(route.query.campoOrdinamento);
 const direzioneOrdinamento = ref(route.query.direzioneOrdinamento);
 const prezzoMin = ref(route.query.prezzoMin);
 const prezzoMax = ref(route.query.prezzoMax);
+const caratteristicheSelezionate = ref(null);
 
 onMounted(async () => {
     try {
@@ -133,13 +135,37 @@ onMounted(async () => {
         console.error('Error categorie non trovate:', error);
     }
 
+    //Aggiorna input
+    selectedCategory.value = { [route.query.categoria]: true };
+    categoriaCercata.value = route.query.categoria;
+
+    caratteristicheSelezionate.value = JSON.parse(route.query.lista);
+
+    selectedAuction.value = inizializzaAsteSelezionate(JSON.parse(route.query.tipoAsta));
+
     richiestaRicercaFiltrata();
 });
+
+const inizializzaAsteSelezionate = (listaAste) => {
+  return listaAste.map((auctionType) => {
+    switch (auctionType) {
+      case 'asta_inglese':
+        return { name: 'Asta inglese', code: 'AI' };
+      case 'asta_silenziosa':
+        return { name: 'Asta silenziosa', code: 'AS' };
+      case 'asta_inversa':
+        return { name: 'Asta inversa', code: 'AIV' };
+      default:
+        return { name: 'Sconosciuta', code: 'S' };
+    }
+  });
+};
 
 const setCategoriaSelezionata = () => {
     try {
         //se la categoria è selezionata allora imposta come filtro di ricerca su categoria: la categoria selezionata
         categoriaCercata.value = Object.entries(selectedCategory.value)[0][0];
+        console.log("categoria selezionata:",selectedCategory)
     } catch (error) {
         //se la categoria non è selezionata allora imposta come filtro di riceca su categoria: "tutte"
         categoriaCercata.value = 'tutte';
@@ -148,7 +174,10 @@ const setCategoriaSelezionata = () => {
 
 const setTipoAsteSelezionate = () => {
     try {
-        tipoAstaCercata = ref([]);
+
+        console.log("selectedAuctionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn:",selectedAuction)
+
+        tipoAstaCercata.value = ref([]);
 
         selectedAuction.value.forEach((asta) => {
             switch (asta.name) {
@@ -166,7 +195,7 @@ const setTipoAsteSelezionate = () => {
             }
         });
     } catch (error) {
-        tipoAstaCercata = ref([]);
+        tipoAstaCercata.value = ref([]);
     }
 };
 
@@ -215,7 +244,7 @@ const onClickCerca = () => {
             elementiPerPagina: 5,
             categoria: categoriaCercata.value,
             nomeProdotto: nomeProdottoCercato.value,
-            tipoAsta: tipoAstaCercata.value,
+            tipoAsta: JSON.stringify(tipoAstaCercata.value),
             prezzoMin: prezzoMin.value,
             prezzoMax: prezzoMax.value,
             campoOrdinamento: nomeOrdinamento.value,
@@ -229,6 +258,14 @@ watch(
     () => route.query, // Osserva tutti i cambiamenti nella query
     (newQuery, oldQuery) => {
         if (newQuery !== oldQuery) {
+
+            //Aggiorna input
+            selectedCategory.value = { [route.query.categoria]: true };
+            categoriaCercata.value = route.query.categoria;
+            tipoAstaCercata.value = JSON.parse(route.query.tipoAsta);
+
+            caratteristicheSelezionate.value = JSON.parse(route.query.lista);
+
             // Chiama la funzione che desideri eseguire quando cambia la query
             richiestaRicercaFiltrata();
         }
@@ -252,7 +289,7 @@ const richiestaRicercaFiltrata = async () => {
         elementiPerPagina: 5,
         categoria: route.query.categoria,
         nomeProdotto: route.query.nomeProdotto,
-        tipoAsta: route.query.tipoAsta,
+        tipoAsta: JSON.parse(route.query.tipoAsta),
         caratteristicheSelezionate: JSON.parse(route.query.lista),
         prezzoMin: route.query.prezzoMin,
         prezzoMax: route.query.prezzoMax,
