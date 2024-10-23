@@ -54,7 +54,7 @@
 
         <div class="areaBottoni my-4 flex justify-around gap-5 px-10">
             <Button class="w-[45%]" size="large" @click="gestioneInvio"
-                ><span class="font-bold text-greyButton-400"
+                ><span class="font-bold text-black"
                     >Successivo <i class="pi pi-arrow-right"></i></span
             ></Button>
         </div>

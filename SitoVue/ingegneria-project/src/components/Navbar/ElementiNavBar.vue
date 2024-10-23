@@ -1,7 +1,7 @@
 <template>
     <div class="px-3">
         <ul
-            class="duration-400 absolute top-[100px] w-full border-b-2 border-t-2 border-slate-300 bg-primario-400/90 px-6 py-6 text-lg ease-in lg:static lg:flex lg:w-auto lg:items-center lg:border-transparent lg:bg-inherit lg:px-0 lg:pb-1"
+            class="duration-400 absolute top-[100px] w-full border-b-2 border-t-2 border-slate-300 bg-primario-400 px-6 py-6 text-lg ease-in lg:static lg:flex lg:w-auto lg:items-center lg:border-transparent lg:bg-inherit lg:px-0 lg:pb-1"
             :class="[open ? 'left-0 ' : 'left-[-100%] ']"
         >
             <template v-if="!isAuthenticated">
@@ -16,19 +16,15 @@
             <template v-if="isAuthenticated">
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'profilo' }">
-                        <Button  severity="secondary" class="w-[100%]   "
+                        <Button severity="secondary" class="w-[100%]   "
                             ><span class="font-bold  "
                                 >Ciao {{ user.name }}</span
-                            ></Button
+                            >
+                            <Badge v-if="checked"></Badge>
+
+                            </Button
                         >
                     </RouterLink>
-                </li>
-                <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
-                    <router-link to="/profilo/notifiche">
-                        <Button  severity="secondary" class="w-[100%]   "
-                            ><span class="font-bold  ">Notifiche </span></Button
-                        >
-                    </router-link>
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'about' }">
@@ -62,6 +58,8 @@
 </template>
 
 <script setup>
+import Badge from 'primevue/badge';
+import OverlayBadge from 'primevue/overlaybadge';
 import Button from 'primevue/button';
 import LogoutButton from '@/components/buttons/LogOut.vue';
 import LoginButton from '@/components/buttons/LoginButton.vue';
@@ -69,6 +67,7 @@ import SignupButton from '@/components/buttons/SignUp.vue';
 import { useAuth0 } from '@auth0/auth0-vue';
 import { ref } from 'vue';
 
+const checked = ref(false);
 const { isAuthenticated } = useAuth0();
 
 const { user } = useAuth0();
