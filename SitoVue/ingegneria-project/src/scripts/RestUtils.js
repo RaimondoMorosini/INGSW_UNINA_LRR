@@ -105,4 +105,4 @@ function getToken() {
     return null;
 }
 
-export { getRest, postRest, postRestWithtoken };
+export { getRest, postRest, postRestWithtoken, getRestWithtoken, getToken };
