@@ -7,10 +7,16 @@
 <script setup>
 import Button from 'primevue/button';
 import { useProfiloStore } from '../../stores/profiloStore.js';
-import { logoutAndClean } from '../../service/authService.js';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const profiloStore = useProfiloStore();
+
 
 function handleLogout() {
     console.log('logout');
+    profiloStore.logout();
+    router.push('/');
 }
     
 </script>
