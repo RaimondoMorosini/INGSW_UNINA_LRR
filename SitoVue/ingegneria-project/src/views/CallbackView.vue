@@ -56,6 +56,7 @@ onUnmounted(async () => {
             const profiloStore = useProfiloStore();
             console.log('user.name', user.value.name );
             profiloStore.profilo.nome = user.value.name;
+            profiloStore.profilo.isAutenticato = true;
             console.log('profilo.nome', profiloStore.profilo.nome);
         } else {
             console.error('token non ottenuto');

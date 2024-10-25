@@ -81,5 +81,18 @@ axios.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+function getToken() {
+    const token =getDato('token');
+    if(token!=null){
+        const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+        const expiryTime = tokenPayload.exp * 1000;
+        if (Date.now() >= expiryTime) {
+            console.log('Token scaduto');
+        }
+        return token;
+    }
+    return null;
+}
 
-export { getRest, postRest, postRestWithtoken };
+export { getRest, postRest, postRestWithtoken, getToken };
+

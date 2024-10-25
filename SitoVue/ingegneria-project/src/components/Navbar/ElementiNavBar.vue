@@ -4,7 +4,7 @@
             class="duration-400 absolute top-[100px] w-full border-b-2 border-t-2 border-slate-300 bg-primario-400 px-6 py-6 text-lg ease-in lg:static lg:flex lg:w-auto lg:items-center lg:border-transparent lg:bg-inherit lg:px-0 lg:pb-1"
             :class="[open ? 'left-0 ' : 'left-[-100%] ']"
         >
-            <template v-if="!isAuthenticated">
+            <template v-if="!profiloStore.profilo.isAutenticato">
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <SignupButton class="w-[100%]" />
                 </li>
@@ -13,12 +13,12 @@
                 </li>
             </template>
 
-            <template v-if="isAuthenticated">
+            <template v-else>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'profilo' }">
                         <Button severity="secondary" class="w-[100%]   "
                             ><span class="font-bold  "
-                                >Ciao {{ nomeProfilo}}</span
+                                >Ciao {{ profiloStore.profilo.nome}}</span
                             >
                             <Badge v-if="checked"></Badge>
 
@@ -64,18 +64,14 @@ import LogoutButton from '@/components/buttons/LogOut.vue';
 import LoginButton from '@/components/buttons/LoginButton.vue';
 import SignupButton from '@/components/buttons/SignUp.vue';
 import { useAuth0 } from '@auth0/auth0-vue';
-import { ref} from 'vue';
+import { ref,onMounted} from 'vue';
 import { useProfiloStore } from '../../stores/profiloStore';
 import { on } from 'ws';
 
 const checked = ref(false);
-const { isAuthenticated } = useAuth0();
-const nomeProfilo = ref('');
 const profiloStore = useProfiloStore();
 
-    nomeProfilo.value = profiloStore.profilo.nome;
-
-
+    
 
 const open = ref(false);
 function MenuOpen() {

@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 export const useProfiloStore = defineStore('profilo', {
     state: () => ({
         profilo: {
+            isAutenticato: false,
             email: '',
             password: '',
             nome: '',
@@ -18,4 +19,6 @@ export const useProfiloStore = defineStore('profilo', {
             this.profilo = { ...this.profilo, ...newData };
         },
     },
+
+    persist: true,
 });
