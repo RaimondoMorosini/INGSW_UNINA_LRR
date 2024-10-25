@@ -31,12 +31,23 @@ async function postRest(path, data) {
 
 //funzioni per ottenere e inviare dati al server con il token
 
-async function getRestWithtoken(path) {
+async function getRestWithtoken(path,dati) {
+
     try {
-        const response = await axios.get(`${path}`);
-        console.log('Get path:', path, ' response.data:', response.data);
-        return response;
+
+        const token = getDato('token');
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        const headers = {
+            Authorization: `Bearer ${token}`,
+            'User-Agent': 'NomeDellApplicazione/versione',
+        };
+        
+        const response = await axios.get(`${path}`, dati, headers);
+        delete axios.defaults.headers.common['Authorization'];
+        return response.data;
+
     } catch (error) {
+        delete axios.defaults.headers.common['Authorization'];
         console.error(error);
         throw new Error("Impossibile ottenere l'elemento dal server" + error);
     }
@@ -52,7 +63,7 @@ async function postRestWithtoken(path, data) {
             'User-Agent': 'NomeDellApplicazione/versione',
         };
         console.log('Post path:', path, ' dati body: ', data, ' headers: ', headers);
-        const response = await axios.post(`${path}`, data, headers);
+        const response = await axios.post(`${path}`,data, headers);
         console.log(' response.data:', response.data);
         delete axios.defaults.headers.common['Authorization'];
 
@@ -82,4 +93,4 @@ axios.interceptors.request.use(
     }
 );
 
-export { getRest, postRest, postRestWithtoken };
+export { getRest, postRest, postRestWithtoken, getRestWithtoken };
