@@ -18,7 +18,7 @@
 
             <div
                 v-if="isEmpty"
-                class="flex w-[100%] items-center justify-center ring-2 ring-[#cd87f6]"
+                class="flex w-[100%] items-center justify-center rounded shadow ring-2 ring-primario-400"
             >
                 <img
                     src="../../assets/img/placeholder/placeholder.png"

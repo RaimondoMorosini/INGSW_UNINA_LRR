@@ -1,6 +1,6 @@
 <template>
     
-    <footer class="footer bg-primario-400 text-black flex justify-center">
+    <footer class="footer bg-primario-400   flex justify-center">
 
         <ToggleButton v-model="checked" onLabel="Tema Scuro" onIcon="pi pi-moon" offIcon="pi pi-sun" offLabel="Tema Chiaro" @click="toggleDarkMode()"/>
        

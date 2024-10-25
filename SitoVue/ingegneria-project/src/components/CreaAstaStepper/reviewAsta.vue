@@ -34,11 +34,11 @@
             <img v-if="storeInstance.asta.immaginiSalvate.length > 0"
                 :src="storeInstance.asta.immaginiSalvate[0].src"
                 alt="Immagine Copertina"
-                class="col-span-4 h-[9rem] shadow ring-2 ring-[#cc85f5] lg:h-[12rem]"
+                class="col-span-4 h-[9rem] shadow ring-2 ring-primario-400 lg:h-[12rem]"
             />
             <div
                 v-for="image in storeInstance.asta.immaginiSalvate"
-                class="mr-5 rounded ring-0 ring-primario-100"
+                class="mr-5 rounded ring-0 ring-primario-400"
             >
                 <div class="flex rounded">
                     <Button
@@ -59,12 +59,12 @@
     </div>
     <div class="buttonArea flex justify-around">
         <Button class="w-[45%]" size="large" @click="goToPreviousForm"
-            ><span class="font-bold text-black"
+            ><span class="font-bold  "
                 ><i class="pi pi-arrow-left"></i> Precedente</span
             ></Button
         >
         <Button class="sp-button w-[45%]" size="large" @click="gestioneInvio"
-            ><span class="font-bold text-black">Finalizza <i class="pi pi-check"></i></span
+            ><span class="font-bold  ">Finalizza <i class="pi pi-check"></i></span
         ></Button>
 
         <!--success: {{ success }}-->
@@ -146,19 +146,7 @@ function toFront(newCover) {
 </script>
 
 <style scoped>
-.bottone {
-    background-color: #cc85f5;
-    margin: 10px;
-    padding: 10px 20px;
-    color: white;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    width: 50%;
-}
-.bottone:hover {
-    background-color: #7c3aed;
-}
+
 
 span.label {
     text-align: left;

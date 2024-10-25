@@ -35,7 +35,7 @@
         >
             Restart
         </button>
-        <Button @click="addHour"><span class="font-bold text-black">Aggiungi un'ora</span></Button>
+        <Button @click="addHour"><span class="font-bold  ">Aggiungi un'ora</span></Button>
     </div>
 </template>
 

@@ -39,7 +39,6 @@
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'creaAsta' }">
                         <Button
-                         severity="secondary"
                             label="Crea Asta"
                             class="sp-button w-[100%]"
                             ><span class="font-bold  ">Crea Asta</span></Button
