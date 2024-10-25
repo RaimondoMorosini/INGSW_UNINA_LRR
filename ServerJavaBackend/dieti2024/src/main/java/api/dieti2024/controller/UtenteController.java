@@ -43,5 +43,15 @@ public class UtenteController {
     }
 
 
+    @GetMapping("isProfiloCompleto")
+    public Boolean isProfiloCompleto(){
+        String email = ControllerRestUtil.getEmailOfUtenteCorrente();
+        return utenteService.isProfiloCompleto(email);
+    }
+
+
+
+
+
 
 }

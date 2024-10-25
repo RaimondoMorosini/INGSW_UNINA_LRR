@@ -1,56 +1,16 @@
 <template>
-    <div>
-        <h1>Test Bottone Offerta</h1>
-        <button @click="clicktest" class="button purple">Invia Offerta</button>
-        <!-- Asta Inglese -->
-        <BottoneOfferta
-            tipoAsta="asta_inglese"
-            :prezzoAttuale="245"
-            :incrementoOfferta="1"
-            :faiOfferta="faiOffertaParziale"
-        />
-
-        <!-- Asta Inversa -->
-        <BottoneOfferta
-            tipoAsta="asta_inversa"
-            :prezzoAttuale="100"
-            :faiOfferta="faiOffertaParziale"
-        />
-
-        <!-- Asta Silenziosa -->
-        <BottoneOfferta
-            tipoAsta="asta_silenziosa"
-            :baseAsta="50"
-            :faiOfferta="faiOffertaParziale"
-        />
-    </div>
-    <div>
-      
-      <h1>Toast Service Example</h1>
-      <Button label="Show Toast" @click="showTopLeft" />
-    </div>
+  
 </template>
 
 <script setup>
-import BottoneOfferta from '../components/PaginaAsta/BottoneOfferta.vue';
-import { faiOfferta } from '../service/offertaService.js';
-import { useToast } from 'primevue/usetoast'; // Import the useToast hook
-import Button from 'primevue/button';
-  const toast = useToast();
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import {apriWebSocketNotifichePersonali} from '../service/notifiche.js';
+const stomp1 = ref(null);
 
-  const showTopLeft = () => {
-    toast.add({ severity: 'info', summary: 'Info Message', detail: 'Message Content', group: 'tr', life: 3000 });
-};
+stomp1.value=apriWebSocketNotifichePersonali("morosini.ragusa@gmail.com",callback);
 
-const idAsta = 58; // ID dell'asta
-function clicktest() {
-    console.log('click');
-    faiOffertaParziale(245).then((res) => {
-        console.log(res);
-    });
+function callback(data){
+    console.log("callback: ");
+  console.log(data);
 }
-
-const faiOffertaParziale = (prezzoProposto) => {
-    return faiOfferta(prezzoProposto, idAsta);
-};
 </script>

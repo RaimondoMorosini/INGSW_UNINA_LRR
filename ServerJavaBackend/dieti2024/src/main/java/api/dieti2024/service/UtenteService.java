@@ -36,7 +36,8 @@ public class UtenteService {
 
     public ProfiloUtentePublicoDTO getDatiProfilo(String email){
         Utente utente = getUtenteByEmail(email);
-        return ProfiloUtentePublicoDTO.fromUserModel(utente);
+
+        return ProfiloUtentePublicoDTO.fromUserModel(utente,utenteRepository.isVenditore(email));
     }
     public void updateDatiProfilo(String email,  ProfiloUtentePublicoDTO profiloUtentePublicoDTO){
         try {
@@ -53,5 +54,9 @@ public class UtenteService {
         }catch (Exception e){
             throw new ApiException("Errore interno", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public Boolean isProfiloCompleto(String email) {
+    return utenteRepository.isProfiloCompleto(email);
     }
 }

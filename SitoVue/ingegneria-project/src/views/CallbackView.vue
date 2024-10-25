@@ -26,11 +26,15 @@ import Skeleton from 'primevue/skeleton';
 import { onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { inserisciDato } from '../scripts/DatiUtils';
-import { postRest } from '../scripts/RestUtils';
+import { postRest, getRest } from '../scripts/RestUtils';
 
 const { idTokenClaims, isAuthenticated, user } = useAuth0();
 const router = useRouter();
 const route = useRoute();
+import { ref } from 'vue';
+
+const loginSuccess = ref(false);
+
 onUnmounted(async () => {
     try {
         if (!isAuthenticated.value) {
@@ -48,6 +52,7 @@ onUnmounted(async () => {
         if (token) {
             console.log('token ottenuto', token);
             inserisciDato('token', token);
+            loginSuccess.value = true;
         } else {
             console.error('token non ottenuto');
             router.push({ name: 'home' });
@@ -57,6 +62,11 @@ onUnmounted(async () => {
     } catch (error) {
         console.error('errore getting token ', error);
         router.push({ name: 'home' });
+    }
+
+    if (loginSuccess===true) {
+        //recupera dati profilo e salvalo nel suo store
+        const profiloStore = useProfiloStore();
     }
 });
 

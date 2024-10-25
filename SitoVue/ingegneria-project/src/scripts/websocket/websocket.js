@@ -30,10 +30,14 @@ function mantieniAggiornamenti(topic, callback, jwtToken = null) {
         () => {
             console.log('Connesso al server WebSocket e al topic:', topic);
 
-            stompClient.subscribe(topic, (message) => {
-                console.log('Messaggio ricevuto dal topic: ', topic);
-                callback(message.body);
-            });
+            stompClient.subscribe(
+                topic, 
+                (message) => {
+                    console.log('Messaggio ricevuto dal topic: ', topic);
+                    callback(message.body);
+                    headers
+                },headers
+            );
         },
         (error) => {
             console.error('Errore durante la connessione WebSocket', ':', error);
