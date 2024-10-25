@@ -41,13 +41,14 @@
             </Button>
 
             <MultiSelect
+                append-to="body"
                 @change="setTipoAsteSelezionate"
                 v-model="selectedAuction"
                 :options="auctions"
                 optionLabel="name"
                 placeholder="Seleziona aste"
                 :maxSelectedLabels="3"
-                class="w-[100%] rounded-r"
+                class="w-[100%] rounded-r z-30"
             />
         </InputGroup>
 
@@ -166,4 +167,6 @@ const OnCLickCerca = () => {
     background-color: #f0f0f0;
     border: 1px solid #ccc;
 }
+
+
 </style>

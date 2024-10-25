@@ -1,8 +1,7 @@
 <template>
     
-    <footer class="footer bg-primario-400   flex justify-center">
+    <footer class="footer bg-primario-400 flex justify-center">
 
-        <ToggleButton v-model="checked" onLabel="Tema Scuro" onIcon="pi pi-moon" offIcon="pi pi-sun" offLabel="Tema Chiaro" @click="toggleDarkMode()"/>
        
         <div class="container ">
             <div class="content ">
@@ -49,7 +48,7 @@ const storeInstance = useTokenStore();
 const checked = ref(storeInstance.darkMode)
 
 function toggleDarkMode() {
-    document.documentElement.classList.toggle('dark-mode-switch');
+    root.classList.toggle('dark-mode-switch');
     storeInstance.setDarkMode(checked);
 }
 </script>

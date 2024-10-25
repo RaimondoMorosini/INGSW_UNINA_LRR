@@ -50,24 +50,24 @@ onUnmounted(async () => {
 
         const token = await postRest('auth/login', bodyData);
         if (token) {
-            console.log('token ottenuto', token);
+
             inserisciDato('token', token);
             loginSuccess.value = true;
+            const profiloStore = useProfiloStore();
+            console.log('user.name', user.value.name );
+            profiloStore.profilo.nome = user.value.name;
+            profiloStore.profilo.isAutenticato = true;
+            console.log('profilo.nome', profiloStore.profilo.nome);
         } else {
             console.error('token non ottenuto');
             router.push({ name: 'home' });
         }
 
-        console.log('access token', JSON.stringify(idTokenClaims.value.__raw));
     } catch (error) {
         console.error('errore getting token ', error);
         router.push({ name: 'home' });
     }
 
-    if (loginSuccess===true) {
-        //recupera dati profilo e salvalo nel suo store
-        const profiloStore = useProfiloStore();
-    }
 });
 
 console.log('isAuthenticated', isAuthenticated.value);

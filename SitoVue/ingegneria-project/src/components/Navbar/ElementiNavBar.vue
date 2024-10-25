@@ -4,7 +4,7 @@
             class="duration-400 absolute top-[100px] w-full border-b-2 border-t-2 border-slate-300 bg-primario-400 px-6 py-6 text-lg ease-in lg:static lg:flex lg:w-auto lg:items-center lg:border-transparent lg:bg-inherit lg:px-0 lg:pb-1"
             :class="[open ? 'left-0 ' : 'left-[-100%] ']"
         >
-            <template v-if="!isAuthenticated">
+            <template v-if="!profiloStore.profilo.isAutenticato">
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <SignupButton class="w-[100%]" />
                 </li>
@@ -13,12 +13,12 @@
                 </li>
             </template>
 
-            <template v-if="isAuthenticated">
+            <template v-else>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'profilo' }">
                         <Button severity="secondary" class="w-[100%]   "
                             ><span class="font-bold  "
-                                >Ciao {{ user.name }}</span
+                                >Ciao {{ profiloStore.profilo.nome}}</span
                             >
                             <Badge v-if="checked"></Badge>
 
@@ -64,12 +64,14 @@ import LogoutButton from '@/components/buttons/LogOut.vue';
 import LoginButton from '@/components/buttons/LoginButton.vue';
 import SignupButton from '@/components/buttons/SignUp.vue';
 import { useAuth0 } from '@auth0/auth0-vue';
-import { ref } from 'vue';
+import { ref,onMounted} from 'vue';
+import { useProfiloStore } from '../../stores/profiloStore';
+import { on } from 'ws';
 
 const checked = ref(false);
-const { isAuthenticated } = useAuth0();
+const profiloStore = useProfiloStore();
 
-const { user } = useAuth0();
+    
 
 const open = ref(false);
 function MenuOpen() {
@@ -94,5 +96,19 @@ function MenuClose() {
     --tw-gradient-stops: var(--tw-gradient-from), #e879f9 var(--tw-gradient-via-position),
         var(--tw-gradient-to);
     --tw-gradient-to: #4d91ff var(--tw-gradient-to-position);
+}
+
+.slide-fade-enter-active {
+    transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+    transform: translateX(20px);
+    opacity: 0;
 }
 </style>

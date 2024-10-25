@@ -6,16 +6,19 @@
 
 <script setup>
 import Button from 'primevue/button';
-import { useAuth0 } from '@auth0/auth0-vue';
+import { useProfiloStore } from '../../stores/profiloStore.js';
+import { useRouter } from 'vue-router';
 
-const { logout } = useAuth0();
+const router = useRouter();
+const profiloStore = useProfiloStore();
 
-const handleLogout = () =>
-    logout({
-        logoutParams: {
-            returnTo: window.location.origin,
-        },
-    });
+
+function handleLogout() {
+    console.log('logout');
+    profiloStore.logout();
+    router.push('/');
+}
+    
 </script>
 
 <style scoped>
