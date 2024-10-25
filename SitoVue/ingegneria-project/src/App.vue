@@ -2,13 +2,13 @@
 import { RouterView } from "vue-router";
 import Navbar from "./components/Navbar/Navbar.vue";
 import Footer from "./components/Navbar/FooterApp.vue"
-
+import Toast from 'primevue/toast'
 
 
 </script>
 
 <template>
-  
+    <Toast position="top-right" group="tr"/>
     <body class="relative h-[100%]">
       <Navbar />
   
