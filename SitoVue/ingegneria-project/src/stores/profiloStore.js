@@ -3,10 +3,14 @@ import { defineStore } from 'pinia';
 export const useProfiloStore = defineStore('profilo', {
     state: () => ({
         profilo: {
-            nomeProfilo: '',
-            emailProfilo: '',
-            passwordProfilo: '',
-            immagineProfilo: '',
+            email: '',
+            password: '',
+            nome: '',
+            cognome: '',
+            siti: '',
+            area_geografica: '',
+            bio: '',
+            metodo_di_registrazione: '',
         },
     }),
     actions: {
