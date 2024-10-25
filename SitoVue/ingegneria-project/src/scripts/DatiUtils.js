@@ -25,6 +25,7 @@ function inserisciDato(nome, valore) {
 // Funzione per eliminare un cookie
 function eliminaDato(nomeCookie) {
     document.cookie = nomeCookie + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+    
 }
 //dataScadenza deve essere un oggetto Date
 function setScadenza(nomeCookie, dataScadenza) {
