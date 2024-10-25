@@ -13,4 +13,5 @@ function callback(data){
     console.log("callback: ");
   console.log(data);
 }
+onBeforeUnmount
 </script>

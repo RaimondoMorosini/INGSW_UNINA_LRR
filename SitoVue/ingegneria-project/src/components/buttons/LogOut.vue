@@ -6,12 +6,13 @@
 
 <script setup>
 import Button from 'primevue/button';
-import { useAuth0 } from '@auth0/auth0-vue';
+import { useProfiloStore } from '../../stores/profiloStore.js';
+import { logoutAndClean } from '../../service/authService.js';
 
-const { logout } = useAuth0();
-
-const handleLogout = () =>
-    console.log('Logging out...')
+function handleLogout() {
+    console.log('logout');
+}
+    
 </script>
 
 <style scoped>
