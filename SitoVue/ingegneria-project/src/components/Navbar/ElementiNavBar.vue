@@ -18,7 +18,7 @@
                     <RouterLink :to="{ name: 'profilo' }">
                         <Button severity="secondary" class="w-[100%]   "
                             ><span class="font-bold  "
-                                >Ciao {{ user.name }}</span
+                                >Ciao {{ nomeProfilo}}</span
                             >
                             <Badge v-if="checked"></Badge>
 
@@ -64,12 +64,18 @@ import LogoutButton from '@/components/buttons/LogOut.vue';
 import LoginButton from '@/components/buttons/LoginButton.vue';
 import SignupButton from '@/components/buttons/SignUp.vue';
 import { useAuth0 } from '@auth0/auth0-vue';
-import { ref } from 'vue';
+import { ref} from 'vue';
+import { useProfiloStore } from '../../stores/profiloStore';
+import { on } from 'ws';
 
 const checked = ref(false);
 const { isAuthenticated } = useAuth0();
+const nomeProfilo = ref('');
+const profiloStore = useProfiloStore();
 
-const { user } = useAuth0();
+    nomeProfilo.value = profiloStore.profilo.nome;
+
+
 
 const open = ref(false);
 function MenuOpen() {
