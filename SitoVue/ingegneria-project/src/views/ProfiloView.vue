@@ -17,7 +17,7 @@
                 <i class="pi pi-inbox" style="font-size: 1.5rem; padding-right: 0.8rem"></i>
             </span>
             Notifiche
-            <Badge v-if="checked"></Badge>
+            <Badge v-if="isCisonoNuoveNotifiche"></Badge>
         </li>
         <li
             @click="pagina = 3"
@@ -41,8 +41,12 @@ import InfoProfilo from '../components/Profilo/InformazioniProfilo.vue';
 import Notifiche from '../components/Profilo/MessaggiProfilo.vue';
 import AstePersonali from '../components/Profilo/AstePersonaliProfilo.vue';
 import Badge from 'primevue/badge';
+import { useRouter } from 'vue-router';
+import { useProfiloStore } from '../stores/profiloStore.js';
 
-const checked = ref(false);
+const router = useRouter();
+const isCisonoNuoveNotifiche = ref(false);
+const storeinstance = useProfiloStore();
 
 const pagina = ref(1);
 const toast = useToast();

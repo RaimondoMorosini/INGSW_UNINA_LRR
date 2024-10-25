@@ -5,13 +5,13 @@
         >
             <div class="flex flex-row space-x-1">
                 <img
-                    :src="user.picture"
+                    :src="instanceStoreProfilo.profilo.immagine"
                     alt="Immagine Profilo impostata"
                     class="h-20 w-20 rounded-full border-primario-400"
                 />
                 <div class="User info">
-                    <h2 class="mt-4 text-2xl font-semibold">{{ user.name }}</h2>
-                    <h2 class="text-sm text-gray-500">{{ user.email }}</h2>
+                    <h2 class="mt-4 text-2xl font-semibold">{{ instanceStoreProfilo.profilo.nome}}</h2>
+                    <h2 class="text-sm text-gray-500">{{ instanceStoreProfilo.profilo.email }}</h2>
                 </div>
             </div>
             <RouterLink :to="{ name: 'ediProfilo' }">
@@ -34,7 +34,7 @@
 
         <div class="Indirizzo rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
             <h1 class="text-xl">Indirizzo:</h1>
-            {{ user.address }}
+            {{ instanceStoreProfilo.address }}
         </div>
 
         <ul class="LinkAssociati rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
@@ -47,12 +47,12 @@
 </template>
 
 <script setup>
-import { useAuth0 } from '@auth0/auth0-vue';
+import { useProfiloStore } from '../../stores/profiloStore';
 import Button from 'primevue/button';
 
 const linkUtili = ['GitHub', 'LinkedIn', 'Twitter', 'Facebook'];
 
-const { user } = useAuth0();
+const  instanceStoreProfilo  = useProfiloStore();
 </script>
 
 

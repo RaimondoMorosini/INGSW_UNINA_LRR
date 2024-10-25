@@ -7,16 +7,18 @@
 <script setup>
 import Button from 'primevue/button';
 import { useProfiloStore } from '../../stores/profiloStore.js';
+import { eliminaDato } from '@/scripts/DatiUtils.js';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const profiloStore = useProfiloStore();
-
-
+const storeinstance = useProfiloStore();
 function handleLogout() {
-    console.log('logout');
-    profiloStore.logout();
-    router.push('/');
+    eliminaDato('token');
+    storeinstance.logout();
+    console.log('storeinstance.profilo.isAutenticato', storeinstance.profilo.isAutenticato);
+    if (router.currentRoute.value.name == 'profilo') {
+        router.push({ name: 'home' });
+    }
 }
     
 </script>

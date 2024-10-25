@@ -32,7 +32,7 @@ const { idTokenClaims, isAuthenticated, user } = useAuth0();
 const router = useRouter();
 const route = useRoute();
 import { ref } from 'vue';
-
+import { login } from '../service/authService.js';
 const loginSuccess = ref(false);
 
 onUnmounted(async () => {
@@ -58,6 +58,10 @@ onUnmounted(async () => {
             profiloStore.profilo.nome = user.value.name;
             profiloStore.profilo.isAutenticato = true;
             console.log('profilo.nome', profiloStore.profilo.nome);
+            profiloStore.profilo.immagine= user.value.picture;
+            profiloStore.profilo.email = user.value.email;
+
+
         } else {
             console.error('token non ottenuto');
             router.push({ name: 'home' });

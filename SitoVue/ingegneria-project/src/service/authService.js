@@ -1,22 +1,28 @@
-import {postRest} from '../scripts/RestUtils.js';
-import {getDato,inserisciDato,eliminaDato} from '../scripts/DatiUtils.js';
+import { postRest } from '../scripts/RestUtils.js';
+import { getDato, inserisciDato, eliminaDato } from '../scripts/DatiUtils.js';
 import { useAuth0 } from '@auth0/auth0-vue';
 import { useProfiloStore } from '../stores/profiloStore.js';
 
-async function login(inputEmail, inputPassword,inputMetodoDiRegistrazione) {
+export async function login(inputEmail, inputPassword, inputMetodoDiRegistrazione) {
     try {
         const bodyData = {
-            email:"inputEmail@prova.it",
-            password: "inputPassword",
-            metodoDiRegistrazione: "inputMetodoDiRegistrazione",
+            email: inputEmail,
+            password: inputPassword,
+            metodoDiRegistrazione: inputMetodoDiRegistrazione,
         };
 
         const token = await postRest('prova/hello', bodyData);
         console.log('Token ricevuto:', token);
         if (token) {
             inserisciDato('token', token);
-            useProfiloStore().profilo.nome= useAuth0().user.name;
-            useProfiloStore().profilo.isAutenticato=true;
+            const profiloStore = useProfiloStore();
+            const auth0 = useAuth0();
+
+            profiloStore.profilo.nome = auth0.user.name;
+            profiloStore.profilo.isAutenticato = true;
+            profiloStore.profilo.immagine= auth0.user.picture;
+            console.log('Immagine:', auth0.user.picture);
+            profiloStore.profilo.email = auth0.user.email;
 
             return true;
         } else {
@@ -27,8 +33,8 @@ async function login(inputEmail, inputPassword,inputMetodoDiRegistrazione) {
         throw error;
     }
 }
-function logoutAndClean() {
-    console.log('Logout and clean');
-}
 
-export { login ,logoutAndClean};
+export function logoutAndClean() {
+    console.log('Logout and clean');
+    // Aggiungi qui la logica per il logout e la pulizia dei dati
+}

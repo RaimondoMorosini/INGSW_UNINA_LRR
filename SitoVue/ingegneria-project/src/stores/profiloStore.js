@@ -4,6 +4,7 @@ export const useProfiloStore = defineStore('profilo', {
     state: () => ({
         profilo: {
             isAutenticato: false,
+            immagine: '',
             email: '',
             password: '',
             nome: '',
