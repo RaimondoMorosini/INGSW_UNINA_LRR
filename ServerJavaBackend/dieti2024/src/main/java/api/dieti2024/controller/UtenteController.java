@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/utente")
+@CrossOrigin
 public class UtenteController {
 
     private final UtenteService utenteService;
@@ -18,8 +19,8 @@ public class UtenteController {
         this.utenteService = utenteService;
     }
 
-    @GetMapping("/datiProfilo")
-    public ProfiloUtentePublicoDTO getDatiProfilo(@RequestParam String email) {
+    @GetMapping("/public/datiProfilo/{email}")
+    public ProfiloUtentePublicoDTO getDatiProfilo(@PathVariable String email) {
         return utenteService.getDatiProfilo(email);
     }
 

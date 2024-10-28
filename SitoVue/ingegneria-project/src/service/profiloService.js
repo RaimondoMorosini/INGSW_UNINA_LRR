@@ -1,12 +1,13 @@
-import {getRest} from '../scripts/RestUtils.js';
+import {getRest,getRestWithtoken} from '../scripts/RestUtils.js';
 
 const datiPublichi = {
     nome: '',
     cognome: '',
     siti: '',
-    areaGeografica: '',
+    area_geografica: '',
     bio: '',
-    isVenditore: false
+    isVenditore: false,
+    immagine:""
 };
 const datiVenditore = {
     nomeUtente: '',
@@ -25,9 +26,9 @@ const datiProfilo = {
 
 export async function getDatiProfiloPublichi(email) {
     try {
-        const response = await getRest('/utente/datiProfilo?email=' + email);
-        if (response.ok) {
-            const dati = await response.json();
+        const response = await getRest('/public/utente/datiProfilo/' + email);
+        if (response) {
+            const dati = await response;    
             datiPublichi.nome = dati.nome;
             datiPublichi.cognome = dati.cognome;
             datiPublichi.siti = dati.siti;
@@ -42,6 +43,16 @@ export async function getDatiProfiloPublichi(email) {
         console.error('Errore:', error);
         return null;
     }
+    }
 
     
-}
+
+
+export async function isProfiloCompletato(){
+    const response = await getRestWithtoken('/utente/isProfiloCompleto');
+    if (response) {
+        return response;
+    } else {
+        return false;
+    }
+ }
