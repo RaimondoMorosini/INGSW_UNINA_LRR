@@ -30,9 +30,7 @@ import { postRest, getRest } from '../scripts/RestUtils';
 
 const { idTokenClaims, isAuthenticated, user } = useAuth0();
 const router = useRouter();
-const route = useRoute();
 import { ref } from 'vue';
-import { login } from '../service/authService.js';
 const loginSuccess = ref(false);
 
 onUnmounted(async () => {

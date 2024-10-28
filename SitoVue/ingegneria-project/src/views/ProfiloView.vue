@@ -1,4 +1,9 @@
 <template>
+    <div v-if="!storeinstance.profilo.isAutenticato">
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem;"></i>
+        <p>Caricamento in corso...</p>
+        {{ isautenticatoRef }}
+    </div>
     <ul class="flex flex-row justify-between border-b-2 border-slate-300 bg-slate-200/20 px-3 py-2">
         <li
             @click="pagina = 1"
@@ -36,18 +41,42 @@
 
 <script setup>
 import { useToast } from 'primevue/usetoast';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import InfoProfilo from '../components/Profilo/InformazioniProfilo.vue';
 import Notifiche from '../components/Profilo/MessaggiProfilo.vue';
 import AstePersonali from '../components/Profilo/AstePersonaliProfilo.vue';
 import Badge from 'primevue/badge';
 import { useRouter } from 'vue-router';
 import { useProfiloStore } from '../stores/profiloStore.js';
-
+import { isProfiloCompletato,getDatiProfiloPublichi } from '../service/profiloService';
 const router = useRouter();
 const isCisonoNuoveNotifiche = ref(false);
 const storeinstance = useProfiloStore();
 
 const pagina = ref(1);
 const toast = useToast();
+
+
+// Osserva i cambiamenti di storeinstance.profilo.isAutenticato
+watch(() => storeinstance.profilo.isAutenticato, (newVal, oldVal) => {
+    if (oldVal === false && newVal === true) {
+        isProfiloCompletato().then((profiloCompletato) => {
+            console.log('profiloCompletato', profiloCompletato);
+            if (!profiloCompletato) {
+                toast.add({
+                    severity: 'warn',
+                    summary: 'Profilo incompleto',
+                    detail: 'Completa il tuo profilo per accedere a tutte le funzionalità',
+                    life: 5000,
+                });
+                router.push({ name: 'ediProfilo' });
+            }else{
+                getDatiProfiloPublichi(storeinstance.profilo.email).then((response) => {
+                    storeinstance.updateProfilo(response);
+                });
+                
+            }
+        });
+    }
+});
 </script>
