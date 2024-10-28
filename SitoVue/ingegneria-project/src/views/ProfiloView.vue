@@ -106,7 +106,8 @@ onMounted(async () => {
     }
 });
 
-function clickNotifica(numeroNotificheNonLette)  {
+const clickNotifica = (numeroNotificheNonLette) => {
+
     numeroNotificheDaLeggere.value = numeroNotificheNonLette;
 };
 
