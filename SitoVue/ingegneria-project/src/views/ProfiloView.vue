@@ -43,7 +43,7 @@
 
 <script setup>
 import { useToast } from 'primevue/usetoast';
-import { ref, watch } from 'vue';
+import { ref, watch,onMounted } from 'vue';
 import InfoProfilo from '../components/Profilo/InformazioniProfilo.vue';
 import Notifiche from '../components/Profilo/MessaggiProfilo.vue';
 import AstePersonali from '../components/Profilo/AstePersonaliProfilo.vue';
@@ -106,8 +106,7 @@ onMounted(async () => {
     }
 });
 
-clickNotifica = (numeroNotificheNonLette) => {
-
+function clickNotifica(numeroNotificheNonLette)  {
     numeroNotificheDaLeggere.value = numeroNotificheNonLette;
 };
 

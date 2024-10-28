@@ -14,11 +14,7 @@
                     <h2 class="text-sm text-gray-500">{{ instanceStoreProfilo.profilo.email }}</h2>
                 </div>
             </div>
-            <RouterLink :to="{ name: 'ediProfilo' }">
-                <!--
-                                <button class="bottone">Modifica Profilo</button>
-                -->
-
+            <RouterLink :to="{ name: 'datiPersonali' }">
                 <Button><span class="font-bold">Modifica Profilo</span> </Button>
             </RouterLink>
         </div>
@@ -47,12 +43,19 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+import { useAuth0 } from '@auth0/auth0-vue';
 import { useProfiloStore } from '../../stores/profiloStore';
 import Button from 'primevue/button';
 
+const { idTokenClaims, isAuthenticated, user } = useAuth0();
+
 const linkUtili = ['GitHub', 'LinkedIn', 'Twitter', 'Facebook'];
 
-const  instanceStoreProfilo  = useProfiloStore();
+const instanceStoreProfilo  = useProfiloStore();
+
+
+
 </script>
 
 

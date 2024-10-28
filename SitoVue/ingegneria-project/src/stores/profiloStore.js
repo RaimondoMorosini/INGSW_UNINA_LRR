@@ -4,11 +4,11 @@ export const useProfiloStore = defineStore('profilo', {
     state: () => ({
         profilo: {
             isAutenticato: false,
-            immagine: '',
             email: '',
             password: '',
             nome: '',
             cognome: '',
+            immagineSalvata: [],
             siti: '',
             area_geografica: '',
             bio: '',
@@ -25,6 +25,7 @@ export const useProfiloStore = defineStore('profilo', {
             this.profilo.password='';
             this.profilo.nome='';
             this.profilo.cognome='';
+            this.profilo.immagineSalvata=[];
             this.profilo.siti='';
             this.profilo.area_geografica='';
             this.profilo.bio='';

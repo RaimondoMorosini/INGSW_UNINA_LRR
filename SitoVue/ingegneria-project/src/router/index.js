@@ -29,11 +29,7 @@ const routes = [
 
         component: () => import('@/views/ProfiloView.vue'),
     },
-    {
-        path: '/modificaProfilo',
-        name: 'ediProfilo',
-        component: () => import('../components/Profilo/ImpostazioniProfilo.vue'),
-    },
+    
     {
         path: '/callback',
         name: 'callback',
@@ -120,6 +116,12 @@ const routes = [
         path: '/creaAsta',
         name: 'creaAsta',
         component: () => import('@/views/CreazioneAstaView.vue'),
+    },
+
+    {
+        path: '/datiPersonali',
+        name: 'datiPersonali',
+        component: () => import('@/views/InserimentoDatiPersonaliView.vue'),
     },
 
     // testing pages TODO: remove

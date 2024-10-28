@@ -31,8 +31,8 @@
             <span class="campo w-[100%] lg:w-[45rem]">{{ dateScadenza.toLocaleDateString() }}</span>
         </div>
         <div class="grid w-[100%] grid-cols-4 gap-2 px-5 py-3">
-            <img v-if="storeInstance.asta.immaginiSalvate.length > 0"
-                :src="storeInstance.asta.immaginiSalvate[0].src"
+            <img v-if="storeInstance.asta.immaginiSalvate?.length > 0"
+                :src="storeInstance.asta?.immaginiSalvate[0].src"
                 alt="Immagine Copertina"
                 class="col-span-4 h-[9rem] shadow ring-2 ring-primario-400 lg:h-[12rem]"
             />

@@ -8,9 +8,11 @@
                 @drop.prevent="onDrop"
             >
                 <label
-                    class="custom-file-upload flex flex-col items-center gap-0 bg-primario-400 text-4xl hover:bg-primario-300"
+                    class="custom-file-upload flex flex-col items-center gap-0 bg-primario-400/80 text-4xl hover:bg-primario-500"
+                    :class="[disabled ? 'bg-slate-300 hover:bg-slate-300 cursor-default' : 'cursor-pointer text-white']"
+                    
                 >
-                    <input type="file" accept="image/*" multiple @change="onFileChange" />
+                    <input type="file" accept="image/*" :multiple="multi" @change="onFileChange" :disabled="disabled">
                     <i class="pi pi-camera py-2" style="font-size: 2.5rem"></i>
                     <i class="pi pi-file-plus py-2" style="font-size: 2.5rem"></i>
                 </label>
@@ -29,7 +31,7 @@
             <div v-else class="jumbotron w-[100%] rounded shadow ring-1 ring-primario-400">
                 <div class="immagini-container grid grid-cols-4 gap-2">
                     <div
-                        v-for="(immagine, indice) in store.asta.immaginiSalvate"
+                        v-for="(immagine, indice) in props.storeInstance"
                         :key="indice"
                         class="immagine shadow"
                     >
@@ -64,12 +66,25 @@
 <script setup>
 import Button from 'primevue/button';
 import { ref, onUnmounted, onMounted, computed } from 'vue';
-import { useAstaStore } from '../../stores/astaStore';
 import { inserisciDato, getDato } from '../../scripts/DatiUtils.js';
-const store = useAstaStore();
-const isEmpty = computed(() => {
-    return store.asta.immaginiSalvate.length === 0;
+
+//const disabled = ref(false)
+
+//Ogni Store che contiene immagini
+const props = defineProps({
+    storeInstance: Object,
+    multi: Boolean,
 });
+
+
+const isEmpty = computed(() => {
+    return props.storeInstance.length === 0;
+});
+
+const disabled = computed (() => {
+    return (!isEmpty.value&&(!props.multi.value));
+})
+
 
 function onFileChange(e) {
     aggiungiFile(e.target.files);
@@ -82,17 +97,23 @@ function onDrop(e) {
 
 function aggiungiFile(files) {
     console.log('hai selezionato ', files.length, ' file');
-    for (const element of files) {
+    if (props.multi){
+        for (const element of files) {
         console.log('file: ', element);
-        store.asta.immaginiSalvate.push({ file: element, src: null, name: element.name });
+        props.storeInstance.push({ file: element, src: null, name: element.name });
+        }
+    }else{
+        props.storeInstance.push({ file: files[0], src: null, name: files[0].name });
+        console.log('file: ', files[0]);
+
     }
-    store.asta.immaginiSalvate.forEach((immagine, indice) => {
+    props.storeInstance.forEach((immagine, indice) => {
         if (!immagine.src) {
             const lettore = new FileReader();
             lettore.addEventListener(
                 'load',
                 () => {
-                    store.asta.immaginiSalvate[indice].src = lettore.result;
+                    props.storeInstance[indice].src = lettore.result;
                 },
                 false
             );
@@ -103,15 +124,15 @@ function aggiungiFile(files) {
 
 function rimuoviImmagine(indice) {
     console.log("sto rimuovendo l'immagine con indice ", indice);
-    store.asta.immaginiSalvate.splice(indice, 1);
+    props.storeInstance.splice(indice, 1);
     
 }
 
 onMounted(() => {
-    //store.asta.immaginiSalvate = getDato('immaginiSalvate');
+    //props.storeInstance = getDato('immaginiSalvate');
 });
 onUnmounted(() => {
-    inserisciDato('immaginiSalvate', store.asta.immaginiSalvate);
+    inserisciDato('immaginiSalvate', props.storeInstance);
 });
 </script>
 
@@ -123,7 +144,6 @@ onUnmounted(() => {
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-    cursor: pointer;
 }
 
 .jumbotron {
@@ -155,12 +175,10 @@ input[type='file'] {
 
 .custom-file-upload {
     padding: 10px 5px;
-    color: white;
     border-radius: 5px;
     font-size: 2.5rem;
     font-weight: bold;
     width: 50%;
-    cursor: pointer;
 }
 
 .icon-size {

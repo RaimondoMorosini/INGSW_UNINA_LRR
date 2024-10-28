@@ -48,7 +48,8 @@
                 </InputGroup>
             </div>
             <div class="flex justify-center p-2 lg:w-[50%] lg:justify-start">
-                <ImageUploader />
+                <!--viene dato l'array contenente le immagini dallo store e flag per verificare se si possono mettere multiple immagini--> 
+                <ImageUploader :storeInstance="storeInstance.asta.immaginiSalvate" multi="true" />
             </div>
         </main>
 
