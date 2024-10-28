@@ -1,4 +1,6 @@
 import {mantieniAggiornamenti} from '../scripts/websocket/websocket.js';
+import { getRestWithtoken, postRestWithtoken } from '../scripts/RestUtils.js';
+
 
 
 function apriWebSocketNotifichePersonali(username, callback) {
@@ -6,4 +8,33 @@ function apriWebSocketNotifichePersonali(username, callback) {
  
 }
 
-export { apriWebSocketNotifichePersonali };
+async function getNumeroDiNotificheNonLette() {
+    try {
+        const response = await getRestWithtoken('/numeroNotificheNonVisualizzate',{});
+        return response;
+    } catch (error) {
+        console.error('Errore:', error);
+        throw error; // Propaga l'errore per gestirlo nel componente chiamante
+    }
+}
+
+async function getNotificheNonLette(parametri) {
+
+    const numeroElementi = parametri.numeroElementi;
+    const numeroPagina = parametri.numeroPagina;
+    // Componi l'URL con i query parameters
+    const url = `${"/notificheNonVisualizzate"}?numeroElementi=${numeroElementi}&numeroPagina=${numeroPagina}`;
+    console.log('URL:', url);
+
+    try {
+        //const response = await postRestWithtoken(url,{});
+        const response = await getRestWithtoken(url,{});
+        console.log('Response:', response);
+        return response;
+    } catch (error) {
+        console.error('Errore:', error);
+        throw error; // Propaga l'errore per gestirlo nel componente chiamante
+    }
+}
+
+export { apriWebSocketNotifichePersonali, getNumeroDiNotificheNonLette, getNotificheNonLette };

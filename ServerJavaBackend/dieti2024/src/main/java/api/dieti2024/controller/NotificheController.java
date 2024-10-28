@@ -3,14 +3,12 @@ package api.dieti2024.controller;
 import api.dieti2024.dto.NotificaDTO;
 import api.dieti2024.service.NotificaService;
 import api.dieti2024.util.ControllerRestUtil;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class NotificheController {
 
     private final NotificaService notificaService;
