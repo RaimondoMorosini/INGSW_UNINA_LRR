@@ -34,4 +34,6 @@ public class Utente {
     private String bio;
     @Column (name="metodo_di_registrazione")
     private String metodoDiRegistrazione;
+    @Column (name="foto_profilo")
+    private String fotoProfilo;
 }

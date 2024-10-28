@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/utente")
 @CrossOrigin
 public class UtenteController {
 
@@ -19,12 +18,12 @@ public class UtenteController {
         this.utenteService = utenteService;
     }
 
-    @GetMapping("/public/datiProfilo/{email}")
+    @GetMapping("public/utente/datiProfilo/{email}")
     public ProfiloUtentePublicoDTO getDatiProfilo(@PathVariable String email) {
         return utenteService.getDatiProfilo(email);
     }
 
-    @PutMapping("/datiProfilo")
+    @PutMapping("utente/datiProfilo")
     public ResponseEntity<String> updateDatiProfilo(@RequestBody ProfiloUtentePublicoDTO profiloUtentePublicoDTO) {
 
         String email = ControllerRestUtil.getEmailOfUtenteCorrente();
@@ -44,7 +43,7 @@ public class UtenteController {
     }
 
 
-    @GetMapping("isProfiloCompleto")
+    @GetMapping("utente/isProfiloCompleto")
     public Boolean isProfiloCompleto(){
         String email = ControllerRestUtil.getEmailOfUtenteCorrente();
         return utenteService.isProfiloCompleto(email);
