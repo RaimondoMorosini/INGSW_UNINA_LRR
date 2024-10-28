@@ -26,15 +26,17 @@ const datiProfilo = {
 
 export async function getDatiProfiloPublichi(email) {
     try {
-        const response = await getRest('/public/utente/datiProfilo/' + email);
+        const response = await getRest('public/utente/datiProfilo/' + email);
         if (response) {
             const dati = await response;    
             datiPublichi.nome = dati.nome;
             datiPublichi.cognome = dati.cognome;
             datiPublichi.siti = dati.siti;
-            datiPublichi.areaGeografica = dati.areaGeografica;
+            datiPublichi.area_geografica = dati.areaGeografica;
             datiPublichi.bio = dati.bio;
             datiPublichi.isVenditore = dati.isVenditore;
+            datiPublichi.immagine=dati.foto_profilo;
+            console.log("dati profilo reucuperati dalla rest: ",datiPublichi);
             return datiPublichi;
         } else {
             throw new Error('Errore nel recupero dei dati publichi');

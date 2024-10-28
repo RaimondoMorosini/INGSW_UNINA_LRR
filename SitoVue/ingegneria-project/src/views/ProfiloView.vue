@@ -72,7 +72,12 @@ watch(() => storeinstance.profilo.isAutenticato, (newVal, oldVal) => {
                 router.push({ name: 'ediProfilo' });
             }else{
                 getDatiProfiloPublichi(storeinstance.profilo.email).then((response) => {
-                    storeinstance.updateProfilo(response);
+                    storeinstance.profilo.area_geografica=response.area_geografica;
+                    storeinstance.profilo.bio=response.bio;
+                    storeinstance.profilo.cognome=response.cognome;
+                    storeinstance.profilo.nome=response.nome;
+                    storeinstance.profilo.immagine=response.immagine;
+                    
                 });
                 
             }

@@ -30,6 +30,9 @@ export const useProfiloStore = defineStore('profilo', {
             this.profilo.bio='';
             this.profilo.metodo_di_registrazione='';
         },
+        isProfiloPresente() {
+            return this.profilo.email !== '' && this.profilo.nome !== '' ;
+        }
     },
 
     persist: true,

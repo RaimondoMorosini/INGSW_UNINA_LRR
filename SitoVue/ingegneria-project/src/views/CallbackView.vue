@@ -58,7 +58,7 @@ onUnmounted(async () => {
             console.log('profilo.nome', profiloStore.profilo.nome);
             profiloStore.profilo.immagine= user.value.picture;
             profiloStore.profilo.email = user.value.email;
-
+            router.push({ name: 'profilo' });
 
         } else {
             console.error('token non ottenuto');
@@ -71,6 +71,7 @@ onUnmounted(async () => {
     }
 
 });
-
 console.log('isAuthenticated', isAuthenticated.value);
+
+
 </script>
