@@ -21,11 +21,7 @@
 
         <div class="Bio rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
             <h1 class="text-xl">Bio:</h1>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime ex delectus
-                obcaecati! Molestiae, dicta in error cupiditate, soluta similique cumque deleniti
-                impedit sapiente ex itaque mollitia amet dolores perspiciatis. Provident?
-            </p>
+            <p>{{ instanceStoreProfilo.profilo.bio }}</p>
         </div>
 
         <div class="Indirizzo rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
