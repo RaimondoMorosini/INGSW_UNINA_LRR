@@ -31,7 +31,7 @@
         <div class="my-6">
         <FloatLabel variant="on">
           <label for="bio" class="block text-gray-700 font-bold mb-2">Biografia</label>
-          <Textarea rows="4" cols="50" type="bio" v-model="newbio" id="bio" class=" textarea shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          <Textarea rows="4" cols="50" type="bio" v-model="newbio" id="bio" class="textarea shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
         </FloatLabel>
         </div>
         <div class="my-6">
