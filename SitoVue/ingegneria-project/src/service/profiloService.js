@@ -1,5 +1,5 @@
-import {getRest,getRestWithtoken} from '../scripts/RestUtils.js';
-
+import {getRest,getRestWithtoken,postRestWithtoken} from '../scripts/RestUtils.js';
+import { convertiDaSrcToFile } from './PhotoService.js';
 const datiPublichi = {
     nome: '',
     cognome: '',
@@ -57,4 +57,34 @@ export async function isProfiloCompletato(){
     } else {
         return false;
     }
+
  }
+
+ 
+export async function modificaProfiloPublico(nome,cognome,indirizzo, bio,sitiSocial,immagineProfiloBase64, nomeImmmagine) {
+    const formData = new FormData();
+    formData.append('nome', nome);
+    formData.append('cognome', cognome);
+    formData.append('indirizzo', indirizzo);
+    formData.append('bio', bio);
+    formData.append('sitiSocial', sitiSocial);
+    const file= convertiDaSrcToFile(immagineProfiloBase64,nomeImmmagine)
+    formData.append('immagineProfilo', file,nomeImmmagine);
+
+    try{
+        const response = await postRestWithtoken('/utente/modificaProfilo',formData);
+        if( response){
+            console.log("dati modificati con sucesso"+response )
+            return response;
+        }
+        console.log("Errore nella modifica del profilo");
+    }catch (error) {
+        console.error('Errore:', error);
+    }  
+    return null;
+    
+
+}
+
+
+
