@@ -177,7 +177,7 @@ const setTipoAsteSelezionate = () => {
 
         console.log("selectedAuctionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn:",selectedAuction)
 
-        tipoAstaCercata.value = ref([]);
+        tipoAstaCercata.value = [];
 
         selectedAuction.value.forEach((asta) => {
             switch (asta.name) {
@@ -195,7 +195,7 @@ const setTipoAsteSelezionate = () => {
             }
         });
     } catch (error) {
-        tipoAstaCercata.value = ref([]);
+        tipoAstaCercata.value = [];
     }
 };
 
