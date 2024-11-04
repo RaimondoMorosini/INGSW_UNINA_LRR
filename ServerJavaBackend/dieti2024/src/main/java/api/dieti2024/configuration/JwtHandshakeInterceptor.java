@@ -29,38 +29,53 @@ public class JwtHandshakeInterceptor implements ChannelInterceptor {
 
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
-        StompHeaderAccessor headerAccessor= StompHeaderAccessor.wrap(message);
+        StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(message);
+
+        // Verifica se il comando è SUBSCRIBE
         if (StompCommand.SUBSCRIBE.equals(headerAccessor.getCommand())) {
-            if(headerAccessor.getDestination().contains("notifichePersonali")){
+            if (headerAccessor.getDestination().contains("notifichePersonali")) {
                 String sessionID = headerAccessor.getSessionId();
                 String authorizationHeader = headerAccessor.getFirstNativeHeader("Authorization");
+
+                // Controlla la presenza e la validità dell'intestazione 'Authorization'
                 if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
                     throw new ApiException("Errore nell'intestazione 'Authorization': assicurati di includere un token valido che inizi con 'Bearer ' e che non sia scaduto.", HttpStatus.BAD_REQUEST);
                 }
 
                 String token = authorizationHeader.substring(7);
-                if(!jwtUtils.isTokenValid(token)){
+
+                // Verifica la validità del token
+                if (!jwtUtils.isTokenValid(token)) {
                     throw new ApiException("Il token fornito non è valido. Controlla se è scaduto o se è stato modificato.", HttpStatus.UNAUTHORIZED);
                 }
-                try {
-                    String usernameFromDestination= getEmailFromDestination(headerAccessor);
-                    String usernameFromToken= jwtUtils.getUsername(token);
-                    if(usernameFromToken.compareToIgnoreCase(usernameFromDestination)!=0){
-                        throw new ApiException("TODO",HttpStatus.NOT_IMPLEMENTED);
-                    }
-                    utentiConnessi.aggiungiUtente(usernameFromToken,headerAccessor.getSessionId());
 
-                }catch (Exception e) {
-                    throw new ApiException("TODO",HttpStatus.NOT_IMPLEMENTED);
+                try {
+                    // Estrae l'username dalla destinazione e dal token
+                    String usernameFromDestination = getEmailFromDestination(headerAccessor);
+                    String usernameFromToken = jwtUtils.getUsername(token);
+
+                    // Confronta i due username
+                    if (!usernameFromToken.equalsIgnoreCase(usernameFromDestination)) {
+                        throw new ApiException("Utente non autorizzato alla sottoscrizione alla destinazione specificata.", HttpStatus.FORBIDDEN);
+                    }
+
+                    // Aggiungi l'utente alla lista degli utenti connessi
+                    utentiConnessi.aggiungiUtente(usernameFromToken, sessionID);
+
+                } catch (Exception e) {
+                    throw new ApiException("Errore durante la gestione della sottoscrizione.", HttpStatus.INTERNAL_SERVER_ERROR);
                 }
             }
 
-
-        } else if (StompCommand.DISCONNECT.equals(headerAccessor.getCommand())){
-                utentiConnessi.rimuoviIdSessione(headerAccessor.getSessionId());
+            // Verifica se il comando è DISCONNECT
+        } else if (StompCommand.DISCONNECT.equals(headerAccessor.getCommand())) {
+            utentiConnessi.rimuoviIdSessione(headerAccessor.getSessionId());
         }
-        return message;
+
+        // Se tutto è andato a buon fine, richiama il metodo della classe base
+        return ChannelInterceptor.super.preSend(message, channel);
     }
+
 
     private String getEmailFromDestination(StompHeaderAccessor headerAccessor) {
         String input = headerAccessor.getDestination();
