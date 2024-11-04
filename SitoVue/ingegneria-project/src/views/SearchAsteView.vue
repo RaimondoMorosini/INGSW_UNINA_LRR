@@ -175,8 +175,6 @@ const setCategoriaSelezionata = () => {
 const setTipoAsteSelezionate = () => {
     try {
 
-        console.log("selectedAuctionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn:",selectedAuction)
-
         tipoAstaCercata.value = [];
 
         selectedAuction.value.forEach((asta) => {
@@ -307,6 +305,7 @@ const richiestaRicercaFiltrata = async () => {
             parametriBody
         ); //Otteniamo il numero totale delle aste in base al criterio di ricerca (questo numero serve per calcolare il numero totali di pagine)
         numeroAsteTotali.value = response.data; //Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
+        console.log('numeroAsteTotali:', numeroAsteTotali.value);
 
         //Richiesta per ottenere le aste
         response = await axios.post('http://localhost:8081/public/asta/getAllAste', parametriBody); //Otteniamo tutte le aste che corrispondono al criterio di ricerca

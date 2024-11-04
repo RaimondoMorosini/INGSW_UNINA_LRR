@@ -72,6 +72,7 @@ function handleMessage(message) {
         offertaVincente: data.offerta.offertaVincente,
     };
     offerte.value.push(offerta);
+    alert('Offerta ricevuta!');
     utenteUltimaOfferta.value = offerta.emailUtente;
     switch (item.value.tipoAsta) {
         case 'asta_inglese':
