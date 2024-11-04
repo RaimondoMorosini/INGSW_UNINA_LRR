@@ -1,4 +1,5 @@
 import {getRest,getRestWithtoken,postRestWithtoken} from '../scripts/RestUtils.js';
+import { useProfiloStore } from '../stores/profiloStore.js';
 import { convertiDaSrcToFile } from './PhotoService.js';
 const datiPublichi = {
     nome: '',
@@ -75,6 +76,7 @@ export async function modificaProfiloPublico(nome,cognome,indirizzo, bio,sitiSoc
         const response = await postRestWithtoken('/utente/modificaProfilo',formData);
         if( response){
             console.log("dati modificati con sucesso"+response )
+            aggiornaProfilo()
             return response;
         }
         console.log("Errore nella modifica del profilo");
@@ -87,4 +89,8 @@ export async function modificaProfiloPublico(nome,cognome,indirizzo, bio,sitiSoc
 }
 
 
-
+export async function aggiornaProfilo(){
+    const email = useProfiloStore().profilo.email;
+    const datiiProfiloAggiornato = getDatiProfiloPublichi(email)
+    useProfiloStore().updateProfilo(datiiProfiloAggiornato)
+}

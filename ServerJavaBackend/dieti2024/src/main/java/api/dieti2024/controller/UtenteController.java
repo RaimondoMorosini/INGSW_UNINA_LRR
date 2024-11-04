@@ -55,9 +55,13 @@ public class UtenteController {
         String email = ControllerRestUtil.getEmailOfUtenteCorrente();
         String linkOut="";
         try {
+            utenteService.modificaProfilo(email, modificaProfiloDTO);
             String path = "imgProfilo-" + email+".jpg" ;
             linkOut=imageContainerUtil.uploadImage(imgFIle,path) ;
             return ResponseEntity.ok("Immagine salvata con successo: "+linkOut+"\n"+modificaProfiloDTO.toString());
+
+
+
         } catch (ApiException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         } catch (Exception e) {

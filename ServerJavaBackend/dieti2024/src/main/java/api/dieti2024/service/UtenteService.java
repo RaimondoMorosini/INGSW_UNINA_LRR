@@ -1,16 +1,23 @@
 package api.dieti2024.service;
 
+import api.dieti2024.dto.ModificaProfiloDTO;
 import api.dieti2024.dto.auth.UserDetailsDto;
 import api.dieti2024.dto.utente.ProfiloUtentePublicoDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Utente;
 import api.dieti2024.repository.UserRepository;
+import api.dieti2024.util.ImageContainerUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class UtenteService {
+
+
+    @Autowired
+    ImageContainerUtil imageContainerUtil;
 
     private final UserRepository utenteRepository;
 
@@ -58,5 +65,25 @@ public class UtenteService {
 
     public Boolean isProfiloCompleto(String email) {
     return utenteRepository.isProfiloCompleto(email);
+    }
+
+    public void modificaProfilo(String email, ModificaProfiloDTO modificaProfiloDTO) {
+        Utente utente = getUtenteByEmail(email);
+        utente.setNome(modificaProfiloDTO.nome());
+        utente.setCognome(modificaProfiloDTO.cognome());
+        utente.setBio(modificaProfiloDTO.bio());
+        utente.setSiti(modificaProfiloDTO.sitiSocial().toString());
+        utente.setAreaGeografica(modificaProfiloDTO.indirizzo());
+        if(modificaProfiloDTO.immagineProfilo()!=null){
+            try {
+                String linkImmagine= imageContainerUtil.uploadImage(modificaProfiloDTO.immagineProfilo(),"immagineProfilo-"+email+".jpg");
+                utente.setFotoProfilo(linkImmagine);
+            }catch (Exception e){
+                //DO nothing
+            }
+        }
+        utenteRepository.save(utente);
+
+
     }
 }
