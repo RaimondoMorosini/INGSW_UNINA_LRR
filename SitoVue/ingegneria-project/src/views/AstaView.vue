@@ -31,7 +31,7 @@ const astaId = route.params.id;
 const item = ref(null);
 const offerte = ref(null);
 const utenteUltimaOfferta = ref(null);
-const stomp1 = ref(null);
+const disconnesioneFunction  = ref(null);
 const datiExtra = ref(null);
 
 onMounted(async () => {
@@ -52,12 +52,12 @@ onMounted(async () => {
         console.log('Errore durante il carimento delle offerte:', e);
     }
     console.log('datiExtra:', datiExtra.value);
-    stomp1.value = mantieniAggiornamenti('/asta/' + astaId, handleMessage);
+    disconnesioneFunction .value = mantieniAggiornamenti('/asta/' + astaId, handleMessage);
 });
 
 onUnmounted(() => {
     console.log('mounted');
-    disconnettiti(stomp1.value);
+    disconnesioneFunction .value();
 });
 
 function handleMessage(message) {
