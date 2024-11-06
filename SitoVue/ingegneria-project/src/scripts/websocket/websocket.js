@@ -10,7 +10,13 @@ function mantieniAggiornamenti(topic, callback, jwtToken = null) {
     stompClient.debug = (message) => {
         // Controlla se il messaggio è un PING o PONG e non loggarlo
         if (!message.includes('PING') && !message.includes('PONG')) {
-            console.log("messaggio:",message);
+            //if message is undefine 
+            if(message === undefined){
+            //do nothing
+            }else{
+
+                console.log("messaggio:",message);
+            }    
         }
     };
     
@@ -40,7 +46,7 @@ function mantieniAggiornamenti(topic, callback, jwtToken = null) {
             );
         },
         (error) => {
-            console.error('Errore durante la connessione WebSocket', ':', error);
+            console.log('Errore durante la connessione WebSocket', ':', error);
         }
     );
 
