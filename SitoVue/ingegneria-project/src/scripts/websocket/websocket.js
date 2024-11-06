@@ -31,7 +31,7 @@ function mantieniAggiornamenti(topic, callback, jwtToken = null) {
             },
             (error) => {
                 console.log('Errore durante la connessione WebSocket:', error);
-                setTimeout(connect, 5000);  // Riprova la connessione dopo 5 secondi
+                setTimeout(connect, 1000);  // Riprova la connessione dopo 5 secondi
             }
         );
     };
