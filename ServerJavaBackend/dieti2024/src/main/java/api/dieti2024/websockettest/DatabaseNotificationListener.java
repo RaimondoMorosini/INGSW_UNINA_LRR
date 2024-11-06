@@ -2,6 +2,7 @@ package api.dieti2024.websockettest;
 
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Offerta;
+import api.dieti2024.model.Notifica;
 import api.dieti2024.util.JsonUtil;
 import api.dieti2024.util.WebSocketUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,6 +28,7 @@ public class DatabaseNotificationListener {
     private DataSource dataSource;
 
     private PGConnection pgConnection;
+
     @Autowired
     private WebSocketUtil webSocketUtil;
 
@@ -37,11 +39,12 @@ public class DatabaseNotificationListener {
 
             try (Statement stmt = conn.createStatement()) {
                 stmt.execute("LISTEN offerta_insert_channel");
+                stmt.execute("LISTEN notifica_insert_channel");
             }
             CompletableFuture.runAsync(this::processNotifications);
 
         } catch (SQLException e) {
-           // e.printStackTrace();
+            // Gestisci l'eccezione
         }
     }
 
@@ -51,39 +54,54 @@ public class DatabaseNotificationListener {
                 PGNotification[] notifications = pgConnection.getNotifications();
                 if (notifications != null) {
                     for (PGNotification notification : notifications) {
+                        String channel = notification.getName();
+                        String payload = notification.getParameter();
 
                         try {
-                            Offerta offerta = JsonUtil.fromJson(notification.getParameter(), Offerta.class);
-                            inviaNotificaNuovaOfferta(offerta);
-                        }catch(ApiException e){
-                            //e.printStackTrace();
+                            if ("offerta_insert_channel".equals(channel)) {
+                                Offerta offerta = JsonUtil.fromJson(payload, Offerta.class);
+                                inviaNotificaOfferta(offerta);
+                            } else if ("notifica_insert_channel".equals(channel)) {
+                                Notifica notifica = JsonUtil.fromJson(payload, Notifica.class);
+                                inviaNotificaPersonale(notifica);
+                            }
+                        } catch (ApiException e) {
+                            // Gestisci l'ApiException
+                        } catch (Exception e) {
+                            // Gestisci altre eccezioni
                         }
-                        catch (Exception e) {
-                            //e.printStackTrace();
-                        }
-
                     }
                 }
-
                 Thread.sleep(500);
             } catch (SQLException | InterruptedException e) {
-                //e.printStackTrace();
+                // Gestisci l'eccezione
             }
         }
     }
-    private void inviaNotificaNuovaOfferta(Offerta offerta) {
+
+    private void inviaNotificaOfferta(Offerta offerta) {
         Map<String, Object> messageMap = new HashMap<>();
         messageMap.put("message", "Un utente ha fatto un'offerta:");
         messageMap.put("offerta", offerta);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonMessage = "";
-        try {
-            jsonMessage = objectMapper.writeValueAsString(messageMap);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        webSocketUtil.inviaMessaggio(jsonMessage, "/asta/" + offerta.getAstaId());
+        inviaMessaggioWebSocket(messageMap, "/asta/" + offerta.getAstaId());
+    }
 
+    private void inviaNotificaPersonale(Notifica notifica) {
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("message", "Hai una nuova notifica personale:");
+        messageMap.put("notifica", notifica);
+
+        inviaMessaggioWebSocket(messageMap, "/notifichePersonali/" + notifica.getUtente());
+    }
+
+    private void inviaMessaggioWebSocket(Map<String, Object> messageMap, String destination) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String jsonMessage = objectMapper.writeValueAsString(messageMap);
+            webSocketUtil.inviaMessaggio(jsonMessage, destination);
+        } catch (JsonProcessingException e) {
+            System.out.println("Errore nella formattazione del messaggio JSON per WebSocket");
+        }
     }
 }
