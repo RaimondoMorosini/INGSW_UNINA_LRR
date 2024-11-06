@@ -1,92 +1,141 @@
 <template>
-
-    <div class="flex flex-col gap-3 rounded px-2 py-1 mx-auto w-[80%] my-2.5">
-
-        <div class=" flex flex-col">
-            <Dropdown @change="onClickOpzione()" v-model="opzioneSelezionata" :options="opzioniNotifiche"
-                optionLabel="name" placeholder="Ordina per" class="dimensione font-bold" />
-        </div>
-
-        <Card class="h-[300px] overflow-y-scroll">
-            <template #title>
-                {{ titoloOpzione }}
-            </template>
-            <template #content v-if="notifiche">
-                <Accordion @click="onClickNotifica" v-for="(notifica,index) in notifiche">
-                    <AccordionTab :header="notifica.oggettoDellaNotifica">
-                        {{ notifica.messaggio }}
-                    </AccordionTab>
-                </Accordion>
-            </template>
-        </Card>
-
-        <Paginator :rows="5" :totalRecords="numeroNotifiche" @page="onPage"></Paginator>
-
+  <div class="notification-container">
+    <h1>Notifiche</h1>
+    <div class="notification-summary">
+      <p>Numero totale di notifiche: {{ totalNotifications }}</p>
+      <p>Numero di notifiche da leggere: {{ unreadNotifications }}</p>
     </div>
 
+    <div class="filter-sort">
+      <label for="filter">Filtra:</label>
+      <select v-model="filter" id="filter">
+        <option value="all">Tutte</option>
+        <option value="read">Visualizzate</option>
+        <option value="unread">Non visualizzate</option>
+      </select>
+
+      <label for="sort">Ordina per data:</label>
+      <select v-model="sortOrder" id="sort">
+        <option value="asc">Crescente</option>
+        <option value="desc">Decrescente</option>
+      </select>
+    </div>
+
+    <ul>
+      <li v-for="notification in filteredNotifications" :key="notification.id">
+        <notificheItem
+          :id="notification.id"
+          :astaId="notification.AstaId"
+          :title="'Notifica ' + notification.oggettoDellaNotifica"
+          :message="notification.messaggio"
+          :date="new Date(notification.dataUnixTimeMilliseconds).toLocaleString()"
+          :isRead="notification.visualizzato"
+          @mark-as-read="segnaNotificaComeLetta"
+        />
+      </li>
+    </ul>
+    <button @click="loadMore">Carica di più</button>
+    <button @click="fetchNotifications">Aggiorna</button>
+  </div>
 </template>
 
 <script setup>
-import { ref,onMounted } from 'vue';
-import Dropdown from 'primevue/dropdown';
-import Card from 'primevue/card';
-import Paginator from 'primevue/paginator';
-import Accordion from 'primevue/accordion';
-import AccordionTab from 'primevue/accordiontab';
-import { getNotificheNonLette } from '../../service/notifiche';
+import { ref, onMounted, computed } from 'vue';
+import { getNotifiche, getNumeroDiNotificheNonLette, getNumeroNotifiche } from '../../service/notificheService';
+import notificheItem from './notificheItem.vue';
 
+const notifications = ref([]);
+const totalNotifications = ref(0);
+const unreadNotifications = ref(0);
+const currentPage = ref(1);
+const notificationsPerPage = 5;
+const filter = ref('all');
+const sortOrder = ref('asc');
 
-const opzioneSelezionata = ref(null);
-const opzioniNotifiche = ref([
-    { name: 'Notifiche da leggere' },
-    { name: 'Tutte le notifiche ordinati per data (più recenti)' },
-    { name: 'Tutte le notifiche ordinati per data (meno recenti)' },
-]);
-const props = defineProps([
-    'numeroNotificheNonLette',
-]);
-const numeroNotificheNonLette = ref();
-const titoloOpzione = ref('Notifiche da leggere');
-const numeroPagina = ref(0);
-const notifiche = ref();
+const fetchNotifications = async () => {
+  try {
+    totalNotifications.value = await getNumeroNotifiche();
+    console.log('totalNotifications:', totalNotifications.value);
+    unreadNotifications.value = await getNumeroDiNotificheNonLette();
+    notifications.value = await getNotifiche(currentPage.value, notificationsPerPage);
+    console.log('notifications:', notifications.value);
 
-onMounted(async () => {
+  } catch (error) {
+    console.error('Error fetching notifications:', error);
+  }
+};
 
-    opzioneSelezionata.value = { name: 'Notifiche da leggere' };
-    numeroNotificheNonLette.value = props.numeroNotificheNonLette;
+const loadMore = async () => {
+  currentPage.value++;
+  const newNotifications = await getNotifiche(currentPage.value, notificationsPerPage);
+  notifications.value.push(...newNotifications);
+};
 
-    const parametriRichiestaNotificheNonLette = {
+function segnaNotificaComeLetta(id) {
+  const notification = notifications.value.find((n) => n.id === id);
+  if (notification) {
+    notification.visualizzato = true;
+    alert(`Segna come letta la notifica ${notification.id}`);
+  }
+}
 
-        numeroElementi: 5,
-        numeroPagina: 0
-    };
+const filteredNotifications = computed(() => {
+  let filtered = notifications.value;
 
-    if(numeroNotificheNonLette.value > 0) {
+  // Filtro in base allo stato di lettura
+  if (filter.value === 'read') {
+    filtered = filtered.filter(n => n.visualizzato);
+  } else if (filter.value === 'unread') {
+    filtered = filtered.filter(n => !n.visualizzato);
+  }
 
-        try {
+  // Ordinamento in base alla data
+  filtered.sort((a, b) => {
+    const dateA = new Date(a.dataUnixTimeMilliseconds);
+    const dateB = new Date(b.dataUnixTimeMilliseconds);
+    return sortOrder.value === 'asc' ? dateA - dateB : dateB - dateA;
+  });
 
-            notifiche.value = await getNotificheNonLette(parametriRichiestaNotificheNonLette);
-
-        } catch (e) {
-
-            console.error("get notifiche fallitoooooo:", e);
-        }
-    }
+  return filtered;
 });
 
-const onClickOpzione = () => {
-
-    titoloOpzione.value = opzioneSelezionata.value.name;
-};
-
-const onPage = (event) => {
-
-    console.log(event.page + 1);
-};
-
-const onClickNotifica = () => {
-    
-    numeroNotificheNonLette.value--;
-};
-
+onMounted(() => {
+  fetchNotifications();
+});
 </script>
+
+<style scoped>
+.notification-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.notification-summary {
+  margin-bottom: 20px;
+}
+
+.filter-sort {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+</style>

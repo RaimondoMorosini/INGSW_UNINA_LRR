@@ -42,6 +42,7 @@ public class NotificaService {
 
         listaDiNotifiche.forEach(notifica -> {
             NotificaDTO notificaDTO = NotificaDTO.builder()
+                    .id(notifica.getId())
                     .emailUtente(notifica.getUtente())
                     .dataUnixTimeMilliseconds(notifica.getDataUnixTimeMilliseconds())
                     .oggettoDellaNotifica(notifica.getOggettoMessaggio())

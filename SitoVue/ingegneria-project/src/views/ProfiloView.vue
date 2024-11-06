@@ -34,7 +34,7 @@
         <InfoProfilo />
     </div>
     <div v-else-if="pagina === 2">
-        <Notifiche v-if="numeroNotificheDaLeggere" :numeroNotificheNonLette="numeroNotificheDaLeggere" @emitNotifica="clickNotifica($event)"/>
+        <Notifiche  @emitNotifica="clickNotifica($event)"/>
     </div>
     <div v-else-if="pagina === 3">
         <AstePersonali />
@@ -86,7 +86,7 @@ watch(() => storeinstance.profilo.isAutenticato, (newVal, oldVal) => {
         });
     }
 });
-import { getNumeroDiNotificheNonLette } from '../service/notifiche';
+import { getNumeroDiNotificheNonLette } from '../service/notificheService';
 
 const numeroNotificheDaLeggere = ref();
 

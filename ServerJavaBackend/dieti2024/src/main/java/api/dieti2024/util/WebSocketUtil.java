@@ -12,6 +12,7 @@ public class WebSocketUtil {
     }
     //inviaMessaggio a una socket specifica
     public void inviaMessaggio(String messaggio, String destinatario) {
+        System.out.println("Invio messaggio a " + destinatario);
         simpleMessagingTemplate.convertAndSend(destinatario, messaggio);
     }
 }

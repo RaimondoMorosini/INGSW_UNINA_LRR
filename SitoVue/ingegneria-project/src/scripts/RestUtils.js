@@ -47,7 +47,6 @@ async function getRestWithtoken(path,dati) {
 
     } catch (error) {
         delete axios.defaults.headers.common['Authorization'];
-        console.error(error);
         throw new Error("Impossibile ottenere l'elemento dal server" + error);
     }
 }
