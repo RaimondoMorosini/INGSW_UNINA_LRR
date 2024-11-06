@@ -51,7 +51,6 @@ public class ListenerPerLeNotifiche {
                 PGNotification[] notifications = pgConnection.getNotifications();
                 if (notifications != null) {
                     for (PGNotification notification : notifications) {
-                        System.out.println("Received notification per notifica: " + notification.getParameter());
 
                         try {
                             Notifica notifica = JsonUtil.fromJson(notification.getParameter(), Notifica.class);

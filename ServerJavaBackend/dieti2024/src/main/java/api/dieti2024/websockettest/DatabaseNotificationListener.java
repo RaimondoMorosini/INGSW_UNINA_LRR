@@ -51,7 +51,6 @@ public class DatabaseNotificationListener {
                 PGNotification[] notifications = pgConnection.getNotifications();
                 if (notifications != null) {
                     for (PGNotification notification : notifications) {
-                        System.out.println("Received notification: " + notification.getParameter());
 
                         try {
                             Offerta offerta = JsonUtil.fromJson(notification.getParameter(), Offerta.class);
@@ -84,7 +83,6 @@ public class DatabaseNotificationListener {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        System.out.println("Invio messaggio: " + jsonMessage);
         webSocketUtil.inviaMessaggio(jsonMessage, "/asta/" + offerta.getAstaId());
 
     }
