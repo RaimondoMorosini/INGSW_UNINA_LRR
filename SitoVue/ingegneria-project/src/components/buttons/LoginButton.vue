@@ -1,6 +1,6 @@
 <template>
     <Button severity="secondary" @click="handleLogin" class="button__login"
-        ><span class="font-bold ">Log In</span></Button
+        ><span class="font-bold">Log In</span></Button
     >
 </template>
 
@@ -26,12 +26,12 @@ const handleLogin = () => {
 
 <style scoped>
 .my-custom-button {
-  background-color: var(--secondary-color);
-  color: var(--secondary-color-text);
+    background-color: var(--secondary-color);
+    color: var(--secondary-color-text);
 }
 
 .my-custom-button:hover {
-    --secondary-color: #3F3F46; 
-    --secondary-color-text: #D4D4D8;     /* Optional: Text color for better contrast */
+    --secondary-color: #3f3f46;
+    --secondary-color-text: #d4d4d8; /* Optional: Text color for better contrast */
 }
 </style>

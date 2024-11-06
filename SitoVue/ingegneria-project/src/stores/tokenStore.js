@@ -14,7 +14,6 @@ export const useTokenStore = defineStore('token', {
         clearAccessToken() {
             this.token = null;
         },
-        
     },
 
     persist: true,
