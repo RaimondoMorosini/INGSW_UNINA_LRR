@@ -1,11 +1,10 @@
 <template>
-  <form @submit.prevent="handleSubmit">
-    <div
-        class="fluid grid grid-cols-1 lg:grid-cols-2 w-screen items-center justify-center rounded-lg bg-zinc-200 p-8 shadow-md gap-2"
-    >
-        
+    <form @submit.prevent="handleSubmit">
+        <div
+            class="fluid grid w-screen grid-cols-1 items-center justify-center gap-2 rounded-lg bg-zinc-200 p-8 shadow-md lg:grid-cols-2"
+        >
             <div class="fluid w-full">
-                <div class="avatar-container mx-auto items-center lg-items-end justify-center">
+                <div class="avatar-container lg-items-end mx-auto items-center justify-center">
                     <div class="image-container">
                         <img
                             v-if="newImageURL?.value"
@@ -17,7 +16,7 @@
                             v-else
                             src="../../assets/img/placeholder/PlaceholderProfile.png"
                             alt="default image"
-                            class="preview-image overflow-hidden rounded-full items-center justify-center mx-auto"
+                            class="preview-image mx-auto items-center justify-center overflow-hidden rounded-full"
                         />
                     </div>
                     <label for="avatar-input-file">
@@ -33,7 +32,6 @@
                     </label>
                 </div>
             </div>
-         
 
             <div class="fluid w-full">
                 <div class="rounded-lg bg-white p-8 shadow-md">
@@ -80,10 +78,17 @@
                             </FloatLabel>
                         </div>
                         <div class="my-6">
-                          <FloatLabel variant="on">
-                              <AutoComplete multiple fluid v-model="newSitiSocial" inputId=" sitiSocial" :suggestions="items" @complete="search" />
-                              <label for=" sitiSocial">Siti Social</label>
-                          </FloatLabel>
+                            <FloatLabel variant="on">
+                                <AutoComplete
+                                    multiple
+                                    fluid
+                                    v-model="newSitiSocial"
+                                    inputId=" sitiSocial"
+                                    :suggestions="socialMediaList"
+                                    @complete="search"
+                                />
+                                <label for=" sitiSocial">Siti Social</label>
+                            </FloatLabel>
                         </div>
                         <div class="flex items-center justify-between">
                             <Button
@@ -95,9 +100,8 @@
                     </form>
                 </div>
             </div>
-        
-    </div>
-  </form>
+        </div>
+    </form>
 </template>
 
 <script setup>
@@ -108,7 +112,7 @@ import { onMounted, ref } from 'vue';
 import FloatLabel from 'primevue/floatlabel';
 import { useProfiloStore } from '../../stores/profiloStore.js';
 import { modificaProfiloPublico } from '../../service/profiloService';
-import {socialMediaService} from '../../service/socialMediaService.js'
+import { socialMediaService } from '../../service/socialMediaService.js';
 import AutoComplete from 'primevue/autocomplete';
 
 const profiloStoreInstance = useProfiloStore();
@@ -116,15 +120,17 @@ const profiloStoreInstance = useProfiloStore();
 const newNome = ref(profiloStoreInstance.profilo.nome);
 const newbio = ref(profiloStoreInstance.profilo.bio);
 const newPassword = ref(profiloStoreInstance.profilo.password);
-const newSitiSocial = ref('')
+
+const sitiSocial = ref();
+const newSitiSocial = ref();
 const socialMediaList = ref([]);
 const newImageURL = ref(null);
 
-onMounted(()=>{
-  socialMediaService.getSocialMedia().then((response) => {
-    socialMediaList.value = response;
-  });
-})
+onMounted(() => {
+    socialMediaService.getSocialMedia().then((response) => {
+        socialMediaList.value = response;
+    });
+});
 
 function handleImageUpload(event) {
     const file = event.target.files[0];
@@ -167,8 +173,16 @@ function handleSubmit() {
 }
 
 const search = (event) => {
-    items.value = [...Array(10).keys()].map((item) => event.query + '-' + item);
-}
+    setTimeout(() => {
+        if (!event.query.trim().length) {
+            socialMediaList.value = [...sitiSocial.value];
+        } else {
+            socialMediaList.value = sitiSocial.value.filter((social) => {
+                return social.name.toLowerCase().startsWith(event.query.toLowerCase());
+            });
+        }
+    }, 250);
+};
 </script>
 
 <style scoped>

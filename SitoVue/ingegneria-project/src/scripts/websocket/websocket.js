@@ -10,7 +10,7 @@ function mantieniAggiornamenti(topic, callback, jwtToken = null) {
     stompClient.debug = (message) => {
         // Controlla se il messaggio è un PING o PONG e non loggarlo
         if (!message.includes('PING') && !message.includes('PONG')) {
-            console.log("messaggio:",message);
+            console.log('messaggio:', message);
         }
     };
 

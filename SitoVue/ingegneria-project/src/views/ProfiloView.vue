@@ -38,15 +38,15 @@
         <InfoProfilo />
     </div>
     <div v-else-if="pagina === 2">
-<<<<<<< Updated upstream
-        <Notifiche  @emitNotifica="clickNotifica($event)"/>
-=======
+        <<<<<<< Updated upstream
+        <Notifiche @emitNotifica="clickNotifica($event)" />
+        =======
         <Notifiche
             v-if="numeroNotificheDaLeggere"
             :numeroNotificheNonLette="numeroNotificheDaLeggere"
             @emitNotifica="clickNotifica($event)"
         />
->>>>>>> Stashed changes
+        >>>>>>> Stashed changes
     </div>
     <div v-else-if="pagina === 3">
         <AstePersonali />

@@ -14,7 +14,6 @@ const storeinstance = useProfiloStore();
 const handleLogin = () => {
     storeinstance.logout();
     eliminaDato('token');
-    
 
     loginWithRedirect({
         appState: {
