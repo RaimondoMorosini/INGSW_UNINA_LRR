@@ -141,7 +141,7 @@ onMounted(async () => {
 
     caratteristicheSelezionate.value = JSON.parse(route.query.lista);
 
-    selectedAuction.value = inizializzaAsteSelezionate(JSON.parse(route.query.tipoAsta));
+    selectedAuction.value = inizializzaAsteSelezionate(route.query.tipoAsta);
 
     richiestaRicercaFiltrata();
 });
@@ -242,7 +242,7 @@ const onClickCerca = () => {
             elementiPerPagina: 5,
             categoria: categoriaCercata.value,
             nomeProdotto: nomeProdottoCercato.value,
-            tipoAsta: JSON.stringify(tipoAstaCercata.value),
+            tipoAsta: tipoAstaCercata.value,
             prezzoMin: prezzoMin.value,
             prezzoMax: prezzoMax.value,
             campoOrdinamento: nomeOrdinamento.value,
@@ -260,7 +260,7 @@ watch(
             //Aggiorna input
             selectedCategory.value = { [route.query.categoria]: true };
             categoriaCercata.value = route.query.categoria;
-            tipoAstaCercata.value = JSON.parse(route.query.tipoAsta);
+            tipoAstaCercata.value = route.query.tipoAsta;
 
             caratteristicheSelezionate.value = JSON.parse(route.query.lista);
 
@@ -287,7 +287,8 @@ const richiestaRicercaFiltrata = async () => {
         elementiPerPagina: 5,
         categoria: route.query.categoria,
         nomeProdotto: route.query.nomeProdotto,
-        tipoAsta: JSON.parse(route.query.tipoAsta),
+        //tipoAsta: JSON.parse(route.query.tipoAsta),
+        tipoAsta: route.query.tipoAsta,
         caratteristicheSelezionate: JSON.parse(route.query.lista),
         prezzoMin: route.query.prezzoMin,
         prezzoMax: route.query.prezzoMax,
