@@ -10,10 +10,10 @@ function mantieniAggiornamenti(topic, callback, jwtToken = null) {
     stompClient.debug = (message) => {
         // Controlla se il messaggio è un PING o PONG e non loggarlo
         if (!message.includes('PING') && !message.includes('PONG')) {
-            console.log("messaggio:",message);
+            console.log('messaggio:', message);
         }
     };
-    
+
     // Configura gli heartbeat in entrata e in uscita per mantenere viva la connessione
     stompClient.heartbeat.outgoing = 10000; // Invia heartbeat ogni 10 secondi
     stompClient.heartbeat.incoming = 10000; // Attendi heartbeat dal server ogni 10 secondi
@@ -31,12 +31,13 @@ function mantieniAggiornamenti(topic, callback, jwtToken = null) {
             console.log('Connesso al server WebSocket e al topic:', topic);
 
             stompClient.subscribe(
-                topic, 
+                topic,
                 (message) => {
                     console.log('Messaggio ricevuto dal topic: ', topic);
                     callback(message.body);
-                    headers
-                },headers
+                    headers;
+                },
+                headers
             );
         },
         (error) => {
@@ -51,7 +52,7 @@ function mantieniAggiornamenti(topic, callback, jwtToken = null) {
             mantieniAggiornamenti(topic, callback, jwtToken); // Passa il token anche durante la riconnessione
         }, 5000); // 5 secondi di attesa prima di riconnettersi
     };
-    
+
     return stompClient;
 }
 

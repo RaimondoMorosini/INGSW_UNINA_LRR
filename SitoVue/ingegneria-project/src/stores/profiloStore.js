@@ -19,21 +19,21 @@ export const useProfiloStore = defineStore('profilo', {
         updateProfilo(newData) {
             this.profilo = { ...this.profilo, ...newData };
         },
-        logout(){
-            this.profilo.isAutenticato=false;
-            this.profilo.email='';
-            this.profilo.password='';
-            this.profilo.nome='';
-            this.profilo.cognome='';
-            this.profilo.immagineSalvata=[];
-            this.profilo.siti='';
-            this.profilo.area_geografica='';
-            this.profilo.bio='';
-            this.profilo.metodo_di_registrazione='';
+        logout() {
+            this.profilo.isAutenticato = false;
+            this.profilo.email = '';
+            this.profilo.password = '';
+            this.profilo.nome = '';
+            this.profilo.cognome = '';
+            this.profilo.immagineSalvata = [];
+            this.profilo.siti = '';
+            this.profilo.area_geografica = '';
+            this.profilo.bio = '';
+            this.profilo.metodo_di_registrazione = '';
         },
         isProfiloPresente() {
-            return this.profilo.email !== '' && this.profilo.nome !== '' ;
-        }
+            return this.profilo.email !== '' && this.profilo.nome !== '';
+        },
     },
 
     persist: true,

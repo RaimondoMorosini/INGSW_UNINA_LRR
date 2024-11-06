@@ -16,20 +16,16 @@
             <template v-else>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'profilo' }">
-                        <Button severity="secondary" class="w-[100%]   "
-                            ><span class="font-bold  "
-                                >Ciao {{ profiloStore.profilo.nome}}</span
-                            >
+                        <Button severity="secondary" class="w-[100%]"
+                            ><span class="font-bold">Ciao {{ profiloStore.profilo.nome }}</span>
                             <Badge v-if="checked"></Badge>
-
-                            </Button
-                        >
+                        </Button>
                     </RouterLink>
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'about' }">
-                        <Button  severity="secondary" class="w-[100%]   "
-                            ><span class="font-bold  ">Le Tue Aste</span></Button
+                        <Button severity="secondary" class="w-[100%]"
+                            ><span class="font-bold">Le Tue Aste</span></Button
                         >
                     </RouterLink>
                 </li>
@@ -38,10 +34,8 @@
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <RouterLink :to="{ name: 'creaAsta' }">
-                        <Button
-                            label="Crea Asta"
-                            class="sp-button w-[100%]"
-                            ><span class="font-bold  ">Crea Asta</span></Button
+                        <Button label="Crea Asta" class="sp-button w-[100%]"
+                            ><span class="font-bold">Crea Asta</span></Button
                         >
                     </RouterLink>
                 </li>
@@ -50,7 +44,7 @@
     </div>
 
     <span class="absolute right-6 top-8 lg:hidden">
-        <Button @click="MenuOpen()" size="small" plain  severity="secondary" class=" ">
+        <Button @click="MenuOpen()" size="small" plain severity="secondary" class=" ">
             <i :class="[open ? 'pi pi-times icon-size' : 'pi pi-bars icon-size']"></i>
         </Button>
     </span>
@@ -64,14 +58,12 @@ import LogoutButton from '@/components/buttons/LogOut.vue';
 import LoginButton from '@/components/buttons/LoginButton.vue';
 import SignupButton from '@/components/buttons/SignUp.vue';
 import { useAuth0 } from '@auth0/auth0-vue';
-import { ref,onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 import { useProfiloStore } from '../../stores/profiloStore';
 import { on } from 'ws';
 
 const checked = ref(false);
 const profiloStore = useProfiloStore();
-
-    
 
 const open = ref(false);
 function MenuOpen() {

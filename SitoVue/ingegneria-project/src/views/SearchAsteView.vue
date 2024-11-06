@@ -10,7 +10,7 @@
             <InputText
                 v-model="nomeProdottoCercato"
                 placeholder="Search"
-                class="w-[100%] rounded-r   "
+                class="w-[100%] rounded-r"
             >
                 <template #imputtexticon>
                     <i class="pi pi-search" style="color: #424242"></i>
@@ -30,7 +30,7 @@
                 :options="gerarchiaCategorie"
                 option-label="name"
                 placeholder="Seleziona Categoria"
-                class="w-[100%] rounded-r   "
+                class="w-[100%] rounded-r"
             />
         </InputGroup>
 
@@ -54,17 +54,18 @@
                 optionLabel="name"
                 placeholder="Seleziona aste"
                 :maxSelectedLabels="3"
-                class="w-[100%] rounded-r   "
+                class="w-[100%] rounded-r"
             />
         </InputGroup>
 
         <!-- BOTTONE CERCA-->
-        <Button class="h-14 w-[100%]  lg:w-[10%]" @click="onClickCerca()">
-            <span class="font-bold  ">Cerca Aste</span>
+        <Button class="h-14 w-[100%] lg:w-[10%]" @click="onClickCerca()">
+            <span class="font-bold">Cerca Aste</span>
         </Button>
     </div>
 
-    <AstePerRicerca v-if="caratteristicheSelezionate"
+    <AstePerRicerca
+        v-if="caratteristicheSelezionate"
         :propAste="aste"
         :propLoading="isLoading"
         :propNumeroAste="numeroAsteTotali"
@@ -80,7 +81,7 @@
 </template>
 
 <script setup>
-import Button from 'primevue/button'
+import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import TreeSelect from 'primevue/treeselect';
 import InputGroup from 'primevue/inputgroup';
@@ -148,25 +149,25 @@ onMounted(async () => {
 });
 
 const inizializzaAsteSelezionate = (listaAste) => {
-  return listaAste.map((auctionType) => {
-    switch (auctionType) {
-      case 'asta_inglese':
-        return { name: 'Asta inglese', code: 'AI' };
-      case 'asta_silenziosa':
-        return { name: 'Asta silenziosa', code: 'AS' };
-      case 'asta_inversa':
-        return { name: 'Asta inversa', code: 'AIV' };
-      default:
-        return { name: 'Sconosciuta', code: 'S' };
-    }
-  });
+    return listaAste.map((auctionType) => {
+        switch (auctionType) {
+            case 'asta_inglese':
+                return { name: 'Asta inglese', code: 'AI' };
+            case 'asta_silenziosa':
+                return { name: 'Asta silenziosa', code: 'AS' };
+            case 'asta_inversa':
+                return { name: 'Asta inversa', code: 'AIV' };
+            default:
+                return { name: 'Sconosciuta', code: 'S' };
+        }
+    });
 };
 
 const setCategoriaSelezionata = () => {
     try {
         //se la categoria è selezionata allora imposta come filtro di ricerca su categoria: la categoria selezionata
         categoriaCercata.value = Object.entries(selectedCategory.value)[0][0];
-        console.log("categoria selezionata:",selectedCategory)
+        console.log('categoria selezionata:', selectedCategory);
     } catch (error) {
         //se la categoria non è selezionata allora imposta come filtro di riceca su categoria: "tutte"
         categoriaCercata.value = 'tutte';
@@ -175,6 +176,10 @@ const setCategoriaSelezionata = () => {
 
 const setTipoAsteSelezionate = () => {
     try {
+<<<<<<< Updated upstream
+=======
+        console.log('selectedAuctionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn:', selectedAuction);
+>>>>>>> Stashed changes
 
         tipoAstaCercata.value = [];
 
@@ -257,7 +262,6 @@ watch(
     () => route.query, // Osserva tutti i cambiamenti nella query
     (newQuery, oldQuery) => {
         if (newQuery !== oldQuery) {
-
             //Aggiorna input
             selectedCategory.value = { [route.query.categoria]: true };
             categoriaCercata.value = route.query.categoria;

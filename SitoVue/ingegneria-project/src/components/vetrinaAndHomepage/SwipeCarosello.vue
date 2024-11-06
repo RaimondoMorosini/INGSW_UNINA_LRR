@@ -36,7 +36,7 @@
                 <img
                     :src="require(`@/assets/img/carosello/${photo}`)"
                     alt=""
-                    class="border-2 border-greyButton-400"
+                    class="border-greyButton-400 border-2"
                 />
             </RouterLink>
         </SwiperSlide>
