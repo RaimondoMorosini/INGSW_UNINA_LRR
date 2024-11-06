@@ -8,13 +8,13 @@
 import Button from 'primevue/button';
 import { useAuth0 } from '@auth0/auth0-vue';
 import { eliminaDato } from '../../scripts/DatiUtils';
-import { useAstaStore } from '../../stores/astaStore';
+import { useProfiloStore } from '../../stores/profiloStore';
 const { loginWithRedirect } = useAuth0();
-const storeinstance = useAstaStore();
-
+const storeinstance = useProfiloStore();
 const handleLogin = () => {
-    eliminaDato('token');
     storeinstance.logout();
+    eliminaDato('token');
+    
 
     loginWithRedirect({
         appState: {
