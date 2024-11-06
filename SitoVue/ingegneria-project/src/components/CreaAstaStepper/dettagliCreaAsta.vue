@@ -5,7 +5,7 @@
         <div class="flex justify-center gap-2 py-2">
             <span
                 v-if="!checked"
-                class="text-bold rounded bg-slate-200/20 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
+                class="text-bold rounded  bg-slate-200/20 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
                 >ASTA INGLESE</span
             >
 
@@ -13,7 +13,7 @@
             <ToggleSwitch v-model="checked" class="my-2" />
             <span
                 v-if="checked"
-                class="text-bold rounded bg-slate-200/20 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
+                class="text-bold rounded  bg-slate-200/20 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
                 >ASTA SILENZIOSA</span
             >
 
@@ -61,7 +61,7 @@
         <!--v-if="tipoAsta === 'asta_silenziosa'"-->
         <div
             v-if="checked"
-            class="mx-2 my-2 flex flex-col gap-2 bg-slate-200/20 px-2 py-2 ring-2 ring-[#cc85f5]"
+            class="mx-2 my-2 flex flex-col gap-2  bg-slate-200/20 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
             ASTA Silenziosa
 
@@ -82,10 +82,13 @@
 
         <div class="areaBottoni mx-4 flex justify-around gap-5 px-4">
             <Button class="w-[45%]" size="large" @click="goToPreviousForm"
-                ><span class="font-bold"><i class="pi pi-arrow-left"></i> Precedente</span></Button
+                ><span class="font-bold  "
+                    ><i class="pi pi-arrow-left"></i> Precedente</span
+                ></Button
             >
             <Button class="w-[45%]" size="large" @click="gestioneInvio"
-                ><span class="font-bold">Successivo <i class="pi pi-arrow-right"></i></span
+                ><span class="font-bold  "
+                    >Successivo <i class="pi pi-arrow-right"></i></span
             ></Button>
         </div>
     </form>

@@ -9,19 +9,10 @@
             >
                 <label
                     class="custom-file-upload flex flex-col items-center gap-0 bg-primario-400/80 text-4xl hover:bg-primario-500"
-                    :class="[
-                        disabled
-                            ? 'cursor-default bg-slate-300 hover:bg-slate-300'
-                            : 'cursor-pointer text-white',
-                    ]"
+                    :class="[disabled ? 'bg-slate-300 hover:bg-slate-300 cursor-default' : 'cursor-pointer text-white']"
+                    
                 >
-                    <input
-                        type="file"
-                        accept="image/*"
-                        :multiple="multi"
-                        @change="onFileChange"
-                        :disabled="disabled"
-                    />
+                    <input type="file" accept="image/*" :multiple="multi" @change="onFileChange" :disabled="disabled">
                     <i class="pi pi-camera py-2" style="font-size: 2.5rem"></i>
                     <i class="pi pi-file-plus py-2" style="font-size: 2.5rem"></i>
                 </label>
@@ -53,7 +44,7 @@
                             @click="rimuoviImmagine(indice)"
                         ></Button>
                         <div
-                            class="flex justify-center rounded bg-slate-200/20 p-2 text-center align-middle"
+                            class="flex justify-center rounded  bg-slate-200/20 p-2 text-center align-middle"
                         >
                             <img
                                 class="preview max-h-64 shadow lg:max-h-64"
@@ -67,6 +58,8 @@
                 </div>
             </div>
         </div>
+
+        
     </div>
 </template>
 
@@ -83,13 +76,15 @@ const props = defineProps({
     multi: Boolean,
 });
 
+
 const isEmpty = computed(() => {
     return props.storeInstance.length === 0;
 });
 
-const disabled = computed(() => {
-    return !isEmpty.value && !props.multi.value;
-});
+const disabled = computed (() => {
+    return (!isEmpty.value&&(!props.multi.value));
+})
+
 
 function onFileChange(e) {
     aggiungiFile(e.target.files);
@@ -102,14 +97,15 @@ function onDrop(e) {
 
 function aggiungiFile(files) {
     console.log('hai selezionato ', files.length, ' file');
-    if (props.multi) {
+    if (props.multi){
         for (const element of files) {
-            console.log('file: ', element);
-            props.storeInstance.push({ file: element, src: null, name: element.name });
+        console.log('file: ', element);
+        props.storeInstance.push({ file: element, src: null, name: element.name });
         }
-    } else {
+    }else{
         props.storeInstance.push({ file: files[0], src: null, name: files[0].name });
         console.log('file: ', files[0]);
+
     }
     props.storeInstance.forEach((immagine, indice) => {
         if (!immagine.src) {
@@ -129,6 +125,7 @@ function aggiungiFile(files) {
 function rimuoviImmagine(indice) {
     console.log("sto rimuovendo l'immagine con indice ", indice);
     props.storeInstance.splice(indice, 1);
+    
 }
 
 onMounted(() => {

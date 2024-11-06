@@ -1,6 +1,6 @@
 <template>
-    <Button severity="secondary" @click="handleSignUp" class="button__sign-up"
-        ><span class="font-bold">Registati </span></Button
+    <Button severity="secondary" @click="handleSignUp" class="button__sign-up "
+        ><span class="font-bold ">Registati </span></Button
     >
 </template>
 
@@ -12,6 +12,7 @@ const { loginWithRedirect } = useAuth0();
 
 const handleSignUp = () => {
     loginWithRedirect({
+        
         authorizationParams: {
             screen_hint: 'signup',
         },
@@ -21,7 +22,7 @@ const handleSignUp = () => {
 
 <style scoped>
 .my-custom-button {
-    background-color: var(--secondary-color);
-    color: var(--secondary-color-text);
+  background-color: var(--secondary-color);
+  color: var(--secondary-color-text);
 }
 </style>

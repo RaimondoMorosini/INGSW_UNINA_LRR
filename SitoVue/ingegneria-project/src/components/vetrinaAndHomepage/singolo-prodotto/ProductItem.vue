@@ -8,7 +8,7 @@
 
         <div class="flex-1">
             <ProductDetails
-                class="mb-4 rounded bg-slate-200/20 px-2"
+                class="px-2 mb-4 bg-slate-200/20 rounded"
                 :categoria="item.categoria"
                 :titoloProdotto="item.nome"
                 :venditore="item.emailUtenteCreatore"

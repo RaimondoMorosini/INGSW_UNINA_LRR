@@ -8,15 +8,14 @@ import 'primeicons/primeicons.css'; // primevue icons
 import PrimeVue from 'primevue/config'; // primevue config
 import Aura from '@primevue/themes/aura';
 import { definePreset } from '@primevue/themes';
-import ConfirmationService from 'primevue/confirmationservice';
-import DialogService from 'primevue/dialogservice';
-import ToastService from 'primevue/toastservice';
-import { createApp, watch } from 'vue'; // Vue 3
+import ConfirmationService from 'primevue/confirmationservice'
+import DialogService from 'primevue/dialogservice'
+import ToastService from 'primevue/toastservice';import { createApp, watch } from 'vue'; // Vue 3
 import App from './App.vue'; // App.vue
 import './assets/css/tailwind.css'; // tailwindcss
 import router from './router'; // router
 import { useTokenStore } from './stores/tokenStore';
-import AppState from './plugin/appState';
+import AppState from './plugin/appState'
 
 // Crea l'istanza dell'app Vue e usa il router
 const app = createApp(App).use(router);
@@ -71,6 +70,7 @@ const MyPreset = definePreset(Aura, {
         },
     },
 });
+
 
 // inizializazione primevue
 app.use(PrimeVue, {

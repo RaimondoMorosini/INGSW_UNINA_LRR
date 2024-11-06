@@ -10,9 +10,7 @@
                     class="h-20 w-20 rounded-full border-primario-400"
                 />
                 <div class="User info">
-                    <h2 class="mt-4 text-2xl font-semibold">
-                        {{ instanceStoreProfilo.profilo.nome }}
-                    </h2>
+                    <h2 class="mt-4 text-2xl font-semibold">{{ instanceStoreProfilo.profilo.nome}}</h2>
                     <h2 class="text-sm text-gray-500">{{ instanceStoreProfilo.profilo.email }}</h2>
                 </div>
             </div>
@@ -50,5 +48,10 @@ const { idTokenClaims, isAuthenticated, user } = useAuth0();
 
 const linkUtili = ['GitHub', 'LinkedIn', 'Twitter', 'Facebook'];
 
-const instanceStoreProfilo = useProfiloStore();
+const instanceStoreProfilo  = useProfiloStore();
+
+
+
 </script>
+
+

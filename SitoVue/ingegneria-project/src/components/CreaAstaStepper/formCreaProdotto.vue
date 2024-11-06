@@ -43,19 +43,20 @@
                         :options="nodes"
                         option-label="name"
                         placeholder="Seleziona Categoria"
-                        class="rounded-r"
+                        class="rounded-r "
                     />
                 </InputGroup>
             </div>
             <div class="flex justify-center p-2 lg:w-[50%] lg:justify-start">
-                <!--viene dato l'array contenente le immagini dallo store e flag per verificare se si possono mettere multiple immagini-->
+                <!--viene dato l'array contenente le immagini dallo store e flag per verificare se si possono mettere multiple immagini--> 
                 <ImageUploader :storeInstance="storeInstance.asta.immaginiSalvate" multi="true" />
             </div>
         </main>
 
         <div class="areaBottoni my-4 flex justify-around gap-5 px-10">
             <Button class="w-[45%]" size="large" @click="gestioneInvio"
-                ><span class="font-bold">Successivo <i class="pi pi-arrow-right"></i></span
+                ><span class="font-bold"
+                    >Successivo <i class="pi pi-arrow-right"></i></span
             ></Button>
         </div>
     </form>

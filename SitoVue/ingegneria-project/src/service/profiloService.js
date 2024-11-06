@@ -1,4 +1,4 @@
-import { getRest, getRestWithtoken, postRestWithtoken } from '../scripts/RestUtils.js';
+import {getRest,getRestWithtoken,postRestWithtoken} from '../scripts/RestUtils.js';
 import { useProfiloStore } from '../stores/profiloStore.js';
 import { convertiDaSrcToFile } from './PhotoService.js';
 const datiPublichi = {
@@ -8,36 +8,36 @@ const datiPublichi = {
     area_geografica: '',
     bio: '',
     isVenditore: false,
-    immagine: '',
+    immagine:""
 };
 const datiVenditore = {
     nomeUtente: '',
     partitaIva: '',
     codiceFiscale: '',
     nomeAzienda: '',
-    numeroTelefono: '',
+    numeroTelefono: ''
 };
 const ruoliProfilo = ['compratore'];
 
 const datiProfilo = {
     datiPublichi,
     datiVenditore,
-    ruoliProfilo,
+    ruoliProfilo
 };
 
 export async function getDatiProfiloPublichi(email) {
     try {
         const response = await getRest('public/utente/datiProfilo/' + email);
         if (response) {
-            const dati = await response;
+            const dati = await response;    
             datiPublichi.nome = dati.nome;
             datiPublichi.cognome = dati.cognome;
             datiPublichi.siti = dati.siti;
             datiPublichi.area_geografica = dati.areaGeografica;
             datiPublichi.bio = dati.bio;
             datiPublichi.isVenditore = dati.isVenditore;
-            datiPublichi.immagine = dati.foto_profilo;
-            console.log('dati profilo reucuperati dalla rest: ', datiPublichi);
+            datiPublichi.immagine=dati.foto_profilo;
+            console.log("dati profilo reucuperati dalla rest: ",datiPublichi);
             return datiPublichi;
         } else {
             throw new Error('Errore nel recupero dei dati publichi');
@@ -46,51 +46,51 @@ export async function getDatiProfiloPublichi(email) {
         console.error('Errore:', error);
         return null;
     }
-}
+    }
 
-export async function isProfiloCompletato() {
+    
+
+
+export async function isProfiloCompletato(){
     const response = await getRestWithtoken('/utente/isProfiloCompleto');
     if (response) {
         return response;
     } else {
         return false;
     }
-}
 
-export async function modificaProfiloPublico(
-    nome,
-    cognome,
-    indirizzo,
-    bio,
-    sitiSocial,
-    immagineProfiloBase64,
-    nomeImmmagine
-) {
+ }
+
+ 
+export async function modificaProfiloPublico(nome,cognome,indirizzo, bio,sitiSocial,immagineProfiloBase64, nomeImmmagine) {
     const formData = new FormData();
     formData.append('nome', nome);
     formData.append('cognome', cognome);
     formData.append('indirizzo', indirizzo);
     formData.append('bio', bio);
     formData.append('sitiSocial', sitiSocial);
-    const file = convertiDaSrcToFile(immagineProfiloBase64, nomeImmmagine);
-    formData.append('immagineProfilo', file, nomeImmmagine);
+    const file= convertiDaSrcToFile(immagineProfiloBase64,nomeImmmagine)
+    formData.append('immagineProfilo', file,nomeImmmagine);
 
-    try {
-        const response = await postRestWithtoken('/utente/modificaProfilo', formData);
-        if (response) {
-            console.log('dati modificati con sucesso' + response);
-            aggiornaProfilo();
+    try{
+        const response = await postRestWithtoken('/utente/modificaProfilo',formData);
+        if( response){
+            console.log("dati modificati con sucesso"+response )
+            aggiornaProfilo()
             return response;
         }
-        console.log('Errore nella modifica del profilo');
-    } catch (error) {
+        console.log("Errore nella modifica del profilo");
+    }catch (error) {
         console.error('Errore:', error);
-    }
+    }  
     return null;
+    
+
 }
 
-export async function aggiornaProfilo() {
+
+export async function aggiornaProfilo(){
     const email = useProfiloStore().profilo.email;
-    const datiiProfiloAggiornato = getDatiProfiloPublichi(email);
-    useProfiloStore().updateProfilo(datiiProfiloAggiornato);
+    const datiiProfiloAggiornato = getDatiProfiloPublichi(email)
+    useProfiloStore().updateProfilo(datiiProfiloAggiornato)
 }

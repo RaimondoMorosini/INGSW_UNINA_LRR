@@ -30,18 +30,21 @@ async function postRest(path, data) {
 
 //funzioni per ottenere e inviare dati al server con il token
 
-async function getRestWithtoken(path, dati) {
+async function getRestWithtoken(path,dati) {
+
     try {
+
         const token = getDato('token');
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         const headers = {
             Authorization: `Bearer ${token}`,
             'User-Agent': 'NomeDellApplicazione/versione',
         };
-
+        
         const response = await axios.get(`${path}`, dati, headers);
         delete axios.defaults.headers.common['Authorization'];
         return response.data;
+
     } catch (error) {
         delete axios.defaults.headers.common['Authorization'];
         throw new Error("Impossibile ottenere l'elemento dal server" + error);
@@ -58,7 +61,7 @@ async function postRestWithtoken(path, data) {
             'User-Agent': 'NomeDellApplicazione/versione',
         };
         console.log('Post path:', path, ' dati body: ', data, ' headers: ', headers);
-        const response = await axios.post(`${path}`, data, headers);
+        const response = await axios.post(`${path}`,data, headers);
         console.log(' response.data:', response.data);
         delete axios.defaults.headers.common['Authorization'];
 
@@ -88,8 +91,8 @@ axios.interceptors.request.use(
     }
 );
 function getToken() {
-    const token = getDato('token');
-    if (token != null) {
+    const token =getDato('token');
+    if(token!=null){
         const tokenPayload = JSON.parse(atob(token.split('.')[1]));
         const expiryTime = tokenPayload.exp * 1000;
         if (Date.now() >= expiryTime) {

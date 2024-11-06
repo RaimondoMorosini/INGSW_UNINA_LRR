@@ -28,7 +28,7 @@
                                 :key="index"
                                 :item="item"
                                 :index="index"
-                                class="col-12 contenitore-articolo mt-4"
+                                class=" col-12 contenitore-articolo mt-4"
                             ></ProductItem>
                         </div>
                     </template>
@@ -65,7 +65,7 @@ const props = defineProps([
     'propNumeroAste',
     'propCategoriaCercata',
     'propRicaricaComponenteCaratteristiche',
-    'propCaratteristicheselezionate',
+    'propCaratteristicheselezionate'
 ]);
 
 const products = ref();
