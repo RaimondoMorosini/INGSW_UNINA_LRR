@@ -3,6 +3,7 @@
     
     <form @submit.prevent="handleSubmit">
 
+<<<<<<< Updated upstream
     <div class="inline">
     <div class="avatar-container">
     <div class="image-container ">
@@ -27,6 +28,78 @@
           <label for="nome" class="block text-gray-700 font-bold mb-2">Nome</label>
           <InputText v-model="newNome" id="nome" class=" shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
         </FloatLabel>
+=======
+            <div class="fluid w-full">
+                <div class="rounded-lg bg-white p-8 shadow-md">
+                    <h2 class="mb-4 text-2xl font-bold">Inserimento Dati Personali</h2>
+                    <form>
+                        <div class="my-6">
+                            <FloatLabel variant="on">
+                                <label for="nome" class="mb-2 block font-bold text-gray-700"
+                                    >Nome</label
+                                >
+                                <InputText
+                                    v-model="newNome"
+                                    id="nome"
+                                    fluid
+                                    class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                                />
+                            </FloatLabel>
+                        </div>
+                        <div class="my-6">
+                            <FloatLabel variant="on">
+                                <label for="bio" class="mb-2 block font-bold text-gray-700"
+                                    >Biografia</label
+                                >
+                                <Textarea
+                                    fluid
+                                    rows="4"
+                                    cols="50"
+                                    type="bio"
+                                    v-model="newbio"
+                                    id="bio"
+                                    class="textarea focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                                />
+                            </FloatLabel>
+                        </div>
+                        <div class="my-6">
+                            <FloatLabel variant="on">
+                                <label for="password" class="mb-2 block font-bold text-gray-700"
+                                    >Password</label
+                                >
+                                <InputText
+                                    v-model="newPassword"
+                                    type="password"
+                                    id="password"
+                                    fluid
+                                    class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                                />
+                            </FloatLabel>
+                        </div>
+                        <div class="my-6">
+                            <FloatLabel variant="on">
+                                <label for="social" class="mb-2 block font-bold text-gray-700">Social Media</label>
+                                <AutoComplete
+                                    v-model="selectedSites"
+                                    :suggestions="filteredSites"
+                                    completeMethod="search"
+                                    field="name"
+                                    multiple
+                                    class="w-full"
+                                />
+                            </FloatLabel>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <Button
+                                @click="handleSubmit"
+                                class="rounded bg-primario-500 p-2 font-bold text-white hover:bg-primario-600"
+                                >Invia Dati</Button
+                            >
+                        </div>
+                    </form>
+                </div>
+            </div>
+>>>>>>> Stashed changes
         </div>
         <div class="my-6">
         <FloatLabel variant="on">
@@ -65,9 +138,16 @@ const profiloStoreInstance = useProfiloStore();
 const newNome = ref(profiloStoreInstance.profilo.nome);
 const newbio = ref(profiloStoreInstance.profilo.bio);
 const newPassword = ref(profiloStoreInstance.profilo.password);
+<<<<<<< Updated upstream
 
 const newImageURL = ref(null);
 
+=======
+const newImageURL = ref(null);
+
+
+
+>>>>>>> Stashed changes
 function handleImageUpload(event) {
   const file = event.target.files[0];
   
@@ -101,6 +181,29 @@ function handleSubmit() {
 }
 }
 
+<<<<<<< Updated upstream
+=======
+const site = ref("");
+const selectedSites = ref("");
+const filteredSites = ref("");
+
+onMounted(() => {
+    socialMediaService.getSocialMedia().then((data) => (site.value = data));
+});
+
+const search = (event) => {
+    setTimeout(() => {
+        if (!event.query.trim().length) {
+            filteredSites.value = [...site.value];
+        } else {
+            filteredSites.value = site.value.filter((site) => {
+                return site.toLowerCase().startsWith(event.query.toLowerCase());
+            });
+        }
+    }, 250);
+}
+
+>>>>>>> Stashed changes
 </script>
 
 <style scoped>

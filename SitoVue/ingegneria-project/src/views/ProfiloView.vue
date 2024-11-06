@@ -85,8 +85,15 @@ watch(() => storeinstance.profilo.isAutenticato, (newVal, oldVal) => {
             }
         });
     }
+<<<<<<< Updated upstream
 });
 import { getNumeroDiNotificheNonLette } from '../service/notificheService';
+=======
+);
+
+
+import { getNumeroDiNotificheNonLette } from '../service/notifiche';
+>>>>>>> Stashed changes
 
 const numeroNotificheDaLeggere = ref();
 

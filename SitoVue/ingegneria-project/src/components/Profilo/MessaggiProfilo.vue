@@ -1,9 +1,49 @@
 <template>
+<<<<<<< Updated upstream
   <div class="notification-container">
     <h1>Notifiche</h1>
     <div class="notification-summary">
       <p>Numero totale di notifiche: {{ totalNotifications }}</p>
       <p>Numero di notifiche da leggere: {{ unreadNotifications }}</p>
+=======
+    <div class="notification-container">
+        <h1>Notifiche</h1>
+        <div class="notification-summary">
+            <p>Numero totale di notifiche: {{ totalNotifications }}</p>
+            <p>Numero di notifiche da leggere: {{ unreadNotifications }}</p>
+        </div>
+
+        <div class="filter-sort">
+            <label for="filter">Filtra:</label>
+            <select v-model="filter" id="filter">
+                <option value="all">Tutte</option>
+                <option value="read">Visualizzate</option>
+                <option value="unread">Non visualizzate</option>
+            </select>
+
+            <label for="sort">Ordina per data:</label>
+            <select v-model="sortOrder" id="sort">
+                <option value="asc">Crescente</option>
+                <option value="desc">Decrescente</option>
+            </select>
+        </div>
+
+        <ul>
+            <li v-for="notification in filteredNotifications" :key="notification.id">
+                <notificheItem
+                    :id="notification.id"
+                    :astaId="notification.AstaId"
+                    :title="'Notifica ' + notification.oggettoDellaNotifica"
+                    :message="notification.messaggio"
+                    :date="new Date(notification.dataUnixTimeMilliseconds).toLocaleString()"
+                    :isRead="notification.visualizzato"
+                    @mark-as-read="segnaNotificaComeLetta"
+                />
+            </li>
+        </ul>
+        <button @click="loadMore">Carica di più</button>
+        <button @click="fetchNotifications">Aggiorna</button>
+>>>>>>> Stashed changes
     </div>
 
     <div class="filter-sort">
@@ -138,4 +178,44 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
+<<<<<<< Updated upstream
 </style>
+=======
+</style>
+
+<style scoped>
+.notification-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.notification-summary {
+    margin-bottom: 20px;
+}
+
+.filter-sort {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>
+>>>>>>> Stashed changes
