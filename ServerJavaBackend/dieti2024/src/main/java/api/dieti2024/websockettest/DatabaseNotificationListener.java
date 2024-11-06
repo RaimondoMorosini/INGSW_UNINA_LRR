@@ -84,6 +84,7 @@ public class DatabaseNotificationListener {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+        System.out.println("Invio messaggio: " + jsonMessage);
         webSocketUtil.inviaMessaggio(jsonMessage, "/asta/" + offerta.getAstaId());
 
     }

@@ -62,6 +62,7 @@ onUnmounted(() => {
 
 function handleMessage(message) {
     console.log('Messaggio ricevuto dalla websocket:', message);
+    alert('Messaggio ricevuto dalla websocket: ' + message);
     const data = JSON.parse(message);
     const offerta = {
         id: data.offerta.id,
@@ -101,10 +102,6 @@ function handleMessage(message) {
     }
 }
 
-function faiOfferta() {
-    console.log('Offerta fatta!');
-    //TODO chiamre il servizio per fare l'offerta
-}
 </script>
 
 <style scoped>
