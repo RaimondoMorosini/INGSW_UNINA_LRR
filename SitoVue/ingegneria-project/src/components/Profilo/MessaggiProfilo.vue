@@ -42,7 +42,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { getNotifiche, getNumeroDiNotificheNonLette, getNumeroNotifiche } from '../../service/notificheService';
-import notificheItem from './notificheItem.vue';
+import notificheItem from './NotificaItem/notificheItem.vue'
 
 const notifications = ref([]);
 const totalNotifications = ref(0);
@@ -50,7 +50,7 @@ const unreadNotifications = ref(0);
 const currentPage = ref(1);
 const notificationsPerPage = 5;
 const filter = ref('all');
-const sortOrder = ref('asc');
+const sortOrder = ref('desc');
 
 const fetchNotifications = async () => {
   try {
@@ -107,7 +107,7 @@ onMounted(() => {
 <style scoped>
 .notification-container {
   max-width: 600px;
-  margin: auto;
+  margin: 10px auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;

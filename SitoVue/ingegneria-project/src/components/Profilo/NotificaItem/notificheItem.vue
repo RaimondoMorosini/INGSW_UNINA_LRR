@@ -1,24 +1,9 @@
 <template>
   <div class="notification-item" :class="{ read: isRead }" @click="toggleMessage">
-    <div class="notification-image" v-if="asta.immagini.length">
-      <img :src="asta.immagini[0]" alt="Immagine dell'asta" />
-    </div>
+    <NotificationImage :images="asta.immagini" />
     <div class="notification-content">
-      <div class="notification-header">
-        <h3 class="notification-title">{{ title }}</h3>
-        <span class="notification-icon" :class="{ read: isRead }">
-          <i v-if="isRead" class="icon-read">✓</i>
-          <i v-else class="icon-unread">🔵</i>
-        </span>
-        <span class="notification-date">{{ formattedDate }}</span>
-      </div>
-      <p v-if="!isMessageVisible" class="notification-message-preview">
-        {{ message }}
-      </p>
-      <p v-if="isMessageVisible" class="notification-message-full">
-        {{ message }}
-        <strong>Asta ID:</strong> {{ astaId }}
-      </p>
+      <NotificationHeader :title="title" :isRead="isRead" :formattedDate="formattedDate" />
+      <NotificationMessage :message="message" :isMessageVisible="isMessageVisible" :toggleMessage="toggleMessage" />
     </div>
   </div>
 </template>
@@ -26,6 +11,9 @@
 <script setup>
 import { defineProps, computed, ref, defineEmits } from 'vue';
 import { useAstaChacheStore } from '../../../stores/astaStore.js';
+import NotificationImage from './NotificationImage.vue';
+import NotificationHeader from './NotificationHeader.vue';
+import NotificationMessage from './NotificationMessage.vue';
 
 const props = defineProps({
   id: Number,
@@ -75,73 +63,22 @@ function toggleMessage() {
   border-radius: 8px;
   padding: 15px;
   margin: 10px 0;
-  background-color: #ffffff;
   transition: background-color 0.3s, box-shadow 0.3s;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  @apply bg-primario-300/50; /* Colore di sfondo per notifiche non lette */
+  @apply border-l-4 border-primario-400; /* Barra laterale per evidenziare la notifica non letta */
 }
 .notification-item.read {
-  background-color: #f9f9f9;
-  color: #888;
+  background-color: #ffffff; /* Colore di sfondo per notifiche lette */
+  color: #555; /* Colore più scuro per il titolo delle notifiche lette */
 }
-.notification-image {
-  width: 80px;
-  height: 80px;
-  margin-right: 15px;
-  border-radius: 50%;
-}
-.notification-image img {
-  width: 100%;
-  height: auto;
-}
+
+
+
+
 .notification-content {
   flex: 1;
 }
-.notification-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.notification-title {
-  font-size: 1.25em;
-  font-weight: bold;
-  color: #333;
-  margin: 0;
 
-}
-.notification-icon {
-  font-size: 1.1em;
-  margin-left: 10px;
-  color: #555;
-}
-.icon-read {
-  color: green;
-}
-.icon-unread {
-  color: #3498db;
-}
-.notification-date {
-  font-size: 0.85em;
-  color: #777;
-  font-style: italic;
-}
-.notification-message-preview {
-
-  font-size: 1em;
-  color: #555;
-  margin-top: 5px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* Limita a due righe visibili */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis; /* Mostra i puntini di sospensione per il testo troncato */
-  cursor: pointer;
-  transition: max-height 0.3s ease;
-}
-.notification-message-full {
-  font-size: 0.95em;
-  color: #333;
-  margin-top: 10px;
-  transition: max-height 0.3s ease; 
-}
 </style>
