@@ -1,24 +1,28 @@
 <template>
   <div class="notification-container">
-    <h1>Notifiche</h1>
-    <div class="notification-summary">
+    <h1 class="text-2xl font-bold mb-4">Notifiche</h1>
+    <div class="notification-summary mb-4">
       <p>Numero totale di notifiche: {{ totalNotifications }}</p>
       <p>Numero di notifiche da leggere: {{ unreadNotifications }}</p>
     </div>
 
-    <div class="filter-sort">
-      <label for="filter">Filtra:</label>
-      <select v-model="filter" id="filter">
-        <option value="all">Tutte</option>
-        <option value="read">Visualizzate</option>
-        <option value="unread">Non visualizzate</option>
-      </select>
+    <div class="filter-sort flex flex-col md:flex-row justify-between mb-4">
+      <div class="mb-2 md:mb-0">
+        <label for="filter" class="mr-2">Filtra:</label>
+        <select v-model="filter" id="filter" class="p-2 border rounded">
+          <option value="all">Tutte</option>
+          <option value="read">Visualizzate</option>
+          <option value="unread">Non visualizzate</option>
+        </select>
+      </div>
 
-      <label for="sort">Ordina per data:</label>
-      <select v-model="sortOrder" id="sort">
-        <option value="asc">Crescente</option>
-        <option value="desc">Decrescente</option>
-      </select>
+      <div>
+        <label for="sort" class="mr-2">Ordina per data:</label>
+        <select v-model="sortOrder" id="sort" class="p-2 border rounded">
+          <option value="asc">Crescente</option>
+          <option value="desc">Decrescente</option>
+        </select>
+      </div>
     </div>
 
     <ul>
@@ -35,14 +39,13 @@
       </li>
     </ul>
     <button @click="loadMore">Carica di più</button>
-    <button @click="fetchNotifications">Aggiorna</button>
-  </div>
+    </div>
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { getNotifiche, getNumeroDiNotificheNonLette, getNumeroNotifiche } from '../../service/notificheService';
-import notificheItem from './NotificaItem/notificheItem.vue'
+import notificheItem from './ListaNotifiche/NotificaItem/notificheItem.vue';
 
 const notifications = ref([]);
 const totalNotifications = ref(0);

@@ -10,7 +10,7 @@
 
 <script setup>
 import { defineProps, computed, ref, defineEmits } from 'vue';
-import { useAstaChacheStore } from '../../../stores/astaStore.js';
+import { useAstaChacheStore } from '../../../../stores/astaStore.js';
 import NotificationImage from './NotificationImage.vue';
 import NotificationHeader from './NotificationHeader.vue';
 import NotificationMessage from './NotificationMessage.vue';
@@ -68,17 +68,33 @@ function toggleMessage() {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   @apply bg-primario-300/50; /* Colore di sfondo per notifiche non lette */
   @apply border-l-4 border-primario-400; /* Barra laterale per evidenziare la notifica non letta */
+  flex-wrap: wrap; /* Permette di impilare i contenuti su schermi più piccoli */
+
 }
 .notification-item.read {
   background-color: #ffffff; /* Colore di sfondo per notifiche lette */
   color: #555; /* Colore più scuro per il titolo delle notifiche lette */
 }
 
-
-
-
 .notification-content {
   flex: 1;
+  min-width: 200px; /* Imposta una larghezza minima per il contenuto */
+}
+
+  /* Media Queries per rendere il layout più responsivo */
+  @media (max-width: 600px) {
+  .notification-item {
+    flex-direction: column; /* Impila gli elementi verticalmente */
+    align-items: flex-start; /* Allinea gli elementi a sinistra */
+  }
+
+  .notification-image {
+    margin-bottom: 10px; /* Aggiungi margine sotto l'immagine */
+  }
+
+  .notification-content {
+    width: 100%; /* Assicura che il contenuto utilizzi tutta la larghezza disponibile */
+  }
 }
 
 </style>
