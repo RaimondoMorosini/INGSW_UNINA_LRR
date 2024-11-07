@@ -175,11 +175,7 @@ const setCategoriaSelezionata = () => {
 
 const setTipoAsteSelezionate = () => {
     try {
-<<<<<<< Updated upstream
-
-=======
         console.log('selectedAuction:', selectedAuction);
->>>>>>> Stashed changes
         tipoAstaCercata.value = [];
 
         selectedAuction.value.forEach((asta) => {

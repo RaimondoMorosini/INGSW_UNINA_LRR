@@ -1,8 +1,6 @@
 <template>
-<<<<<<< Updated upstream
-    <div>
-      <ImageUploader :storeInstance="profiloStoreInstance.profilo.immagineSalvata" :multi="false" />
-=======
+    <Toast position="center" group="c"/>
+ 
     <!-- Button to add a new input field -->
     <Button label="Add Input" icon="pi pi-plus" @click="addInputField" />
     <div class="form-container flex flex-col">
@@ -18,19 +16,14 @@
                 fluid
                 v-model="input.value"
                 class="w-full"
-                @keyup.enter="(isValidUrl(input.value)) , addInputField()"
+                @keyup.enter="isValidUrl(input.value)"
                 />
-            <template v-slot:content>
-                <div v-if="!check" class="text-red-500 text-sm mt-1">
-                    Please enter a valid URL.
-                </div>
-            </template>
             <label for="social" class="mb-2 block font-bold text-gray-700">Social Media</label>
         </FloatLabel>
         
         
       </div>
->>>>>>> Stashed changes
+ 
     </div>
   </template>
   
@@ -38,13 +31,12 @@
 import {socialMediaService} from '../service/socialMediaService.js';
 import { ref,onMounted } from 'vue';
 import Button from 'primevue/button';
-<<<<<<< Updated upstream
-import ImageUploader from '../components/CreaAstaStepper/ImageUploader.vue';
-import {useProfiloStore} from '../stores/profiloStore.js'
-=======
+import { useToast } from 'primevue/usetoast';
+import Toast from 'primevue/toast';
+
 import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
->>>>>>> Stashed changes
+ 
 
 const inputs = ref([]);
 const site = ref([]);
@@ -52,49 +44,51 @@ const check = ref(false);
 const selectedSites = ref([]);
 const filteredSites = ref('');
 
-<<<<<<< Updated upstream
+ 
 const toast = useToast();
 
-const showTopLeft = () => {
-    toast.add({ severity: 'info', summary: 'Info Message', detail: 'Message Content', group: 'tr', life: 3000 });
-=======
 // Method to add a new input field
 const addInputField = () => {
-    if (check.value){
-        inputs.value.push({ value: '' }); // Add an empty object for each new input
+    console.log("Add Input Field", inputs.value);
+    if (inputs.value === null){
+        toast.add({
+            severity: 'error',
+            summary: 'Errore',
+            detail: 'Inserire un URL valido',
+            life: 3000,
+        });
+        return
     }
->>>>>>> Stashed changes
-};
+    inputs.value.push({ value: '' }); // Add an empty object for each new input
+}
+    
 
 onMounted(() => {
     socialMediaService.getSocialMedia().then((data) => (site.value = data));
     inputs.value.push({ value: '' }); // Add an empty object for each new input
 });
 
-function isValidUrl(url) {
-    try {
-        const parsedUrl = new URL(url);
-        return site.value.some((socialMedia) => parsedUrl.hostname.includes(socialMedia));
-    } catch (e) {
-        return false;
+
+function isValidUrl(url, ) {
+    const urlPattern = /^(https?:\/\/)?(www\.)?(facebook\.com|twitter\.com|x\.com|bsky\.app|instagram\.com|linkedin\.com|tiktok\.com|youtube\.com|pinterest\.com)\/[A-Za-z0-9_.-]+\/?$/;
+    const test = urlPattern.test(url);
+    console.log("Test: " + test);
+    if (test){
+        addInputField();
+    }else{
+        toast.add({
+            severity: 'error',
+            summary: 'Errore',
+            detail: 'Inserire un URL valido',
+            life: 3000,
+        });
     }
 }
 
-const search = (event) => {
-    setTimeout(() => {
-        if (!event.query.trim().length) {
-            filteredSites.value = [...site.value];
-        } else {
-            filteredSites.value = site.value.filter((site) => {
-                return site.toLowerCase().startsWith(event.query.toLowerCase());
-            });
-        }
-    }, 250);
-}
+
 </script>
-<<<<<<< Updated upstream
   
-=======
+ 
 
 
->>>>>>> Stashed changes
+ 

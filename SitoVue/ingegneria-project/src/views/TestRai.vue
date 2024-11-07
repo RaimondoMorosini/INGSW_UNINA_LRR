@@ -1,7 +1,8 @@
 <template>
   <div>
     <h1>Questo è la pagine per modoficare la tua immagine profilo</h1>
-    <p>Dati Personali
+    <p>Dati Personali</p>
+    
       <ul>
         <li><strong>Nome:</strong> {{ nome }}</li>
         <li><strong>Cognome:</strong> {{ cognome }}</li>
@@ -9,7 +10,7 @@
         <li><strong>Bio:</strong> {{ bio }}</li>
         <li><strong>Siti Social:</strong> <a :href="sitiSocial" target="_blank">{{ sitiSocial }}</a></li>
       </ul>
-    </p>
+    
     <button @click="ModificaProfilo">Modifica Profilo !!!</button>
     <input type="file" @change="onFileChange" />
     <div v-if="image">

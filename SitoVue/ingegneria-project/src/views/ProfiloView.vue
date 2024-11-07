@@ -12,14 +12,14 @@
             <span>
                 <i class="pi pi-user" style="font-size: 1.5rem; padding-right: 0.8rem"></i>
             </span>
-            Informazioni Profilo
+            <span class="hidden md:block">Informazioni Profilo</span>
         </li>
         <li @click="pagina = 2"
             class="flex rounded px-2 py-1 font-bold hover:bg-primario-400 hover:  hover:ring-2 hover:ring-slate-200/50 cursor-pointer">
             <span>
                 <i class="pi pi-inbox" style="font-size: 1.5rem; padding-right: 0.8rem"></i>
             </span>
-            Notifiche
+            <span class="hidden md:block"> Notifiche</span>
             <Badge v-if="isCisonoNuoveNotifiche"></Badge>
         </li>
         <li @click="pagina = 3"
@@ -27,7 +27,8 @@
             <span>
                 <i class="pi pi-shopping-bag" style="font-size: 1.5rem; padding-right: 0.8rem"></i>
             </span>
-            Aste Personali
+            <span class="hidden md:block">Aste Personali
+            </span>
         </li>
     </ul>
     <div v-if="pagina === 1">
@@ -51,6 +52,7 @@ import Badge from 'primevue/badge';
 import { useRouter } from 'vue-router';
 import { useProfiloStore } from '../stores/profiloStore.js';
 import { isProfiloCompletato,getDatiProfiloPublichi } from '../service/profiloService';
+
 const router = useRouter();
 const isCisonoNuoveNotifiche = ref(false);
 const storeinstance = useProfiloStore();
@@ -85,15 +87,9 @@ watch(() => storeinstance.profilo.isAutenticato, (newVal, oldVal) => {
             }
         });
     }
-<<<<<<< Updated upstream
 });
-import { getNumeroDiNotificheNonLette } from '../service/notificheService';
-=======
-);
 
-
-import { getNumeroDiNotificheNonLette } from '../service/notifiche';
->>>>>>> Stashed changes
+import { getNumeroDiNotificheNonLette } from '../service/notificheService.js';
 
 const numeroNotificheDaLeggere = ref();
 

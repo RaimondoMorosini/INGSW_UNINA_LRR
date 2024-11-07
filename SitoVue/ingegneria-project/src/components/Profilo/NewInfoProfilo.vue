@@ -3,7 +3,7 @@
     
     <form @submit.prevent="handleSubmit">
 
-<<<<<<< Updated upstream
+ 
     <div class="inline">
     <div class="avatar-container">
     <div class="image-container ">
@@ -28,7 +28,7 @@
           <label for="nome" class="block text-gray-700 font-bold mb-2">Nome</label>
           <InputText v-model="newNome" id="nome" class=" shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
         </FloatLabel>
-=======
+ 
             <div class="fluid w-full">
                 <div class="rounded-lg bg-white p-8 shadow-md">
                     <h2 class="mb-4 text-2xl font-bold">Inserimento Dati Personali</h2>
@@ -99,7 +99,7 @@
                     </form>
                 </div>
             </div>
->>>>>>> Stashed changes
+ 
         </div>
         <div class="my-6">
         <FloatLabel variant="on">
@@ -127,27 +127,22 @@
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
-import { ref } from 'vue';
+import { ref ,onMounted} from 'vue';
 import FloatLabel from 'primevue/floatlabel';
 import {useProfiloStore} from '../../stores/profiloStore.js'
 import { modificaProfiloPublico } from '../../service/profiloService';
+import { socialMediaService } from '../../service/socialMediaService';
 
 const profiloStoreInstance = useProfiloStore();
-
 
 const newNome = ref(profiloStoreInstance.profilo.nome);
 const newbio = ref(profiloStoreInstance.profilo.bio);
 const newPassword = ref(profiloStoreInstance.profilo.password);
-<<<<<<< Updated upstream
+ 
 
 const newImageURL = ref(null);
 
-=======
-const newImageURL = ref(null);
-
-
-
->>>>>>> Stashed changes
+ 
 function handleImageUpload(event) {
   const file = event.target.files[0];
   
@@ -181,8 +176,8 @@ function handleSubmit() {
 }
 }
 
-<<<<<<< Updated upstream
-=======
+ 
+ 
 const site = ref("");
 const selectedSites = ref("");
 const filteredSites = ref("");
@@ -203,7 +198,7 @@ const search = (event) => {
     }, 250);
 }
 
->>>>>>> Stashed changes
+ 
 </script>
 
 <style scoped>
