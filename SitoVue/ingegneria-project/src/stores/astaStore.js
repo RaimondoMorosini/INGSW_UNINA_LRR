@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { getImageInFormdata } from '../service/astaService.js';
-
+import { getInfoAstaProdotto } from '../service/PaginaProdottoAstaService.js';
 // Funzione per convertire Base64 in Blob
 function srcToFile(base64, nomeFile) {
     // Verifica e rimuovi il prefisso data:image
@@ -92,3 +92,35 @@ export const useAstaStore = defineStore('asta', {
     //   storage: sessionStorage, // data in sessionStorage is cleared when the page session ends.
     // },
 });
+
+// Definizione dello store Pinia
+export const useAstaChacheStore = defineStore('astaChacheStore', {
+    state: () => ({
+      asteCache: {}, // Struttura dati per memorizzare le aste con chiave idAsta
+    }),
+  
+    actions: {
+      // Metodo per ottenere un'asta con verifica della cache
+      async getAstaById(idAsta) {
+        // Controllo se l'asta è già presente nella cache
+        if (!this.asteCache[idAsta]) {
+          // Se non è presente, recupera i dati e aggiungili alla cache
+          const asta = await getInfoAstaProdotto(idAsta);
+          this.asteCache[idAsta] = asta;
+        }
+        // Restituisci l'asta dalla cache
+        return this.asteCache[idAsta];
+      },
+  
+      // Metodo per aggiornare manualmente la cache (ad esempio, per ricaricare i dati di un'asta)
+      async aggiornaAsta(idAsta) {
+        const asta = await getInfoAstaProdotto(idAsta);
+        this.asteCache[idAsta] = asta;
+      },
+    },
+  
+    getters: {
+      // Getter per controllare se un'asta è già nella cache
+      isAstaInCache: (state) => (idAsta) => !!state.asteCache[idAsta],
+    },
+  });
