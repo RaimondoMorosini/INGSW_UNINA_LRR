@@ -49,17 +49,29 @@
   
   const emit = defineEmits(['mark-as-read']);
   const isMessageVisible = ref(false);
-  
   const formattedDate = computed(() => {
-    const dataNotifica = new Date(props.date);
-    return dataNotifica.toLocaleDateString('it-IT', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
+  // Verifica che props.date sia in formato gg/mm/aaaa, hh:mm:ss
+  const [data, ora] = props.date.split(", ");
+  const [giorno, mese, anno] = data.split("/");
+  
+  // Ricostruisci la data nel formato ISO
+  const dataIso = `${anno}-${mese}-${giorno}T${ora}`;
+  const dataNotifica = new Date(dataIso);
+  
+  // Verifica se la data è valida prima di formattarla
+  if (isNaN(dataNotifica)) {
+    return "Data non valida";
+  }
+
+  return dataNotifica.toLocaleDateString('it-IT', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
   });
+});
+
   
   function toggleMessage() {
     isMessageVisible.value = !isMessageVisible.value;
