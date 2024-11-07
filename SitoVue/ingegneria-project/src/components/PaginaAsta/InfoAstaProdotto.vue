@@ -15,6 +15,7 @@
                 :prezzoAttuale="props.prodotto.prezzoAttuale"
                 :incrementoOfferta="incrementoOfferta"
                 :faiOfferta="faiOffertaParziale"
+                :utenteUltimaOfferta="props.utenteUltimaOfferta"
             />
 
             <BottoneOfferta
@@ -31,7 +32,6 @@
                 :faiOfferta="faiOffertaParziale"
             />
 
-            {{ utenteUltimaOfferta }}
         </template>
         <template #footer>
             <div class="mt-1 flex gap-4"></div>

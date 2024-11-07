@@ -1,13 +1,6 @@
 <template>
     <div class="card">
-        <DataTable
-            :value="customers"
-            paginator
-            showGridlines
-            :rows="5"
-            dataKey="id"
-            :loading="loading"
-        >
+        <DataTable :value="props.offerte" paginator showGridlines :rows="5" dataKey="id" :loading="loading">
             <template #header> </template>
             <template #empty> Non ci sono partecipanti attualmente. </template>
             <template #loading> Caricamento asta. </template>
@@ -33,21 +26,16 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue';
-import { CustomerService } from '../../service/CustomerService';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 
 const customers = ref();
-const loading = ref(true);
+const loading = ref(false);
 
 const props = defineProps(['offerte']);
 
 onMounted(() => {
-    CustomerService.initializeData(props.offerte);
-    CustomerService.getCustomersXLarge().then((data) => {
-        customers.value = getCustomers(data);
-        loading.value = false;
-    });
+
 });
 
 const formatDate = (unixTime) => {
@@ -73,7 +61,6 @@ const getCustomers = (data) => {
 };
 
 watch(props.offerte, () => {
-    CustomerService.initializeData(props.offerte);
-    customers.value = props.offerte;
+
 });
 </script>

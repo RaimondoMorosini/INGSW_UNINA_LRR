@@ -1,38 +1,29 @@
 <template>
-    <div class="card">
-        <h1 class="my-2 text-3xl font-bold">{{ prodotto.nome }}</h1>
-        <Galleria
-            :value="images"
-            :responsiveOptions="responsiveOptions"
-            :numVisible="3"
-            containerStyle="max-width: 640px"
-        >
-            <template #item="slotProps">
-                <img
-                    :src="slotProps.item.itemImageSrc"
-                    :alt="slotProps.item.alt"
-                    style="width: 100%"
-                />
-            </template>
-            <template #thumbnail="slotProps">
-                <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt" />
-            </template>
-        </Galleria>
-        <Card class="my-2">
-            <template #content>
-                <Accordion value="0">
-                    <AccordionPanel value="0">
-                        <AccordionHeader>Descrizione prodotto</AccordionHeader>
-                        <AccordionContent>
-                            <p class="descrizione-prodotto">
-                                {{ props.prodotto.descrizione }}
-                            </p>
-                        </AccordionContent>
-                    </AccordionPanel>
-                </Accordion>
-            </template>
-        </Card>
-    </div>
+
+    <h1 class="my-2 text-3xl font-bold">{{ prodotto.nome }}</h1>
+    <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="3" containerStyle="max-width: 640px">
+        <template #item="slotProps">
+            <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%" />
+        </template>
+        <template #thumbnail="slotProps">
+            <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt" />
+        </template>
+    </Galleria>
+    <Card class="my-2">
+        <template #content>
+            <Accordion value="0">
+                <AccordionPanel value="0">
+                    <AccordionHeader>Descrizione prodotto</AccordionHeader>
+                    <AccordionContent>
+                        <p class="descrizione-prodotto">
+                            {{ props.prodotto.descrizione }}
+                        </p>
+                    </AccordionContent>
+                </AccordionPanel>
+            </Accordion>
+        </template>
+    </Card>
+
 </template>
 
 <script setup>
