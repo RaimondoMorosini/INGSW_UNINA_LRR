@@ -1,6 +1,6 @@
 <template>
     <div
-        class="fluid flex w-screen flex-row items-center justify-between rounded-lg bg-zinc-200 p-8 shadow-md"
+        class="fluid flex w-[100%] flex-col lg:flex-row gap-2 items-center justify-between rounded-lg bg-zinc-200 p-8 shadow-md"
     >
         <form @submit.prevent="handleSubmit"></form>
 
@@ -88,12 +88,12 @@
                         <Button label="Add Input" icon="pi pi-plus" @click="addInputField" />
                       </div>
                     <!-- Button to add a new input field -->
-                      <div class="form-container flex flex-col">
+                      <div class="w-[100%] flex flex-col">
                           <!-- Dynamically added text inputs -->
                           <div
                               v-for="(input, index) in inputs"
                               :key="index"
-                              class="p-field p-grid flex w-[100%] flex-col gap-2 px-2 pb-2"
+                              class="p-field p-grid flex w-[100%] flex-col gap-2 pl-2 pb-2"
                           >
                               <FloatLabel variant="on">
                                   <InputText
