@@ -3,10 +3,11 @@ package api.dieti2024.configuration;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 @Service
 public class UtentiConnessi {
-    public final ConcurrentHashMap<String, String> sessioniUtenti;
+    public final ConcurrentMap<String, String> sessioniUtenti;
 
     public UtentiConnessi() {
         this.sessioniUtenti = new ConcurrentHashMap<>();

@@ -1,7 +1,7 @@
 <template>
     <div>
         <form @submit.prevent="gestioneInvio">
-            <div class="mx-2 my-2  bg-slate-200/20 px-2 py-2">
+            <div class="mx-2 my-2 bg-slate-200/20 px-2 py-2">
                 <InputField
                     v-for="caratteristica in caratteristicheRelativeAllaCategoria"
                     :key="caratteristica.id"
@@ -21,8 +21,7 @@
                     ></Button
                 >
                 <Button class="w-[45%]" size="large" @click="gestioneInvio"
-                    ><span class="font-bold "
-                        >Successivo <i class="pi pi-arrow-right"></i></span
+                    ><span class="font-bold">Successivo <i class="pi pi-arrow-right"></i></span
                 ></Button>
             </div>
         </form>

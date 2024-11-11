@@ -51,16 +51,16 @@ onUnmounted(async () => {
             inserisciDato('token', token);
             loginSuccess.value = true;
             const profiloStore = useProfiloStore();
-            console.log('user.name', user.value.name );
+            console.log('user.name', user.value.name);
             profiloStore.profilo.nome = user.value.name;
             profiloStore.profilo.isAutenticato = true;
             console.log('profilo.nome', profiloStore.profilo.nome);
             profiloStore.profilo.email = idTokenClaims.value.email;
             profiloStore.profilo.area_geografica = user.value.address;
             profiloStore.profilo.immagineSalvata.push({
-                file: "Immagine Profilo",
-                name: "Immagine Profilo",
-                src:user.value.picture,
+                file: 'Immagine Profilo',
+                name: 'Immagine Profilo',
+                src: user.value.picture,
             });
             profiloStore.profilo.cognome = user.value.family_name;
 
@@ -69,14 +69,10 @@ onUnmounted(async () => {
             console.error('token non ottenuto');
             router.push({ name: 'home' });
         }
-
     } catch (error) {
         console.error('errore getting token ', error);
         router.push({ name: 'home' });
     }
-
 });
 console.log('isAuthenticated', isAuthenticated.value);
-
-
 </script>

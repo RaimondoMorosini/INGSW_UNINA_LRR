@@ -92,8 +92,8 @@ public class AstaFacadeService {
         List<MultipartFile> files = immagineAstaDTO.files();
         int idAsta = immagineAstaDTO.idAsta();
         String identificativoUtente = ControllerRestUtil.getEmailOfUtenteCorrente();
-        String PropritarioAsta = astaService.getIdUtentebyIdAsta(idAsta);
-        if (!identificativoUtente.equals(PropritarioAsta)) {
+        String propritarioAsta = astaService.getIdUtentebyIdAsta(idAsta);
+        if (!identificativoUtente.equals(propritarioAsta)) {
             throw new ApiException("Non hai i permessi per modificare quest'asta", HttpStatus.FORBIDDEN);
         }
         StringBuilder message = new StringBuilder();

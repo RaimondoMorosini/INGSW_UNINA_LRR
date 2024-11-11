@@ -1,7 +1,11 @@
 <template>
-
     <h1 class="my-2 text-3xl font-bold">{{ prodotto.nome }}</h1>
-    <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="3" containerStyle="max-width: 640px">
+    <Galleria
+        :value="images"
+        :responsiveOptions="responsiveOptions"
+        :numVisible="3"
+        containerStyle="max-width: 640px"
+    >
         <template #item="slotProps">
             <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%" />
         </template>
@@ -23,7 +27,6 @@
             </Accordion>
         </template>
     </Card>
-
 </template>
 
 <script setup>

@@ -16,11 +16,10 @@ export const socialMediaService = {
             'telegram.org',
             'discord.com',
             'quora.com',
-            'vimeo.com'
+            'vimeo.com',
         ];
-      
     },
-    
+
     getSocialMedia() {
         return Promise.resolve(this.getData());
     },

@@ -1,14 +1,12 @@
 <template>
-
     <div class="contenitore_colonne">
-
         <div class="colonna">
-            <h1 class="text-lg font-bold m-0.5" >INFORAZIONI PRODOTTO</h1>
+            <h1 class="m-0.5 text-lg font-bold">INFORAZIONI PRODOTTO</h1>
             <ImmaginiProdotto v-if="item" :prodotto="item" />
         </div>
 
         <div class="colonna">
-            <h1 class="text-lg font-bold m-0.5" >INFORMAZIONI ASTA</h1>
+            <h1 class="m-0.5 text-lg font-bold">INFORMAZIONI ASTA</h1>
             <InfoAstaProdotto
                 v-if="item"
                 :prodotto="item"
@@ -17,13 +15,10 @@
         </div>
 
         <div v-if="partecipantiIsVisible" class="colonna">
-
-            <h1 class="text-lg font-bold m-0.5" >OFFERTE ASTE</h1>
+            <h1 class="m-0.5 text-lg font-bold">OFFERTE ASTE</h1>
             <PartecipantiAsta v-if="offerte" :offerte="offerte" />
         </div>
-
     </div>
-
 </template>
 
 <script setup>
@@ -41,7 +36,7 @@ const astaId = route.params.id;
 const item = ref(null);
 const offerte = ref(null);
 const utenteUltimaOfferta = ref(null);
-const disconnesioneFunction  = ref(null);
+const disconnesioneFunction = ref(null);
 const datiExtra = ref(null);
 const partecipantiIsVisible = ref(true);
 
@@ -49,7 +44,7 @@ onMounted(async () => {
     try {
         console.log('Caricamento asta in corso...');
         item.value = await getInfoAstaProdotto(astaId);
-        if(item.value.tipoAsta === 'asta_silenziosa') {
+        if (item.value.tipoAsta === 'asta_silenziosa') {
             partecipantiIsVisible.value = false;
         }
     } catch (e) {
@@ -66,16 +61,15 @@ onMounted(async () => {
         console.log('Errore durante il carimento delle offerte:', e);
     }
     console.log('datiExtra:', datiExtra.value);
-    disconnesioneFunction .value = mantieniAggiornamenti('/asta/' + astaId, handleMessage);
+    disconnesioneFunction.value = mantieniAggiornamenti('/asta/' + astaId, handleMessage);
 });
 
 onUnmounted(() => {
     console.log('mounted');
-    disconnesioneFunction .value();
+    disconnesioneFunction.value();
 });
 
 function handleMessage(message) {
-
     console.log('Messaggio ricevuto dalla websocket:', message);
     alert('Messaggio ricevuto dalla websocket: ' + message);
 
@@ -118,7 +112,6 @@ function handleMessage(message) {
             console.warn("Tipo d'asta non riconosciuto:", item.value.tipoAsta);
     }
 }
-
 </script>
 
 <style scoped>

@@ -31,7 +31,8 @@
             <span class="campo w-[100%] lg:w-[45rem]">{{ dateScadenza.toLocaleDateString() }}</span>
         </div>
         <div class="grid w-[100%] grid-cols-4 gap-2 px-5 py-3">
-            <img v-if="storeInstance.asta.immaginiSalvate?.length > 0"
+            <img
+                v-if="storeInstance.asta.immaginiSalvate?.length > 0"
                 :src="storeInstance.asta?.immaginiSalvate[0].src"
                 alt="Immagine Copertina"
                 class="col-span-4 h-[9rem] shadow ring-2 ring-primario-400 lg:h-[12rem]"
@@ -59,12 +60,10 @@
     </div>
     <div class="buttonArea flex justify-around">
         <Button class="w-[45%]" size="large" @click="goToPreviousForm"
-            ><span class="font-bold  "
-                ><i class="pi pi-arrow-left"></i> Precedente</span
-            ></Button
+            ><span class="font-bold"><i class="pi pi-arrow-left"></i> Precedente</span></Button
         >
         <Button class="sp-button w-[45%]" size="large" @click="gestioneInvio"
-            ><span class="font-bold  ">Finalizza <i class="pi pi-check"></i></span
+            ><span class="font-bold">Finalizza <i class="pi pi-check"></i></span
         ></Button>
 
         <!--success: {{ success }}-->
@@ -146,8 +145,6 @@ function toFront(newCover) {
 </script>
 
 <style scoped>
-
-
 span.label {
     text-align: left;
     font-size: 1rem;

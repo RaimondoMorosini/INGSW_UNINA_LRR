@@ -4,7 +4,7 @@
         <p>La pagina che stai cercando non esiste.</p>
         <div class="pt-4">
             <Button as="router-link" to="/"
-                ><span class="font-bold  ">Torna alla pagina principale</span></Button
+                ><span class="font-bold">Torna alla pagina principale</span></Button
             >
         </div>
     </div>

@@ -29,7 +29,7 @@ const routes = [
 
         component: () => import('@/views/ProfiloView.vue'),
     },
-    
+
     {
         path: '/callback',
         name: 'callback',

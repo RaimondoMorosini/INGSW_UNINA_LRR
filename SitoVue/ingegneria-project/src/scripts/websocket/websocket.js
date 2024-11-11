@@ -3,9 +3,9 @@ import { Stomp } from '@stomp/stompjs';
 
 function mantieniAggiornamenti(topic, callback, jwtToken = null) {
     console.log('Connetti al server WebSocket');
-    
+
     let stompClient;
-    
+
     const connect = () => {
         const socket = new SockJS('http://localhost:8081/websocket');
         stompClient = Stomp.over(socket);
@@ -31,13 +31,13 @@ function mantieniAggiornamenti(topic, callback, jwtToken = null) {
             },
             (error) => {
                 console.log('Errore durante la connessione WebSocket:', error);
-                setTimeout(connect, 1000);  // Riprova la connessione dopo 5 secondi
+                setTimeout(connect, 1000); // Riprova la connessione dopo 5 secondi
             }
         );
     };
 
     connect();
-    
+
     return () => {
         if (stompClient) {
             stompClient.disconnect();
