@@ -1,44 +1,44 @@
 <template>
-    <div
-        class="fluid flex w-[100%] flex-col lg:flex-row gap-2 items-center justify-between rounded-lg bg-zinc-200 p-8 shadow-md"
-    >
-        <form @submit.prevent="handleSubmit"></form>
-
-        <div class="inline">
-            <div class="avatar-container">
-                <div class="image-container">
-                    <img
-                        v-if="newImageURL?.value"
-                        :src="newImageURL"
-                        alt="preview-image"
-                        class="preview-image overflow-hidden rounded-full"
-                    />
-                    <img
-                        v-else
-                        src="../../assets/img/placeholder/PlaceholderProfile.png"
-                        alt="default image"
-                        class="preview-image overflow-hidden rounded-full"
-                    />
-                </div>
-                <label for="avatar-input-file">
-                    <div class="icon-wrapper">
-                        <input
-                            type="file"
-                            id="avatar-input-file"
-                            accept="image/*"
-                            @change="handleImageUpload"
+<div class="flex flex-col justify-center align-middle items-center">
+    <form @submit.prevent="handleSubmit" class="w-screen px-3 mb-5">
+        <div
+            class=" mb-5 fluid flex w-[100%] flex-col items-center justify-between gap-5 rounded-lg bg-zinc-200 p-8 shadow-md lg:gap-0 lg:flex-row lg:items-start"
+        >
+            <div class="inline lg:mr-20">
+                <div class="avatar-container">
+                    <div class="image-container">
+                        <img
+                            v-if="newImageURL?.value"
+                            :src="newImageURL"
+                            alt="preview-image"
+                            class="preview-image overflow-hidden rounded-full"
                         />
-                        <i class="pi pi-camera"></i>
+                        <img
+                            v-else
+                            src="../../assets/img/placeholder/PlaceholderProfile.png"
+                            alt="default image"
+                            class="preview-image overflow-hidden rounded-full"
+                        />
                     </div>
-                </label>
+                    <label for="avatar-input-file">
+                        <div class="icon-wrapper">
+                            <input
+                                type="file"
+                                id="avatar-input-file"
+                                accept="image/*"
+                                @change="handleImageUpload"
+                            />
+                            <i class="pi pi-camera"></i>
+                        </div>
+                    </label>
+                </div>
             </div>
-        </div>
 
-        <div class="fluid w-full">
-            <div class="rounded-lg bg-white p-8 shadow-md">
-                <h2 class="mb-4 text-2xl font-bold">Inserimento Dati Personali</h2>
-                <form>
-                    <div class="my-6">
+            <div class="fluid w-full">
+                <div class="rounded-lg bg-white p-8 shadow-md">
+                    <h2 class="mb-4 text-2xl font-bold">Inserimento Dati Personali</h2>
+
+                    <div class="my-3">
                         <FloatLabel variant="on">
                             <label for="nome" class="mb-2 block font-bold text-gray-700"
                                 >Nome</label
@@ -51,8 +51,21 @@
                             />
                         </FloatLabel>
                     </div>
-                   
-                    <div class="my-6">
+                    <div class="my-3">
+                        <FloatLabel variant="on">
+                            <label for="cognome" class="mb-2 block font-bold text-gray-700"
+                                >Cognome</label
+                            >
+                            <InputText
+                                v-model="newSurname"
+                                id="cognome"
+                                fluid
+                                class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                            />
+                        </FloatLabel>
+                    </div>
+
+                    <div class="my-3">
                         <FloatLabel variant="on">
                             <label for="password" class="mb-2 block font-bold text-gray-700"
                                 >Password</label
@@ -67,62 +80,76 @@
                         </FloatLabel>
                     </div>
 
-                    <div class="my-6">
+                    <div class="my-3">
                         <FloatLabel variant="on">
                             <label for="bio" class="mb-2 block font-bold text-gray-700"
                                 >Biografia</label
                             >
                             <Textarea
-                                rows="4"
+                                rows="10"
                                 cols="50"
-                                type="bio"
-                                v-model="newbio"
+                                v-model="newBio"
                                 id="bio"
                                 class="textarea focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                             />
                         </FloatLabel>
                     </div>
+                    <div class="my-3">
+                        <FloatLabel variant="on">
+                            <label for="adress" class="mb-2 block font-bold text-gray-700"
+                                >Area Geografica</label
+                            >
+                            <InputText
+                                v-model="newAddress"
+                                type="text"
+                                id="adress"
+                                fluid
+                                class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                            />
+                        </FloatLabel>
+                    </div>
                     <div class="flex flex-row pb-2">
-                      <Toast position="center" group="c" />
-                      <div>
-                        <Button label="Add Input" icon="pi pi-plus" @click="addInputField" />
-                      </div>
-                    <!-- Button to add a new input field -->
-                      <div class="w-[100%] flex flex-col">
-                          <!-- Dynamically added text inputs -->
-                          <div
-                              v-for="(input, index) in inputs"
-                              :key="index"
-                              class="p-field p-grid flex w-[100%] flex-col gap-2 pl-2 pb-2"
-                          >
-                              <FloatLabel variant="on">
-                                  <InputText
-                                      name="name"
-                                      label="label"
-                                      id="id"
-                                      fluid
-                                      v-model="input.value"
-                                      class="w-full"
-                                      @keyup.enter="isValidUrl(input.value)"
-                                  />
-                                  <label for="social" class="mb-2 block font-bold text-gray-700"
-                                      >Social Media</label
-                                  >
-                              </FloatLabel>
-                          </div>
-                      </div>
+                        <Toast position="center" group="c" />
+                        <div>
+                            <Button icon="pi pi-plus" @click="addInputField" />
+                        </div>
+                        <!-- Button to add a new input field -->
+                        <div class="flex w-[100%] flex-col">
+                            <!-- Dynamically added text inputs -->
+                            <div
+                                v-for="(input, index) in inputs"
+                                :key="index"
+                                class="p-field p-grid flex w-[100%] flex-col gap-2 pb-2 pl-2"
+                            >
+                                <FloatLabel variant="on">
+                                    <InputText
+                                        name="name"
+                                        label="label"
+                                        type="url"
+                                        id="id"
+                                        fluid
+                                        v-model="input.value"
+                                        class="w-full"
+                                    /><!-- @keyup.enter="isValidUrl(input.value)"-->
+                                    <label for="social" class="mb-2 block font-bold text-gray-700"
+                                        >Social Media</label
+                                    >
+                                </FloatLabel>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <Button
-                            @click="handleSubmit"
-                            class="rounded bg-primario-500 p-2 font-bold text-white hover:bg-primario-600"
-                            >Invia Dati</Button
-                        >
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
+
+        <Button
+            size="large"
+            @click="handleSubmit"
+            class="w-[50%] rounded bg-primario-500 font-bold text-white hover:bg-primario-600"
+            >Invia Dati</Button
+        >
+    </form>
+</div>
 </template>
 
 <script setup>
@@ -140,7 +167,10 @@ import Toast from 'primevue/toast';
 const profiloStoreInstance = useProfiloStore();
 
 const newNome = ref(profiloStoreInstance.profilo.nome);
-const newbio = ref(profiloStoreInstance.profilo.bio);
+const newSurname = ref(profiloStoreInstance.profilo.cognome);
+const newBio = ref(profiloStoreInstance.profilo.bio);
+const newAddress = ref(profiloStoreInstance.profilo.area_geografica);
+
 const newPassword = ref(profiloStoreInstance.profilo.password);
 const newImageURL = ref(null);
 const inputs = ref([]);
