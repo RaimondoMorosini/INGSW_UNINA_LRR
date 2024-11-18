@@ -54,7 +54,7 @@ import AstePersonali from '../components/Profilo/AstePersonaliProfilo.vue';
 import Badge from 'primevue/badge';
 import { useRouter } from 'vue-router';
 import { useProfiloStore } from '../stores/profiloStore.js';
-import { isProfiloCompletato, getDatiProfiloPublichi } from '../service/profiloService';
+import { isProfiloCompletato, getDatiProfiloPublici } from '../service/profiloService';
 
 const router = useRouter();
 const isCisonoNuoveNotifiche = ref(false);
@@ -79,7 +79,7 @@ watch(
                     });
                     router.push({ name: 'ediProfilo' });
                 } else {
-                    getDatiProfiloPublichi(storeinstance.profilo.email).then((response) => {
+                    getDatiProfiloPublici(storeinstance.profilo.email).then((response) => {
                         storeinstance.profilo.area_geografica = response.area_geografica;
                         storeinstance.profilo.bio = response.bio;
                         storeinstance.profilo.cognome = response.cognome;

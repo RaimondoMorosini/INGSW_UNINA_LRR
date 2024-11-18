@@ -2,7 +2,6 @@
 import { RouterView } from "vue-router";
 import Navbar from "./components/Navbar/Navbar.vue";
 import Footer from "./components/Navbar/FooterApp.vue"
-import Toast from 'primevue/toast'
 import LogicaSessionDialog from "./components/logicaSessionDialog.vue";
 </script>
 
@@ -13,7 +12,7 @@ import LogicaSessionDialog from "./components/logicaSessionDialog.vue";
     </header>
         
     <body class="relative h-[100%]">
-        <Toast position="top-right" group="tr"/>
+        
         <LogicaSessionDialog/>
         <router-view class="z-0"/> 
         <Footer class="z-10 absolute bottom-[-100vh] left-0 right-0 "/>       

@@ -8,8 +8,9 @@ export const useProfiloStore = defineStore('profilo', {
             password: '',
             nome: '',
             cognome: '',
-            immagineSalvata: [],
-            siti: '',
+            imageURL: [],
+            nomeImmagine: '',
+            siti_social: [],
             area_geografica: '',
             bio: '',
             metodo_di_registrazione: '',
@@ -25,8 +26,8 @@ export const useProfiloStore = defineStore('profilo', {
             this.profilo.password = '';
             this.profilo.nome = '';
             this.profilo.cognome = '';
-            this.profilo.immagineSalvata = [];
-            this.profilo.siti = '';
+            this.profilo.immagineURL = [];
+            this.profilo.siti_social = '';
             this.profilo.area_geografica = '';
             this.profilo.bio = '';
             this.profilo.metodo_di_registrazione = '';

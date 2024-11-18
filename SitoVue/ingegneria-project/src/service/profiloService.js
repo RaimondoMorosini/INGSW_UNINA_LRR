@@ -25,7 +25,7 @@ const datiProfilo = {
     ruoliProfilo,
 };
 
-export async function getDatiProfiloPublichi(email) {
+export async function getDatiProfiloPublici(email) {
     try {
         const response = await getRest('public/utente/datiProfilo/' + email);
         if (response) {
@@ -91,6 +91,6 @@ export async function modificaProfiloPublico(
 
 export async function aggiornaProfilo() {
     const email = useProfiloStore().profilo.email;
-    const datiiProfiloAggiornato = getDatiProfiloPublichi(email);
-    useProfiloStore().updateProfilo(datiiProfiloAggiornato);
+    const datiProfiloAggiornato = getDatiProfiloPublici(email);
+    useProfiloStore().updateProfilo(datiProfiloAggiornato);
 }

@@ -28,7 +28,7 @@
 
         <div class="Indirizzo rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
             <h1 class="text-xl">Indirizzo:</h1>
-            {{ instanceStoreProfilo.address }}
+            {{ instanceStoreProfilo.profilo.area_geografica }}
         </div>
 
         <ul class="LinkAssociati rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">

@@ -1,23 +1,25 @@
 <template>
 <div class="flex flex-col justify-center align-middle items-center">
+    
     <form @submit.prevent="handleSubmit" class="w-screen px-3 mb-5">
         <div
             class=" mb-5 fluid flex w-[100%] flex-col items-center justify-between gap-5 rounded-lg bg-zinc-200 p-8 shadow-md lg:gap-0 lg:flex-row lg:items-start"
         >
+        
             <div class="inline lg:mr-20">
                 <div class="avatar-container">
                     <div class="image-container">
                         <img
                             v-if="newImageURL?.value"
                             :src="newImageURL"
-                            alt="preview-image"
-                            class="preview-image overflow-hidden rounded-full"
+                            alt="Profile"
+                            class="preview overflow-hidden rounded-full"
                         />
                         <img
                             v-else
                             src="../../assets/img/placeholder/PlaceholderProfile.png"
-                            alt="default image"
-                            class="preview-image overflow-hidden rounded-full"
+                            alt="Default"
+                            class="preview overflow-hidden rounded-full"
                         />
                     </div>
                     <label for="avatar-input-file">
@@ -109,19 +111,22 @@
                         </FloatLabel>
                     </div>
                     <div class="flex flex-row pb-2">
-                        <Toast position="center" group="c" />
-                        <div>
+                        <Toast/>
+                        <div class="flex flex-col gap-2">
                             <Button icon="pi pi-plus" @click="addInputField" />
+                        
+                            
                         </div>
                         <!-- Button to add a new input field -->
                         <div class="flex w-[100%] flex-col">
                             <!-- Dynamically added text inputs -->
                             <div
-                                v-for="(input, index) in inputs"
+                                v-for="(input, index) in newSitiSocialArray"
                                 :key="index"
                                 class="p-field p-grid flex w-[100%] flex-col gap-2 pb-2 pl-2"
                             >
-                                <FloatLabel variant="on">
+                                <InputGroup>
+                                    <FloatLabel variant="on">
                                     <InputText
                                         name="name"
                                         label="label"
@@ -130,11 +135,15 @@
                                         fluid
                                         v-model="input.value"
                                         class="w-full"
-                                    /><!-- @keyup.enter="isValidUrl(input.value)"-->
+                                        @keyup.enter="addInputField"
+                                        @keyup.delete="removeInputField"
+                                    />
                                     <label for="social" class="mb-2 block font-bold text-gray-700"
                                         >Social Media</label
                                     >
                                 </FloatLabel>
+                                    <Button v-if="isRemoveButtonVisible" icon="pi pi-trash" @click="removeInputFieldIndex(index)" />
+                                </InputGroup>
                             </div>
                         </div>
                     </div>
@@ -154,15 +163,16 @@
 
 <script setup>
 import Button from 'primevue/button';
+import InputGroup from 'primevue/inputgroup';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted,computed } from 'vue';
 import FloatLabel from 'primevue/floatlabel';
 import { useProfiloStore } from '../../stores/profiloStore.js';
 import { modificaProfiloPublico } from '../../service/profiloService';
-import { socialMediaService } from '../../service/socialMediaService';
 import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
+import { useRoute, useRouter } from 'vue-router';
 
 const profiloStoreInstance = useProfiloStore();
 
@@ -170,12 +180,14 @@ const newNome = ref(profiloStoreInstance.profilo.nome);
 const newSurname = ref(profiloStoreInstance.profilo.cognome);
 const newBio = ref(profiloStoreInstance.profilo.bio);
 const newAddress = ref(profiloStoreInstance.profilo.area_geografica);
-
+const newImageName = ref(profiloStoreInstance.profilo.nomeImmagine);
 const newPassword = ref(profiloStoreInstance.profilo.password);
-const newImageURL = ref(null);
-const inputs = ref([]);
-const site = ref([]);
+const newImageURL = ref(profiloStoreInstance.profilo.imageURL);
+const newSitiSocialArray = ref(profiloStoreInstance.profilo.siti_social);
+
+
 const toast = useToast();
+const router = useRouter();
 
 function handleImageUpload(event) {
     const file = event.target.files[0];
@@ -188,6 +200,7 @@ function handleImageUpload(event) {
         const reader = new FileReader();
         reader.onload = () => {
             newImageURL.value = reader.result; // Use reader.result to save to the database
+            newImageName.value = file.name;
         };
         reader.readAsDataURL(file);
     } else {
@@ -197,44 +210,85 @@ function handleImageUpload(event) {
 
 // Method to add a new input field
 const addInputField = () => {
-    console.log('Add Input Field', inputs.value);
-    if (inputs.value === null) {
+    console.log('Add Input Field: ', newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value==='');
+    const lastValue = newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value;
+    if(lastValue === null || !isValidUrl(newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value)) {
+        console.log('URL non valido');
         toast.add({
-            severity: 'error',
+            severity:'error',
             summary: 'Errore',
-            detail: 'Inserire un URL valido',
+            detail: 'Inserire un URL ad un profilo social media valido',
             life: 3000,
         });
         return;
     }
-    inputs.value.push({ value: '' }); // Add an empty object for each new input
+    newSitiSocialArray.value.push({ value: '' }); // Add an empty object for each new input
+}
+
+//computed value that returns true if the newSitiSocialArray.value.length is 2 or higher
+const isRemoveButtonVisible = computed(
+    () => newSitiSocialArray.value.length > 1);
+
+const removeInputField = () => {
+    const lastValue = newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value;
+    const newLenght = newSitiSocialArray.value.length-1;
+    if(isRemoveButtonVisible && lastValue === "" && newLenght > 0) {
+        console.log('Remove Input Field');
+        newSitiSocialArray.value.pop();
+    }
+};
+
+function removeInputFieldIndex(index) {
+    const lastValue = newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value;
+    const newLenght = newSitiSocialArray.value.length-1;
+    if(isRemoveButtonVisible && newLenght > 0) {
+        console.log('Remove Input Field');
+        //remove the index element from the array
+        newSitiSocialArray.value.splice(index, 1);
+    }
 };
 
 function handleSubmit() {
-    function ModificaProfilo() {
         console.log('Modifica Profilo in corso');
         console.log('IMG VALUE ' + newImageURL.value);
+        profiloStoreInstance.updateProfilo({
+            nome: newNome.value,
+            cognome: newSurname.value,
+            bio: newBio.value,
+            area_geografica: newAddress.value,
+            password: newPassword.value,
+            imageURL: newImageURL.value,
+            siti_social: newSitiSocialArray.value,
+        });
         modificaProfiloPublico(
             newNome,
-            newCognome,
-            newIndirizzo,
+            newSurname,
+            newAddress,
             newBio,
-            newSitiSocial,
+            newSitiSocialArray,
             newImageURL.value,
-            nomeImage
         )
             .then((response) => {
                 console.log('Modifica avvenuta con successo!!!: ' + response);
+                //add a router to redirect to the profile page
+                router.push({ name: 'profilo' });
             })
             .catch((error) => {
                 console.error('Errore durante la modifica del profilo: ', error);
             });
-    }
 }
 
+
 onMounted(() => {
-    socialMediaService.getSocialMedia().then((data) => (site.value = data));
-    inputs.value.push({ value: '' }); // Add an empty object for each new input
+    console.log('Profilo Store: ', profiloStoreInstance.profilo.siti_social);
+    if(profiloStoreInstance.profilo.siti_social.length === 0) {
+        newSitiSocialArray.value.push({ value: '' });
+    }else{
+        for(let i = 0; i < profiloStoreInstance.profilo.siti_social.length; i++) {
+            newSitiSocialArray.value.push({ value: profiloStoreInstance.profilo.siti_social[i] });
+        }
+    }
+    
 });
 
 function isValidUrl(url) {
@@ -242,16 +296,7 @@ function isValidUrl(url) {
         /^(https?:\/\/)?(www\.)?(facebook\.com|twitter\.com|x\.com|bsky\.app|instagram\.com|linkedin\.com|tiktok\.com|youtube\.com|pinterest\.com)\/[A-Za-z0-9_.-]+\/?$/;
     const test = urlPattern.test(url);
     console.log('Test: ' + test);
-    if (test) {
-        addInputField();
-    } else {
-        toast.add({
-            severity: 'error',
-            summary: 'Errore',
-            detail: 'Inserire un URL valido',
-            life: 3000,
-        });
-    }
+    return test;
 }
 </script>
 
@@ -309,7 +354,7 @@ function isValidUrl(url) {
     }
 }
 
-.preview-image {
+.preview {
     max-width: 100%;
     max-height: 300px;
     margin-top: 10px;

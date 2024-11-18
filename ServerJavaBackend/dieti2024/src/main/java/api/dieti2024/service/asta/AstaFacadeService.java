@@ -84,7 +84,6 @@ public class AstaFacadeService {
         //TODO aggiungere controlli per vedere se utente ha il permesso di creare asta
         astaService.checkDatiInputi(datiInput.datiAsta());
         prodottoService.checkDatiInputi(datiInput.datiProdotto());
-
     }
 
 
