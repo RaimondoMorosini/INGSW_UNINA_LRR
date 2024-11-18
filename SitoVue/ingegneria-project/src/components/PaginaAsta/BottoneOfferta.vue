@@ -1,15 +1,18 @@
 <template>
-
     <div class="card">
         <h2 class="title">{{ titoloAsta }}</h2>
 
         <div v-if="tipoAsta === TipoAsta.INGLESE" class="content">
-
             <p class="info text-base">
-                {{ testoPrezzo }} <span :style="{ color: colorePrezzo, fontSize: sizePrezzo }" class="font-bold">{{ prezzoAttuale }}€</span>
+                {{ testoPrezzo }}
+                <span :style="{ color: colorePrezzo, fontSize: sizePrezzo }" class="font-bold"
+                    >{{ prezzoAttuale }}€</span
+                >
             </p>
 
-            <p :style="{ color: coloreUltimaOfferta }"> ultima offerta di: {{ utenteUltimaOfferta }} </p>
+            <p :style="{ color: coloreUltimaOfferta }">
+                ultima offerta di: {{ utenteUltimaOfferta }}
+            </p>
 
             <button @click="aumentaOfferta" class="button green text-xl">PUNTA</button>
 
@@ -17,7 +20,6 @@
                 Incremento per ogni puntata:
                 <span class="font-bold">{{ incrementoOfferta }}€</span>
             </p>
-
         </div>
 
         <div v-else-if="tipoAsta === TipoAsta.INVERSA" class="content">
@@ -25,7 +27,12 @@
                 Il prezzo attuale è: <span class="highlight">{{ prezzoAttuale }}€</span>
             </p>
             <p class="info">Inserisci un'offerta inferiore al prezzo attuale:</p>
-            <input v-model="nuovaOfferta" type="number" class="input" placeholder="Inserisci la tua offerta" />
+            <input
+                v-model="nuovaOfferta"
+                type="number"
+                class="input"
+                placeholder="Inserisci la tua offerta"
+            />
             <button @click="inviaOffertaInversa" class="button blue">Invia Offerta</button>
         </div>
 
@@ -34,13 +41,17 @@
                 La base d'asta è: <span class="highlight">{{ baseAsta }}€</span>
             </p>
             <p class="info">Offri quanto vuoi, purché sia superiore alla base d'asta:</p>
-            <input v-model="nuovaOfferta" type="number" class="input" placeholder="Inserisci la tua offerta" />
+            <input
+                v-model="nuovaOfferta"
+                type="number"
+                class="input"
+                placeholder="Inserisci la tua offerta"
+            />
             <button @click="inviaOffertaSilenziosa" class="button purple">Invia Offerta</button>
         </div>
 
         <div v-if="errore" class="error">{{ errore }}</div>
     </div>
-
 </template>
 
 <script setup>

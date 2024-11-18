@@ -31,7 +31,6 @@
                 :prezzoAttuale="props.prodotto.prezzoAttuale"
                 :faiOfferta="faiOffertaParziale"
             />
-
         </template>
         <template #footer>
             <div class="mt-1 flex gap-4"></div>

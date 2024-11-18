@@ -1,6 +1,13 @@
 <template>
     <div class="card">
-        <DataTable :value="props.offerte" paginator showGridlines :rows="5" dataKey="id" :loading="loading">
+        <DataTable
+            :value="props.offerte"
+            paginator
+            showGridlines
+            :rows="5"
+            dataKey="id"
+            :loading="loading"
+        >
             <template #header> </template>
             <template #empty> Non ci sono partecipanti attualmente. </template>
             <template #loading> Caricamento asta. </template>
@@ -34,9 +41,7 @@ const loading = ref(false);
 
 const props = defineProps(['offerte']);
 
-onMounted(() => {
-
-});
+onMounted(() => {});
 
 const formatDate = (unixTime) => {
     // Converti il timestamp Unix in millisecondi
@@ -60,7 +65,5 @@ const getCustomers = (data) => {
     });
 };
 
-watch(props.offerte, () => {
-
-});
+watch(props.offerte, () => {});
 </script>

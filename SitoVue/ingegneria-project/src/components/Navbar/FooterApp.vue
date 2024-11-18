@@ -1,17 +1,12 @@
 <template>
-    
-    <footer class="footer bg-primario-400 flex justify-center">
-
-       
-        <div class="container ">
-            <div class="content ">
-                
-                    Fatto con
-                    <a href="https://primevue.org/" target="_blank"
-                        ><i size="large" class="pi pi-prime"></i>
-                    </a>
-                    da Lorenzo Sepe, Raimondo Morosini, Roberto Spena.
-               
+    <footer class="footer flex justify-center bg-primario-400">
+        <div class="container">
+            <div class="content">
+                Fatto con
+                <a href="https://primevue.org/" target="_blank"
+                    ><i size="large" class="pi pi-prime"></i>
+                </a>
+                da Lorenzo Sepe, Raimondo Morosini, Roberto Spena.
 
                 <br />
                 <div>
@@ -21,7 +16,11 @@
                         </a>
                     </p>
                     <p class="control">
-                        <a class="button" href="https://github.com/RaimondoMorosini" target="_blank">
+                        <a
+                            class="button"
+                            href="https://github.com/RaimondoMorosini"
+                            target="_blank"
+                        >
                             <i class="pi pi-github"></i> <span>GitHub - Raimondo Morosini</span>
                         </a>
                     </p>
@@ -30,8 +29,6 @@
                             <i class="pi pi-github"></i> <span>GitHub - Roberto Spena</span>
                         </a>
                     </p>
-                    
-                    
                 </div>
             </div>
         </div>
@@ -41,11 +38,11 @@
 <script setup>
 import { ref } from 'vue';
 import ToggleButton from 'primevue/togglebutton';
-import {useTokenStore} from '../../stores/tokenStore';
+import { useTokenStore } from '../../stores/tokenStore';
 
 const storeInstance = useTokenStore();
 
-const checked = ref(storeInstance.darkMode)
+const checked = ref(storeInstance.darkMode);
 
 function toggleDarkMode() {
     root.classList.toggle('dark-mode-switch');

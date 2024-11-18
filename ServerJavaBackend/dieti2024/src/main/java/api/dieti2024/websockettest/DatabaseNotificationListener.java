@@ -13,6 +13,8 @@ import org.postgresql.PGConnection;
 import org.postgresql.PGNotification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -24,6 +26,8 @@ import java.util.concurrent.*;
 
 @Component
 public class DatabaseNotificationListener {
+
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseNotificationListener.class);
 
     @Autowired
     private DataSource dataSource;
@@ -43,7 +47,7 @@ public class DatabaseNotificationListener {
             initConnection();
             executorService.scheduleWithFixedDelay(this::processNotifications, 0, 500, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
-            System.out.println("Errore durante l'inizializzazione della connessione: " + e.getMessage());
+            logger.error("Errore durante l'inizializzazione della connessione: {}", e.getMessage());
         }
     }
 
@@ -61,28 +65,47 @@ public class DatabaseNotificationListener {
             PGNotification[] notifications = pgConnection.getNotifications();
             if (notifications != null) {
                 for (PGNotification notification : notifications) {
-                    String channel = notification.getName();
-                    String payload = notification.getParameter();
-                    try {
-                        if ("offerta_insert_channel".equals(channel)) {
-                            Offerta offerta = JsonUtil.fromJson(payload, Offerta.class);
-                            inviaNotificaOfferta(offerta);
-                        } else if ("notifica_insert_channel".equals(channel)) {
-                            Notifica notifica = JsonUtil.fromJson(payload, Notifica.class);
-                            inviaNotificaPersonale(notifica);
-                        }
-                    } catch (ApiException e) {
-                        System.out.println("Errore ApiException: " + e.getMessage());
-                    } catch (Exception e) {
-                        System.out.println("Errore durante il processamento della notifica: " + e.getMessage());
-                    }
+                    processNotification(notification);
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Errore SQL nella lettura delle notifiche, tentativo di riconnessione...");
+            logger.error("Errore SQL nella lettura delle notifiche, tentativo di riconnessione...");
             reconnect();
         }
     }
+
+    private void processNotification(PGNotification notification) {
+        String channel = notification.getName();
+        String payload = notification.getParameter();
+
+        try {
+            switch (channel) {
+                case "offerta_insert_channel":
+                    handleOffertaNotification(payload);
+                    break;
+                case "notifica_insert_channel":
+                    handleNotificaNotification(payload);
+                    break;
+                default:
+                    logger.warn("Canale di notifica sconosciuto: {}", channel);
+            }
+        } catch (ApiException e) {
+            logger.error("Errore ApiException: {}", e.getMessage());
+        } catch (Exception e) {
+            logger.error("Errore durante il processamento della notifica: {}", e.getMessage());
+        }
+    }
+
+    private void handleOffertaNotification(String payload) throws ApiException {
+        Offerta offerta = JsonUtil.fromJson(payload, Offerta.class);
+        inviaNotificaOfferta(offerta);
+    }
+
+    private void handleNotificaNotification(String payload) throws ApiException {
+        Notifica notifica = JsonUtil.fromJson(payload, Notifica.class);
+        inviaNotificaPersonale(notifica);
+    }
+
 
     private void reconnect() {
         try {
@@ -91,7 +114,7 @@ public class DatabaseNotificationListener {
             }
             initConnection();
         } catch (SQLException e) {
-            System.out.println("Errore durante il tentativo di riconnessione: " + e.getMessage());
+            logger.error("Errore durante il tentativo di riconnessione: {}",e.getMessage());
         }
     }
 
@@ -105,7 +128,7 @@ public class DatabaseNotificationListener {
                 connection.close();
             }
         } catch (SQLException e) {
-            System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+            logger.error("Errore durante la chiusura della connessione: {}", e.getMessage());
         }
     }
 
@@ -131,7 +154,7 @@ public class DatabaseNotificationListener {
             String jsonMessage = objectMapper.writeValueAsString(messageMap);
             webSocketUtil.inviaMessaggio(jsonMessage, destination);
         } catch (JsonProcessingException e) {
-            System.out.println("Errore nella formattazione del messaggio JSON per WebSocket");
+            logger.error("Errore nella formattazione del messaggio JSON per WebSocket");
         }
     }
 }
