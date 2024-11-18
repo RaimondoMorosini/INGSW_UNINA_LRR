@@ -1,16 +1,21 @@
 <template>
     <div class="contenitore_colonne">
         <div class="colonna">
+            <h1 class="m-0.5 text-lg font-bold">INFORAZIONI PRODOTTO</h1>
             <ImmaginiProdotto v-if="item" :prodotto="item" />
         </div>
+
         <div class="colonna">
+            <h1 class="m-0.5 text-lg font-bold">INFORMAZIONI ASTA</h1>
             <InfoAstaProdotto
                 v-if="item"
                 :prodotto="item"
                 :utenteUltimaOfferta="utenteUltimaOfferta"
             />
         </div>
-        <div class="colonna">
+
+        <div v-if="partecipantiIsVisible" class="colonna">
+            <h1 class="m-0.5 text-lg font-bold">OFFERTE ASTE</h1>
             <PartecipantiAsta v-if="offerte" :offerte="offerte" />
         </div>
     </div>
@@ -31,13 +36,17 @@ const astaId = route.params.id;
 const item = ref(null);
 const offerte = ref(null);
 const utenteUltimaOfferta = ref(null);
-const disconnesioneFunction  = ref(null);
+const disconnesioneFunction = ref(null);
 const datiExtra = ref(null);
+const partecipantiIsVisible = ref(true);
 
 onMounted(async () => {
     try {
         console.log('Caricamento asta in corso...');
         item.value = await getInfoAstaProdotto(astaId);
+        if (item.value.tipoAsta === 'asta_silenziosa') {
+            partecipantiIsVisible.value = false;
+        }
     } catch (e) {
         console.error("Errore durante il caricamento dell'asta:", e);
     }
@@ -52,17 +61,18 @@ onMounted(async () => {
         console.log('Errore durante il carimento delle offerte:', e);
     }
     console.log('datiExtra:', datiExtra.value);
-    disconnesioneFunction .value = mantieniAggiornamenti('/asta/' + astaId, handleMessage);
+    disconnesioneFunction.value = mantieniAggiornamenti('/asta/' + astaId, handleMessage);
 });
 
 onUnmounted(() => {
     console.log('mounted');
-    disconnesioneFunction .value();
+    disconnesioneFunction.value();
 });
 
 function handleMessage(message) {
     console.log('Messaggio ricevuto dalla websocket:', message);
     alert('Messaggio ricevuto dalla websocket: ' + message);
+
     const data = JSON.parse(message);
     const offerta = {
         id: data.offerta.id,
@@ -72,9 +82,10 @@ function handleMessage(message) {
         astaId: data.offerta.astaId,
         offertaVincente: data.offerta.offertaVincente,
     };
-    offerte.value.push(offerta);
+    offerte.value.unshift(offerta);
     alert('Offerta ricevuta!');
     utenteUltimaOfferta.value = offerta.emailUtente;
+
     switch (item.value.tipoAsta) {
         case 'asta_inglese':
             if (offerta.prezzoProposto > item.value.prezzoAttuale) {
@@ -101,7 +112,6 @@ function handleMessage(message) {
             console.warn("Tipo d'asta non riconosciuto:", item.value.tipoAsta);
     }
 }
-
 </script>
 
 <style scoped>
@@ -116,13 +126,6 @@ function handleMessage(message) {
     flex: 1; /* Ogni colonna occupa spazio uguale */
     margin: 10px 10px; /* Margine tra le colonne, se necessario */
     padding: 20px; /* Padding interno per le colonne */
-    background: linear-gradient(
-        to bottom,
-        #f0f0f0,
-        #ffffff
-    ); /* Sfondo grigio chiaro sfumato nel bianco */
-    border-radius: 8px; /* Angoli arrotondati per un aspetto più morbido */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra leggera per profondità */
 }
 
 @media (max-width: 768px) {

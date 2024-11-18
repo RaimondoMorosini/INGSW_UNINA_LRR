@@ -36,7 +36,11 @@ import 'primeflex/primeflex.css';
 //import 'primevue/resources/themes/aura-light-green/theme.css';
 import 'primeicons/primeicons.css';
 
-const props = defineProps(['propOpzioni', 'propNomeCaratteristica', 'propCaratteristicheselezionate']);
+const props = defineProps([
+    'propOpzioni',
+    'propNomeCaratteristica',
+    'propCaratteristicheselezionate',
+]);
 const emit = defineEmits(['recuperoValoriSelezionati']);
 
 const opzioni = getArrayOpzionePerMultiSelect(props.propOpzioni);
@@ -47,7 +51,6 @@ const OnChangeOpzioniSelezionate = () => {
 };
 
 onMounted(() => {
-
     selezionaOpzioni();
 });
 
@@ -60,13 +63,12 @@ watch(
 
 // Funzione per controllare se i valori selezionati fanno match con le opzioni
 const selezionaOpzioni = () => {
-    
-    console.log("props Caratteristicheeeeeeeeeeeeeeeee: ", props.propCaratteristicheselezionate);
+    console.log('props Caratteristicheeeeeeeeeeeeeeeee: ', props.propCaratteristicheselezionate);
     selectedOpzioni.value = [];
 
-    props.propCaratteristicheselezionate.forEach(caratteristica => {
-        caratteristica.valoriSelezionati.forEach(valore => {
-            opzioni.forEach(opzione => {
+    props.propCaratteristicheselezionate.forEach((caratteristica) => {
+        caratteristica.valoriSelezionati.forEach((valore) => {
+            opzioni.forEach((opzione) => {
                 if (valore === opzione.name) {
                     selectedOpzioni.value.push(opzione);
                 }

@@ -32,11 +32,21 @@
         class="bg-primario-400"
     >
         <SwiperSlide v-for="(photo, index) in slides.photo" :key="index" class="p-6">
-            <RouterLink :to="{ name: 'aste', query: { pagina: 1, categoria: slides.links[index], tipoAsta: JSON.stringify([]), lista: JSON.stringify([])} }">
+            <RouterLink
+                :to="{
+                    name: 'aste',
+                    query: {
+                        pagina: 1,
+                        categoria: slides.links[index],
+                        tipoAsta: JSON.stringify([]),
+                        lista: JSON.stringify([]),
+                    },
+                }"
+            >
                 <img
                     :src="require(`@/assets/img/carosello/${photo}`)"
                     alt=""
-                    class="border-2 border-greyButton-400"
+                    class="border-greyButton-400 border-2"
                 />
             </RouterLink>
         </SwiperSlide>
@@ -55,6 +65,13 @@ import 'swiper/css/pagination';
 
 const slides = {
     photo: ['bg1.jpg', 'bg2.jpg', 'bg3.jpg', 'bg4.jpg', 'bg5.jpg', 'bg6.jpg'],
-    links: ['Sport e Hobby', 'Per la casa e la persona', 'Elettronica', 'Altro', 'Abbigliamento', 'Sport e Hobby'],
+    links: [
+        'Sport e Hobby',
+        'Per la casa e la persona',
+        'Elettronica',
+        'Altro',
+        'Abbigliamento',
+        'Sport e Hobby',
+    ],
 };
 </script>

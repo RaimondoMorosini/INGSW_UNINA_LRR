@@ -8,14 +8,14 @@
             <InputText
                 v-model="nomeProdottoCercato"
                 placeholder="Search"
-                class="w-[100%] rounded-r   "
+                class="w-[100%] rounded-r"
             >
             </InputText>
         </InputGroup>
 
         <!-- CASSELLA CATEGORIE -->
         <InputGroup class="h-14 w-[100%] lg:w-[33%]">
-            <Button ><i class="pi pi-th-large text-[#1C1B22]" ></i></Button>
+            <Button><i class="pi pi-th-large text-[#1C1B22]"></i></Button>
             <TreeSelect
                 @change="setCategoriaSelezionata"
                 id="idCategoria"
@@ -23,12 +23,12 @@
                 :options="gerarchiaCategorie"
                 option-label="name"
                 placeholder="Seleziona Categoria"
-                class="w-[100%] rounded-r "
+                class="w-[100%] rounded-r"
             />
         </InputGroup>
 
         <!-- CASSELLA TIPI DI ASTA -->
-        <InputGroup class="h-14 w-[100%] lg:w-[33%] ">
+        <InputGroup class="h-14 w-[100%] lg:w-[33%]">
             <Button>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                     <g id="asta">
@@ -48,13 +48,13 @@
                 optionLabel="name"
                 placeholder="Seleziona aste"
                 :maxSelectedLabels="3"
-                class="w-[100%] rounded-r z-30"
+                class="z-30 w-[100%] rounded-r"
             />
         </InputGroup>
 
         <!-- BOTTONE CERCA-->
         <Button class="lg:w-[10%]] w-[100%]" @click="OnCLickCerca(false)"
-            ><span class="font-bold  ">Cerca Aste</span></Button
+            ><span class="font-bold">Cerca Aste</span></Button
         >
     </div>
 
@@ -167,6 +167,4 @@ const OnCLickCerca = () => {
     background-color: #f0f0f0;
     border: 1px solid #ccc;
 }
-
-
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <DataTable
-            :value="customers"
+            :value="props.offerte"
             paginator
             showGridlines
             :rows="5"
@@ -33,22 +33,15 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue';
-import { CustomerService } from '../../service/CustomerService';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 
 const customers = ref();
-const loading = ref(true);
+const loading = ref(false);
 
 const props = defineProps(['offerte']);
 
-onMounted(() => {
-    CustomerService.initializeData(props.offerte);
-    CustomerService.getCustomersXLarge().then((data) => {
-        customers.value = getCustomers(data);
-        loading.value = false;
-    });
-});
+onMounted(() => {});
 
 const formatDate = (unixTime) => {
     // Converti il timestamp Unix in millisecondi
@@ -72,8 +65,5 @@ const getCustomers = (data) => {
     });
 };
 
-watch(props.offerte, () => {
-    CustomerService.initializeData(props.offerte);
-    customers.value = props.offerte;
-});
+watch(props.offerte, () => {});
 </script>

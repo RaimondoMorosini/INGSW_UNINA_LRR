@@ -84,7 +84,6 @@ public class AstaFacadeService {
         //TODO aggiungere controlli per vedere se utente ha il permesso di creare asta
         astaService.checkDatiInputi(datiInput.datiAsta());
         prodottoService.checkDatiInputi(datiInput.datiProdotto());
-
     }
 
 
@@ -92,8 +91,8 @@ public class AstaFacadeService {
         List<MultipartFile> files = immagineAstaDTO.files();
         int idAsta = immagineAstaDTO.idAsta();
         String identificativoUtente = ControllerRestUtil.getEmailOfUtenteCorrente();
-        String PropritarioAsta = astaService.getIdUtentebyIdAsta(idAsta);
-        if (!identificativoUtente.equals(PropritarioAsta)) {
+        String propritarioAsta = astaService.getIdUtentebyIdAsta(idAsta);
+        if (!identificativoUtente.equals(propritarioAsta)) {
             throw new ApiException("Non hai i permessi per modificare quest'asta", HttpStatus.FORBIDDEN);
         }
         StringBuilder message = new StringBuilder();

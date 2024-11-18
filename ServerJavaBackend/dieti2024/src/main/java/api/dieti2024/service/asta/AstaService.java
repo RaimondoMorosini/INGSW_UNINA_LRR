@@ -15,6 +15,7 @@ import api.dieti2024.util.ControllerRestUtil;
 import api.dieti2024.util.TipoPermesso;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import api.dieti2024.util.Messages;
 
 import java.util.List;
 
@@ -79,23 +80,23 @@ public class AstaService {
     }
 
     public Asta getAstaById(int i) {
-        return astaRepository.findById(i).orElseThrow(() -> new ApiException("asta non trovata", HttpStatus.NOT_FOUND));
+        return astaRepository.findById(i).orElseThrow(() -> new ApiException(Messages.AUCTION_NOT_FOUND, HttpStatus.NOT_FOUND));
     }
 
     public DatiAstaInglese getDatiAstaIngleseById(int id) {
-        return datiAstaIngleseRepository.findById(id).orElseThrow(() -> new ApiException("Dati asta inglese non trovati", HttpStatus.NOT_FOUND));
+        return datiAstaIngleseRepository.findById(id).orElseThrow(() -> new ApiException(Messages.AUCTION_NOT_FOUND_ENGLISH, HttpStatus.NOT_FOUND));
     }
 
     public String getIdUtentebyIdAsta(int idAsta) {
-        return  astaRepository.findById(idAsta).orElseThrow(() -> new ApiException("asta non trovata", HttpStatus.NOT_FOUND)).getEmailUtenteCreatore();
+        return  astaRepository.findById(idAsta).orElseThrow(() -> new ApiException(Messages.AUCTION_NOT_FOUND, HttpStatus.NOT_FOUND)).getEmailUtenteCreatore();
     }
 
     public String getTipoAstaById(int idAssta) {
-        return astaRepository.findById(idAssta).orElseThrow(() -> new ApiException("asta non trovata", HttpStatus.NOT_FOUND)).getTipoAsta();
+        return astaRepository.findById(idAssta).orElseThrow(() -> new ApiException(Messages.AUCTION_NOT_FOUND, HttpStatus.NOT_FOUND)).getTipoAsta();
     }
 
     public boolean isScaduta(int idAsta) {
-        Asta asta = astaRepository.findById(idAsta).orElseThrow(() -> new ApiException("asta non trovata", HttpStatus.NOT_FOUND));
+        Asta asta = astaRepository.findById(idAsta).orElseThrow(() -> new ApiException(Messages.AUCTION_NOT_FOUND, HttpStatus.NOT_FOUND));
         return CalendarioUtil.isTempoScaduto(CalendarioUtil.ottieniTempoAttuale(),asta.getDataScadenza());
     }
 

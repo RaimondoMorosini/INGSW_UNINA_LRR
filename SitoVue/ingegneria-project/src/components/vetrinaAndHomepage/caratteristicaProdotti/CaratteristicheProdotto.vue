@@ -11,7 +11,7 @@
             v-for="(caratteristica, index) in caratteristicheRelativeAllaCategoria"
         >
             <div class="linea-separatoria"></div>
-            <opzioniSelezionabili 
+            <opzioniSelezionabili
                 :propOpzioni="caratteristica.opzioniSelezionabili"
                 :propNomeCaratteristica="caratteristica.nomeCaratteristica"
                 :propCaratteristicheselezionate="propCaratteristicheselezionate"
@@ -33,7 +33,7 @@ import {
 
 import opzioniSelezionabili from './opzioniSelezionbili.vue';
 
-const props = defineProps(['propCategoria','propCaratteristicheselezionate']);
+const props = defineProps(['propCategoria', 'propCaratteristicheselezionate']);
 const emit = defineEmits(['caratteristicheSelezionate']);
 
 const caratteristicheRelativeAllaCategoria = ref([]);

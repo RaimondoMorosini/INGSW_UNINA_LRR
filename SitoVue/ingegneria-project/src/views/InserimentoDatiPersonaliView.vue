@@ -1,9 +1,11 @@
 <template>
-    <div class="main w-[100%] flex justify-around p-3">
-        <NewInfoProfilo/>
+    <div class="main flex w-[100%] justify-around p-3">
+        <Toast/>
+        <NewInfoProfilo />
     </div>
 </template>
 
 <script setup>
-import NewInfoProfilo from '../components/Profilo/NewInfoProfilo.vue'
+import Toast from 'primevue/toast';
+import NewInfoProfilo from '../components/Profilo/NewInfoProfilo.vue';
 </script>

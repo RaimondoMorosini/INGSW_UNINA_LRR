@@ -1,5 +1,8 @@
 package api.dieti2024.configuration;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
@@ -7,6 +10,7 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 @Component
 public class WebSocketEventListener {
+    private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
 
     private final UtentiConnessi utentiConnessi;
 
@@ -20,6 +24,6 @@ public class WebSocketEventListener {
         String sessionId = event.getSessionId();
         // Rimuovi il sessionId dalla tua lista di sessioni attive
         utentiConnessi.rimuoviIdSessione(sessionId);
-        System.out.println("Sessione disconnessa: " + sessionId);
+        logger.error("Sessione disconnessa: {}" , sessionId);
     }
 }

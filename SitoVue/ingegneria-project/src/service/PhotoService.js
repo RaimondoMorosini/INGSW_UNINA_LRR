@@ -17,7 +17,6 @@ export const PhotoService = {
     },
 };
 
-
 export function convertiDaSrcToFile(base64, nomeFile) {
     // Verifica e rimuovi il prefisso data:image
     let base64String = base64;

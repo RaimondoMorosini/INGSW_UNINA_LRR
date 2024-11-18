@@ -1,50 +1,54 @@
 <template>
-  <div class="notification-container">
-    <h1 class="text-2xl font-bold mb-4">Notifiche</h1>
-    <div class="notification-summary mb-4">
-      <p>Numero totale di notifiche: {{ totalNotifications }}</p>
-      <p>Numero di notifiche da leggere: {{ unreadNotifications }}</p>
-    </div>
+    <div class="notification-container">
+        <h1 class="mb-4 text-2xl font-bold">Notifiche</h1>
+        <div class="notification-summary mb-4">
+            <p>Numero totale di notifiche: {{ totalNotifications }}</p>
+            <p>Numero di notifiche da leggere: {{ unreadNotifications }}</p>
+        </div>
 
-    <div class="filter-sort flex flex-col md:flex-row justify-between mb-4">
-      <div class="mb-2 md:mb-0">
-        <label for="filter" class="mr-2">Filtra:</label>
-        <select v-model="filter" id="filter" class="p-2 border rounded">
-          <option value="all">Tutte</option>
-          <option value="read">Visualizzate</option>
-          <option value="unread">Non visualizzate</option>
-        </select>
-      </div>
+        <div class="filter-sort mb-4 flex flex-col justify-between md:flex-row">
+            <div class="mb-2 md:mb-0">
+                <label for="filter" class="mr-2">Filtra:</label>
+                <select v-model="filter" id="filter" class="rounded border p-2">
+                    <option value="all">Tutte</option>
+                    <option value="read">Visualizzate</option>
+                    <option value="unread">Non visualizzate</option>
+                </select>
+            </div>
 
-      <div>
-        <label for="sort" class="mr-2">Ordina per data:</label>
-        <select v-model="sortOrder" id="sort" class="p-2 border rounded">
-          <option value="asc">Crescente</option>
-          <option value="desc">Decrescente</option>
-        </select>
-      </div>
-    </div>
+            <div>
+                <label for="sort" class="mr-2">Ordina per data:</label>
+                <select v-model="sortOrder" id="sort" class="rounded border p-2">
+                    <option value="asc">Crescente</option>
+                    <option value="desc">Decrescente</option>
+                </select>
+            </div>
+        </div>
 
-    <ul>
-      <li v-for="notification in filteredNotifications" :key="notification.id">
-        <notificheItem
-          :id="notification.id"
-          :astaId="notification.AstaId"
-          :title="'Notifica ' + notification.oggettoDellaNotifica"
-          :message="notification.messaggio"
-          :date="new Date(notification.dataUnixTimeMilliseconds).toLocaleString()"
-          :isRead="notification.visualizzato"
-          @mark-as-read="segnaNotificaComeLetta"
-        />
-      </li>
-    </ul>
-    <button @click="loadMore">Carica di più</button>
+        <ul>
+            <li v-for="notification in filteredNotifications" :key="notification.id">
+                <notificheItem
+                    :id="notification.id"
+                    :astaId="notification.AstaId"
+                    :title="'Notifica ' + notification.oggettoDellaNotifica"
+                    :message="notification.messaggio"
+                    :date="new Date(notification.dataUnixTimeMilliseconds).toLocaleString()"
+                    :isRead="notification.visualizzato"
+                    @mark-as-read="segnaNotificaComeLetta"
+                />
+            </li>
+        </ul>
+        <button @click="loadMore">Carica di più</button>
     </div>
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import { getNotifiche, getNumeroDiNotificheNonLette, getNumeroNotifiche } from '../../service/notificheService';
+import {
+    getNotifiche,
+    getNumeroDiNotificheNonLette,
+    getNumeroNotifiche,
+} from '../../service/notificheService';
 import notificheItem from './ListaNotifiche/NotificaItem/notificheItem.vue';
 
 const notifications = ref([]);
@@ -56,89 +60,88 @@ const filter = ref('all');
 const sortOrder = ref('desc');
 
 const fetchNotifications = async () => {
-  try {
-    totalNotifications.value = await getNumeroNotifiche();
-    console.log('totalNotifications:', totalNotifications.value);
-    unreadNotifications.value = await getNumeroDiNotificheNonLette();
-    notifications.value = await getNotifiche(currentPage.value, notificationsPerPage);
-    console.log('notifications:', notifications.value);
-
-  } catch (error) {
-    console.error('Error fetching notifications:', error);
-  }
+    try {
+        totalNotifications.value = await getNumeroNotifiche();
+        console.log('totalNotifications:', totalNotifications.value);
+        unreadNotifications.value = await getNumeroDiNotificheNonLette();
+        notifications.value = await getNotifiche(currentPage.value, notificationsPerPage);
+        console.log('notifications:', notifications.value);
+    } catch (error) {
+        console.error('Error fetching notifications:', error);
+    }
 };
 
 const loadMore = async () => {
-  currentPage.value++;
-  const newNotifications = await getNotifiche(currentPage.value, notificationsPerPage);
-  notifications.value.push(...newNotifications);
+    currentPage.value++;
+    const newNotifications = await getNotifiche(currentPage.value, notificationsPerPage);
+    notifications.value.push(...newNotifications);
 };
 
 function segnaNotificaComeLetta(id) {
-  const notification = notifications.value.find((n) => n.id === id);
-  if (notification) {
-    notification.visualizzato = true;
-    alert(`Segna come letta la notifica ${notification.id}`);
-  }
+    const notification = notifications.value.find((n) => n.id === id);
+    if (notification) {
+        notification.visualizzato = true;
+        alert(`Segna come letta la notifica ${notification.id}`);
+    }
 }
 
 const filteredNotifications = computed(() => {
-  let filtered = notifications.value;
+    let filtered = notifications.value;
 
-  // Filtro in base allo stato di lettura
-  if (filter.value === 'read') {
-    filtered = filtered.filter(n => n.visualizzato);
-  } else if (filter.value === 'unread') {
-    filtered = filtered.filter(n => !n.visualizzato);
-  }
+    // Filtro in base allo stato di lettura
+    if (filter.value === 'read') {
+        filtered = filtered.filter((n) => n.visualizzato);
+    } else if (filter.value === 'unread') {
+        filtered = filtered.filter((n) => !n.visualizzato);
+    }
 
-  // Ordinamento in base alla data
-  filtered.sort((a, b) => {
-    const dateA = new Date(a.dataUnixTimeMilliseconds);
-    const dateB = new Date(b.dataUnixTimeMilliseconds);
-    return sortOrder.value === 'asc' ? dateA - dateB : dateB - dateA;
-  });
+    // Ordinamento in base alla data
+    filtered.sort((a, b) => {
+        const dateA = new Date(a.dataUnixTimeMilliseconds);
+        const dateB = new Date(b.dataUnixTimeMilliseconds);
+        return sortOrder.value === 'asc' ? dateA - dateB : dateB - dateA;
+    });
 
-  return filtered;
+    return filtered;
 });
 
 onMounted(() => {
-  fetchNotifications();
+    fetchNotifications();
 });
 </script>
 
 <style scoped>
 .notification-container {
-  max-width: 600px;
-  margin: 10px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
 }
 
 .notification-summary {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .filter-sort {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 
 button {
-  margin-top: 20px;
-  padding: 10px 15px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 </style>
