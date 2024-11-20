@@ -1,6 +1,12 @@
 <template>
     <form @submit.prevent="gestioneInvio">
-        <main class="mt-5 flex min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row">
+        <div class="flex flex-col lg:flex-row gap-2 justify-around">
+            <Card class="lg:w-[60%]">
+            <template #header>
+                <h2 class="text-xl font-bold">Informazioni sul prodotto</h2>
+            </template>
+            <template #content>
+                
             <div>
                 <div class="formSpace pt-6">
                     <FloatLabel variant="on">
@@ -22,7 +28,7 @@
                 </div>
                 <div class="formSpace pt-6">
                     <FloatLabel variant="on">
-                        <InputNumber fluid class="rounded" id="prezzoBase" v-model="prezzoBase" />
+                        <InputNumber mode="currency" currency="EUR" :min="0" fluid class="rounded" id="prezzoBase" v-model="prezzoBase" />
                         <label for="prezzoBase">Prezzo Base</label>
                     </FloatLabel>
                 </div>
@@ -43,11 +49,21 @@
                     </FloatLabel>
                 </InputGroup>
             </div>
-            <div class="flex justify-center p-2 lg:w-[50%] lg:justify-start">
+        
+            </template>
+        </Card>
+        <Card class="lg:w-[40%]">
+            <template #header>
+                <h2 class="text-xl font-bold">Carica Immagini</h2>
+            </template>
+            <template #content>
+                <div class="flex justify-center p-2lg:justify-start">
                 <!--viene dato l'array contenente le immagini dallo store e flag per verificare se si possono mettere multiple immagini-->
-                <ImageUploader :storeInstance="storeInstance.asta.immaginiSalvate" multi="true" />
+                <ImageUploader :storeInstance="astaStoreInstance.asta.immaginiSalvate"  />
             </div>
-        </main>
+            </template>
+        </Card>
+        </div>
 
         <div class="areaBottoni my-4 flex justify-around gap-5 px-10">
             <Button class="w-[45%]" size="large" @click="gestioneInvio"
@@ -58,6 +74,7 @@
 </template>
 
 <script setup>
+import Card from 'primevue/card';
 import Button from 'primevue/button';
 import InputNumber from 'primevue/inputnumber';
 import FloatLabel from 'primevue/floatlabel';
@@ -70,14 +87,14 @@ import { onMounted, onUnmounted, ref, defineEmits } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
 import { getCategorie } from '../../service/categoriaService.js';
 
-const nodes = ref([]);
+const astaStoreInstance = useAstaStore();
 
-const storeInstance = useAstaStore();
+const nodes = ref([]);
 const emit = defineEmits('increase-page', 'decreasse-page');
-const selectedCategory = ref(storeInstance.asta.categoria);
-const nomeProdotto = ref(storeInstance.asta.nomeProdotto);
-const descrizione = ref(storeInstance.asta.descrizione);
-const prezzoBase = ref(storeInstance.asta.prezzoBase);
+const selectedCategory = ref(astaStoreInstance.asta.categoria);
+const nomeProdotto = ref(astaStoreInstance.asta.nomeProdotto);
+const descrizione = ref(astaStoreInstance.asta.descrizione);
+const prezzoBase = ref(astaStoreInstance.asta.prezzoBase);
 
 const categoriaSelezionata = function (obj) {
     let keys = '';
@@ -87,10 +104,10 @@ const categoriaSelezionata = function (obj) {
     return keys;
 };
 
-const categoriaSalvata = ref(categoriaSelezionata(storeInstance.asta.categoria));
+const categoriaSalvata = ref(categoriaSelezionata(astaStoreInstance.asta.categoria));
 
 onMounted(() => {
-    storeInstance.updateAsta({
+    astaStoreInstance.updateAsta({
         step: 0,
     });
     getCategorie().then((response) => {
@@ -98,7 +115,7 @@ onMounted(() => {
     });
 });
 onUnmounted(() => {
-    storeInstance.updateAsta({
+    astaStoreInstance.updateAsta({
         nomeProdotto: nomeProdotto.value,
         descrizione: descrizione.value,
         prezzoBase: prezzoBase.value,
@@ -112,7 +129,7 @@ const gestioneInvio = () => {
         return;
     }
 
-    storeInstance.updateAsta({
+    astaStoreInstance.updateAsta({
         nomeProdotto: nomeProdotto.value,
         descrizione: descrizione.value,
         prezzoBase: prezzoBase.value,

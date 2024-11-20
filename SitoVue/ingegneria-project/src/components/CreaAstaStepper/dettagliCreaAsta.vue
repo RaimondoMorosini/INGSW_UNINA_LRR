@@ -49,17 +49,11 @@
                 </FloatLabel>
             </div>
             <div class="pt-5 lg:pr-9">
+                
                 <FloatLabel variant="on">
-                    <InputNumber
-                        fluid
-                        inputId="integeronly"
-                        id="durataEstensione"
-                        class="rounded"
-                        v-model="durataEstensione"
-                        prefix="Ore estensione: "
-                    />
-                    <label for="durataEstensione">Durata estensione</label>
-                </FloatLabel>
+                        <InputNumber :min="0" fluid class="rounded" id="durataEstensione" v-model="durataEstensione" />
+                        <label for="durataEstensione">Lunghezza estensione asta</label>
+                    </FloatLabel>
             </div>
             <div class="bg-inherit pt-5 lg:pr-9">
                 <FloatLabel variant="on">
@@ -143,9 +137,9 @@ const scadenzaAsta = ref('');
 
 onMounted(() => {
     storeInstance.updateAsta({ step: 2 });
-    //incrementoMinimo.value = storeInstance.asta.incrementoMinimo;
-    //durataEstensione.value = storeInstance.asta.durataEstensione;
-    //scadenzaAsta.value = storeInstance.asta.scadenzaAsta;
+    incrementoMinimo.value = storeInstance.asta.incrementoMinimo;
+    durataEstensione.value = storeInstance.asta.durataEstensione;
+    scadenzaAsta.value = storeInstance.asta.scadenzaAsta;
     if (tipoAsta === 'asta_silenziosa') {
         checked = true;
     }

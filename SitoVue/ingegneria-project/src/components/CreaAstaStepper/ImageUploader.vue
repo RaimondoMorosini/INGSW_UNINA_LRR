@@ -10,7 +10,7 @@
                 <label
                     class="custom-file-upload flex flex-col items-center gap-0 bg-primario-500 text-4xl hover:bg-primario-600"
                 >
-                    <input type="file" accept="image/*" :multiple="multi" @change="onFileChange" />
+                    <input type="file" accept="image/*" @change="onFileChange" />
                     <i class="pi pi-camera py-2 text-white" style="font-size: 2.5rem"></i>
                     <i class="pi pi-file-plus py-2 text-white" style="font-size: 2.5rem"></i>
                 </label>
@@ -67,7 +67,6 @@ import { inserisciDato, getDato } from '../../scripts/DatiUtils.js';
 //Ogni Store che contiene immagini
 const props = defineProps({
     storeInstance: Object,
-    multi: Boolean,
 });
 
 const isEmpty = computed(() => {
@@ -85,15 +84,12 @@ function onDrop(e) {
 
 function aggiungiFile(files) {
     console.log('hai selezionato ', files.length, ' file');
-    if (props.multi) {
-        for (const element of files) {
+    
+    for (const element of files) {
             console.log('file: ', element);
             props.storeInstance.push({ file: element, src: null, name: element.name });
         }
-    } else {
-        props.storeInstance.push({ file: files[0], src: null, name: files[0].name });
-        console.log('file: ', files[0]);
-    }
+    
     props.storeInstance.forEach((immagine, indice) => {
         if (!immagine.src) {
             const lettore = new FileReader();
