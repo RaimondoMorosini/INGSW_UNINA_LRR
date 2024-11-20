@@ -1,42 +1,59 @@
 <template>
-    <div class="px-5 text-xl font-semibold" font-semibold>Revisione Dati Inseriti</div>
-    <div class="flex flex-col gap-3 px-5 py-3 lg:flex-row">
-        <div class="grid" grid-cols-2 px-3 py-2>
-            <span class="label">Categoria:</span>
-            <span class="campo w-[100%] lg:w-[45rem]">
-                {{ categoriaSelezionata(storeInstance.asta.categoria) }}
-            </span>
-            <span> {{ testCategoria }} </span>
-            <span class="label">nomeProdotto:</span>
-            <span class="campo w-[100%] lg:w-[45rem]"> {{ storeInstance.asta.nomeProdotto }}</span>
-            <span class="label">descrizione</span>
-            <span class="campo w-[100%] lg:w-[45rem]">{{ storeInstance.asta.descrizione }}</span>
-            <span class="label">prezzo Base:</span>
-            <span class="campo w-[100%] lg:w-[45rem]">€ {{ storeInstance.asta.prezzoBase }}</span>
-            <span class="label">tipo Asta:</span>
-            <span class="campo w-[100%] lg:w-[45rem]">{{ tipoAstaNew }}</span>
-
-            <span v-if="tipoAsta === 'asta_inglese'">
-                <span class="label">incremento minimo:</span>
-                <span class="campo w-[100%] lg:w-[45rem]"
-                    >€ {{ storeInstance.asta.incrementoMinimo }}</span
-                >
-                <span class="label">durata estensione:</span>
-                <span class="campo w-[100%] lg:w-[45rem]">{{
-                    storeInstance.asta.durataEstensione
-                }}</span>
-            </span>
-
-            <span class="label">scadenza asta:</span>
-            <span class="campo w-[100%] lg:w-[45rem]">{{ dateScadenza.toLocaleDateString() }}</span>
-        </div>
-        <div class="grid w-[100%] grid-cols-4 gap-2 px-5 py-3">
-            <img
+    
+    <div class="flex flex-col items-start justify-center gap-3 px-5 py-3 lg:flex-row">
+        <Card style="width: 100%;">
+            <template #title>
+                <h2>Revisione Dati Inseriti</h2>
+            </template>
+            <template #content>
+                <div class="flex flex-col gap-2">
+                    <div class="flex flex-row gap-2">
+                        <span class="label">Nome Prodotto</span>
+                        <span class="campo">{{ storeInstance.asta.nomeProdotto }}</span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span class="label">Descrizione Prodotto</span>
+                        <span class="campo">{{ storeInstance.asta.descrizione }}</span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span class="label">Prezzo Base</span>
+                        <span class="campo">{{ storeInstance.asta.prezzoBase }} €</span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span class="label">Categoria</span>
+                        <span class="campo">{{ categoriaInviata }}</span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span class="label">Tipo Asta</span>
+                        <span class="campo">{{ tipoAstaNew }}</span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span class="label">Scadenza Asta</span>
+                        <span class="campo">{{ dateScadenza.toLocaleString() }}</span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span class="label">Durata Estensione</span>
+                        <span class="campo">{{ storeInstance.asta.durataEstensione }} ore</span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span class="label">Incremento Minimo</span>
+                        <span class="campo">{{ storeInstance.asta.incrementoMinimo }} €</span>
+                    </div>
+                </div>
+            </template>
+        </Card>
+        <div class=" bg-slate-200 rounded items-center w-[100%]  gap-2 px-5 py-3">
+            
+            <div class="flex flex-row">
+                <img
+                id="cover"
                 v-if="storeInstance.asta.immaginiSalvate?.length > 0"
                 :src="storeInstance.asta?.immaginiSalvate[0].src"
                 alt="Immagine Copertina"
-                class="col-span-4 h-[9rem] shadow ring-2 ring-primario-400 lg:h-[12rem]"
+                class="col-span-4 h-[20rem] rounded shadow ring-2 ring-primario-400 lg:h-[24rem]"
             />
+            <label for="cover">Immagine di Copertina</label>
+            </div>
             <div
                 v-for="image in storeInstance.asta.immaginiSalvate"
                 class="mr-5 rounded ring-0 ring-primario-400"
@@ -52,7 +69,7 @@
                     <img
                         :src="image.src"
                         alt="Catalogo immagini prodotto"
-                        class="h-[7rem] shadow lg:h-[10rem]"
+                        class="h-[10rem] shadow lg:h-[15rem] rounded-r"
                     />
                 </div>
             </div>
@@ -71,6 +88,7 @@
 </template>
 
 <script setup>
+import Card from 'primevue/card';
 import Button from 'primevue/button';
 import { defineEmits, ref } from 'vue';
 import { creaAsta } from '../../service/astaService.js';
@@ -145,6 +163,12 @@ function toFront(newCover) {
 </script>
 
 <style scoped>
+h1 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #cc85f5;
+}
+
 span.label {
     text-align: left;
     font-size: 1rem;

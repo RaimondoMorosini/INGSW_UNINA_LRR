@@ -1,6 +1,6 @@
 <template>
     <div class="main flex w-[100%] justify-around p-3">
-        <Toast/>
+        <Toast />
         <NewInfoProfilo />
     </div>
 </template>

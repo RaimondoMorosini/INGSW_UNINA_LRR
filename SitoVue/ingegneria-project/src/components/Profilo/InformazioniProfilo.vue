@@ -12,6 +12,7 @@
                 <div class="User info">
                     <h2 class="mt-4 text-2xl font-semibold">
                         {{ instanceStoreProfilo.profilo.nome }}
+                        {{ instanceStoreProfilo.profilo.cognome }}
                     </h2>
                     <h2 class="text-sm text-gray-500">{{ instanceStoreProfilo.profilo.email }}</h2>
                 </div>
@@ -33,22 +34,38 @@
 
         <ul class="LinkAssociati rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
             <h1 class="text-xl">Collegamenti</h1>
-            <li v-for="(link, index) in linkUtili" v-bind:key="index">
-                {{ link }}
+            <li v-for="(link, index) in linksSocial" v-bind:key="index">
+                <a :href="link.value"
+                    ><h2>{{ linkNomi[index] }}</h2></a
+                >
             </li>
         </ul>
     </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useAuth0 } from '@auth0/auth0-vue';
 import { useProfiloStore } from '../../stores/profiloStore';
 import Button from 'primevue/button';
+import { computePosition } from '@floating-ui/vue';
 
 const { idTokenClaims, isAuthenticated, user } = useAuth0();
 
-const linkUtili = ['GitHub', 'LinkedIn', 'Twitter', 'Facebook'];
+//const linkUtili = ['GitHub', 'LinkedIn', 'Twitter', 'Facebook'];
 
 const instanceStoreProfilo = useProfiloStore();
+const linksSocial = ref([]);
+const linkNomi = ref([]);
+
+onMounted(() => {
+    console.log('Profilo caricato', linksSocial);
+
+    for (let i = 0; i < instanceStoreProfilo.profilo.siti_social.length; i++) {
+        linksSocial.value.push({ value: instanceStoreProfilo.profilo.siti_social[i].value });
+        let domain = new URL(instanceStoreProfilo.profilo.siti_social[i].value).hostname;
+        console.log('domain:', domain);
+        linkNomi.value.push(domain);
+    }
+});
 </script>

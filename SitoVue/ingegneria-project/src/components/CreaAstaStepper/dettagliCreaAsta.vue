@@ -1,82 +1,104 @@
 <template>
     <form @submit.prevent="gestioneInvio">
-        <label for="asta">Seleziona tipo Asta</label>
+        <div class="flex flex-col items-center justify-center">
+            <h2>Seleziona tipo asta</h2>
+            <div class="flex justify-center gap-2 py-2">
+                <span
+                    v-if="!checked"
+                    class="text-bold rounded bg-slate-100 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
+                    >ASTA INGLESE</span
+                >
 
-        <div class="flex justify-center gap-2 py-2">
-            <span
-                v-if="!checked"
-                class="text-bold rounded bg-slate-200/20 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
-                >ASTA INGLESE</span
-            >
+                <span v-if="checked" class="text-bold rounded px-2 py-2 text-xl">ASTA INGLESE</span>
+                <ToggleSwitch id="switch" v-model="checked" class="my-2" />
+                <span
+                    v-if="checked"
+                    class="text-bold rounded bg-slate-100 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
+                    >ASTA SILENZIOSA</span
+                >
 
-            <span v-if="checked" class="text-bold rounded px-2 py-2 text-xl">ASTA INGLESE</span>
-            <ToggleSwitch v-model="checked" class="my-2" />
-            <span
-                v-if="checked"
-                class="text-bold rounded bg-slate-200/20 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
-                >ASTA SILENZIOSA</span
-            >
-
-            <span v-if="!checked" class="text-bold rounded px-2 py-2 text-xl">ASTA SILENZIOSA</span>
+                <span v-if="!checked" class="text-bold rounded px-2 py-2 text-xl"
+                    >ASTA SILENZIOSA</span
+                >
+            </div>
         </div>
 
         <!--v-if="tipoAsta === 'asta_inglese'"-->
-        <div v-if="!checked" class="mx-2 my-2 flex flex-col gap-2 px-2 py-2 ring-2 ring-[#cc85f5]">
-            ASTA INGLESE
-            <div class="formSpace w-[100%] pt-5 lg:pr-9">
-                <InputNumber
-                    id="incrementoMinimo"
-                    class="w-[100%] rounded"
-                    v-model="incrementoMinimo"
-                    prefix="€ "
-                />
-                <label for="incrementoMinimo">Incremento minimo</label>
+        <div
+            v-if="!checked"
+            class="mx-2 my-2 flex flex-col gap-2 rounded px-2 py-2 ring-2 ring-[#cc85f5]"
+        >
+            <h2>ASTA INGLESE</h2>
+            <div class="w-[100%] pt-5 lg:pr-9">
+                <FloatLabel variant="on">
+                    <InputNumber
+                        v-model="incrementoMinimo"
+                        fluid
+                        inputId="integeronly"
+                        id="incrementoMinimo"
+                        class="rounded"
+                    />
+                    <label
+                        for="incrementoMinimo"
+                        :class="{
+                            'p-filled': incrementoMinimo !== null && incrementoMinimo !== '',
+                        }"
+                    >
+                        Incremento minimo
+                    </label>
+                </FloatLabel>
             </div>
-            <div class="formSpace pt-5 lg:pr-9">
-                <InputNumber
-                    inputId="integeronly"
-                    fluid
-                    id="durataEstensione"
-                    class="w-[100%] rounded"
-                    v-model="durataEstensione"
-                    prefix="Ore estensione: "
-                />
-                <label for="durataEstensione">Durata estensione</label>
+            <div class="pt-5 lg:pr-9">
+                <FloatLabel variant="on">
+                    <InputNumber
+                        fluid
+                        inputId="integeronly"
+                        id="durataEstensione"
+                        class="rounded"
+                        v-model="durataEstensione"
+                        prefix="Ore estensione: "
+                    />
+                    <label for="durataEstensione">Durata estensione</label>
+                </FloatLabel>
             </div>
-            <div class="formSpace bg-inherit pt-5 lg:pr-9">
-                <DatePicker
-                    dateFormat="dd/mm/yy"
-                    :minDate="minDate"
-                    showIcon="true"
-                    fluid
-                    v-model="scadenzaAsta"
-                    id="scadenzaAsta"
-                    inputId="birth_date"
-                    class="w-[60%] rounded bg-inherit"
-                />
-                <label for="scadenzaAsta">Data Scadenza</label>
+            <div class="bg-inherit pt-5 lg:pr-9">
+                <FloatLabel variant="on">
+                    <DatePicker
+                        fluid
+                        dateFormat="dd/mm/yy"
+                        :minDate="minDate"
+                        showIcon="true"
+                        v-model="scadenzaAsta"
+                        id="scadenzaAsta"
+                        inputId="birth_date"
+                        class="rounded bg-inherit"
+                    />
+                    <label for="scadenzaAsta">Data Scadenza</label>
+                </FloatLabel>
             </div>
         </div>
 
         <!--v-if="tipoAsta === 'asta_silenziosa'"-->
         <div
             v-if="checked"
-            class="mx-2 my-2 flex flex-col gap-2 bg-slate-200/20 px-2 py-2 ring-2 ring-[#cc85f5]"
+            class="mx-2 my-2 flex flex-col gap-2 rounded bg-slate-200/20 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
-            ASTA Silenziosa
+            ASTA SILENZIOSA
 
-            <div class="formSpace px-2 lg:pr-9">
-                <DatePicker
-                    dateFormat="dd/mm/yy"
-                    :minDate="minDate"
-                    showIcon="true"
-                    fluid
-                    v-model="scadenzaAsta"
-                    id="scadenzaAsta"
-                    inputId="birth_date"
-                    class="w-[60%] rounded"
-                />
-                <label for="scadenzaAsta">Data Scadenza</label>
+            <div class="px-2 lg:pr-9">
+                <FloatLabel variant="on">
+                    <DatePicker
+                        dateFormat="dd/mm/yy"
+                        :minDate="minDate"
+                        showIcon="true"
+                        fluid
+                        v-model="scadenzaAsta"
+                        id="scadenzaAsta"
+                        inputId="birth_date"
+                        class="rounded"
+                    />
+                    <label for="scadenzaAsta">Data Scadenza</label>
+                </FloatLabel>
             </div>
         </div>
 
@@ -115,12 +137,15 @@ const storeInstance = useAstaStore();
 
 const tipoAsta = ref(storeInstance.asta.tipoAsta);
 
-const incrementoMinimo = ref(storeInstance.asta.incrementoMinimo);
-const durataEstensione = ref(storeInstance.asta.durataEstensione);
-const scadenzaAsta = ref(storeInstance.asta.scadenzaAsta);
+const incrementoMinimo = ref('');
+const durataEstensione = ref('');
+const scadenzaAsta = ref('');
 
 onMounted(() => {
     storeInstance.updateAsta({ step: 2 });
+    //incrementoMinimo.value = storeInstance.asta.incrementoMinimo;
+    //durataEstensione.value = storeInstance.asta.durataEstensione;
+    //scadenzaAsta.value = storeInstance.asta.scadenzaAsta;
     if (tipoAsta === 'asta_silenziosa') {
         checked = true;
     }
@@ -164,22 +189,10 @@ const goToPreviousForm = () => {
 </script>
 
 <style scoped>
-form {
-    text-align: center;
-}
-label {
-    text-align: center;
-    display: block;
-    margin: 25px 0 15px;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+h2 {
+    font-size: 1.2rem;
     font-weight: bold;
-}
-.formSpace {
-    justify-content: space-between;
-    display: flex;
-    direction: column;
+    color: #cc85f5;
 }
 .bottone {
     background-color: #cc85f5;

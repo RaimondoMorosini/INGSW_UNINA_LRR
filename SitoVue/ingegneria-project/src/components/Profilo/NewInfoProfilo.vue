@@ -1,164 +1,166 @@
 <template>
-<div class="flex flex-col justify-center align-middle items-center">
-    
-    <form @submit.prevent="handleSubmit" class="w-screen px-3 mb-5">
-        <div
-            class=" mb-5 fluid flex w-[100%] flex-col items-center justify-between gap-5 rounded-lg bg-zinc-200 p-8 shadow-md lg:gap-0 lg:flex-row lg:items-start"
-        >
-        
-            <div class="inline lg:mr-20">
-                <div class="avatar-container">
-                    <div class="image-container">
-                        <img
-                            v-if="newImageURL?.value"
-                            :src="newImageURL"
-                            alt="Profile"
-                            class="preview overflow-hidden rounded-full"
-                        />
-                        <img
-                            v-else
-                            src="../../assets/img/placeholder/PlaceholderProfile.png"
-                            alt="Default"
-                            class="preview overflow-hidden rounded-full"
-                        />
-                    </div>
-                    <label for="avatar-input-file">
-                        <div class="icon-wrapper">
-                            <input
-                                type="file"
-                                id="avatar-input-file"
-                                accept="image/*"
-                                @change="handleImageUpload"
+    <div class="flex flex-col items-center justify-center align-middle">
+        <form @submit.prevent="handleSubmit" class="mb-5 w-screen px-3">
+            <div
+                class="fluid mb-5 flex w-[100%] flex-col items-center justify-between gap-5 rounded-lg bg-zinc-200 p-8 shadow-md lg:flex-row lg:items-start lg:gap-0"
+            >
+                <div class="inline lg:mr-20">
+                    <div class="avatar-container">
+                        <div class="image-container">
+                            <img
+                                v-if="newImageURL"
+                                :src="newImageURL"
+                                alt="Profile"
+                                class="preview overflow-hidden rounded-full"
                             />
-                            <i class="pi pi-camera"></i>
+                            <img
+                                v-else
+                                src="../../assets/img/placeholder/PlaceholderProfile.png"
+                                alt="Default"
+                                class="placeholder overflow-hidden rounded-full p-4"
+                            />
                         </div>
-                    </label>
+                        <label for="avatar-input-file">
+                            <div class="icon-wrapper">
+                                <input
+                                    type="file"
+                                    id="avatar-input-file"
+                                    accept="image/*"
+                                    @change="handleImageUpload"
+                                />
+                                <i class="pi pi-camera"></i>
+                            </div>
+                        </label>
+                    </div>
                 </div>
-            </div>
 
-            <div class="fluid w-full">
-                <div class="rounded-lg bg-white p-8 shadow-md">
-                    <h2 class="mb-4 text-2xl font-bold">Inserimento Dati Personali</h2>
+                <div class="fluid w-full">
+                    <div class="rounded-lg bg-white p-8 shadow-md">
+                        <h2 class="mb-4 text-2xl font-bold">Inserimento Dati Personali</h2>
 
-                    <div class="my-3">
-                        <FloatLabel variant="on">
-                            <label for="nome" class="mb-2 block font-bold text-gray-700"
-                                >Nome</label
-                            >
-                            <InputText
-                                v-model="newNome"
-                                id="nome"
-                                fluid
-                                class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                            />
-                        </FloatLabel>
-                    </div>
-                    <div class="my-3">
-                        <FloatLabel variant="on">
-                            <label for="cognome" class="mb-2 block font-bold text-gray-700"
-                                >Cognome</label
-                            >
-                            <InputText
-                                v-model="newSurname"
-                                id="cognome"
-                                fluid
-                                class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                            />
-                        </FloatLabel>
-                    </div>
-
-                    <div class="my-3">
-                        <FloatLabel variant="on">
-                            <label for="password" class="mb-2 block font-bold text-gray-700"
-                                >Password</label
-                            >
-                            <InputText
-                                v-model="newPassword"
-                                type="password"
-                                id="password"
-                                fluid
-                                class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                            />
-                        </FloatLabel>
-                    </div>
-
-                    <div class="my-3">
-                        <FloatLabel variant="on">
-                            <label for="bio" class="mb-2 block font-bold text-gray-700"
-                                >Biografia</label
-                            >
-                            <Textarea
-                                rows="10"
-                                cols="50"
-                                v-model="newBio"
-                                id="bio"
-                                class="textarea focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                            />
-                        </FloatLabel>
-                    </div>
-                    <div class="my-3">
-                        <FloatLabel variant="on">
-                            <label for="adress" class="mb-2 block font-bold text-gray-700"
-                                >Area Geografica</label
-                            >
-                            <InputText
-                                v-model="newAddress"
-                                type="text"
-                                id="adress"
-                                fluid
-                                class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                            />
-                        </FloatLabel>
-                    </div>
-                    <div class="flex flex-row pb-2">
-                        <Toast/>
-                        <div class="flex flex-col gap-2">
-                            <Button icon="pi pi-plus" @click="addInputField" />
-                        
-                            
+                        <div class="my-3">
+                            <FloatLabel variant="on">
+                                <label for="nome" class="mb-2 block font-bold text-gray-700"
+                                    >Nome</label
+                                >
+                                <InputText
+                                    v-model="newNome"
+                                    id="nome"
+                                    fluid
+                                    class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                                />
+                            </FloatLabel>
                         </div>
-                        <!-- Button to add a new input field -->
-                        <div class="flex w-[100%] flex-col">
-                            <!-- Dynamically added text inputs -->
-                            <div
-                                v-for="(input, index) in newSitiSocialArray"
-                                :key="index"
-                                class="p-field p-grid flex w-[100%] flex-col gap-2 pb-2 pl-2"
-                            >
-                                <InputGroup>
-                                    <FloatLabel variant="on">
-                                    <InputText
-                                        name="name"
-                                        label="label"
-                                        type="url"
-                                        id="id"
-                                        fluid
-                                        v-model="input.value"
-                                        class="w-full"
-                                        @keyup.enter="addInputField"
-                                        @keyup.delete="removeInputField"
-                                    />
-                                    <label for="social" class="mb-2 block font-bold text-gray-700"
-                                        >Social Media</label
-                                    >
-                                </FloatLabel>
-                                    <Button v-if="isRemoveButtonVisible" icon="pi pi-trash" @click="removeInputFieldIndex(index)" />
-                                </InputGroup>
+                        <div class="my-3">
+                            <FloatLabel variant="on">
+                                <label for="cognome" class="mb-2 block font-bold text-gray-700"
+                                    >Cognome</label
+                                >
+                                <InputText
+                                    v-model="newSurname"
+                                    id="cognome"
+                                    fluid
+                                    class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                                />
+                            </FloatLabel>
+                        </div>
+
+                        <div class="my-3">
+                            <FloatLabel variant="on">
+                                <label for="password" class="mb-2 block font-bold text-gray-700"
+                                    >Password</label
+                                >
+                                <InputText
+                                    v-model="newPassword"
+                                    type="password"
+                                    id="password"
+                                    fluid
+                                    class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                                />
+                            </FloatLabel>
+                        </div>
+
+                        <div class="my-3">
+                            <FloatLabel variant="on">
+                                <label for="bio" class="mb-2 block font-bold text-gray-700"
+                                    >Biografia</label
+                                >
+                                <Textarea
+                                    rows="10"
+                                    cols="50"
+                                    v-model="newBio"
+                                    id="bio"
+                                    class="textarea focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                                />
+                            </FloatLabel>
+                        </div>
+                        <div class="my-3">
+                            <FloatLabel variant="on">
+                                <label for="adress" class="mb-2 block font-bold text-gray-700"
+                                    >Area Geografica</label
+                                >
+                                <InputText
+                                    v-model="newAddress"
+                                    type="text"
+                                    id="adress"
+                                    fluid
+                                    class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                                />
+                            </FloatLabel>
+                        </div>
+                        <div class="flex flex-row pb-2">
+                            <Toast />
+                            <div class="flex flex-col gap-2">
+                                <Button icon="pi pi-plus" @click="addInputField" />
+                            </div>
+                            <!-- Button to add a new input field -->
+                            <div class="flex w-[100%] flex-col">
+                                <!-- Dynamically added text inputs -->
+                                <div
+                                    v-for="(input, index) in newSitiSocialArray"
+                                    :key="index"
+                                    class="p-field p-grid flex w-[100%] flex-col gap-2 pb-2 pl-2"
+                                >
+                                    <InputGroup>
+                                        <FloatLabel variant="on">
+                                            <InputText
+                                                name="name"
+                                                label="label"
+                                                type="url"
+                                                id="id"
+                                                fluid
+                                                v-model="input.value"
+                                                class="w-full"
+                                                @keyup.enter="addInputField"
+                                                @keyup.delete="removeInputField"
+                                            />
+                                            <label
+                                                for="social"
+                                                class="mb-2 block font-bold text-gray-700"
+                                                >Social Media</label
+                                            >
+                                        </FloatLabel>
+                                        <Button
+                                            v-if="isRemoveButtonVisible"
+                                            icon="pi pi-trash"
+                                            @click="removeInputFieldIndex(index)"
+                                        />
+                                    </InputGroup>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <Button
-            size="large"
-            @click="handleSubmit"
-            class="w-[50%] rounded bg-primario-500 font-bold text-white hover:bg-primario-600"
-            >Invia Dati</Button
-        >
-    </form>
-</div>
+            <Button
+                size="large"
+                @click="handleSubmit"
+                class="w-[50%] rounded bg-primario-500 font-bold text-white hover:bg-primario-600"
+                >Invia Dati</Button
+            >
+        </form>
+    </div>
 </template>
 
 <script setup>
@@ -166,7 +168,7 @@ import Button from 'primevue/button';
 import InputGroup from 'primevue/inputgroup';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
-import { ref, onMounted,computed } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import FloatLabel from 'primevue/floatlabel';
 import { useProfiloStore } from '../../stores/profiloStore.js';
 import { modificaProfiloPublico } from '../../service/profiloService';
@@ -181,10 +183,9 @@ const newSurname = ref(profiloStoreInstance.profilo.cognome);
 const newBio = ref(profiloStoreInstance.profilo.bio);
 const newAddress = ref(profiloStoreInstance.profilo.area_geografica);
 const newImageName = ref(profiloStoreInstance.profilo.nomeImmagine);
-const newPassword = ref(profiloStoreInstance.profilo.password);
 const newImageURL = ref(profiloStoreInstance.profilo.imageURL);
-const newSitiSocialArray = ref(profiloStoreInstance.profilo.siti_social);
-
+const newPassword = ref(profiloStoreInstance.profilo.password);
+const newSitiSocialArray = ref([]);
 
 const toast = useToast();
 const router = useRouter();
@@ -210,12 +211,18 @@ function handleImageUpload(event) {
 
 // Method to add a new input field
 const addInputField = () => {
-    console.log('Add Input Field: ', newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value==='');
+    console.log(
+        'Add Input Field: ',
+        newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value === ''
+    );
     const lastValue = newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value;
-    if(lastValue === null || !isValidUrl(newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value)) {
+    if (
+        lastValue === null ||
+        !isValidUrl(newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value)
+    ) {
         console.log('URL non valido');
         toast.add({
-            severity:'error',
+            severity: 'error',
             summary: 'Errore',
             detail: 'Inserire un URL ad un profilo social media valido',
             life: 3000,
@@ -223,16 +230,15 @@ const addInputField = () => {
         return;
     }
     newSitiSocialArray.value.push({ value: '' }); // Add an empty object for each new input
-}
+};
 
 //computed value that returns true if the newSitiSocialArray.value.length is 2 or higher
-const isRemoveButtonVisible = computed(
-    () => newSitiSocialArray.value.length > 1);
+const isRemoveButtonVisible = computed(() => newSitiSocialArray.value.length > 1);
 
 const removeInputField = () => {
     const lastValue = newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value;
-    const newLenght = newSitiSocialArray.value.length-1;
-    if(isRemoveButtonVisible && lastValue === "" && newLenght > 0) {
+    const newLenght = newSitiSocialArray.value.length - 1;
+    if (isRemoveButtonVisible && lastValue === '' && newLenght > 0) {
         console.log('Remove Input Field');
         newSitiSocialArray.value.pop();
     }
@@ -240,55 +246,65 @@ const removeInputField = () => {
 
 function removeInputFieldIndex(index) {
     const lastValue = newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value;
-    const newLenght = newSitiSocialArray.value.length-1;
-    if(isRemoveButtonVisible && newLenght > 0) {
+    const newLenght = newSitiSocialArray.value.length - 1;
+    if (isRemoveButtonVisible && newLenght > 0) {
         console.log('Remove Input Field');
         //remove the index element from the array
         newSitiSocialArray.value.splice(index, 1);
     }
-};
-
-function handleSubmit() {
-        console.log('Modifica Profilo in corso');
-        console.log('IMG VALUE ' + newImageURL.value);
-        profiloStoreInstance.updateProfilo({
-            nome: newNome.value,
-            cognome: newSurname.value,
-            bio: newBio.value,
-            area_geografica: newAddress.value,
-            password: newPassword.value,
-            imageURL: newImageURL.value,
-            siti_social: newSitiSocialArray.value,
-        });
-        modificaProfiloPublico(
-            newNome,
-            newSurname,
-            newAddress,
-            newBio,
-            newSitiSocialArray,
-            newImageURL.value,
-        )
-            .then((response) => {
-                console.log('Modifica avvenuta con successo!!!: ' + response);
-                //add a router to redirect to the profile page
-                router.push({ name: 'profilo' });
-            })
-            .catch((error) => {
-                console.error('Errore durante la modifica del profilo: ', error);
-            });
 }
 
+function handleSubmit() {
+    console.log('Modifica Profilo in corso');
+    profiloStoreInstance.updateProfilo({
+        nome: newNome.value,
+        cognome: newSurname.value,
+        bio: newBio.value,
+        area_geografica: newAddress.value,
+        password: newPassword?.value,
+        imageURL: newImageURL?.value,
+        siti_social: newSitiSocialArray.value,
+    });
+    console.log('Profilo Store: ', profiloStoreInstance.profilo);
+    console.log('Profilo object: ', {
+        nome: newNome.value,
+        cognome: newSurname.value,
+        bio: newBio.value,
+        area_geografica: newAddress.value,
+        password: newPassword?.value,
+        imageURL: newImageURL?.value,
+        siti_social: newSitiSocialArray.value,
+    });
+    modificaProfiloPublico(
+        newNome.value,
+        newSurname.value,
+        newAddress.value,
+        newBio.value,
+        newSitiSocialArray.value,
+        newImageURL?.value,
+        newImageName?.value
+    )
+        .then((response) => {
+            console.log('Modifica avvenuta con successo!!!: ' + response);
+            //add a router to redirect to the profile page
+            router.push({ name: 'profilo' });
+        })
+        .catch((error) => {
+            console.error('Errore durante la modifica del profilo: ', error);
+        });
+}
 
 onMounted(() => {
     console.log('Profilo Store: ', profiloStoreInstance.profilo.siti_social);
-    if(profiloStoreInstance.profilo.siti_social.length === 0) {
+    if (profiloStoreInstance.profilo.siti_social.length === 0) {
         newSitiSocialArray.value.push({ value: '' });
-    }else{
-        for(let i = 0; i < profiloStoreInstance.profilo.siti_social.length; i++) {
-            newSitiSocialArray.value.push({ value: profiloStoreInstance.profilo.siti_social[i] });
+    } else {
+        for (let i = 0; i < profiloStoreInstance.profilo.siti_social.length; i++) {
+            newSitiSocialArray.value.push({
+                value: profiloStoreInstance.profilo.siti_social[i].value,
+            });
         }
     }
-    
 });
 
 function isValidUrl(url) {
@@ -307,8 +323,8 @@ function isValidUrl(url) {
 }
 
 .image-container {
-    height: 200px;
-    width: 200px;
+    height: 300px;
+    width: 300px;
     z-index: 1;
     border-radius: 50%;
     background-color: #fff;
@@ -320,8 +336,8 @@ function isValidUrl(url) {
 
 .icon-wrapper {
     position: absolute;
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     padding: 0.35rem;
     background-color: #e879f9;
     border-radius: 50%;
@@ -354,10 +370,21 @@ function isValidUrl(url) {
     }
 }
 
+/** max-width: 100%;
+    max-height: 1000px;
+ */
 .preview {
+    min-height: 300px;
     max-width: 100%;
-    max-height: 300px;
-    margin-top: 10px;
+    max-height: 1000px;
+    align-content: center;
+
+    @apply bg-primario-300;
+}
+.placeholder {
+    max-width: 100%;
+    max-height: 1000px;
+    align-self: center;
 }
 .textarea {
     resize: none;

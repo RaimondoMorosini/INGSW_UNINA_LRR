@@ -1,34 +1,28 @@
 <template>
     <form @submit.prevent="gestioneInvio">
         <main class="mt-5 flex min-w-3col flex-col justify-around gap-3 px-5 md:w-auto lg:flex-row">
-            <div class="auto-rows-max justify-between gap-3 px-2 lg:w-[50%]">
+            <div>
                 <div class="formSpace pt-6">
-                    <FloatLabel>
-                        <InputText
-                            class="w-[100%] rounded"
-                            id="nomeProdotto"
-                            v-model="nomeProdotto"
-                        />
+                    <FloatLabel variant="on">
+                        <InputText fluid id="nomeProdotto" v-model="nomeProdotto" />
                         <label for="nomeProdotto">Nome Prodotto</label>
                     </FloatLabel>
                 </div>
+
                 <div class="formSpace pt-6">
-                    <FloatLabel>
+                    <FloatLabel variant="on">
                         <InputText
+                            fluid
                             id="descrizione"
-                            class="min-h-[10rem] w-[100%] rounded"
+                            class="min-h-[10rem] rounded"
                             v-model="descrizione"
                         />
                         <label for="descrizione">Descrizione Prodotto</label>
                     </FloatLabel>
                 </div>
                 <div class="formSpace pt-6">
-                    <FloatLabel>
-                        <InputNumber
-                            class="w-[100%] rounded"
-                            id="prezzoBase"
-                            v-model="prezzoBase"
-                        />
+                    <FloatLabel variant="on">
+                        <InputNumber fluid class="rounded" id="prezzoBase" v-model="prezzoBase" />
                         <label for="prezzoBase">Prezzo Base</label>
                     </FloatLabel>
                 </div>
@@ -37,14 +31,16 @@
                     <InputGroupAddon class=" ">
                         <i class="pi pi-th-large"></i>
                     </InputGroupAddon>
-                    <TreeSelect
-                        id="categoria"
-                        v-model="selectedCategory"
-                        :options="nodes"
-                        option-label="name"
-                        placeholder="Seleziona Categoria"
-                        class="rounded-r"
-                    />
+                    <FloatLabel variant="on">
+                        <TreeSelect
+                            v-model="selectedCategory"
+                            :options="nodes"
+                            optionLabel="nome"
+                            optionValue="id"
+                            placeholder="Seleziona Categoria"
+                        />
+                        <label for="categoria">Categoria</label>
+                    </FloatLabel>
                 </InputGroup>
             </div>
             <div class="flex justify-center p-2 lg:w-[50%] lg:justify-start">
@@ -127,19 +123,6 @@ const gestioneInvio = () => {
 </script>
 
 <style scoped>
-form {
-    text-align: center;
-}
-label {
-    text-align: center;
-    display: block;
-    margin: 25px 0 15px;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: bold;
-}
-
 button.bottone {
     background-color: #cc85f5;
     padding: 10px 20px;
