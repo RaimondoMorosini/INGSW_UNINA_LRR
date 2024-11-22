@@ -1,68 +1,74 @@
 <template>
     <form @submit.prevent="gestioneInvio">
-        <div class="flex flex-col lg:flex-row gap-2 justify-around">
+        <div class="flex flex-col justify-around gap-2 lg:flex-row">
             <Card class="lg:w-[60%]">
-            <template #header>
-                <h2 class="text-xl font-bold">Informazioni sul prodotto</h2>
-            </template>
-            <template #content>
-                
-            <div>
-                <div class="formSpace pt-6">
-                    <FloatLabel variant="on">
-                        <InputText fluid id="nomeProdotto" v-model="nomeProdotto" />
-                        <label for="nomeProdotto">Nome Prodotto</label>
-                    </FloatLabel>
-                </div>
+                <template #header>
+                    <h2 class="text-xl font-bold">Informazioni sul prodotto</h2>
+                </template>
+                <template #content>
+                    <div>
+                        <div class="formSpace pt-6">
+                            <FloatLabel variant="on">
+                                <InputText fluid id="nomeProdotto" v-model="nomeProdotto" />
+                                <label for="nomeProdotto">Nome Prodotto</label>
+                            </FloatLabel>
+                        </div>
 
-                <div class="formSpace pt-6">
-                    <FloatLabel variant="on">
-                        <InputText
-                            fluid
-                            id="descrizione"
-                            class="min-h-[10rem] rounded"
-                            v-model="descrizione"
-                        />
-                        <label for="descrizione">Descrizione Prodotto</label>
-                    </FloatLabel>
-                </div>
-                <div class="formSpace pt-6">
-                    <FloatLabel variant="on">
-                        <InputNumber mode="currency" currency="EUR" :min="0" fluid class="rounded" id="prezzoBase" v-model="prezzoBase" />
-                        <label for="prezzoBase">Prezzo Base</label>
-                    </FloatLabel>
-                </div>
+                        <div class="formSpace pt-6">
+                            <FloatLabel variant="on">
+                                <InputText
+                                    fluid
+                                    id="descrizione"
+                                    class="min-h-[10rem] rounded"
+                                    v-model="descrizione"
+                                />
+                                <label for="descrizione">Descrizione Prodotto</label>
+                            </FloatLabel>
+                        </div>
+                        <div class="formSpace pt-6">
+                            <FloatLabel variant="on">
+                                <InputNumber
+                                    mode="currency"
+                                    currency="EUR"
+                                    :min="0"
+                                    fluid
+                                    class="rounded"
+                                    id="prezzoBase"
+                                    v-model="prezzoBase"
+                                />
+                                <label for="prezzoBase">Prezzo Base</label>
+                            </FloatLabel>
+                        </div>
 
-                <InputGroup class="categoriaSelector pt-6">
-                    <InputGroupAddon class=" ">
-                        <i class="pi pi-th-large"></i>
-                    </InputGroupAddon>
-                    <FloatLabel variant="on">
-                        <TreeSelect
-                            v-model="selectedCategory"
-                            :options="nodes"
-                            optionLabel="nome"
-                            optionValue="id"
-                            placeholder="Seleziona Categoria"
-                        />
-                        <label for="categoria">Categoria</label>
-                    </FloatLabel>
-                </InputGroup>
-            </div>
-        
-            </template>
-        </Card>
-        <Card class="lg:w-[40%]">
-            <template #header>
-                <h2 class="text-xl font-bold">Carica Immagini</h2>
-            </template>
-            <template #content>
-                <div class="flex justify-center p-2lg:justify-start">
-                <!--viene dato l'array contenente le immagini dallo store e flag per verificare se si possono mettere multiple immagini-->
-                <ImageUploader :storeInstance="astaStoreInstance.asta.immaginiSalvate"  />
-            </div>
-            </template>
-        </Card>
+                        <InputGroup class="categoriaSelector pt-6">
+                            <InputGroupAddon class=" ">
+                                <i class="pi pi-th-large"></i>
+                            </InputGroupAddon>
+                            <FloatLabel variant="on">
+                                <TreeSelect
+                                    v-model="selectedCategory"
+                                    :options="nodes"
+                                    optionLabel="nome"
+                                    optionValue="id"
+                                    placeholder="Seleziona Categoria"
+                                />
+                                <label for="categoria">Categoria</label>
+                            </FloatLabel>
+                        </InputGroup>
+                    </div>
+                </template>
+            </Card>
+            <Card class="lg:w-[40%]">
+                <template #header>
+                    <h2 class="text-xl font-bold">Carica Immagini</h2>
+                </template>
+                <template #content>
+                    <div class="p-2lg:justify-start flex justify-center">
+                        <!--viene dato l'array contenente le immagini dallo store e flag per verificare se si possono mettere multiple immagini-->
+                        <ImageUploader :storeInstance="astaStoreInstance.asta.immaginiSalvate" />
+                    </div>
+                </template>
+            </Card>
         </div>
 
         <div class="areaBottoni my-4 flex justify-around gap-5 px-10">

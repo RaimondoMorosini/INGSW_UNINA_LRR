@@ -84,12 +84,12 @@ function onDrop(e) {
 
 function aggiungiFile(files) {
     console.log('hai selezionato ', files.length, ' file');
-    
+
     for (const element of files) {
-            console.log('file: ', element);
-            props.storeInstance.push({ file: element, src: null, name: element.name });
-        }
-    
+        console.log('file: ', element);
+        props.storeInstance.push({ file: element, src: null, name: element.name });
+    }
+
     props.storeInstance.forEach((immagine, indice) => {
         if (!immagine.src) {
             const lettore = new FileReader();

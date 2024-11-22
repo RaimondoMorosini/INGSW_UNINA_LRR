@@ -1,7 +1,6 @@
 <template>
-    
     <div class="flex flex-col items-start justify-center gap-3 px-5 py-3 lg:flex-row">
-        <Card style="width: 100%;">
+        <Card style="width: 100%">
             <template #title>
                 <h2>Revisione Dati Inseriti</h2>
             </template>
@@ -29,30 +28,31 @@
                     </div>
                     <div class="flex flex-row gap-2">
                         <span class="label">Scadenza Asta</span>
-                        <span class="campo">{{ dateScadenza.toLocaleString() }}</span>
+                        <span class="campo">{{ dateScadenza.toLocaleString().split(',')[0] }}</span>
                     </div>
-                    <div class="flex flex-row gap-2">
+                    <div v-if="tipoAsta==asta_inglese" class="flex flex-row gap-2">
                         <span class="label">Durata Estensione</span>
                         <span class="campo">{{ storeInstance.asta.durataEstensione }} ore</span>
                     </div>
-                    <div class="flex flex-row gap-2">
+                    <div v-if="tipoAsta==asta_inglese" class="flex flex-row gap-2">
                         <span class="label">Incremento Minimo</span>
                         <span class="campo">{{ storeInstance.asta.incrementoMinimo }} €</span>
                     </div>
                 </div>
             </template>
         </Card>
-        <div class=" bg-slate-200 rounded items-center w-[100%]  gap-2 px-5 py-3">
-            
+        <div class="w-[100%] items-center gap-2 rounded bg-slate-200 px-5 py-3">
             <div class="flex flex-row">
+                <label for="cover" class="block"><h1>Immagine di Copertina</h1></label>
+                <br />
                 <img
-                id="cover"
-                v-if="storeInstance.asta.immaginiSalvate?.length > 0"
-                :src="storeInstance.asta?.immaginiSalvate[0].src"
-                alt="Immagine Copertina"
-                class="col-span-4 h-[20rem] rounded shadow ring-2 ring-primario-400 lg:h-[24rem]"
-            />
-            <label for="cover">Immagine di Copertina</label>
+                    id="cover"
+                    v-if="storeInstance.asta.immaginiSalvate?.length > 0"
+                    :src="storeInstance.asta?.immaginiSalvate[0].src"
+                    alt="Immagine Copertina"
+                    class="col-span-4 h-[20rem] rounded shadow ring-2 ring-primario-400 lg:h-[24rem]"
+                />
+                
             </div>
             <div
                 v-for="image in storeInstance.asta.immaginiSalvate"
@@ -69,7 +69,7 @@
                     <img
                         :src="image.src"
                         alt="Catalogo immagini prodotto"
-                        class="h-[10rem] shadow lg:h-[15rem] rounded-r"
+                        class="h-[10rem] rounded-r shadow lg:h-[15rem]"
                     />
                 </div>
             </div>
@@ -136,7 +136,6 @@ const goToPreviousForm = () => {
 };
 
 onMounted(() => {
-    console.log('test gettere asta: ', storeInstance.getFormattedData());
     storeInstance.updateAsta({ step: 3 });
 });
 

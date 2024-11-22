@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
-import { getImageInFormdata } from '../service/astaService.js';
+import { getImageInFormData } from '../service/astaService.js';
 import { getInfoAstaProdotto } from '../service/PaginaProdottoAstaService.js';
 // Funzione per convertire Base64 in Blob
-function srcToFile(base64, nomeFile) {
+/**
+ * function srcToFile(base64, nomeFile) {
     // Verifica e rimuovi il prefisso data:image
     let base64String = base64;
     if (base64.startsWith('data:image/jpeg;base64,')) {
@@ -26,6 +27,8 @@ function srcToFile(base64, nomeFile) {
 
     return new File([blob], nomeFile, { type: 'image/jpeg' });
 }
+ */
+
 
 export const useAstaStore = defineStore('asta', {
     state: () => ({
@@ -55,12 +58,14 @@ export const useAstaStore = defineStore('asta', {
             this.asta = { ...this.asta, ...newData };
         },
         async getFormattedData() {
-            const formData = await getImageInFormdata();
+            const formData = await getImageInFormData();
             const categoriaSalvata = Object.keys(this.asta.categoria)[0];
             const file = this.asta.immaginiSalvate;
-            file.forEach((f) => {
+            /**
+             * file.forEach((f) => {
                 formData.append('file', srcToFile(f.src, f.name));
             });
+             */
 
             return {
                 datiProdotto: {

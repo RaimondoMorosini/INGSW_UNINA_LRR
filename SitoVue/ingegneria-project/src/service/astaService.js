@@ -8,14 +8,23 @@ export const TipoAsta = {
     INGLESE: 'asta_inglese',
 };
 
-function srcToFile(base64, nomeFile) {
+export function srcToFile(base64, nomeFile) {
     // Verifica e rimuovi il prefisso data:image
     let base64String = base64;
+       
+    
     if (base64.startsWith('data:image/jpeg;base64,')) {
         base64String = base64.replace(/^data:image\/jpeg;base64,/, '');
     } else if (base64.startsWith('data:image/png;base64,')) {
         base64String = base64.replace(/^data:image\/png;base64,/, '');
-    } else {
+    } else if(base64.startsWith('data:image/jpg;base64,')) {
+        base64String = base64.replace(/^data:image\/jpg;base64,/, '');
+    }else if(base64.startsWith('data:image/webp;base64,')) {
+        base64String = base64.replace(/^data:image\/webp;base64,/, '');
+    }else if(base64.startsWith('data:image/gif;base64,')) {
+        base64String = base64.replace(/^data:image\/gif;base64,/, '');
+    }
+    else {
         // Gestisci altri tipi di immagine o restituisci un errore
         throw new Error('Tipo di immagine non supportato');
     }
@@ -27,7 +36,21 @@ function srcToFile(base64, nomeFile) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
     let byteArray = new Uint8Array(byteNumbers);
-    let tipo = base64.startsWith('data:image/png;base64,') ? 'image/png' : 'image/jpeg';
+    let tipo;
+    if (base64.startsWith('data:image/jpeg;base64,')) {
+        tipo = 'image/jpeg';
+    } else if (base64.startsWith('data:image/png;base64,')) {
+        tipo = 'image/png';
+    } else if (base64.startsWith('data:image/jpg;base64,')) {
+        tipo = 'image/jpg';
+    } else if (base64.startsWith('data:image/webp;base64,')) {
+        tipo = 'image/webp';
+    } else if (base64.startsWith('data:image/gif;base64,')) {
+        tipo = 'image/gif';
+    } else {
+        console.log('tipo:', tipo);
+        throw new Error('Tipo di immagine non supportato');
+    }
     let blob = new Blob([byteArray], { type: tipo });
 
     return new File([blob], nomeFile, { type: 'image/jpeg' });
@@ -35,11 +58,11 @@ function srcToFile(base64, nomeFile) {
 
 export async function creaAsta() {
     const datiAsta = await useAstaStore().getFormattedData();
-    console.log('datiAsta:\n', datiAsta);
+    console.log('dati Asta:\n', datiAsta);
     datiAsta.datiProdotto.immagini = [];
     try {
         const response = await postRestWithtoken('asta/creaAsta', datiAsta);
-        console.log('log ora recupero idasta e salvo le img:', response);
+        console.log('log ora recupero id asta e salvo le img:', response);
         const idAsta = response.idAsta;
         await salvaImaginiAsta(idAsta);
 
