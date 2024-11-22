@@ -31,7 +31,7 @@
             <span>
                 <i class="pi pi-shopping-bag" style="font-size: 1.5rem; padding-right: 0.8rem"></i>
             </span>
-            <span class="hidden md:block">Aste Personali </span>
+            <span class="hidden md:block">Aste Create</span>
         </li>
     </ul>
     <div v-if="pagina === 1">
@@ -50,7 +50,7 @@ import { useToast } from 'primevue/usetoast';
 import { ref, watch, onMounted } from 'vue';
 import InfoProfilo from '../components/Profilo/InformazioniProfilo.vue';
 import Notifiche from '../components/Profilo/MessaggiProfilo.vue';
-import AstePersonali from '../components/Profilo/AstePersonaliProfilo.vue';
+import AstePersonali from '../components/Profilo/AsteCreate.vue';
 import Badge from 'primevue/badge';
 import { useRouter } from 'vue-router';
 import { useProfiloStore } from '../stores/profiloStore.js';

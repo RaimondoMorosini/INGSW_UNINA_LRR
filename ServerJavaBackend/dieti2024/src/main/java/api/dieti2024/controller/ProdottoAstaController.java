@@ -4,9 +4,12 @@ import api.dieti2024.dto.asta.CreaAstaDTO;
 import api.dieti2024.dto.asta.ImmagineAstaDTO;
 import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.service.asta.AstaFacadeService;
+import api.dieti2024.util.ControllerRestUtil;
 import api.dieti2024.util.ImageContainerUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -55,4 +58,18 @@ public class ProdottoAstaController {
         return ResponseEntity.ok(dati);
     }
 
+    //get numero di aste create
+    @GetMapping("asta/AsteCreate/numero")
+    public int getNumeroAsteCreate() {
+        String emailUtente= ControllerRestUtil.getEmailOfUtenteCorrente();
+        return astaFacadeService.getNumeroAsteCreate(emailUtente);
+    }
+    @GetMapping("asta/asteCreate")
+    public List<InfoDatiAstaDTO> getAsteCreate(
+            @RequestParam(required = false, defaultValue = "0") int pagina,
+            @RequestParam(required = false, defaultValue = "10") int elementi) {
+
+        String emailUtente= ControllerRestUtil.getEmailOfUtenteCorrente();
+        return astaFacadeService.getAsteCreate(emailUtente,pagina, elementi);
+    }
 }

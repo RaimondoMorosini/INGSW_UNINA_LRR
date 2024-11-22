@@ -10,6 +10,8 @@ import api.dieti2024.util.ControllerRestUtil;
 import api.dieti2024.util.ImageContainerUtil;
 import api.dieti2024.util.TipoAsta;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -132,5 +134,17 @@ public class AstaFacadeService {
         }else {
             return "Nessun dato extra per questo tipo di asta";
         }
+    }
+
+    public List<InfoDatiAstaDTO> getAsteCreate(String emailUtente, int pagina, int elementi) {
+        if (pagina < 0 || elementi <= 0) {
+            throw new IllegalArgumentException("Pagina deve essere >= 0 ed elementi > 0");
+        }
+        Pageable pageable = PageRequest.of(pagina, elementi);
+        return astaProdottoRepository.findByEmailUtenteCreatore(emailUtente, pageable);
+    }
+
+    public int getNumeroAsteCreate(String emailUtente) {
+        return  astaProdottoRepository.countByEmailUtenteCreatore(emailUtente);
     }
 }
