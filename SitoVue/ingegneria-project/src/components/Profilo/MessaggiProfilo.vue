@@ -1,24 +1,28 @@
 <template>
-    <div class="notification-container">
-        <h1 class="mb-4 text-2xl font-bold">Notifiche</h1>
-        <div class="notification-summary mb-4">
+    <Card fluid class="notification-container mx-4">
+        <template #title>
+            <h1 class="mb-4 text-2xl font-bold">Notifiche</h1>
+        </template>
+        <template #content>
+            <div class="notification-summary mb-4">
             <p>Numero totale di notifiche: {{ totalNotifications }}</p>
             <p>Numero di notifiche da leggere: {{ unreadNotifications }}</p>
         </div>
 
-        <div class="filter-sort mb-4 flex flex-col justify-between md:flex-row">
-            <div class="mb-2 md:mb-0">
+        <div class="mb-4 flex flex-col justify-around lg:flex-row gap-3">
+            
+            <div class="mb-2 lg:mb-0 w-[100%] flex flex-row justify-between ">
                 <label for="filter" class="mr-2">Filtra:</label>
-                <select v-model="filter" id="filter" class="rounded border p-2">
+                <select v-model="filter" id="filter" class="rounded border p-2 w-[80%]">
                     <option value="all">Tutte</option>
                     <option value="read">Visualizzate</option>
                     <option value="unread">Non visualizzate</option>
                 </select>
             </div>
 
-            <div>
+            <div class="w-[100%] flex flex-row justify-between ">
                 <label for="sort" class="mr-2">Ordina per data:</label>
-                <select v-model="sortOrder" id="sort" class="rounded border p-2">
+                <select v-model="sortOrder" id="sort" class="rounded border p-2 w-[80%]">
                     <option value="asc">Crescente</option>
                     <option value="desc">Decrescente</option>
                 </select>
@@ -38,8 +42,9 @@
                 />
             </li>
         </ul>
-        <button @click="loadMore">Carica di più</button>
-    </div>
+        <Button fluid @click="loadMore">Carica di più</Button>
+        </template>
+    </Card>
 </template>
 
 <script setup>
@@ -50,6 +55,8 @@ import {
     getNumeroNotifiche,
 } from '../../service/notificheService';
 import notificheItem from './ListaNotifiche/NotificaItem/notificheItem.vue';
+import Button from 'primevue/button';
+import Card from 'primevue/card'
 
 const notifications = ref([]);
 const totalNotifications = ref(0);
@@ -112,7 +119,6 @@ onMounted(() => {
 
 <style scoped>
 .notification-container {
-    max-width: 600px;
     margin: 10px auto;
     padding: 20px;
     border: 1px solid #ccc;
@@ -124,24 +130,12 @@ onMounted(() => {
     margin-bottom: 20px;
 }
 
-.filter-sort {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
+
 
 ul {
     list-style-type: none;
     padding: 0;
 }
 
-button {
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+
 </style>

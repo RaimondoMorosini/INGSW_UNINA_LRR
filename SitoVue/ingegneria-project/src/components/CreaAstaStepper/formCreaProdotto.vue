@@ -58,17 +58,12 @@
                     </div>
                 </template>
             </Card>
-            <Card class="lg:w-[40%]">
-                <template #header>
-                    <h2 class="text-xl font-bold">Carica Immagini</h2>
-                </template>
-                <template #content>
-                    <div class="p-2lg:justify-start flex justify-center">
-                        <!--viene dato l'array contenente le immagini dallo store e flag per verificare se si possono mettere multiple immagini-->
-                        <ImageUploader :storeInstance="astaStoreInstance.asta.immaginiSalvate" />
-                    </div>
-                </template>
-            </Card>
+            <div class="lg:w-[40%] ">
+                <div class="p-2 lg:justify-start flex w-[100%] justify-between">
+                    <!--viene dato l'array contenente le immagini dallo store e flag per verificare se si possono mettere multiple immagini-->
+                    <ImageUploader :storeInstance="astaStoreInstance.asta.immaginiSalvate" class="w-[100%] mx-5 lg:mx-0"/>
+                </div>                
+            </div>
         </div>
 
         <div class="areaBottoni my-4 flex justify-around gap-5 px-10">

@@ -11,20 +11,18 @@ export const TipoAsta = {
 export function srcToFile(base64, nomeFile) {
     // Verifica e rimuovi il prefisso data:image
     let base64String = base64;
-       
-    
+
     if (base64.startsWith('data:image/jpeg;base64,')) {
         base64String = base64.replace(/^data:image\/jpeg;base64,/, '');
     } else if (base64.startsWith('data:image/png;base64,')) {
         base64String = base64.replace(/^data:image\/png;base64,/, '');
-    } else if(base64.startsWith('data:image/jpg;base64,')) {
+    } else if (base64.startsWith('data:image/jpg;base64,')) {
         base64String = base64.replace(/^data:image\/jpg;base64,/, '');
-    }else if(base64.startsWith('data:image/webp;base64,')) {
+    } else if (base64.startsWith('data:image/webp;base64,')) {
         base64String = base64.replace(/^data:image\/webp;base64,/, '');
-    }else if(base64.startsWith('data:image/gif;base64,')) {
+    } else if (base64.startsWith('data:image/gif;base64,')) {
         base64String = base64.replace(/^data:image\/gif;base64,/, '');
-    }
-    else {
+    } else {
         // Gestisci altri tipi di immagine o restituisci un errore
         throw new Error('Tipo di immagine non supportato');
     }
@@ -73,7 +71,7 @@ export async function creaAsta() {
     }
 }
 
-export async function getImageInFormdata() {
+export async function getImageInFormData() {
     const formData = new FormData();
     useAstaStore().asta.immaginiSalvate.forEach((f) => {
         console.log('f:', f);

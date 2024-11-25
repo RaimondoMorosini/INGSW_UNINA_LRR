@@ -30,60 +30,72 @@
                         <span class="label">Scadenza Asta</span>
                         <span class="campo">{{ dateScadenza.toLocaleString().split(',')[0] }}</span>
                     </div>
-                    <div v-if="tipoAsta==asta_inglese" class="flex flex-row gap-2">
+                    <div v-if="tipoAsta == asta_inglese" class="flex flex-row gap-2">
                         <span class="label">Durata Estensione</span>
                         <span class="campo">{{ storeInstance.asta.durataEstensione }} ore</span>
                     </div>
-                    <div v-if="tipoAsta==asta_inglese" class="flex flex-row gap-2">
+                    <div v-if="tipoAsta == asta_inglese" class="flex flex-row gap-2">
                         <span class="label">Incremento Minimo</span>
                         <span class="campo">{{ storeInstance.asta.incrementoMinimo }} €</span>
                     </div>
                 </div>
             </template>
         </Card>
-        <div class="w-[100%] items-center gap-2 rounded bg-slate-200 px-5 py-3">
-            <div class="flex flex-row">
-                <label for="cover" class="block"><h1>Immagine di Copertina</h1></label>
-                <br />
-                <img
-                    id="cover"
-                    v-if="storeInstance.asta.immaginiSalvate?.length > 0"
-                    :src="storeInstance.asta?.immaginiSalvate[0].src"
-                    alt="Immagine Copertina"
-                    class="col-span-4 h-[20rem] rounded shadow ring-2 ring-primario-400 lg:h-[24rem]"
-                />
-                
-            </div>
-            <div
-                v-for="image in storeInstance.asta.immaginiSalvate"
-                class="mr-5 rounded ring-0 ring-primario-400"
-            >
-                <div class="flex rounded">
-                    <Button
-                        outlined
-                        severity="contrast"
-                        icon="pi pi-expand"
-                        size="small"
-                        @click="toFront(image)"
-                    />
-                    <img
-                        :src="image.src"
-                        alt="Catalogo immagini prodotto"
-                        class="h-[10rem] rounded-r shadow lg:h-[15rem]"
-                    />
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="buttonArea flex justify-around">
-        <Button class="w-[45%]" size="large" @click="goToPreviousForm"
-            ><span class="font-bold"><i class="pi pi-arrow-left"></i> Precedente</span></Button
-        >
-        <Button class="sp-button w-[45%]" size="large" @click="gestioneInvio"
-            ><span class="font-bold">Finalizza <i class="pi pi-check"></i></span
-        ></Button>
+        <Card style="width: 100%">
+            <template #title>
+                <h2>Immagini</h2>
+            </template>
+            <template #content>
+                <div class="w-[100%] items-center gap-2 rounded bg-slate-200 px-5 py-3">
+                    
+                    <div class="flex flex-col">
+                        <label for="cover"><h1>Immagine di Copertina</h1></label>
+                        <br />
+                        <img
+                            id="cover"
+                            v-if="storeInstance.asta.immaginiSalvate?.length > 0"
+                            :src="storeInstance.asta?.immaginiSalvate[0].src"
+                            alt="Immagine Copertina"
+                            class="w-[20rem] rounded shadow ring-2 ring-primario-400 lg:w-[24rem]"
+                        />
+                    </div>
 
-        <!--success: {{ success }}-->
+                    <div class="grid grid-cols-4 gap-2">
+                    <div
+                        v-for="image in storeInstance.asta.immaginiSalvate"
+                        class="mr-5 rounded ring-0 ring-primario-400"
+                    >
+                    <br />
+                        <div >
+                            <div class="flex flex-row rounded">
+                            <Button
+                                outlined
+                                severity="contrast"
+                                icon="pi pi-expand"
+                                size="small"
+                                @click="toFront(image)"
+                            />
+                            <img
+                                :src="image.src"
+                                alt="Catalogo immagini prodotto"
+                                class="h-[10rem] rounded-r shadow lg:h-[15rem]"
+                            />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </template>
+        </Card>
+        
+        <div class="buttonArea flex w-[100%] flex-row justify-around">
+            <Button class="w-[45%]" size="large" @click="goToPreviousForm"
+                ><span class="font-bold"><i class="pi pi-arrow-left"></i> Precedente</span></Button
+            >
+            <Button class="sp-button w-[45%]" size="large" @click="gestioneInvio"
+                ><span class="font-bold">Finalizza <i class="pi pi-check"></i></span
+            ></Button>
+        </div>
     </div>
 </template>
 

@@ -66,9 +66,6 @@ import SelezionaFiltri from '../components/CreaAstaStepper/impostaFiltriCreaProd
 import Review from '../components/CreaAstaStepper/reviewAsta.vue';
 
 const loading = ref(false);
-
-
-
 </script>
 
 <style scoped>
