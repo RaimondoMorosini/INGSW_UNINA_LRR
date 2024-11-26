@@ -67,21 +67,6 @@
 
                         <div class="my-3">
                             <FloatLabel variant="on">
-                                <label for="password" class="mb-2 block font-bold text-gray-700"
-                                    >Password</label
-                                >
-                                <InputText
-                                    v-model="newPassword"
-                                    type="password"
-                                    id="password"
-                                    fluid
-                                    class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                                />
-                            </FloatLabel>
-                        </div>
-
-                        <div class="my-3">
-                            <FloatLabel variant="on">
                                 <label for="bio" class="mb-2 block font-bold text-gray-700"
                                     >Biografia</label
                                 >
@@ -184,7 +169,6 @@ const newBio = ref(profiloStoreInstance.profilo.bio);
 const newAddress = ref(profiloStoreInstance.profilo.area_geografica);
 const newImageName = ref(profiloStoreInstance.profilo.nomeImmagine);
 const newImageURL = ref(profiloStoreInstance.profilo.imageURL);
-const newPassword = ref(profiloStoreInstance.profilo.password);
 const newSitiSocialArray = ref([]);
 
 const toast = useToast();
@@ -261,7 +245,6 @@ function handleSubmit() {
         cognome: newSurname.value,
         bio: newBio.value,
         area_geografica: newAddress.value,
-        password: newPassword?.value,
         imageURL: newImageURL?.value,
         siti_social: newSitiSocialArray.value,
     });
@@ -271,7 +254,6 @@ function handleSubmit() {
         cognome: newSurname.value,
         bio: newBio.value,
         area_geografica: newAddress.value,
-        password: newPassword?.value,
         imageURL: newImageURL?.value,
         siti_social: newSitiSocialArray.value,
     });

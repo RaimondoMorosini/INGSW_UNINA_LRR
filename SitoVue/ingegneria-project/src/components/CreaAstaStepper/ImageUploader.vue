@@ -1,8 +1,12 @@
 <template>
-    <div id="app">
-        <div class="container flex w-full flex-col content-center items-center justify-center py-2">
+    <Card fluid class="justify flex justify-around">
+        <template #header>
+            <h2 class="text-xl font-bold w-[100%] ">Carica Immagini</h2>
+        </template>
+        
+        <template #content>
             <div
-                class="drop-area rounded ring-1 ring-primario-500"
+                class="drop-area w-full rounded ring-1 ring-primario-500"
                 @dragover.prevent
                 @dragenter.prevent
                 @drop.prevent="onDrop"
@@ -10,7 +14,7 @@
                 <label
                     class="custom-file-upload flex flex-col items-center gap-0 bg-primario-500 text-4xl hover:bg-primario-600"
                 >
-                    <input type="file" accept="image/*" :multiple="multi" @change="onFileChange" />
+                    <input type="file" accept="image/*" @change="onFileChange" />
                     <i class="pi pi-camera py-2 text-white" style="font-size: 2.5rem"></i>
                     <i class="pi pi-file-plus py-2 text-white" style="font-size: 2.5rem"></i>
                 </label>
@@ -18,7 +22,7 @@
 
             <div
                 v-if="isEmpty"
-                class="flex w-[100%] items-center justify-center rounded shadow ring-2 ring-primario-500"
+                class="flex  items-center justify-center rounded shadow ring-2 ring-primario-500"
             >
                 <img
                     src="../../assets/img/placeholder/placeholder.png"
@@ -26,7 +30,7 @@
                     class="immagine px-2 py-2 shadow lg:px-64"
                 />
             </div>
-            <div v-else class="jumbotron w-[100%] rounded shadow ring-1 ring-primario-500">
+            <div v-else class="jumbotron  rounded shadow ring-1 ring-primario-500">
                 <div class="immagini-container grid grid-cols-4 gap-2">
                     <div
                         v-for="(immagine, indice) in props.storeInstance"
@@ -55,19 +59,20 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        
+        </template>
+    </Card>
 </template>
 
 <script setup>
+import Card from 'primevue/card';
 import Button from 'primevue/button';
-import { ref, onUnmounted, onMounted, computed } from 'vue';
-import { inserisciDato, getDato } from '../../scripts/DatiUtils.js';
+import {  onUnmounted, onMounted, computed } from 'vue';
+import { inserisciDato } from '../../scripts/DatiUtils.js';
 
 //Ogni Store che contiene immagini
 const props = defineProps({
     storeInstance: Object,
-    multi: Boolean,
 });
 
 const isEmpty = computed(() => {
@@ -85,15 +90,12 @@ function onDrop(e) {
 
 function aggiungiFile(files) {
     console.log('hai selezionato ', files.length, ' file');
-    if (props.multi) {
-        for (const element of files) {
-            console.log('file: ', element);
-            props.storeInstance.push({ file: element, src: null, name: element.name });
-        }
-    } else {
-        props.storeInstance.push({ file: files[0], src: null, name: files[0].name });
-        console.log('file: ', files[0]);
+
+    for (const element of files) {
+        console.log('file: ', element);
+        props.storeInstance.push({ file: element, src: null, name: element.name });
     }
+
     props.storeInstance.forEach((immagine, indice) => {
         if (!immagine.src) {
             const lettore = new FileReader();
@@ -124,7 +126,6 @@ onUnmounted(() => {
 
 <style scoped>
 .drop-area {
-    width: 100%;
     height: 150px;
     display: flex;
     align-items: center;

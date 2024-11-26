@@ -5,9 +5,19 @@ import api.dieti2024.dto.auth.DatiUtentePerTokenDTO;
 import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Utente;
 import api.dieti2024.repository.UserRepository;
+import com.auth0.jwk.JwkException;
+import com.auth0.jwk.JwkProvider;
+import com.auth0.jwk.JwkProviderBuilder;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.security.interfaces.RSAPublicKey;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class AuthService {
@@ -90,17 +100,52 @@ public class AuthService {
                     utenteRecuperatoTramiteEmail.getPassword()
             );
         }else{
-            verificaTokenAuth0(credenzialiUtenteDTO, utenteRecuperatoTramiteEmail);
+            verificaTokenAuth0(credenzialiUtenteDTO);
         }
         return utenteRecuperatoTramiteEmail;
     }
 
-    private void verificaTokenAuth0(CredenzialiUtenteDTO credenzialiUtenteDTO, Utente utenteRecuperatoTramiteEmail) {
+    private void verificaTokenAuth0(CredenzialiUtenteDTO credenzialiUtenteDTO) {
         String tokenDiAccessoAuth0 = credenzialiUtenteDTO.password();
-        if(tokenDiAccessoAuth0.equals(utenteRecuperatoTramiteEmail.getPassword())){
-            throw new ApiException("Token di accesso non valido", HttpStatus.UNAUTHORIZED);
+
+        try{
+            // Configura il provider JWK
+            String issuer = "https://dev-bmqxc24leqwhyhec.eu.auth0.com/";
+            JwkProvider provider = new JwkProviderBuilder(issuer)
+                    .cached(10, 24, TimeUnit.HOURS) // Cache locale delle chiavi pubbliche
+                    .build();
+            // Decodifica il token (senza verifica della firma)
+            DecodedJWT jwt = JWT.decode(tokenDiAccessoAuth0);
+
+            // Recupera la chiave pubblica associata
+            RSAPublicKey publicKey = (RSAPublicKey) provider.get(jwt.getKeyId()).getPublicKey();
+
+            // Verifica la firma del token
+            Algorithm algorithm = Algorithm.RSA256(publicKey, null);
+            algorithm.verify(jwt);
+
+            // Controlla se il token è scaduto
+            if (jwt.getExpiresAt() != null && jwt.getExpiresAt().getTime() < System.currentTimeMillis()) {
+
+                throw new ApiException("Token scaduto",HttpStatus.UNAUTHORIZED);
+            }
+
+            // Recupera il claim "email"
+            String email = jwt.getClaim("email").asString();
+
+            if(!email.equals(credenzialiUtenteDTO.email())){
+
+                throw new ApiException("Email non coincide con l'e-mail del token, tentativo di furto accoutn rilevato!",HttpStatus.UNAUTHORIZED);
+            }
+
+        } catch (JWTVerificationException e){
+
+            throw new ApiException("Firma non valida, token manipolato",HttpStatus.UNAUTHORIZED);
+
+        } catch (JwkException e){
+
+            throw new ApiException("Errore durante il recupero della chiave pubblica associata",HttpStatus.UNAUTHORIZED);
         }
-        /*TODO implementare la verifica del token di accesso di Auth0 in modo solido*/
     }
 
 

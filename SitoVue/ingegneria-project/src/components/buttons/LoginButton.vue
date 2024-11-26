@@ -16,6 +16,7 @@ const handleLogin = () => {
     eliminaDato('token');
 
     loginWithRedirect({
+        scope: 'openid profile email',
         appState: {
             target: '/profilo',
         },

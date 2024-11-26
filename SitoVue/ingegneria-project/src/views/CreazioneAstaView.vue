@@ -65,44 +65,7 @@ import CreaProdotto from '../components/CreaAstaStepper/formCreaProdotto.vue';
 import SelezionaFiltri from '../components/CreaAstaStepper/impostaFiltriCreaProdotto.vue';
 import Review from '../components/CreaAstaStepper/reviewAsta.vue';
 
-const active = ref(0);
 const loading = ref(false);
-
-const updateCurrentForm = (value) => {
-    active.value = value;
-};
-
-const items = ref([
-    {
-        label: 'Descrizione Prodotto',
-    },
-    {
-        label: 'Selezione Filtri',
-    },
-    {
-        label: 'Dettagli Asta',
-    },
-    {
-        label: 'Revisione Dati Inseriti',
-    },
-]);
-
-const asta = ref({
-    nomeProdotto: '',
-    descrizione: '',
-    prezzoBase: 0,
-    categorie: '[]',
-    immagini: '[]',
-    tipo: '',
-    scadenza: '',
-    estenzione: '',
-    incrementoMinimo: 0,
-});
-
-const ricevutoProdotto = (contenuto) => {};
-const finalize = () => {
-    loading.value = true;
-};
 </script>
 
 <style scoped>

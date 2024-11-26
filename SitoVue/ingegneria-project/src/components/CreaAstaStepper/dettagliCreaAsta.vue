@@ -51,14 +51,13 @@
             <div class="pt-5 lg:pr-9">
                 <FloatLabel variant="on">
                     <InputNumber
+                        :min="0"
                         fluid
-                        inputId="integeronly"
-                        id="durataEstensione"
                         class="rounded"
+                        id="durataEstensione"
                         v-model="durataEstensione"
-                        prefix="Ore estensione: "
                     />
-                    <label for="durataEstensione">Durata estensione</label>
+                    <label for="durataEstensione">Lunghezza estensione asta</label>
                 </FloatLabel>
             </div>
             <div class="bg-inherit pt-5 lg:pr-9">
@@ -120,10 +119,10 @@ import FloatLabel from 'primevue/floatlabel';
 import Button from 'primevue/button';
 import DatePicker from 'primevue/datepicker';
 
-import { defineEmits, ref, onMounted } from 'vue';
+import { defineEmits, ref, onMounted, onUnmounted } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
 
-const checked = ref(null);
+let checked = ref(null);
 let today = new Date();
 let nowMonth = today.getMonth();
 let nowYear = today.getFullYear();
@@ -143,12 +142,15 @@ const scadenzaAsta = ref('');
 
 onMounted(() => {
     storeInstance.updateAsta({ step: 2 });
-    //incrementoMinimo.value = storeInstance.asta.incrementoMinimo;
-    //durataEstensione.value = storeInstance.asta.durataEstensione;
-    //scadenzaAsta.value = storeInstance.asta.scadenzaAsta;
-    if (tipoAsta === 'asta_silenziosa') {
-        checked = true;
-    }
+    incrementoMinimo.value = storeInstance.asta.incrementoMinimo;
+    durataEstensione.value = storeInstance.asta.durataEstensione;
+    scadenzaAsta.value = storeInstance.asta.scadenzaAsta;
+    scadenzaAsta.value = scadenzaAsta.value.split('T')[0];
+    checked.value = tipoAsta.value === 'asta_silenziosa';
+});
+
+onUnmounted(() => {
+    console.log('Unmounted');
 });
 
 const emit = defineEmits('increase-page', 'decrease-page');
