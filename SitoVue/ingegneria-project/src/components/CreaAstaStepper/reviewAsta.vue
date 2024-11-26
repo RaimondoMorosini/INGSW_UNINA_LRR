@@ -136,7 +136,6 @@ const goToPreviousForm = () => {
 };
 
 onMounted(() => {
-    console.log('test gettere asta: ', storeInstance.getFormattedData());
     storeInstance.updateAsta({ step: 3 });
 });
 

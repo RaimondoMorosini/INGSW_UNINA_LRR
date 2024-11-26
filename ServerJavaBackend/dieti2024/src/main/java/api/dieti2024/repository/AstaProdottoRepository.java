@@ -34,6 +34,7 @@ public interface AstaProdottoRepository extends JpaRepository<InfoDatiAstaDTO,In
     @Query(value = "SELECT id from asta_join_prodotto p where p.id_asta = ?1", nativeQuery = true)
     Integer findIdProdottoByIdAsta(int idAsta);
 
+    List<InfoDatiAstaDTO> findByEmailUtenteCreatore(String emailUtenteCreatore);
     List<InfoDatiAstaDTO> findByEmailUtenteCreatore(String emailUtenteCreatore, Pageable pageable);
     int countByEmailUtenteCreatore(String emailUtenteCreatore);
 

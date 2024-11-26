@@ -6,6 +6,8 @@ import api.dieti2024.dto.asta.ricerca.InfoDatiAstaDTO;
 import api.dieti2024.service.asta.AstaFacadeService;
 import api.dieti2024.util.ControllerRestUtil;
 import api.dieti2024.util.ImageContainerUtil;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,10 +68,11 @@ public class ProdottoAstaController {
     }
     @GetMapping("asta/asteCreate")
     public List<InfoDatiAstaDTO> getAsteCreate(
-            @RequestParam(required = false, defaultValue = "0") int pagina,
-            @RequestParam(required = false, defaultValue = "10") int elementi) {
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementi) {
 
-        String emailUtente= ControllerRestUtil.getEmailOfUtenteCorrente();
-        return astaFacadeService.getAsteCreate(emailUtente,pagina, elementi);
+        String emailUtente = ControllerRestUtil.getEmailOfUtenteCorrente();
+        Pageable pageable = (pagina == null || elementi == null) ? Pageable.unpaged() : PageRequest.of(pagina, elementi);
+        return astaFacadeService.getAsteCreate(emailUtente, pageable);
     }
 }

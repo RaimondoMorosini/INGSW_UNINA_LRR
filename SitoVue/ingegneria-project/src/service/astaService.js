@@ -69,8 +69,11 @@ export async function getImageInFormdata() {
 
 export async function getAsteCreate(pagina, elementiPagina) {
     try {
-        pagina=pagina-1;
-        const url = "asta/asteCreate?pagina=" + pagina + "&elementi=" + elementiPagina;
+        let url = "asta/asteCreate";
+        if (pagina !== undefined && elementiPagina !== undefined) {
+            pagina = pagina - 1;
+            url += "?pagina=" + pagina + "&elementi=" + elementiPagina;
+        }
         const response = await getRestWithtoken(url);
         return response;
     } catch (error) {
