@@ -24,3 +24,17 @@ export async function getOfferteAstaIinglese(idAsta) {
         throw error; // Propaga l'errore per gestirlo nel componente chiamante
     }
 }
+
+
+export async function ConfermaOffertaVincente(idAsta,idOfferta) {
+    const payload = {
+        idOfferta: idOfferta,
+        idAsta: idAsta,
+    };
+    try {
+        const response = await postRestWithtoken('ConfermaOffertaVincente',payload);    
+    }catch (error) {
+        console.error('Errore:', error);
+        throw error; // Propaga l'errore per gestirlo nel componente chiamante
+    }
+}

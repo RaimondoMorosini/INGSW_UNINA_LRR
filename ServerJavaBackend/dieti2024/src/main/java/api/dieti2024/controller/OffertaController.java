@@ -1,6 +1,5 @@
 package api.dieti2024.controller;
 
-import api.dieti2024.dto.OffertaAstaIngleseDTO;
 import api.dieti2024.dto.OffertaDto;
 import api.dieti2024.dto.OffertaVincenteDto;
 import api.dieti2024.model.Offerta;
@@ -21,8 +20,18 @@ public class OffertaController {
     final OffertaService offertaService;
 
     @GetMapping("/public/offerteAstaInglese/{idAssta}")
-    public List<OffertaAstaIngleseDTO> getInfoProdottoAsta(@PathVariable int idAssta) {
-       return offertaService.getOfferteAstaInglese(idAssta);
+    public List<Offerta> getInfoProdottoAsta(@PathVariable int idAssta) {
+       return offertaService.getOffertePubliche(idAssta);
+    }
+
+
+
+
+
+    //get PrezzoOfferta AstaSilenziosa return list coppia id prezzo
+    @GetMapping("/infoCompleteAstaSilenziosa/{idAssta}")
+    public List<Offerta> getInfoCompleteAstaSilenziosa(@PathVariable int idAssta) {
+        return offertaService.getInfoCompleteAstaSilenziosa(idAssta);
     }
 
     @Autowired
