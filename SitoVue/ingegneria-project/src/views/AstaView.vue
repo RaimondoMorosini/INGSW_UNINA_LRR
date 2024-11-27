@@ -5,7 +5,7 @@
             <ImmaginiProdotto v-if="item" :prodotto="item" />
         </div>
 
-        <div class="colonna">
+        <div class="colonna" v-if="!isOwner">
             <h1 class="m-0.5 text-lg font-bold">INFORMAZIONI ASTA</h1>
             <InfoAstaProdotto
                 v-if="item"
@@ -16,7 +16,8 @@
 
         <div v-if="partecipantiIsVisible" class="colonna">
             <h1 class="m-0.5 text-lg font-bold">OFFERTE ASTE</h1>
-            <PartecipantiAsta v-if="offerte" :offerte="offerte" />
+            <PartecipantiAsta v-if="offerte" :offerte="offerte"
+            :astaId="astaId" />
         </div>
     </div>
 </template>
@@ -24,13 +25,14 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { getInfoAstaProdotto, getDatiastaInglese } from '../service/PaginaProdottoAstaService';
+import {  getDatiastaInglese } from '../service/PaginaProdottoAstaService';
+import { useAstaChacheStore } from '../stores/astaStore';
 import { getOfferteAstaIinglese } from '../service/offertaService';
 import { mantieniAggiornamenti, disconnettiti } from '../scripts/websocket/websocket.js';
 import ImmaginiProdotto from '../components/PaginaAsta/ImmaginiProdotto.vue';
 import InfoAstaProdotto from '../components/PaginaAsta/InfoAstaProdotto.vue';
 import PartecipantiAsta from '../components/PaginaAsta/PartecipantiAsta.vue';
-
+import { useProfiloStore } from '../stores/profiloStore';
 const route = useRoute();
 const astaId = route.params.id;
 const item = ref(null);
@@ -39,14 +41,20 @@ const utenteUltimaOfferta = ref(null);
 const disconnesioneFunction = ref(null);
 const datiExtra = ref(null);
 const partecipantiIsVisible = ref(true);
+const isOwner = ref(false);
+const isSilentAuction = ref(false);
+
 
 onMounted(async () => {
+    
     try {
         console.log('Caricamento asta in corso...');
-        item.value = await getInfoAstaProdotto(astaId);
+        item.value = await useAstaChacheStore().getAstaById(astaId);
         if (item.value.tipoAsta === 'asta_silenziosa') {
-            partecipantiIsVisible.value = false;
+            partecipantiIsVisible.value = true;
         }
+
+         
     } catch (e) {
         console.error("Errore durante il caricamento dell'asta:", e);
     }
@@ -62,6 +70,24 @@ onMounted(async () => {
     }
     console.log('datiExtra:', datiExtra.value);
     disconnesioneFunction.value = mantieniAggiornamenti('/asta/' + astaId, handleMessage);
+
+    
+useAstaChacheStore().getAstaById(astaId).then((data) => {
+        const email = useProfiloStore().profilo.email;
+    
+        if (email === data.emailUtenteCreatore) {
+            isOwner.value = true;    
+        }
+        
+        if (data.tipoAsta === 'asta_silenziosa') {
+            isSilentAuction.value = true;
+        }
+
+    
+    }).catch((error) => {
+        console.error('Errore nel boolean  dell\'asta:', error);
+       alert('Errore nel boolean  dell\'asta:', error);
+    });
 });
 
 onUnmounted(() => {
