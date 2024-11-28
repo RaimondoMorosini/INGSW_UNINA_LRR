@@ -20,7 +20,6 @@
                         <i class="pi pi-check-circle"></i>
                     </span>
                 </Step>
-                
             </StepList>
         </div>
         <StepPanels>
@@ -49,7 +48,7 @@ import Step from 'primevue/step';
 
 import { ref } from 'vue';
 
-import CreaAppalto from '../components/CreaAstaStepper/formCreaAppalto.vue'
+import CreaAppalto from '../components/CreaAstaStepper/formCreaAppalto.vue';
 import SelezionaFiltri from '../components/CreaAstaStepper/impostaFiltriCreaProdotto.vue';
 import Review from '../components/CreaAstaStepper/reviewAsta.vue';
 

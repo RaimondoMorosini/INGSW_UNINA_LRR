@@ -47,7 +47,6 @@
             </template>
             <template #content>
                 <div class="w-[100%] items-center gap-2 rounded bg-slate-200 px-5 py-3">
-                    
                     <div class="flex flex-col">
                         <label for="cover"><h1>Immagine di Copertina</h1></label>
                         <br />
@@ -61,33 +60,33 @@
                     </div>
 
                     <div class="grid grid-cols-4 gap-2">
-                    <div
-                        v-for="image in storeInstance.asta.immaginiSalvate"
-                        class="mr-5 rounded ring-0 ring-primario-400"
-                    >
-                    <br />
-                        <div >
-                            <div class="flex flex-row rounded">
-                            <Button
-                                outlined
-                                severity="contrast"
-                                icon="pi pi-expand"
-                                size="small"
-                                @click="toFront(image)"
-                            />
-                            <img
-                                :src="image.src"
-                                alt="Catalogo immagini prodotto"
-                                class="h-[10rem] rounded-r shadow lg:h-[15rem]"
-                            />
+                        <div
+                            v-for="image in storeInstance.asta.immaginiSalvate"
+                            class="mr-5 rounded ring-0 ring-primario-400"
+                        >
+                            <br />
+                            <div>
+                                <div class="flex flex-row rounded">
+                                    <Button
+                                        outlined
+                                        severity="contrast"
+                                        icon="pi pi-expand"
+                                        size="small"
+                                        @click="toFront(image)"
+                                    />
+                                    <img
+                                        :src="image.src"
+                                        alt="Catalogo immagini prodotto"
+                                        class="h-[10rem] rounded-r shadow lg:h-[15rem]"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                </div>
             </template>
         </Card>
-        
+
         <div class="buttonArea flex w-[100%] flex-row justify-around">
             <Button class="w-[45%]" size="large" @click="goToPreviousForm"
                 ><span class="font-bold"><i class="pi pi-arrow-left"></i> Precedente</span></Button

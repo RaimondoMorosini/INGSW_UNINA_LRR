@@ -120,13 +120,19 @@ const routes = [
     {
         path: '/creaAppalto',
         name: 'creaAppalto',
-        component: () => import('@/views/CreazioneAppaltoView.vue')
+        component: () => import('@/views/CreazioneAppaltoView.vue'),
     },
 
     {
         path: '/datiPersonali',
         name: 'datiPersonali',
         component: () => import('@/views/InserimentoDatiPersonaliView.vue'),
+    },
+
+    {
+        path: '/abilitazioneVenditore',
+        name: 'AbilitazioneVenditore',
+        component: () => import('@/views/AbilitazionePermessiView.vue')
     },
 
     // testing pages TODO: remove

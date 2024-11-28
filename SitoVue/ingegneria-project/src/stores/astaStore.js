@@ -29,7 +29,7 @@ export const useAstaStore = defineStore('asta', {
         updateAsta(newData) {
             this.asta = { ...this.asta, ...newData };
         },
-        deleteAsta(){
+        deleteAsta() {
             this.asta = {
                 step: 0,
                 tipoAsta: 'asta_inglese',

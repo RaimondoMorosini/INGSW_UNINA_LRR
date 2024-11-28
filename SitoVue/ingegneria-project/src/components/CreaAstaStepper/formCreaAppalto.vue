@@ -72,11 +72,14 @@
                     </div>
                 </template>
             </Card>
-            <div class="lg:w-[40%] ">
-                <div class="p-2 lg:justify-start flex w-[100%] justify-between">
+            <div class="lg:w-[40%]">
+                <div class="flex w-[100%] justify-between p-2 lg:justify-start">
                     <!--viene dato l'array contenente le immagini dallo store e flag per verificare se si possono mettere multiple immagini-->
-                    <ImageUploader :storeInstance="astaStoreInstance.asta.immaginiSalvate" class="w-[100%] mx-5 lg:mx-0"/>
-                </div>                
+                    <ImageUploader
+                        :storeInstance="astaStoreInstance.asta.immaginiSalvate"
+                        class="mx-5 w-[100%] lg:mx-0"
+                    />
+                </div>
             </div>
         </div>
 
@@ -92,7 +95,7 @@
 import Card from 'primevue/card';
 import Button from 'primevue/button';
 import InputNumber from 'primevue/inputnumber';
-import DatePicker from 'primevue/datepicker'
+import DatePicker from 'primevue/datepicker';
 import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
 import InputGroup from 'primevue/inputgroup';
@@ -137,12 +140,18 @@ onUnmounted(() => {
         descrizione: descrizione.value,
         prezzoBase: prezzoBase.value,
         categoria: selectedCategory,
-        scadenzaAsta: scadenzaAsta
+        scadenzaAsta: scadenzaAsta,
     });
 });
 
 const gestioneInvio = () => {
-    if (!scadenzaAsta || !nomeProdotto.value || !descrizione.value || !prezzoBase.value || !categoriaSalvata) {
+    if (
+        !scadenzaAsta ||
+        !nomeProdotto.value ||
+        !descrizione.value ||
+        !prezzoBase.value ||
+        !categoriaSalvata
+    ) {
         alert('Compila tutti i campi.');
         return;
     }

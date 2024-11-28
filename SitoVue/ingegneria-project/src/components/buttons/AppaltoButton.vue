@@ -3,21 +3,20 @@
         <template #content>
             <h1>Non riesci a trovare quello che ti interessa? Crea una richiesta</h1>
             <RouterLink :to="{ name: 'creaAppalto' }">
-                <Button @click="resetStore" label="Crea richiesta di Appalto"/>
+                <Button @click="resetStore" label="Crea richiesta di Appalto" />
             </RouterLink>
         </template>
-     </Card>
+    </Card>
 </template>
 
 <script setup>
-import Card from 'primevue/card'
-import Button from 'primevue/button'
-import {useAstaStore} from '../../stores/astaStore'
+import Card from 'primevue/card';
+import Button from 'primevue/button';
+import { useAstaStore } from '../../stores/astaStore';
 
-const astaStoreInstance = useAstaStore()
+const astaStoreInstance = useAstaStore();
 
-function resetStore(){
+function resetStore() {
     deleteAsta();
 }
-
 </script>
