@@ -1,7 +1,8 @@
 <template>
   <div>
     <!-- Filtri -->
-     <Filtro></Filtro>   
+     <Filtro/> 
+     <Appalto/>
     <!-- Lista Aste -->
     <ul class="lista-aste">
       <li v-for="asta in asteVisibili" :key="asta.idAsta">
@@ -11,14 +12,14 @@
 
     <!-- Paginazione -->
     <div class="paginazione">
-      <button
+      <Button
         v-for="pagina in numeroPagine"
         :key="pagina"
         :class="{ attiva: paginaCorrente === pagina }"
         @click="cambiaPagina(pagina)"
       >
         {{ pagina }}
-      </button>
+      </Button>
     </div>
   </div>
 </template>
@@ -29,7 +30,8 @@ import { getAsteCreate } from '../../../service/astaService';
 import { ref, computed } from 'vue';
 import Filtro from './Filtro.vue';
 import ElementoAsta from './ElementoAsta.vue';
-
+import Button from 'primevue/button'
+import Appalto from '../../buttons/AppaltoButton.vue'
 
 const astaStore = usaAstaStore();
 getAsteCreate().then((aste) => astaStore.impostaAste(aste));

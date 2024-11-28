@@ -26,7 +26,6 @@ const routes = [
     {
         path: '/profilo',
         name: 'profilo',
-
         component: () => import('@/views/ProfiloView.vue'),
     },
 
@@ -116,6 +115,12 @@ const routes = [
         path: '/creaAsta',
         name: 'creaAsta',
         component: () => import('@/views/CreazioneAstaView.vue'),
+    },
+
+    {
+        path: '/creaAppalto',
+        name: 'creaAppalto',
+        component: () => import('@/views/CreazioneAppaltoView.vue')
     },
 
     {

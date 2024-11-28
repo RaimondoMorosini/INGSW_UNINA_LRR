@@ -2,53 +2,73 @@
   <div class="filtri p-4 bg-gray-50 rounded-lg shadow-md grid grid-cols-1 lg:grid-cols-4 gap-6">
     <!-- Input di ricerca -->
     <div>
-      <label for="filtro-ricerca" class="block text-sm font-medium text-gray-700">
-        Cerca un'asta
-      </label>
-      <InputText
-        id="filtro-ricerca"
-        v-model="filtroRicerca"
-        placeholder="🔍 Inserisci parole chiave"
-        @input="aggiornaFiltro('filtroRicerca', filtroRicerca)"
-        aria-label="Campo di ricerca per le aste"
-        class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
-      />
+      <InputGroup>
+        <Button>
+          <i class="pi pi-search"></i>
+        </Button>
+        <FloatLabel variant="on">
+        <label for="filtro-ricerca" class="block text-sm font-medium text-gray-700">
+          Cerca un'asta
+        </label>
+     
+    <!-- placeholder="🔍 Inserisci parole chiave"-->
+        <InputText
+          id="filtro-ricerca"
+          v-model="filtroRicerca"
+          @input="aggiornaFiltro('filtroRicerca', filtroRicerca)"
+          aria-label="Campo di ricerca per le aste"
+          class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-fuchsia-500"
+        />
+        </FloatLabel>
+        </InputGroup>
     </div>
 
     <!-- Selezione tipo di asta -->
     <div>
-      <label for="filtro-tipo-asta" class="block text-sm font-medium text-gray-700">
-        Tipo di asta
-      </label>
-      <MultiSelect
-        id="filtro-tipo-asta"
-        v-model="filtroTipoAsta"
-        :options="tipoAstaOptions"
-        optionLabel="label"
-        optionValue="value"
-        placeholder="📜 Scegli tipi di asta"
-        @change="aggiornaFiltro('filtroTipoAsta', filtroTipoAsta)"
-        aria-label="Selezione del tipo di asta"
-        class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
-      />
+      <InputGroup>
+        <Button>
+          <i class="pi pi-hammer"></i>
+        </Button>
+      <FloatLabel variant="on">
+        <MultiSelect
+          id="filtro-tipo-asta"
+          v-model="filtroTipoAsta"
+          :options="tipoAstaOptions"
+          optionLabel="label"
+          optionValue="value"
+          @change="aggiornaFiltro('filtroTipoAsta', filtroTipoAsta)"
+          aria-label="Selezione del tipo di asta"
+          class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-fuchsia-500"
+        />
+        <label for="filtro-tipo-asta" class="block text-sm font-medium text-gray-700">
+          Tipo di asta
+        </label>
+        </FloatLabel>
+      </InputGroup>
     </div>
 
     <!-- Filtro per scadenza -->
     <div>
-      <label for="filtro-scadenza" class="block text-sm font-medium text-gray-700">
-        Scadenza
-      </label>
-      <MultiSelect
-        id="filtro-scadenza"
-        v-model="filtroScadenza"
-        :options="scadenzaOptions"
-        optionLabel="label"
-        optionValue="value"
-        placeholder="⏳ Filtra per scadenza"
-        @change="aggiornaFiltro('filtroScadenza', filtroScadenza)"
-        aria-label="Filtro per scadenza dell'asta"
-        class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
-      />
+      <InputGroup>
+        <Button>
+          <i class="pi pi-hourglass"></i>
+        </Button>
+        <FloatLabel variant="on">
+            <MultiSelect
+            id="filtro-scadenza"
+            v-model="filtroScadenza"
+            :options="scadenzaOptions"
+            optionLabel="label"
+            optionValue="value"
+            @change="aggiornaFiltro('filtroScadenza', filtroScadenza)"
+            aria-label="Filtro per scadenza dell'asta"
+            class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-fuchsia-500"
+            />
+            <label for="filtro-scadenza" class="block text-sm font-medium text-gray-700">
+              Scadenza
+            </label>
+        </FloatLabel>
+      </InputGroup>
     </div>
 
     <!-- Ordine -->
@@ -65,13 +85,17 @@
         placeholder="↕️ Scegli ordinamento"
         @change="aggiornaFiltro('ordine', ordine)"
         aria-label="Selezione dell'ordine delle aste"
-        class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+        class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-fuchsia-500"
       />
     </div>
   </div>
 </template>
 
 <script setup>
+import Button from 'primevue/button';
+import InputGroup from 'primevue/inputgroup';
+import InputGroupAddon from 'primevue/inputgroupaddon';
+import FloatLabel from 'primevue/floatlabel';
 import { ref, watch } from 'vue';
 import { usaAstaStore } from '../../../stores/astePersonaliStore';
 import InputText from 'primevue/inputtext';

@@ -15,33 +15,22 @@
                     </span>
                 </Step>
                 <Step value="3">
-                    <span class="hidden lg:block">Dettagli Asta</span>
-                    <span class="block lg:hidden">
-                        <i class="pi pi-barcode"></i>
-                    </span>
-                </Step>
-                <Step value="4">
                     <span class="hidden lg:block">Revisione Dati Inseriti</span>
                     <span class="block lg:hidden">
                         <i class="pi pi-check-circle"></i>
                     </span>
                 </Step>
+                
             </StepList>
         </div>
         <StepPanels>
             <StepPanel v-slot="{ activateCallback }" value="1">
-                <CreaProdotto @increase-page="activateCallback('2')" />
+                <CreaAppalto @increase-page="activateCallback('2')" />
             </StepPanel>
             <StepPanel v-slot="{ activateCallback }" value="2">
                 <SelezionaFiltri
                     @decrease-page="activateCallback('1')"
                     @increase-page="activateCallback('3')"
-                />
-            </StepPanel>
-            <StepPanel v-slot="{ activateCallback }" value="3">
-                <SelezioneTipoAsta
-                    @decrease-page="activateCallback('2')"
-                    @increase-page="activateCallback('4')"
                 />
             </StepPanel>
             <StepPanel v-slot="{ activateCallback }" value="4">
@@ -59,8 +48,8 @@ import StepList from 'primevue/steplist';
 import Step from 'primevue/step';
 
 import { ref } from 'vue';
-import SelezioneTipoAsta from '../components/CreaAstaStepper/dettagliCreaAsta.vue';
-import CreaProdotto from '../components/CreaAstaStepper/formCreaProdotto.vue';
+
+import CreaAppalto from '../components/CreaAstaStepper/formCreaAppalto.vue'
 import SelezionaFiltri from '../components/CreaAstaStepper/impostaFiltriCreaProdotto.vue';
 import Review from '../components/CreaAstaStepper/reviewAsta.vue';
 
