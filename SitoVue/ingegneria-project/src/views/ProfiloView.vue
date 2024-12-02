@@ -77,9 +77,10 @@ watch(
                         detail: 'Completa il tuo profilo per accedere a tutte le funzionalità',
                         life: 5000,
                     });
-                    router.push({ name: 'ediProfilo' });
+                    router.push({ name: 'datiPersonali' });
                 } else {
                     getDatiProfiloPublici(storeinstance.profilo.email).then((response) => {
+                        console.info("dati profilo...", response);
                         storeinstance.profilo.area_geografica = response.area_geografica;
                         storeinstance.profilo.bio = response.bio;
                         storeinstance.profilo.cognome = response.cognome;
