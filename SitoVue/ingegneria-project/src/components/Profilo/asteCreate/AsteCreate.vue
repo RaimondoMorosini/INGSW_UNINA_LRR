@@ -2,7 +2,6 @@
     <div>
         <!-- Filtri -->
         <Filtro />
-        <Appalto />
         <!-- Lista Aste -->
         <ul class="lista-aste">
             <li v-for="asta in asteVisibili" :key="asta.idAsta">
