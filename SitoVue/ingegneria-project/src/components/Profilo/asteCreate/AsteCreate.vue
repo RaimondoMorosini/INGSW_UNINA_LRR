@@ -69,7 +69,7 @@ const cambiaPagina = (pagina) => astaStore.cambiaPagina(pagina);
 }
 
 .paginazione button.attiva {
-    background: #007bff;
+    background: #e879f9;
     color: white;
 }
 </style>

@@ -26,11 +26,11 @@ onMounted(() => {
 
 //how to capitalize string
 
-
+const production = false;
 </script>
 
 <template>
-    <div>
+    <div class="flex mb-2">
         <FloatLabel variant="on">
         <Dropdown
             fluid
@@ -41,7 +41,7 @@ onMounted(() => {
         />
         <label>{{ label.charAt(0).toUpperCase() + label.slice(1) }}</label>
         </FloatLabel>
-        <div>
+        <div v-if="production">
             Valore selezionato: {{ selectedValue }}
         </div>
     </div>

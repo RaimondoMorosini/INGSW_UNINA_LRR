@@ -1,8 +1,6 @@
 <template>
     <div>
         <FloatLabel variant="on">
-           
-        
         <Dropdown inputId="selettore" fluid v-model="selectedValue" :options="options" placeholder="Seleziona" />
         
         <label for="selettore">{{ label }}</label>
