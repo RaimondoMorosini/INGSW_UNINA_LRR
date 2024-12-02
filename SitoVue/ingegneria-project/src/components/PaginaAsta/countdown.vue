@@ -1,7 +1,10 @@
 <template>
     <div>
-        <p class="timer">
+        <p class="timer" v-if="!timerScaduto">
             {{ giorni }} giorni, {{ ore }} ore, {{ minuti }} minuti, {{ secondi }} secondi rimanenti
+        </p>
+        <p class="timer" v-else>
+            0 giorni, 0 ore, 0 minuti, 0 secondi rimanenti
         </p>
     </div>
 </template>
@@ -24,7 +27,7 @@ const giorni = computed(() => Math.floor(remainingTime.value / (60 * 60 * 24)));
 const ore = computed(() => Math.floor((remainingTime.value % (60 * 60 * 24)) / (60 * 60)));
 const minuti = computed(() => Math.floor((remainingTime.value % (60 * 60)) / 60));
 const secondi = computed(() => remainingTime.value % 60);
-
+const timerScaduto = computed(() => remainingTime.value <= 0);
 let countdownInterval;
 
 const startCountdown = () => {

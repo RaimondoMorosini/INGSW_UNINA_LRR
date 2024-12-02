@@ -1,6 +1,5 @@
 package api.dieti2024.service;
 
-import api.dieti2024.dto.OffertaAstaIngleseDTO;
 import api.dieti2024.dto.OffertaDto;
 import api.dieti2024.dto.OffertaVincenteDto;
 import api.dieti2024.exceptions.ApiException;
@@ -17,7 +16,6 @@ import api.dieti2024.util.TipoAsta;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -107,21 +105,19 @@ AstaRepository astaRepository;
         return offertaRepository.save(offerta);
     }
 
-    public List<OffertaAstaIngleseDTO> getOfferteAstaInglese(int idAsta) {
+    public List<Offerta> getOffertePubliche(int idAsta) {
 
        List<Offerta> offerte = offertaRepository.getOfferteByIdAsta(idAsta);
 
-       List<OffertaAstaIngleseDTO> offerteDTO = new ArrayList<>();
+        Asta asta = astaService.getAstaById(idAsta);
+        if(asta.getTipoAsta().equals(TipoAsta.SILENZIOSA))
+        {
+            offerte.forEach(offerta -> offerta.setPrezzoProposto(0));
+        }
 
-       for(Offerta offerta : offerte){
-
-           OffertaAstaIngleseDTO offertaDTO = new OffertaAstaIngleseDTO(offerta.getEmailUtente(),offerta.getPrezzoProposto(),
-                   offerta.getTempoOfferta());
-           offerteDTO.add(offertaDTO);
-       }
-
-       return offerteDTO;
+            return offerte;
     }
+
 
     public Offerta getOffertaVincente(int idAsta) {
         //if asta è scaduta
@@ -135,5 +131,20 @@ AstaRepository astaRepository;
         offertaRepository.aggiornaDatiVincitore(idAsta,offerte.get(0).getId());
         return offerte.get(0);
 
+    }
+
+    public List<Offerta> getInfoCompleteAstaSilenziosa(int idAssta) {
+        Asta asta = astaService.getAstaById(idAssta);
+        if (!asta.getTipoAsta().equals(TipoAsta.SILENZIOSA))
+            throw new ApiException("Asta non è silenziosa", HttpStatus.BAD_REQUEST);
+
+        String emailUtente = ControllerRestUtil.getEmailOfUtenteCorrente();
+        if (!asta.getEmailUtenteCreatore().equalsIgnoreCase(emailUtente) )
+            throw new ApiException("Non sei il creatore dell'asta", HttpStatus.FORBIDDEN);
+        return offertaRepository.getOfferteByIdAsta(idAssta);
+    }
+
+    public List<Offerta> getOfferteEffettuate(int idAsta) {
+        return offertaRepository.findByAstaIdAndEmailUtente(idAsta,ControllerRestUtil.getEmailOfUtenteCorrente());
     }
 }
