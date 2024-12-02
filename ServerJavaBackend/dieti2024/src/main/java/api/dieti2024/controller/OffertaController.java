@@ -29,11 +29,14 @@ public class OffertaController {
 
 
     //get PrezzoOfferta AstaSilenziosa return list coppia id prezzo
-    @GetMapping("/infoCompleteAstaSilenziosa/{idAssta}")
+    @GetMapping("/offerte/infoCompleteAstaSilenziosa/{idAssta}")
     public List<Offerta> getInfoCompleteAstaSilenziosa(@PathVariable int idAssta) {
         return offertaService.getInfoCompleteAstaSilenziosa(idAssta);
     }
-
+    @GetMapping("/offerteEffettuate/{idAsta}")
+    public List<Offerta> getOfferteEffettuate(@PathVariable int idAsta) {
+        return offertaService.getOfferteEffettuate(idAsta);
+    }
     @Autowired
     public OffertaController(SimpMessagingTemplate simpleMessagingTemplate, OffertaService offertaService) {
         this.simpleMessagingTemplate = simpleMessagingTemplate;

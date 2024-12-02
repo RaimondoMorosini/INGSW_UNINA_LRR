@@ -5,7 +5,7 @@
             <ImmaginiProdotto v-if="item" :prodotto="item" />
         </div>
 
-        <div class="colonna" v-if="!isOwner">
+        <div class="colonna" >
             <h1 class="m-0.5 text-lg font-bold">INFORMAZIONI ASTA</h1>
             <InfoAstaProdotto
                 v-if="item"
@@ -47,12 +47,22 @@ const isSilentAuction = ref(false);
 
 onMounted(async () => {
     
+    
+
+    
+    
     try {
         console.log('Caricamento asta in corso...');
         item.value = await useAstaChacheStore().getAstaById(astaId);
         if (item.value.tipoAsta === 'asta_silenziosa') {
             partecipantiIsVisible.value = true;
+            isSilentAuction.value = true;
         }
+        
+        if (useProfiloStore().profilo.email === item.value.emailUtenteCreatore) {
+            isOwner.value = true;
+        }
+        
 
          
     } catch (e) {
@@ -65,6 +75,8 @@ onMounted(async () => {
     }
     try {
         offerte.value = await getOfferteAstaIinglese(astaId);
+        if (offerte.value.length > 0)
+        utenteUltimaOfferta.value = offerte.value[0].emailUtente;
     } catch (e) {
         console.log('Errore durante il carimento delle offerte:', e);
     }
@@ -72,22 +84,7 @@ onMounted(async () => {
     disconnesioneFunction.value = mantieniAggiornamenti('/asta/' + astaId, handleMessage);
 
     
-useAstaChacheStore().getAstaById(astaId).then((data) => {
-        const email = useProfiloStore().profilo.email;
     
-        if (email === data.emailUtenteCreatore) {
-            isOwner.value = true;    
-        }
-        
-        if (data.tipoAsta === 'asta_silenziosa') {
-            isSilentAuction.value = true;
-        }
-
-    
-    }).catch((error) => {
-        console.error('Errore nel boolean  dell\'asta:', error);
-       alert('Errore nel boolean  dell\'asta:', error);
-    });
 });
 
 onUnmounted(() => {
@@ -109,26 +106,18 @@ function handleMessage(message) {
         offertaVincente: data.offerta.offertaVincente,
     };
     offerte.value.unshift(offerta);
-    alert('Offerta ricevuta!');
     utenteUltimaOfferta.value = offerta.emailUtente;
-
+    alert('Offerta ricevuta! ');
     switch (item.value.tipoAsta) {
         case 'asta_inglese':
             if (offerta.prezzoProposto > item.value.prezzoAttuale) {
                 item.value.prezzoAttuale = offerta.prezzoProposto;
                 item.value.dataScadenza = offerta.tempoOfferta + datiExtra.value.tempoEstensione;
-                console.log(
-                    'tempoEstensione:',
-                    offerta.tempoOfferta + datiExtra.value.tempoEstensione
-                );
-                console.log('Prezzo attuale aggiornato:', item.value.prezzoAttuale);
-                console.log('Tempo rimanente:', offerta.tempoOfferta);
             }
             break;
         case 'asta_inversa':
             if (offerta.prezzoProposto < item.value.prezzoAttuale) {
                 item.value.prezzoAttuale = offerta.prezzoProposto;
-                console.log('Prezzo attuale aggiornato:', item.value.prezzoAttuale);
             }
             break;
         case 'asta_silenziosa':

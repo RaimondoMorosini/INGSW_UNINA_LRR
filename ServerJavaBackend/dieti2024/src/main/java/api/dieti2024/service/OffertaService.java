@@ -143,4 +143,8 @@ AstaRepository astaRepository;
             throw new ApiException("Non sei il creatore dell'asta", HttpStatus.FORBIDDEN);
         return offertaRepository.getOfferteByIdAsta(idAssta);
     }
+
+    public List<Offerta> getOfferteEffettuate(int idAsta) {
+        return offertaRepository.findByAstaIdAndEmailUtente(idAsta,ControllerRestUtil.getEmailOfUtenteCorrente());
+    }
 }

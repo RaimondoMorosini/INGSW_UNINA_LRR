@@ -17,7 +17,7 @@ public class WebSocketUtil {
     }
     //inviaMessaggio a una socket specifica
     public void inviaMessaggio(String messaggio, String destinatario) {
-        logger.error("Invio messaggio a topic:  {}\n messaggio: {}", destinatario, messaggio);
+        logger.info("Invio messaggio a topic:  {}\n messaggio: {}", destinatario, messaggio);
         simpleMessagingTemplate.convertAndSend(destinatario, messaggio);
     }
 }

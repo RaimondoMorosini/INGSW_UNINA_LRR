@@ -17,6 +17,7 @@ import './assets/css/tailwind.css'; // tailwindcss
 import router from './router'; // router
 import { useTokenStore } from './stores/tokenStore';
 import AppState from './plugin/appState';
+import { Tooltip } from 'primevue';
 
 // Crea l'istanza dell'app Vue e usa il router
 const app = createApp(App).use(router);
@@ -89,6 +90,6 @@ app.use(AppState);
 app.use(ConfirmationService);
 app.use(ToastService);
 app.use(DialogService);
-
+app.directive('tooltip', Tooltip);
 // Monta l'app Vue
 app.mount('#app');

@@ -14,6 +14,8 @@ public interface OffertaRepository extends JpaRepository<Offerta, Long>{
 
     @Query(value = "SELECT aggiorna_vincitore_asta(?1, ?2)", nativeQuery = true)
     void aggiornaDatiVincitore(int idAsta, Integer id);
+
+    List<Offerta> findByAstaIdAndEmailUtente(int idAsta, String emailUtente);
 }
 
 
