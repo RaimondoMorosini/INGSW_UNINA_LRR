@@ -11,13 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProvaController {
 
+    public ProvaController(WebSocketUtil webSocketUtil) {
+        this.webSocketUtil = webSocketUtil;
+    }
+
     @GetMapping("/prova/hello")
     public String hello() {
         return "Hello";
     }
 
-    @Autowired
-    WebSocketUtil webSocketUtil;
+    private final WebSocketUtil webSocketUtil;
+    
     @PostMapping("/prova/websocket")
     public String websocket(@RequestBody String url) {
         webSocketUtil.inviaMessaggio("Messaggio di prova al url: "+url, url);

@@ -17,9 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class UtenteController {
 
     private final UtenteService utenteService;
+    private final ImageContainerUtil imageContainerUtil;
 
-    public UtenteController(UtenteService utenteService) {
+    public UtenteController(UtenteService utenteService, ImageContainerUtil imageContainerUtil) {
         this.utenteService = utenteService;
+        this.imageContainerUtil = imageContainerUtil;
     }
 
     @GetMapping("public/utente/datiProfilo/{email}")
@@ -46,8 +48,6 @@ public class UtenteController {
 
     }
 
-    @Autowired
-    ImageContainerUtil imageContainerUtil;
 
     @PostMapping("utente/modificaProfilo")
     public ResponseEntity<String> salvaImgProfilo(@ModelAttribute ModificaProfiloDTO modificaProfiloDTO) {

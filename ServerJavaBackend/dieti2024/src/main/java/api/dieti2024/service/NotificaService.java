@@ -56,12 +56,10 @@ public class NotificaService {
     }
 
 public void segnaNotificheVisualizzate(String email, List<Integer> idNotifiche) {
-    idNotifiche.forEach(idNotifica -> {
-        notificaRepository.findByIdAndAndUtente(idNotifica, email)
-                .ifPresent(notifica -> {
-                    notifica.setVisualizzato(true);
-                    notificaRepository.save(notifica);
-                });
-    });
+    idNotifiche.forEach(idNotifica -> notificaRepository.findByIdAndAndUtente(idNotifica, email)
+            .ifPresent(notifica -> {
+                notifica.setVisualizzato(true);
+                notificaRepository.save(notifica);
+            }));
 }
 }

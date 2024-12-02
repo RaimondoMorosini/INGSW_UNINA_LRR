@@ -34,10 +34,11 @@
 
         <ul class="LinkAssociati rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
             <h1 class="text-xl">Collegamenti</h1>
-            <li v-for="(link, index) in linksSocial" v-bind:key="index">
-                <a :href="link.value"
-                    ><h2>{{ linkNomi[index] }}</h2></a
+            <li v-for="(link, index) in linksSocial" v-bind:key="index" >
+                <a :href="link.value" class="flex justify-between" target="_blank" rel="noopener noreferrer"
+                    ><h2>{{ linkNomi[index] }} </h2><i class="pi pi-external-link"></i></a
                 >
+                
             </li>
         </ul>
     </div>
@@ -48,7 +49,7 @@ import { onMounted, ref, computed } from 'vue';
 import { useAuth0 } from '@auth0/auth0-vue';
 import { useProfiloStore } from '../../stores/profiloStore';
 import Button from 'primevue/button';
-import { computePosition } from '@floating-ui/vue';
+
 
 const { idTokenClaims, isAuthenticated, user } = useAuth0();
 

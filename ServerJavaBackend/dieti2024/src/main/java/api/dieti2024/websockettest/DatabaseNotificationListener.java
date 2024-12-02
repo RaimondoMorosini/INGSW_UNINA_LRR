@@ -9,6 +9,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.postgresql.PGConnection;
 import org.postgresql.PGNotification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +27,25 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 @Component
+@NoArgsConstructor @RequiredArgsConstructor
 public class DatabaseNotificationListener {
 
     private static final Logger logger = LoggerFactory.getLogger(DatabaseNotificationListener.class);
 
-    @Autowired
     private DataSource dataSource;
 
     private PGConnection pgConnection;
     private Connection connection;
 
-    @Autowired
     private WebSocketUtil webSocketUtil;
 
     private ScheduledExecutorService executorService;
+
+    @Autowired
+    public DatabaseNotificationListener(DataSource dataSource, WebSocketUtil webSocketUtil) {
+        this.dataSource = dataSource;
+        this.webSocketUtil = webSocketUtil;
+    }
 
     @PostConstruct
     public void listen() {

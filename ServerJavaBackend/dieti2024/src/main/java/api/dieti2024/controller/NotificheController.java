@@ -39,6 +39,7 @@ public class NotificheController {
         String email = ControllerRestUtil.getEmailOfUtenteCorrente();
         return notificaService.getNotificheNonVisualizzateUtente(email, numeroElementi, numeroPagina);
     }
+
     //todo implementare il metodo per segnare le notifiche come visualizzate
     @PostMapping("/segnaNotificheVisualizzate")
     public void segnaNotificheVisualizzate(@RequestParam("idNotifiche") List<Integer> idNotifiche){

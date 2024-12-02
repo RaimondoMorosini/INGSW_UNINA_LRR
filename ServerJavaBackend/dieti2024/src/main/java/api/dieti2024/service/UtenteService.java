@@ -7,22 +7,26 @@ import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Utente;
 import api.dieti2024.repository.UserRepository;
 import api.dieti2024.util.ImageContainerUtil;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 
 @Service
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class UtenteService {
 
 
-    @Autowired
-    ImageContainerUtil imageContainerUtil;
+    private    final ImageContainerUtil imageContainerUtil;
 
     private final UserRepository utenteRepository;
 
-    public UtenteService(UserRepository utenteRepository) {
+    public UtenteService(UserRepository utenteRepository, ImageContainerUtil imageContainerUtil) {
         this.utenteRepository = utenteRepository;
+        this.imageContainerUtil = imageContainerUtil;
     }
 
     public UserDetailsDto getUserDetails(String email) {

@@ -1,5 +1,8 @@
 package api.dieti2024.util;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class Messages {
     public static final String AUCTION_NOT_FOUND = "Asta non trovata";
     public static final String AUCTION_NOT_FOUND_ENGLISH = "Dati asta inglese non trovati";

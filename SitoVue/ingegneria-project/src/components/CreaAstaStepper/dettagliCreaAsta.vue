@@ -2,30 +2,25 @@
     <form @submit.prevent="gestioneInvio">
         <div class="flex flex-col items-center justify-center">
             <h2>Seleziona tipo asta</h2>
-            <div class="flex justify-center gap-2 py-2">
-                <span
-                    v-if="!checked"
-                    class="text-bold rounded bg-slate-100 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
-                    >ASTA INGLESE</span
-                >
-
-                <span v-if="checked" class="text-bold rounded px-2 py-2 text-xl">ASTA INGLESE</span>
-                <ToggleSwitch id="switch" v-model="checked" class="my-2" />
-                <span
-                    v-if="checked"
-                    class="text-bold rounded bg-slate-100 px-2 py-2 text-xl ring-1 ring-[#cc85f5]"
-                    >ASTA SILENZIOSA</span
-                >
-
-                <span v-if="!checked" class="text-bold rounded px-2 py-2 text-xl"
-                    >ASTA SILENZIOSA</span
-                >
+            <div class="flex flex-col">
+                <div class="flex items-center gap-2">
+                    <RadioButton v-model="tipoAsta" inputId="Inglese" value="asta_inglese"/>
+                    <label for="Inglese" class="ml-2">Asta Inglese</label>
+                </div>
+                <div class="flex items-center gap-2">
+                    <RadioButton v-model="tipoAsta" inputId="Inversa" value="asta_inversa"/>
+                    <label for="Inversa" class="ml-2">Asta Inversa</label>
+                </div>
+                <div class="flex items-center gap-2">
+                    <RadioButton v-model="tipoAsta" inputId="Silenziosa" value="asta_silenziosa"/>
+                    <label for="Silenziosa" class="ml-2">Asta Silenziosa</label>
+                </div>
             </div>
         </div>
 
         <!--v-if="tipoAsta === 'asta_inglese'"-->
         <div
-            v-if="!checked"
+            v-if="tipoAsta==='asta_inglese'"
             class="mx-2 my-2 flex flex-col gap-2 rounded px-2 py-2 ring-2 ring-[#cc85f5]"
         >
             <h2>ASTA INGLESE</h2>
@@ -79,10 +74,34 @@
 
         <!--v-if="tipoAsta === 'asta_silenziosa'"-->
         <div
-            v-if="checked"
+            v-if="tipoAsta==='asta_silenziosa'"
             class="mx-2 my-2 flex flex-col gap-2 rounded bg-slate-200/20 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
             ASTA SILENZIOSA
+
+            <div class="px-2 lg:pr-9">
+                <FloatLabel variant="on">
+                    <DatePicker
+                        dateFormat="dd/mm/yy"
+                        :minDate="minDate"
+                        showIcon="true"
+                        fluid
+                        v-model="scadenzaAsta"
+                        id="scadenzaAsta"
+                        inputId="birth_date"
+                        class="rounded"
+                    />
+                    <label for="scadenzaAsta">Data Scadenza</label>
+                </FloatLabel>
+            </div>
+        </div>
+
+        <!--ASTA INVERSA-->
+        <div
+            v-if="tipoAsta==='asta_inversa'"
+            class="mx-2 my-2 flex flex-col gap-2 rounded bg-slate-200/20 px-2 py-2 ring-2 ring-[#cc85f5]"
+        >
+            ASTA INVERSA
 
             <div class="px-2 lg:pr-9">
                 <FloatLabel variant="on">
@@ -113,7 +132,7 @@
 </template>
 
 <script setup>
-import ToggleSwitch from 'primevue/toggleswitch';
+import RadioButton from 'primevue/radiobutton';
 import InputNumber from 'primevue/inputnumber';
 import FloatLabel from 'primevue/floatlabel';
 import Button from 'primevue/button';
@@ -122,7 +141,6 @@ import DatePicker from 'primevue/datepicker';
 import { defineEmits, ref, onMounted, onUnmounted } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
 
-let checked = ref(null);
 let today = new Date();
 let nowMonth = today.getMonth();
 let nowYear = today.getFullYear();
@@ -146,7 +164,7 @@ onMounted(() => {
     durataEstensione.value = storeInstance.asta.durataEstensione;
     scadenzaAsta.value = storeInstance.asta.scadenzaAsta;
     scadenzaAsta.value = scadenzaAsta.value.split('T')[0];
-    checked.value = tipoAsta.value === 'asta_silenziosa';
+    tipoAsta.value = tipoAsta.value === 'asta_silenziosa';
 });
 
 onUnmounted(() => {
@@ -156,7 +174,7 @@ onUnmounted(() => {
 const emit = defineEmits('increase-page', 'decrease-page');
 
 const gestioneInvio = () => {
-    if (checked == false) {
+    if (tipoAsta == false) {
         if (!incrementoMinimo.value || !durataEstensione.value || !scadenzaAsta.value) {
             alert('Asta Inglese: Inserire tutti i campi');
             return;

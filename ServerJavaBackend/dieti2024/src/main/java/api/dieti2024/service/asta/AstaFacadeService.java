@@ -57,7 +57,7 @@ public class AstaFacadeService {
     private void salvaImmaginiProdotto(List<MultipartFile> immagini, int idAsta) {
         //nome utente /idasta/numeroimmagine
         String identificativoUtente = ControllerRestUtil.getEmailOfUtenteCorrente();
-        String path = identificativoUtente+"/"+idAsta;
+        String path = "%s/%d".formatted(identificativoUtente, idAsta);
         List<String> pathImmaginiSalvate = new ArrayList<>();
         int countImmaginiSalvateConSuccesso=0;
         for (MultipartFile multipartFile : immagini) {
@@ -103,9 +103,9 @@ public class AstaFacadeService {
         for(int i=0;i<files.size();i++){
 
             try{
-            String link=imageContainerUtil.uploadImage(files.get(i),
-                    idAsta+"-"+(i-counterErroriCaricamentoImg)+"."+files.get(i).getOriginalFilename().split("\\.")[1]);
-            message.append(link).append("\n");
+            String link;
+                link = imageContainerUtil.uploadImage(files.get(i), idAsta+"-"+(i-counterErroriCaricamentoImg)+"."+files.get(i).getOriginalFilename().split("\\.")[1]);
+                message.append(link).append("\n");
             links.add(link);
             }catch (Exception e){
                 counterErroriCaricamentoImg++;

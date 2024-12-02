@@ -45,23 +45,22 @@ public class JwtHandshakeInterceptor implements ChannelInterceptor {
     }
 
     private void handleSubscribe(StompHeaderAccessor headerAccessor) {
-        if (!headerAccessor.getDestination().contains("notifichePersonali")) {
-            return;
+        if (headerAccessor.getDestination().contains("notifichePersonali")) {
+            String sessionID = headerAccessor.getSessionId();
+            String authorizationHeader = headerAccessor.getFirstNativeHeader("Authorization");
+
+            validateAuthorizationHeader(authorizationHeader);
+
+            String token = extractToken(authorizationHeader);
+
+            validateToken(token);
+
+            validateUserAccess(headerAccessor, token);
+
+            // Add user to the connected users list
+            utentiConnessi.aggiungiUtente(jwtUtils.getUsername(token), sessionID);
         }
 
-        String sessionID = headerAccessor.getSessionId();
-        String authorizationHeader = headerAccessor.getFirstNativeHeader("Authorization");
-
-        validateAuthorizationHeader(authorizationHeader);
-
-        String token = extractToken(authorizationHeader);
-
-        validateToken(token);
-
-        validateUserAccess(headerAccessor, token);
-
-        // Add user to the connected users list
-        utentiConnessi.aggiungiUtente(jwtUtils.getUsername(token), sessionID);
     }
 
     private void handleDisconnect(StompHeaderAccessor headerAccessor) {

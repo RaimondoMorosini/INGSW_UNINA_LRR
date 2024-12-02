@@ -20,6 +20,7 @@
         "@fortawesome/vue-fontawesome": "^3.0.8",
         "@headlessui/vue": "^1.7.19",
         "@heroicons/vue": "^2.1.1",
+        "@primevue/forms": "^4.2.4",
         "@primevue/themes": "^4.0.6",
         "@stomp/stompjs": "^7.0.0",
         "@syncfusion/ej2-vue-dropdowns": "^24.2.5",
