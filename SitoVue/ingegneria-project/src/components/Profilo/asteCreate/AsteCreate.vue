@@ -2,7 +2,7 @@
     <div>
         <!-- Filtri -->
         <Filtro />
-        <Appalto />
+        
         <!-- Lista Aste -->
         <ul class="lista-aste">
             <li v-for="asta in asteVisibili" :key="asta.idAsta">
@@ -31,7 +31,7 @@ import { ref, computed } from 'vue';
 import Filtro from './Filtro.vue';
 import ElementoAsta from './ElementoAsta.vue';
 import Button from 'primevue/button';
-import Appalto from '../../buttons/AppaltoButton.vue';
+
 
 const astaStore = usaAstaStore();
 getAsteCreate().then((aste) => astaStore.impostaAste(aste));

@@ -20,7 +20,7 @@
 
         <!--v-if="tipoAsta === 'asta_inglese'"-->
         <div
-            v-if="tipoAsta==='asta_inglese'"
+            v-if="checkInglese"
             class="mx-2 my-2 flex flex-col gap-2 rounded px-2 py-2 ring-2 ring-[#cc85f5]"
         >
             <h2>ASTA INGLESE</h2>
@@ -74,10 +74,10 @@
 
         <!--v-if="tipoAsta === 'asta_silenziosa'"-->
         <div
-            v-if="tipoAsta==='asta_silenziosa'"
+            v-if="checkSilenziosa"
             class="mx-2 my-2 flex flex-col gap-2 rounded bg-slate-200/20 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
-            ASTA SILENZIOSA
+            <h2>ASTA SILENZIOSA</h2>
 
             <div class="px-2 lg:pr-9">
                 <FloatLabel variant="on">
@@ -98,10 +98,10 @@
 
         <!--ASTA INVERSA-->
         <div
-            v-if="tipoAsta==='asta_inversa'"
+            v-if="checkInversa"
             class="mx-2 my-2 flex flex-col gap-2 rounded bg-slate-200/20 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
-            ASTA INVERSA
+            <h2>ASTA INVERSA</h2>
 
             <div class="px-2 lg:pr-9">
                 <FloatLabel variant="on">
@@ -138,8 +138,20 @@ import FloatLabel from 'primevue/floatlabel';
 import Button from 'primevue/button';
 import DatePicker from 'primevue/datepicker';
 
-import { defineEmits, ref, onMounted, onUnmounted } from 'vue';
+import { defineEmits, ref, onMounted, onUnmounted, computed } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
+
+let checkInglese = computed(() => {
+    if (tipoAsta.value === 'asta_inglese') return true; else return false;
+});
+
+let checkInversa = computed(() => {
+    if (tipoAsta.value === 'asta_inversa') return true; else return false;
+});
+
+let checkSilenziosa = computed(() => {
+    if (tipoAsta.value === 'asta_silenziosa') return true; else return false;
+});
 
 let today = new Date();
 let nowMonth = today.getMonth();
@@ -164,7 +176,7 @@ onMounted(() => {
     durataEstensione.value = storeInstance.asta.durataEstensione;
     scadenzaAsta.value = storeInstance.asta.scadenzaAsta;
     scadenzaAsta.value = scadenzaAsta.value.split('T')[0];
-    tipoAsta.value = tipoAsta.value === 'asta_silenziosa';
+    tipoAsta.value = storeInstance.asta.tipoAsta;
 });
 
 onUnmounted(() => {
