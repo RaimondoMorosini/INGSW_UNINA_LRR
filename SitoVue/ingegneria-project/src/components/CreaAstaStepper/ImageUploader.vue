@@ -1,9 +1,9 @@
 <template>
     <Card fluid class="justify flex justify-around">
         <template #header>
-            <h2 class="text-xl font-bold w-[100%] ">Carica Immagini</h2>
+            <h2 class="w-[100%] text-xl font-bold">Carica Immagini</h2>
         </template>
-        
+
         <template #content>
             <div
                 class="drop-area w-full rounded ring-1 ring-primario-500"
@@ -22,7 +22,7 @@
 
             <div
                 v-if="isEmpty"
-                class="flex  items-center justify-center rounded shadow ring-2 ring-primario-500"
+                class="flex items-center justify-center rounded shadow ring-2 ring-primario-500"
             >
                 <img
                     src="../../assets/img/placeholder/placeholder.png"
@@ -30,7 +30,7 @@
                     class="immagine px-2 py-2 shadow lg:px-64"
                 />
             </div>
-            <div v-else class="jumbotron  rounded shadow ring-1 ring-primario-500">
+            <div v-else class="jumbotron rounded shadow ring-1 ring-primario-500">
                 <div class="immagini-container grid grid-cols-4 gap-2">
                     <div
                         v-for="(immagine, indice) in props.storeInstance"
@@ -59,7 +59,6 @@
                     </div>
                 </div>
             </div>
-        
         </template>
     </Card>
 </template>
@@ -67,7 +66,7 @@
 <script setup>
 import Card from 'primevue/card';
 import Button from 'primevue/button';
-import {  onUnmounted, onMounted, computed } from 'vue';
+import { onUnmounted, onMounted, computed } from 'vue';
 import { inserisciDato } from '../../scripts/DatiUtils.js';
 
 //Ogni Store che contiene immagini

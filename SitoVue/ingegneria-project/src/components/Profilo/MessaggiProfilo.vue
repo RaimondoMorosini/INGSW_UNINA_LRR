@@ -5,44 +5,43 @@
         </template>
         <template #content>
             <div class="notification-summary mb-4">
-            <p>Numero totale di notifiche: {{ totalNotifications }}</p>
-            <p>Numero di notifiche da leggere: {{ unreadNotifications }}</p>
-        </div>
-
-        <div class="mb-4 flex flex-col justify-around lg:flex-row gap-3">
-            
-            <div class="mb-2 lg:mb-0 w-[100%] flex flex-row justify-between ">
-                <label for="filter" class="mr-2">Filtra:</label>
-                <select v-model="filter" id="filter" class="rounded border p-2 w-[80%]">
-                    <option value="all">Tutte</option>
-                    <option value="read">Visualizzate</option>
-                    <option value="unread">Non visualizzate</option>
-                </select>
+                <p>Numero totale di notifiche: {{ totalNotifications }}</p>
+                <p>Numero di notifiche da leggere: {{ unreadNotifications }}</p>
             </div>
 
-            <div class="w-[100%] flex flex-row justify-between ">
-                <label for="sort" class="mr-2">Ordina per data:</label>
-                <select v-model="sortOrder" id="sort" class="rounded border p-2 w-[80%]">
-                    <option value="asc">Crescente</option>
-                    <option value="desc">Decrescente</option>
-                </select>
-            </div>
-        </div>
+            <div class="mb-4 flex flex-col justify-around gap-3 lg:flex-row">
+                <div class="mb-2 flex w-[100%] flex-row justify-between lg:mb-0">
+                    <label for="filter" class="mr-2">Filtra:</label>
+                    <select v-model="filter" id="filter" class="w-[80%] rounded border p-2">
+                        <option value="all">Tutte</option>
+                        <option value="read">Visualizzate</option>
+                        <option value="unread">Non visualizzate</option>
+                    </select>
+                </div>
 
-        <ul>
-            <li v-for="notification in filteredNotifications" :key="notification.id">
-                <notificheItem
-                    :id="notification.id"
-                    :astaId="notification.AstaId"
-                    :title="'Notifica ' + notification.oggettoDellaNotifica"
-                    :message="notification.messaggio"
-                    :date="new Date(notification.dataUnixTimeMilliseconds).toLocaleString()"
-                    :isRead="notification.visualizzato"
-                    @mark-as-read="segnaNotificaComeLetta"
-                />
-            </li>
-        </ul>
-        <Button fluid @click="loadMore">Carica di più</Button>
+                <div class="flex w-[100%] flex-row justify-between">
+                    <label for="sort" class="mr-2">Ordina per data:</label>
+                    <select v-model="sortOrder" id="sort" class="w-[80%] rounded border p-2">
+                        <option value="asc">Crescente</option>
+                        <option value="desc">Decrescente</option>
+                    </select>
+                </div>
+            </div>
+
+            <ul>
+                <li v-for="notification in filteredNotifications" :key="notification.id">
+                    <notificheItem
+                        :id="notification.id"
+                        :astaId="notification.AstaId"
+                        :title="'Notifica ' + notification.oggettoDellaNotifica"
+                        :message="notification.messaggio"
+                        :date="new Date(notification.dataUnixTimeMilliseconds).toLocaleString()"
+                        :isRead="notification.visualizzato"
+                        @mark-as-read="segnaNotificaComeLetta"
+                    />
+                </li>
+            </ul>
+            <Button fluid @click="loadMore">Carica di più</Button>
         </template>
     </Card>
 </template>
@@ -56,7 +55,7 @@ import {
 } from '../../service/notificheService';
 import notificheItem from './ListaNotifiche/NotificaItem/notificheItem.vue';
 import Button from 'primevue/button';
-import Card from 'primevue/card'
+import Card from 'primevue/card';
 
 const notifications = ref([]);
 const totalNotifications = ref(0);
@@ -130,12 +129,8 @@ onMounted(() => {
     margin-bottom: 20px;
 }
 
-
-
 ul {
     list-style-type: none;
     padding: 0;
 }
-
-
 </style>

@@ -1,4 +1,4 @@
-import { postRestWithtoken, getRestWithtoken} from '../scripts/RestUtils.js';
+import { postRestWithtoken, getRestWithtoken } from '../scripts/RestUtils.js';
 import { useAstaStore } from '../stores/astaStore.js';
 import { salvaImaginiAsta } from '../scripts/ImageUploadService.js';
 
@@ -90,24 +90,24 @@ export async function getImageInFormData() {
 
 export async function getAsteCreate(pagina, elementiPagina) {
     try {
-        let url = "asta/asteCreate";
+        let url = 'asta/asteCreate';
         if (pagina !== undefined && elementiPagina !== undefined) {
             pagina = pagina - 1;
-            url += "?pagina=" + pagina + "&elementi=" + elementiPagina;
+            url += '?pagina=' + pagina + '&elementi=' + elementiPagina;
         }
         const response = await getRestWithtoken(url);
         return response;
     } catch (error) {
-        console.error("Errore durante il recupero delle aste create:", error);
-        throw new Error("Impossibile recuperare le aste create");
+        console.error('Errore durante il recupero delle aste create:', error);
+        throw new Error('Impossibile recuperare le aste create');
     }
 }
-export async function getNumeroAsteCreate(){
+export async function getNumeroAsteCreate() {
     try {
         const response = await getRestWithtoken('asta/AsteCreate/numero');
         return response;
     } catch (error) {
-        console.error("Errore durante il recupero delle aste create:", error);
-        throw new Error("Impossibile recuperare le aste create");
+        console.error('Errore durante il recupero delle aste create:', error);
+        throw new Error('Impossibile recuperare le aste create');
     }
 }

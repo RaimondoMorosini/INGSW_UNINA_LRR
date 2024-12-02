@@ -54,11 +54,10 @@
 <script setup>
 import Stepper from 'primevue/stepper';
 import StepPanels from 'primevue/steppanels';
-
 import StepPanel from 'primevue/steppanel';
 import StepList from 'primevue/steplist';
-
 import Step from 'primevue/step';
+
 import { ref } from 'vue';
 import SelezioneTipoAsta from '../components/CreaAstaStepper/dettagliCreaAsta.vue';
 import CreaProdotto from '../components/CreaAstaStepper/formCreaProdotto.vue';

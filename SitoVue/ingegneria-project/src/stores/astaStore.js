@@ -29,6 +29,23 @@ export const useAstaStore = defineStore('asta', {
         updateAsta(newData) {
             this.asta = { ...this.asta, ...newData };
         },
+        deleteAsta() {
+            this.asta = {
+                step: 0,
+                tipoAsta: 'asta_inglese',
+                nomeProdotto: '',
+                descrizione: '',
+                prezzoBase: '',
+                categoria: '',
+                filtri: [],
+                incrementoMinimo: '',
+                durataEstensione: '',
+                scadenzaAsta: '',
+                dataInizio: '',
+                immaginiSalvate: [],
+                caratteristiche: {},
+            };
+        },
         async getFormattedData() {
             const formData = await getImageInFormData();
             const categoriaSalvata = Object.keys(this.asta.categoria)[0];
