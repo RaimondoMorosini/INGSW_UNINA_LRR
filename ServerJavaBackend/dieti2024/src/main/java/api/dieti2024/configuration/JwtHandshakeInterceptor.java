@@ -17,10 +17,10 @@ import java.util.regex.Pattern;
 @Service
 public class JwtHandshakeInterceptor implements ChannelInterceptor {
 
-     final
-     JWTUtils jwtUtils;
-     final
-     UtentiConnessi utentiConnessi;
+    final
+    JWTUtils jwtUtils;
+    final
+    UtentiConnessi utentiConnessi;
 
     public JwtHandshakeInterceptor(JWTUtils jwtUtils, UtentiConnessi utentiConnessi) {
         this.jwtUtils = jwtUtils;
@@ -45,22 +45,23 @@ public class JwtHandshakeInterceptor implements ChannelInterceptor {
     }
 
     private void handleSubscribe(StompHeaderAccessor headerAccessor) {
-        if (headerAccessor.getDestination().contains("notifichePersonali")) {
-            String sessionID = headerAccessor.getSessionId();
-            String authorizationHeader = headerAccessor.getFirstNativeHeader("Authorization");
-
-            validateAuthorizationHeader(authorizationHeader);
-
-            String token = extractToken(authorizationHeader);
-
-            validateToken(token);
-
-            validateUserAccess(headerAccessor, token);
-
-            // Add user to the connected users list
-            utentiConnessi.aggiungiUtente(jwtUtils.getUsername(token), sessionID);
+        if (!headerAccessor.getDestination().contains("notifichePersonali")) {
+            return;
         }
 
+        String sessionID = headerAccessor.getSessionId();
+        String authorizationHeader = headerAccessor.getFirstNativeHeader("Authorization");
+
+        validateAuthorizationHeader(authorizationHeader);
+
+        String token = extractToken(authorizationHeader);
+
+        validateToken(token);
+
+        validateUserAccess(headerAccessor, token);
+
+        // Add user to the connected users list
+        utentiConnessi.aggiungiUtente(jwtUtils.getUsername(token), sessionID);
     }
 
     private void handleDisconnect(StompHeaderAccessor headerAccessor) {
