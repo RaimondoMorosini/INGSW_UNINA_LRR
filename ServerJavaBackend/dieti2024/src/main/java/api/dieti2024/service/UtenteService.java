@@ -15,8 +15,6 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-@NoArgsConstructor
-@RequiredArgsConstructor
 public class UtenteService {
 
 
