@@ -7,16 +7,11 @@ import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Utente;
 import api.dieti2024.repository.UserRepository;
 import api.dieti2024.util.ImageContainerUtil;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 
 @Service
-@NoArgsConstructor
-@RequiredArgsConstructor
 public class UtenteService {
 
 
