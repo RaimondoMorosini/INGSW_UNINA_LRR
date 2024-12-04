@@ -5,7 +5,7 @@
         >
             <div class="flex flex-row space-x-1">
                 <img
-                    :src="instanceStoreProfilo.profilo.immagine"
+                    :src="instanceStoreProfilo.profilo.imageURL"
                     alt="Immagine Profilo impostata"
                     class="h-20 w-20 rounded-full border-primario-400"
                 />
@@ -61,10 +61,10 @@ const linkNomi = ref([]);
 
 onMounted(() => {
     console.log('Profilo caricato', linksSocial);
-
+    console.info('isntanceStoreProfilo', instanceStoreProfilo.profilo.siti_social)
     for (let i = 0; i < instanceStoreProfilo.profilo.siti_social.length; i++) {
-        linksSocial.value.push({ value: instanceStoreProfilo.profilo.siti_social[i].value });
-        let domain = new URL(instanceStoreProfilo.profilo.siti_social[i].value).hostname;
+        linksSocial.value.push({ value: instanceStoreProfilo.profilo.siti_social[i] });
+        let domain = new URL(instanceStoreProfilo.profilo.siti_social[i]).hostname;
         console.log('domain:', domain);
         linkNomi.value.push(domain);
     }

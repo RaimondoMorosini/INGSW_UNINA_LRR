@@ -71,7 +71,7 @@ export async function modificaProfiloPublico(
     formData.append('cognome', cognome);
     formData.append('indirizzo', indirizzo);
     formData.append('bio', bio);
-    formData.append('sitiSocial', sitiSocial);
+    formData.append('sitiSocial', sitiSocial);        
     const file = convertiDaSrcToFile(immagineProfiloBase64, nomeImmmagine);
     formData.append('immagineProfilo', file, nomeImmmagine);
 

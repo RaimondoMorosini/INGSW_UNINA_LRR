@@ -85,8 +85,15 @@ watch(
                         storeinstance.profilo.bio = response.bio;
                         storeinstance.profilo.cognome = response.cognome;
                         storeinstance.profilo.nome = response.nome;
-                        storeinstance.profilo.immagine = response.immagine;
+                        storeinstance.profilo.imageURL= response.immagine;
+                        //response.siti is a string like this : [, , https://x.com/elonmusk, https://x.com/elonmusk, sdsfsdff]
+                        //we need to remove the empty strings and make a list of strings
+                        //remove [ ]
+                        response.siti = response.siti.replace('[', '').replace(']', '');
+                        storeinstance.profilo.siti_social = response.siti.split(',').filter((el) => el !== '');
                     });
+                    console.log('Profilo completato');
+                    console.info('Profilo:', storeinstance.profilo);
                 }
             });
         }

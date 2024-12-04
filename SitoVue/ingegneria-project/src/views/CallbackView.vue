@@ -56,20 +56,14 @@ onUnmounted(async () => {
             profiloStore.profilo.isAutenticato = true;
             console.log('profilo.nome', profiloStore.profilo.nome);
             profiloStore.profilo.email = idTokenClaims.value.email;
-            profiloStore.profilo.area_geografica = user.value.address;
-            profiloStore.profilo.immagineSalvata.push({
-                file: 'Immagine Profilo',
-                name: 'Immagine Profilo',
-                src: user.value.picture,
-            });
-            profiloStore.profilo.cognome = user.value.family_name;
-
             router.push({ name: 'profilo' });
         } else {
+            console.info("token non ottenuto reindirizamento alla home");
             console.error('token non ottenuto');
             router.push({ name: 'home' });
         }
     } catch (error) {
+        console.info("token non ottenuto reindirizamento alla home");
         console.error('errore getting token ', error);
         router.push({ name: 'home' });
     }

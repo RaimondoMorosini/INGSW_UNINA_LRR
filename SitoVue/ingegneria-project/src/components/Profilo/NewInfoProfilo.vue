@@ -1,6 +1,8 @@
-<template>
+        <template>
     <div class="flex flex-col items-center justify-center align-middle">
-        <form @submit.prevent="handleSubmit" class="mb-5 w-screen px-3">
+        <Form @submit="onFormSubmit" @keydown="onKeyDown"
+        v-slot="$form" :initialValues="initialValues" :resolver="resolver"        
+        class="mb-5 w-screen px-3">
             <div
                 class="fluid mb-5 flex w-[100%] flex-col items-center justify-between gap-5 rounded-lg bg-zinc-200 p-8 shadow-md lg:flex-row lg:items-start lg:gap-0"
             >
@@ -24,6 +26,7 @@
                             <div class="icon-wrapper">
                                 <input
                                     type="file"
+                                    name="imgProfilo"
                                     id="avatar-input-file"
                                     accept="image/*"
                                     @change="handleImageUpload"
@@ -45,11 +48,14 @@
                                 >
                                 <InputText
                                     v-model="newNome"
+                                    name="nome"
                                     id="nome"
                                     fluid
+                                    @keyup.prevent="onFormSubmit"
                                     class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                                />
+                                    />
                             </FloatLabel>
+                            <Message v-if="$form.nome?.invalid" severity="error" size="small" variant="simple">{{ $form.nome.error.message }}</Message>
                         </div>
                         <div class="my-3">
                             <FloatLabel variant="on">
@@ -59,10 +65,14 @@
                                 <InputText
                                     v-model="newSurname"
                                     id="cognome"
+                                    name="cognome"
                                     fluid
                                     class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                                />
+                                    
+                                    />
                             </FloatLabel>
+                            <Message v-if="$form.cognome?.invalid" severity="error" size="small" variant="simple">{{ $form.cognome.error.message }}</Message>
+                            
                         </div>
 
                         <div class="my-3">
@@ -74,29 +84,48 @@
                                     rows="10"
                                     cols="50"
                                     v-model="newBio"
+                                    name="bio"
                                     id="bio"
                                     class="textarea focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                                />
+                                    />
                             </FloatLabel>
+                            <message v-if="$form.bio?.invalid" severity="error" size="small" variant="simple">{{ $form.bio.error.message }}</Message>
                         </div>
+                        
                         <div class="my-3">
                             <FloatLabel variant="on">
-                                <label for="adress" class="mb-2 block font-bold text-gray-700"
-                                    >Area Geografica</label
-                                >
-                                <InputText
+                                
+                                <Select
                                     v-model="newAddress"
                                     type="text"
                                     id="adress"
+                                    name="areageografica"
+                                    filter
+                                    :options="ComuniItalia"
                                     fluid
-                                    class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                                 />
+                                <label for="adress" class="mb-2 block font-bold text-gray-700"
+                                    >Area Geografica</label
+                                >
                             </FloatLabel>
+                            <Message v-if="$form.areageografica?.invalid" severity="error" size="small" variant="simple">{{ $form.areageografica.error.message }}</Message>
+                        </div>
+                        <div>
+                            isvalidurlsiti: {{ isValidUrlSiti }}
+                            <br>
+                            array Pina : {{ profiloStoreInstance.profilo.siti_social }}
+                            <br>
+                            array di stringhe2:{{ newSitiSocialiArrayOutput }}
+                            <br>
+                            array di oggetti:{{ newSitiSocialArray }}
+                            <br>
                         </div>
                         <div class="flex flex-row pb-2">
                             <Toast />
                             <div class="flex flex-col gap-2">
-                                <Button icon="pi pi-plus" @click="addInputField" />
+                                <Button icon="pi pi-plus" @click="addInputField" :disabled="!isValidUrlSiti"
+                                    >
+                                </Button>/>
                             </div>
                             <!-- Button to add a new input field -->
                             <div class="flex w-[100%] flex-col">
@@ -109,13 +138,14 @@
                                     <InputGroup>
                                         <FloatLabel variant="on">
                                             <InputText
-                                                name="name"
+                                                :name="'link' + index"
                                                 label="label"
                                                 type="url"
                                                 id="id"
                                                 fluid
                                                 v-model="input.value"
                                                 class="w-full"
+
                                                 @keyup.enter="addInputField"
                                                 @keyup.delete="removeInputField"
                                             />
@@ -126,11 +156,12 @@
                                             >
                                         </FloatLabel>
                                         <Button
-                                            v-if="isRemoveButtonVisible"
-                                            icon="pi pi-trash"
-                                            @click="removeInputFieldIndex(index)"
+                                        v-if="newSitiSocialArray.length > 1"
+                                        icon="pi pi-trash"
+                                        @click="removeInputFieldIndex(index)"
                                         />
                                     </InputGroup>
+                                    <Message v-if="$form['link' + index]?.invalid" severity="error" size="small" variant="simple">{{ $form['link' + index].error.message }}</Message>
                                 </div>
                             </div>
                         </div>
@@ -140,20 +171,24 @@
 
             <Button
                 size="large"
-                @click="handleSubmit"
+                type="submit" label="Submit"
                 class="w-[50%] rounded bg-primario-500 font-bold text-white hover:bg-primario-600"
                 >Invia Dati</Button
             >
-        </form>
+        </Form>
     </div>
 </template>
 
 <script setup>
+import ComuniItalia from '../../assets/json/ComuniItalia.json'
+import { Form } from '@primevue/forms';
+import { Select } from 'primevue';
 import Button from 'primevue/button';
+import Message from 'primevue/message';
 import InputGroup from 'primevue/inputgroup';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed , watch} from 'vue';
 import FloatLabel from 'primevue/floatlabel';
 import { useProfiloStore } from '../../stores/profiloStore.js';
 import { modificaProfiloPublico } from '../../service/profiloService';
@@ -170,9 +205,65 @@ const newAddress = ref(profiloStoreInstance.profilo.area_geografica);
 const newImageName = ref(profiloStoreInstance.profilo.nomeImmagine);
 const newImageURL = ref(profiloStoreInstance.profilo.imageURL);
 const newSitiSocialArray = ref([]);
-
+const newSitiSocialiArrayOutput = ref([]);
 const toast = useToast();
 const router = useRouter();
+
+const initialValues = {
+    nome: newNome.value,
+    cognome: newSurname.value,
+    bio: newBio.value,
+    area_geografica: newAddress.value,
+
+};
+
+
+const resolver = ({ values }) => {
+const errors = {};
+
+if (!values.nome) {
+    errors.nome= [{ message: 'Il campo Nome è obligatorio.' }];
+} else if (values.nome.length < 3) {
+    errors.nome = [{ message: 'Il campo Nome deve contenere almeno 3 caratteri.' }];
+}
+
+if (!values.cognome) {
+    errors.cognome = [{ message: 'Il campo Cognome è obligatorio.' }];
+} else if (values.cognome.length < 3) {
+    errors.cognome = [{ message: 'Il campo Cognome deve contenere almeno 3 caratteri.' }];
+}
+if (!values.bio) {
+    errors.bio = [{ message: 'Il campo Biografia è obligatorio.' }];
+} else if (values.bio.length < 10) {
+    errors.bio = [{ message: 'Il campo Biografia deve contenere almeno 10 caratteri.' }];
+}
+if (!values.area_geografica) {
+    errors.area_geografica = [{ message: 'Il campo Area Geografica è obligatorio.' }];
+}
+if (!values.imgProfilo) {
+    errors.imageURL = [{ message: 'Inserisci un immagine per il tuo profilo' }];
+}
+
+// Check if the URL is valid
+
+newSitiSocialArray.value.forEach((input, index) => {
+    const fieldName = 'link' + index;
+
+    if (newSitiSocialArray.value.length > 1) {
+        errors[fieldName] = [{ message: 'Deve essere un URL valido.' }];    
+    }else if(!isValidUrl(input.value)){
+        if (input.value === '') {
+            errors[fieldName] = [{ message: 'Inserisci almeno un link Social' }];
+        } else if (!isValidUrl(input.value)) {
+            errors[fieldName] = [{ message: 'Deve essere un URL valido.' }];
+        }
+    }
+});
+
+return {
+    errors
+};
+};
 
 function handleImageUpload(event) {
     const file = event.target.files[0];
@@ -193,27 +284,15 @@ function handleImageUpload(event) {
     }
 }
 
+const isValidUrlSiti = computed(() => {
+    // Restituisce true solo se tutti gli URL nell'array sono validi
+    return newSitiSocialArray.value.every((input) => isValidUrl(input.value));
+});
 // Method to add a new input field
 const addInputField = () => {
-    console.log(
-        'Add Input Field: ',
-        newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value === ''
-    );
-    const lastValue = newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value;
-    if (
-        lastValue === null ||
-        !isValidUrl(newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value)
-    ) {
-        console.log('URL non valido');
-        toast.add({
-            severity: 'error',
-            summary: 'Errore',
-            detail: 'Inserire un URL ad un profilo social media valido',
-            life: 3000,
-        });
-        return;
+    if(isValidUrlSiti.value){
+        newSitiSocialArray.value.unshift({ value: '' }); // Add an empty object for each new input
     }
-    newSitiSocialArray.value.push({ value: '' }); // Add an empty object for each new input
 };
 
 //computed value that returns true if the newSitiSocialArray.value.length is 2 or higher
@@ -238,54 +317,84 @@ function removeInputFieldIndex(index) {
     }
 }
 
-function handleSubmit() {
-    console.log('Modifica Profilo in corso');
-    profiloStoreInstance.updateProfilo({
-        nome: newNome.value,
-        cognome: newSurname.value,
-        bio: newBio.value,
-        area_geografica: newAddress.value,
-        imageURL: newImageURL?.value,
-        siti_social: newSitiSocialArray.value,
-    });
-    console.log('Profilo Store: ', profiloStoreInstance.profilo);
-    console.log('Profilo object: ', {
-        nome: newNome.value,
-        cognome: newSurname.value,
-        bio: newBio.value,
-        area_geografica: newAddress.value,
-        imageURL: newImageURL?.value,
-        siti_social: newSitiSocialArray.value,
-    });
-    modificaProfiloPublico(
-        newNome.value,
-        newSurname.value,
-        newAddress.value,
-        newBio.value,
-        newSitiSocialArray.value,
-        newImageURL?.value,
-        newImageName?.value
-    )
-        .then((response) => {
-            console.log('Modifica avvenuta con successo!!!: ' + response);
-            //add a router to redirect to the profile page
-            router.push({ name: 'profilo' });
-        })
-        .catch((error) => {
-            console.error('Errore durante la modifica del profilo: ', error);
-        });
+function onFormSubmit({ valid }) {
+  if (valid) {
+    alert('Form is valid');
+    handleSubmitV0(); // Qui puoi gestire il submit
+  } else {
+    alert('Form is invalid'); 
+  }
 }
+
+const onKeyDown = (event) => {
+    // Controlla se il tasto premuto è "Enter"
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Previene l'invio del modulo
+        console.log("Enter key pressed, form submission prevented.");
+    }
+};
+
+
+function handleSubmitV0() {
+    console.log('Modifica Profilo in corso');
+    
+    
+    if(newImageURL.value === null || newImageURL.value === ''){
+        newImageURL.value = null;
+    }
+    modificaProfiloPublico(newNome.value,newSurname.value,newAddress.value,newBio.value,newSitiSocialiArrayOutput.value,newImageURL.value,newImageName.value)
+    .then((response) => {
+        console.log('Modifica Profilo: ', response);
+        toast.add({
+            severity: 'success',
+            summary: 'Successo',
+            detail: 'Profilo modificato con successo',
+            life: 3000,
+        });
+        profiloStoreInstance.updateProfilo({
+        nome: newNome.value,
+        cognome: newSurname.value,
+        bio: newBio.value,
+        area_geografica: newAddress.value,
+        imageURL: newImageURL?.value,
+        siti_social: newSitiSocialiArrayOutput.value,
+    });
+    
+        router.push({ name: 'profilo' });
+    }).catch((error) => {
+        console.log('Errore Modifica Profilo: ', error);
+        toast.add({
+            severity: 'error',
+            summary: 'Errore',
+            detail: 'Errore durante la modifica del profilo',
+            life: 3000,
+        });
+    });
+
+
+}
+
+
+// Sincronizza da `arrayDiOggetti` a `arrayDiStringhe`
+watch(
+  newSitiSocialArray,
+  (newVal) => {
+    newSitiSocialiArrayOutput.value = newVal.map((obj) => obj.value);
+},
+  { immediate: true, deep: true }
+);
 
 onMounted(() => {
     console.log('Profilo Store: ', profiloStoreInstance.profilo.siti_social);
-    if (profiloStoreInstance.profilo.siti_social.length === 0) {
-        newSitiSocialArray.value.push({ value: '' });
-    } else {
-        for (let i = 0; i < profiloStoreInstance.profilo.siti_social.length; i++) {
-            newSitiSocialArray.value.push({
-                value: profiloStoreInstance.profilo.siti_social[i].value,
-            });
-        }
+
+    try{
+        newSitiSocialArray.value = profiloStoreInstance.profilo.siti_social.map((social) => {
+        return { value: social };
+    });
+    newSitiSocialArray.value.unshift({ value: '' });
+
+    }catch(e){
+        newSitiSocialArray.value.unshift({ value: '' });
     }
 });
 
