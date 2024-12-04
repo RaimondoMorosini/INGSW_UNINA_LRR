@@ -58,12 +58,10 @@ onUnmounted(async () => {
             profiloStore.profilo.email = idTokenClaims.value.email;
             router.push({ name: 'profilo' });
         } else {
-            console.info("token non ottenuto reindirizamento alla home");
             console.error('token non ottenuto');
             router.push({ name: 'home' });
         }
     } catch (error) {
-        console.info("token non ottenuto reindirizamento alla home");
         console.error('errore getting token ', error);
         router.push({ name: 'home' });
     }
