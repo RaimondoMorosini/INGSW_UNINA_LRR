@@ -2,6 +2,7 @@
     <div>
         <form @submit.prevent="gestioneInvio">
             <div class="mx-2 my-2 bg-slate-200/20 px-2 py-2">
+                
                 <InputField
                     v-for="caratteristica in caratteristicheRelativeAllaCategoria"
                     :key="caratteristica.id"
@@ -10,7 +11,10 @@
                     v-model="arrayValoriSelezionati[caratteristica.id]"
                 >
                 </InputField>
-                arrayValoriSelezionati {{ arrayValoriSelezionati }} <br />
+
+                <div v-if=production>
+                    arrayValoriSelezionati {{ arrayValoriSelezionati }} 
+                </div>
                 <hr class="my-4" />
             </div>
 
@@ -36,6 +40,7 @@ import { useAstaStore } from '../../stores/astaStore.js';
 import InputField from './InputField.vue';
 
 const emit = defineEmits('increase-page', 'decrease-page');
+const production = true;
 
 const gestioneInvio = () => {
     emit('increase-page');

@@ -461,16 +461,12 @@ function isValidUrl(url) {
     }
 }
 
-/** max-width: 100%;
-    max-height: 1000px;
- */
 .preview {
     min-height: 300px;
     max-width: 100%;
     max-height: 1000px;
     align-content: center;
-
-    @apply bg-primario-300;
+    background-color: #e879f9;
 }
 .placeholder {
     max-width: 100%;

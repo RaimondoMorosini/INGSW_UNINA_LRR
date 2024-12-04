@@ -1,16 +1,23 @@
 <template>
     <div>
-        <label>{{ label }}</label>
-        <br />
-        <Dropdown v-model="selectedValue" :options="options" placeholder="Seleziona" />
-        <br />
-        valore selezionato: {{ selectedValue }}
+        <FloatLabel variant="on">
+        <Dropdown inputId="selettore" fluid v-model="selectedValue" :options="options" placeholder="Seleziona" />
+        
+        <label for="selettore">{{ label }}</label>
+        </FloatLabel>
+        <div v-if="production">
+            valore selezionato: {{ selectedValue }}
+        </div>
+
     </div>
 </template>
 
 <script setup>
 import Dropdown from 'primevue/dropdown';
+import  FloatLabel  from 'primevue/floatlabel';
 import { ref } from 'vue';
+
+const production = true;
 
 const props = defineProps({
     label: String,

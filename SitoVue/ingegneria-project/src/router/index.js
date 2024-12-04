@@ -118,12 +118,6 @@ const routes = [
     },
 
     {
-        path: '/creaAppalto',
-        name: 'creaAppalto',
-        component: () => import('@/views/CreazioneAppaltoView.vue'),
-    },
-
-    {
         path: '/datiPersonali',
         name: 'datiPersonali',
         component: () => import('@/views/InserimentoDatiPersonaliView.vue'),

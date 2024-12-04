@@ -1,4 +1,5 @@
 <script setup>
+import  FloatLabel  from 'primevue/floatlabel';
 import Dropdown from 'primevue/dropdown';
 import { defineProps, ref, defineEmits, onMounted, onUnmounted } from 'vue';
 const props = defineProps({
@@ -20,21 +21,28 @@ const handleChange = (newValue) => {
 
 onMounted(() => {
     selectedValue.value = props.modelValue;
+    
 });
+
+//how to capitalize string
+
+const production = false;
 </script>
 
 <template>
-    <div>
-        <label>{{ label }}</label>
-        <br />
+    <div class="flex mb-2">
+        <FloatLabel variant="on">
         <Dropdown
+            fluid
             showClear
             v-model="selectedValue"
             :options="options"
-            placeholder="Seleziona"
             @change="handleChange"
         />
-        <br />
-        Valore selezionato: {{ selectedValue }}
+        <label>{{ label.charAt(0).toUpperCase() + label.slice(1) }}</label>
+        </FloatLabel>
+        <div v-if="production">
+            Valore selezionato: {{ selectedValue }}
+        </div>
     </div>
 </template>

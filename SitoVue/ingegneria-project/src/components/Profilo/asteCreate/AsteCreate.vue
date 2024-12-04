@@ -30,7 +30,7 @@ import { ref, computed } from 'vue';
 import Filtro from './Filtro.vue';
 import ElementoAsta from './ElementoAsta.vue';
 import Button from 'primevue/button';
-import Appalto from '../../buttons/AppaltoButton.vue';
+
 
 const astaStore = usaAstaStore();
 getAsteCreate().then((aste) => astaStore.impostaAste(aste));
@@ -69,7 +69,7 @@ const cambiaPagina = (pagina) => astaStore.cambiaPagina(pagina);
 }
 
 .paginazione button.attiva {
-    background: #007bff;
+    background: #e879f9;
     color: white;
 }
 </style>
