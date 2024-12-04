@@ -7,41 +7,43 @@ import api.dieti2024.exceptions.ApiException;
 import api.dieti2024.model.Utente;
 import api.dieti2024.repository.UserRepository;
 import api.dieti2024.util.ImageContainerUtil;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
+import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor 
 public class UtenteService {
 
     private final ImageContainerUtil imageContainerUtil;
     private final UserRepository utenteRepository;
 
     public UserDetailsDto getUserDetails(String email) {
-
+ 
         Utente utenteModel =getUtenteByEmail(email);
         return UserDetailsDto.fromUserModel(utenteModel);
     }
 
     /*
+     * 
      * Metodo per ottenere un utente dal repository
+     * 
      * @param email email dell'utente
+     * 
      * @return utente
      * @throws ApiException se l'utente non è presente
      */
-    private Utente getUtenteByEmail(String email) {
+    private Utente getUtenteByEmail(String emai
+                l) {
         return utenteRepository.findById(email).orElseThrow(() -> new ApiException("Utente non trovato", HttpStatus.NOT_FOUND));
     }
-
+ 
     public ProfiloUtentePublicoDTO getDatiProfilo(String email){
         Utente utente = getUtenteByEmail(email);
+ 
+     
 
-        return ProfiloUtentePublicoDTO.fromUserModel(utente,utenteRepository.isVenditore(email));
-    }
+    }  
     public void updateDatiProfilo(String email,  ProfiloUtentePublicoDTO profiloUtentePublicoDTO){
         try {
             Utente utente = getUtenteByEmail(email);
@@ -51,15 +53,15 @@ public class UtenteService {
             utente.setBio(profiloUtentePublicoDTO.bio());
             utente.setSiti(profiloUtentePublicoDTO.siti());
             utente.setAreaGeografica(profiloUtentePublicoDTO.areaGeografica());
-            utenteRepository.save(utente);
+             utenteRepository.save(utente);
         }catch (ApiException e) {
-            throw e;
+             throw e; 
         }catch (Exception e){
             throw new ApiException("Errore interno", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    public Boolean isProfiloCompleto(String email) {
+        public Boolean isProfiloCompleto(String email) {
     return utenteRepository.isProfiloCompleto(email);
     }
 
@@ -69,17 +71,17 @@ public class UtenteService {
         utente.setCognome(modificaProfiloDTO.cognome());
         utente.setBio(modificaProfiloDTO.bio());
         utente.setSiti(modificaProfiloDTO.sitiSocial().toString());
-        utente.setAreaGeografica(modificaProfiloDTO.indirizzo());
+        ut ente.setAreaGeografica(modificaProfil oD TO.in dirizzo());
         if(modificaProfiloDTO.immagineProfilo()!=null){
-            try {
+            try { 
+                            
                 String linkImmagine= imageContainerUtil.uploadImage(modificaProfiloDTO.immagineProfilo(),"immagineProfilo-"+email+".jpg");
-                utente.setFotoProfilo(linkImmagine);
-            }catch (Exception e){
+                 utente.setFotoPr ofilo(linkImmagine);
+            }catch  (Exception e){
                 //DO nothing
             }
         }
-        utenteRepository.save(utente);
 
-
+    
     }
 }
