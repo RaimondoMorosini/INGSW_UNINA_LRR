@@ -220,7 +220,6 @@ const initialValues = {
 
 const resolver = ({ values }) => {
 const errors = {};
-
 if (!values.nome) {
     errors.nome= [{ message: 'Il campo Nome è obligatorio.' }];
 } else if (values.nome.length < 3) {
@@ -243,6 +242,7 @@ if (!values.area_geografica) {
 if (!values.imgProfilo) {
     errors.imageURL = [{ message: 'Inserisci un immagine per il tuo profilo' }];
 }
+console.info('errors',errors);
 
 // Check if the URL is valid
 
@@ -250,7 +250,9 @@ newSitiSocialArray.value.forEach((input, index) => {
     const fieldName = 'link' + index;
 
     if (newSitiSocialArray.value.length > 1) {
+        if(!isValidUrl(input.value)){
         errors[fieldName] = [{ message: 'Deve essere un URL valido.' }];    
+        }
     }else if(!isValidUrl(input.value)){
         if (input.value === '') {
             errors[fieldName] = [{ message: 'Inserisci almeno un link Social' }];
@@ -259,6 +261,7 @@ newSitiSocialArray.value.forEach((input, index) => {
         }
     }
 });
+console.log('errorsPostSiti:',errors);
 
 return {
     errors
