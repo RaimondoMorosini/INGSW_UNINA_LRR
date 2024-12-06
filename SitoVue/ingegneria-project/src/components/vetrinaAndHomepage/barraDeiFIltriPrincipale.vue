@@ -1,5 +1,8 @@
 <template>
-    <div class="flex h-auto flex-row justify-center rounded bg-slate-200/20 p-2">
+    <div 
+    class="flex h-auto flex-col lg:flex-row justify-center rounded bg-slate-200/20 p-2 m-4
+    lg:mr-4 mb-4 lg:mb-0 lg:space-x-4
+    ">
         <div class="flex flex-col">
             <label for="currency-germany" class="mb-2 block font-bold"> Ordina per </label>
             <Dropdown
