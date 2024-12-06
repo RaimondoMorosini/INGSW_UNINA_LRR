@@ -1,9 +1,6 @@
 <template>
-    <Swiper
-        style="--swiper-navigation-color: #1c1b22; --swiper-pagination-color: #1c1b22"
-        :modules="[Autoplay, Pagination, Keyboard, Navigation]"
-        :slidesPerView="1"
-        :breakpoints="{
+    <Swiper style="--swiper-navigation-color: #1c1b22; --swiper-pagination-color: #1c1b22"
+        :modules="[Autoplay, Pagination, Keyboard, Navigation]" :slidesPerView="1" :breakpoints="{
             '640': {
                 slidesPerView: 2,
                 spaceBetween: 20,
@@ -16,38 +13,23 @@
                 slidesPerView: 3,
                 spaceBetween: 20,
             },
-        }"
-        :centered-slides="true"
-        :space-between="40"
-        :autoplay="{
+        }" :centered-slides="true" :space-between="40" :autoplay="{
             delay: 3500,
             disableOnInteraction: false,
-        }"
-        :pagination="{
+        }" :pagination="{
             clickable: true,
-        }"
-        :loop="true"
-        :navigation="true"
-        :keyboard="true"
-        class="bg-primario-400"
-    >
+        }" :loop="true" :navigation="true" :keyboard="true" class="bg-primario-400">
         <SwiperSlide v-for="(photo, index) in slides.photo" :key="index" class="p-6">
-            <RouterLink
-                :to="{
-                    name: 'aste',
-                    query: {
-                        pagina: 1,
-                        categoria: slides.links[index],
-                        tipoAsta: JSON.stringify([]),
-                        lista: JSON.stringify([]),
-                    },
-                }"
-            >
-                <img
-                    :src="require(`@/assets/img/carosello/${photo}`)"
-                    alt=""
-                    class="border-greyButton-400 border-2"
-                />
+            <RouterLink :to="{
+                name: 'aste',
+                query: {
+                    pagina: 1,
+                    categoria: slides.links[index],
+                    tipoAsta: JSON.stringify([]),
+                    lista: JSON.stringify([]),
+                },
+            }">
+                <img :src="require(`@/assets/img/carosello/${photo}`)" alt="" class="border-greyButton-400 border-2" />
             </RouterLink>
         </SwiperSlide>
     </Swiper>
@@ -64,14 +46,12 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const slides = {
-    photo: ['bg1.jpg', 'bg2.jpg', 'bg3.jpg', 'bg4.jpg', 'bg5.jpg', 'bg6.jpg'],
+    photo: ['bg1.jpg', 'bg2.jpg', 'bg3.jpg','bg4.webp'],
     links: [
         'Sport e Hobby',
+        'Motori',
         'Per la casa e la persona',
         'Elettronica',
-        'Altro',
-        'Abbigliamento',
-        'Sport e Hobby',
     ],
 };
 </script>

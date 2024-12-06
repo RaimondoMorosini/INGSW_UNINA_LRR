@@ -51,7 +51,6 @@
         >
     </div>
 
-    <Vetrina />
 </template>
 
 <script setup>
