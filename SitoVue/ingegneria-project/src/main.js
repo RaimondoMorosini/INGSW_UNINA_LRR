@@ -47,8 +47,7 @@ app.use(
         domain: 'dev-bmqxc24leqwhyhec.eu.auth0.com',
         clientId: 'YR70390mlpskaBwBrMYclzGmkCLAXfaB',
         authorizationParams: {
-            redirect_uri: 'http://localhost:8080/callback',
-            //redirect_uri: 'http://www.dietideals.it/callback',
+            redirect_uri: window.location.origin + '/callback',
         },
     })
 );
