@@ -67,8 +67,6 @@ import { onMounted, ref } from 'vue';
 
 import { getCategorieRest } from '../../scripts/categorie.js';
 
-import Vetrina from './Vetrina.vue';
-
 import { useRouter } from 'vue-router';
 const router = useRouter(); // Usa il router
 

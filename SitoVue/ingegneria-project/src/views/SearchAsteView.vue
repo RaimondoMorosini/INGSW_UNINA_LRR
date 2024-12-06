@@ -302,14 +302,14 @@ const richiestaRicercaFiltrata = async () => {
 
         //Richiesta per ottenere il numero totale di aste
         response = await axios.post(
-            'http://localhost:8081/public/asta/getNumeroAste',
+            'https://serverdieti-gdd4g3g5bbfweyb3.canadacentral-01.azurewebsites.net/public/asta/getNumeroAste',
             parametriBody
         ); //Otteniamo il numero totale delle aste in base al criterio di ricerca (questo numero serve per calcolare il numero totali di pagine)
         numeroAsteTotali.value = response.data; //Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
         console.log('numeroAsteTotali:', numeroAsteTotali.value);
 
         //Richiesta per ottenere le aste
-        response = await axios.post('http://localhost:8081/public/asta/getAllAste', parametriBody); //Otteniamo tutte le aste che corrispondono al criterio di ricerca
+        response = await axios.post('https://serverdieti-gdd4g3g5bbfweyb3.canadacentral-01.azurewebsites.net/public/asta/getAllAste', parametriBody); //Otteniamo tutte le aste che corrispondono al criterio di ricerca
         aste.value = response.data; // Assegniamo la risposta alla variabile condivisa tramite prop con la componente che carica le aste
     } catch (error) {
         console.error('Si è verificato un errore:', error);
