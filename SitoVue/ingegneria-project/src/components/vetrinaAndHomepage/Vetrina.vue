@@ -1,4 +1,5 @@
 <template>
+    <h1 class="p-12 text-4xl font-bold">Tutte le aste</h1>
         <DataView :value="aste" :layout="layout">
             <template #grid="slotProps">
                 <div class="grid grid-cols-12 gap-4 justify-items-center p-2 sm:p-6 md:p-8 lg:p-10">
