@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getDato } from './DatiUtils';
 
-axios.defaults.baseURL = 'http://localhost:8081/';
+axios.defaults.baseURL = 'https://serverdieti-gdd4g3g5bbfweyb3.canadacentral-01.azurewebsites.net/';
 // Funzione per ottenere un elemento dal server
 async function getRest(path) {
     try {
