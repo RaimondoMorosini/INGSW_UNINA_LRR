@@ -14,7 +14,7 @@
                                     <img class="rounded w-full h-full object-cover" :src="`${item.immagini[0]}`"
                                         :alt="item.name" />
                                     <div class="absolute bg-black/70 rounded-border" style="left: 4px; top: 4px">
-                                        <Tag :value="item.tipoAsta" :severity="getSeverity(item)"></Tag>
+                                        <Tag :value="item.tipoAsta"></Tag>
                                     </div>
                                 </div>
                             </div>
@@ -36,8 +36,8 @@
                                     <span v-else class="text-center text-2xl font-semibold">BASE ASTA: {{ item.baseAsta
                                         }}€</span>
                                     <div class="flex gap-2">
-                                        <Button @click="clickParteciAsta(item.idAsta)" icon="pi pi-shopping-cart" label="PARTECIPA ALL'ASTA"
-                                            :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
+                                        <Button v-if="isScaduta(item.dataScadenza)" class="flex-auto whitespace-nowrap" :disabled="true">ASTA SCADUTA</Button>
+                                        <Button v-else @click="clickParteciAsta(item.idAsta)" icon="pi pi-shopping-cart" label="PARTECIPA ALL'ASTA"
                                             class="flex-auto whitespace-nowrap"></Button>
                                     </div>
                                 </div>
@@ -96,22 +96,6 @@ const bodyPerLaPost = {
     direzioneOrdinamento: null
 }
 
-const getSeverity = (product) => {
-    switch (product.inventoryStatus) {
-        case 'INSTOCK':
-            return 'success';
-
-        case 'LOWSTOCK':
-            return 'warn';
-
-        case 'OUTOFSTOCK':
-            return 'danger';
-
-        default:
-            return null;
-    }
-}
-
 const clickParteciAsta = (idAsta) => {
 
     router.push({
@@ -120,7 +104,14 @@ const clickParteciAsta = (idAsta) => {
     })
 }
 
+const isScaduta = (dataScadenza) => {
+
+    const dataOggi = Date.now();
+    return dataScadenza < dataOggi;
+}
+
 </script>
+
 
 <style scoped>
 
