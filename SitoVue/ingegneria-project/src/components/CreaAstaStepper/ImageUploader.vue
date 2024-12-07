@@ -54,8 +54,6 @@
                                 alt="Catalogo immagini prodotto"
                             />
                         </div>
-                        <div class="img-name">{{ immagine.name }}</div>
-                        <div>file {{ immagine.file }}</div>
                     </div>
                 </div>
             </div>
