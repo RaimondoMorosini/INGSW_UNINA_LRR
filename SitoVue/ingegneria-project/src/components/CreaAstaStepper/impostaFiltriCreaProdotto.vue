@@ -1,5 +1,8 @@
 <template>
-    <div v-if="caratteristicheRelativeAllaCategoria.length > 0">
+         <div class="flex flex-col items-center justify-center">
+            <h2 class="text-xl font-bold text-primario-500">Aggiungi altre informazioni sul prodotto</h2>
+            </div>
+    <div v-if="caratteristicheRelativeAllaCategoria.length > 0" class="mx-2 my-2 gap-2 rounded px-2 py-2 ring-2 ring-primario-600">
         <form>
             <div class="mx-2 my-2 bg-slate-200/20 px-2 py-2 max-h-[300px] overflow-y-auto">
                 <InputField
