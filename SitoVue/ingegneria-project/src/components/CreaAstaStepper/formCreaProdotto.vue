@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="gestioneInvio">
+    <Form >
         <div class="flex flex-col justify-around gap-2 lg:flex-row">
             <Card class="lg:w-[60%]">
                 <template #header>
@@ -41,15 +41,15 @@
                         </div>
 
                         <InputGroup class="categoriaSelector pt-6">
-                            <InputGroupAddon class=" ">
+                            <InputGroupAddon>
                                 <i class="pi pi-th-large"></i>
                             </InputGroupAddon>
                             <FloatLabel variant="on">
                                 <TreeSelect
-                                    v-model="selectedCategory"
-                                    :options="nodes"
+                                    v-model="categoria"
+                                    :options="categoriaOption"
                                     optionLabel="nome"
-                                    optionValue="id"
+                                    optionValue="nome"
                                     placeholder="Seleziona Categoria"
                                 />
                                 <label for="categoria">Categoria</label>
@@ -60,7 +60,6 @@
             </Card>
             <div class="lg:w-[40%]">
                 <div class="flex w-[100%] justify-between p-2 lg:justify-start">
-                    <!--viene dato l'array contenente le immagini dallo store e flag per verificare se si possono mettere multiple immagini-->
                     <ImageUploader
                         :storeInstance="astaStoreInstance.asta.immaginiSalvate"
                         class="mx-5 w-[100%] lg:mx-0"
@@ -70,14 +69,19 @@
         </div>
 
         <div class="areaBottoni my-4 flex justify-around gap-5 px-10">
-            <Button class="w-[45%]" size="large" @click="gestioneInvio"
-                ><span class="font-bold">Successivo <i class="pi pi-arrow-right"></i></span
-            ></Button>
+            <Button class="w-[45%]" size="large" @click="gestioneInvio">
+                <span class="font-bold">
+                    Successivo <i class="pi pi-arrow-right"></i>
+                </span>
+            </Button>
         </div>
-    </form>
-</template>
+    </Form>
+   </template>
 
 <script setup>
+import { defineEmits,ref, computed, onMounted } from 'vue';
+import { useAstaStore } from '../../stores/astaStore.js';
+import { getCategorie } from '../../service/categoriaService.js';
 import Card from 'primevue/card';
 import Button from 'primevue/button';
 import InputNumber from 'primevue/inputnumber';
@@ -87,91 +91,71 @@ import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 import TreeSelect from 'primevue/treeselect';
 import ImageUploader from './ImageUploader.vue';
-import { onMounted, onUnmounted, ref, defineEmits } from 'vue';
-import { useAstaStore } from '../../stores/astaStore.js';
-import { getCategorie } from '../../service/categoriaService.js';
 
+// Emits
+const emit = defineEmits('increase-page');
+
+// Store
 const astaStoreInstance = useAstaStore();
 
-const nodes = ref([]);
-const emit = defineEmits('increase-page', 'decreasse-page');
-const selectedCategory = ref(astaStoreInstance.asta.categoria);
-const nomeProdotto = ref(astaStoreInstance.asta.nomeProdotto);
-const descrizione = ref(astaStoreInstance.asta.descrizione);
-const prezzoBase = ref(astaStoreInstance.asta.prezzoBase);
-
-const categoriaSelezionata = function (obj) {
-    let keys = '';
-    for (let key in obj) {
-        keys = key;
-    }
-    return keys;
+// Valori iniziali centralizzati
+const initialValues = {
+    nomeProdotto: astaStoreInstance.asta.nomeProdotto || '',
+    descrizione: astaStoreInstance.asta.descrizione || '',
+    prezzoBase: astaStoreInstance.asta.prezzoBase || 0,
+    categoria: astaStoreInstance.asta.categoria || null,
 };
 
-const categoriaSalvata = ref(categoriaSelezionata(astaStoreInstance.asta.categoria));
+// Computed properties per sincronizzare i dati con lo store
+const nomeProdotto = computed({
+    get: () => astaStoreInstance.asta.nomeProdotto,
+    set: (value) => astaStoreInstance.updateAsta({ nomeProdotto: value }),
+});
+
+const descrizione = computed({
+    get: () => astaStoreInstance.asta.descrizione,
+    set: (value) => astaStoreInstance.updateAsta({ descrizione: value }),
+});
+
+const prezzoBase = computed({
+    get: () => astaStoreInstance.asta.prezzoBase,
+    set: (value) => astaStoreInstance.updateAsta({ prezzoBase: value }),
+});
+
+const categoria = computed({
+    get: () => {
+        // Converti lo store in formato leggibile per il TreeSelect
+        const value = astaStoreInstance.asta.categoria;
+        if (typeof value === 'string') {
+            // Rendi compatibile con il formato del TreeSelect
+            return { [value]: true };
+        }
+        return value;
+    },
+    set: (value) => {
+        // Normalizza e salva nello store solo la stringa
+        const normalizedValue = typeof value === 'object' && value !== null
+            ? Object.keys(value)[0] // Prendi la chiave
+            : value; // Usa direttamente se è una stringa
+        astaStoreInstance.updateAsta({ categoria: normalizedValue });
+    },
+});
+
+// Opzioni per la selezione delle categorie
+const categoriaOption = ref([]);
 
 onMounted(() => {
-    astaStoreInstance.updateAsta({
-        step: 0,
-    });
     getCategorie().then((response) => {
-        nodes.value = response;
-    });
-});
-onUnmounted(() => {
-    astaStoreInstance.updateAsta({
-        nomeProdotto: nomeProdotto.value,
-        descrizione: descrizione.value,
-        prezzoBase: prezzoBase.value,
-        categoria: selectedCategory,
+        categoriaOption.value = response;
     });
 });
 
+// Gestione invio
 const gestioneInvio = () => {
-    if (!nomeProdotto.value || !descrizione.value || !prezzoBase.value || !categoriaSalvata) {
+    if (!nomeProdotto || !descrizione || !prezzoBase || !categoria) {
         alert('Compila tutti i campi.');
         return;
     }
-
-    astaStoreInstance.updateAsta({
-        nomeProdotto: nomeProdotto.value,
-        descrizione: descrizione.value,
-        prezzoBase: prezzoBase.value,
-        categoria: selectedCategory,
-    });
     emit('increase-page');
 };
 </script>
-
-<style scoped>
-button.bottone {
-    background-color: #cc85f5;
-    padding: 10px 20px;
-    color: white;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    width: 50%;
-    margin: 10px;
-}
-
-button.bottone:hover {
-    background-color: #7c3aed;
-}
-
-textarea {
-    resize: none;
-}
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Firefox */
-input[type='number'] {
-    -moz-appearance: textfield;
-}
-</style>
