@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="gestioneInvio">
         <div class="flex flex-col items-center justify-center">
-            <h2>Seleziona tipo asta</h2>
+            <h2 class="text-xl font-bold text-primario-500">Seleziona tipo asta</h2>
             <div class="flex flex-col">
                 <div class="flex items-center gap-2">
                     <RadioButton v-model="tipoAsta" inputId="Inglese" value="asta_inglese"/>
@@ -21,9 +21,9 @@
         <!--v-if="tipoAsta === 'asta_inglese'"-->
         <div
             v-if="checkInglese"
-            class="mx-2 my-2 flex flex-col gap-2 rounded px-2 py-2 ring-2 ring-[#cc85f5]"
+            class="mx-2 my-2 flex flex-col gap-2 rounded px-2 py-2 ring-2 ring-primario-600"
         >
-            <h2>ASTA INGLESE</h2>
+            <h2 class="text-xl font-bold text-[#cc85f5]">ASTA INGLESE</h2>
             <div class="w-[100%] pt-5 lg:pr-9">
                 <FloatLabel variant="on">
                     <InputNumber
@@ -77,7 +77,7 @@
             v-if="checkSilenziosa"
             class="mx-2 my-2 flex flex-col gap-2 rounded bg-slate-200/20 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
-            <h2>ASTA SILENZIOSA</h2>
+            <h2 class="text-xl font-bold text-[#cc85f5]">ASTA SILENZIOSA</h2>
 
             <div class="px-2 lg:pr-9">
                 <FloatLabel variant="on">
@@ -101,7 +101,7 @@
             v-if="checkInversa"
             class="mx-2 my-2 flex flex-col gap-2 rounded bg-slate-200/20 px-2 py-2 ring-2 ring-[#cc85f5]"
         >
-            <h2>ASTA INVERSA</h2>
+            <h2 class="text-xl font-bold text-[#cc85f5]">ASTA INVERSA</h2>
 
             <div class="px-2 lg:pr-9">
                 <FloatLabel variant="on">
@@ -220,23 +220,3 @@ const goToPreviousForm = () => {
 };
 </script>
 
-<style scoped>
-h2 {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #cc85f5;
-}
-.bottone {
-    background-color: #cc85f5;
-    padding: 10px 20px;
-    color: white;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    width: 50%;
-    margin: 10px;
-}
-.bottone:hover {
-    background-color: #7c3aed;
-}
-</style>
