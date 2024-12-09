@@ -21,6 +21,25 @@
         <div class="sezione-asta flex flex-col gap-2 rounded px-2 pt-2 pb-4 ring-2 ring-primario-600 mt-5 mb-5 ">
             <h2 class="text-xl font-bold text-[#cc85f5]">{{ labelTipoAsta }}</h2>
 
+            <!-- Prezzo di Partenza -->
+            <div class="bg-inherit pt-5">
+                <FloatLabel variant="on">
+                    <InputNumber
+                        mode="currency"
+                        currency="EUR"        
+                        v-model="prezzoBase"
+                        :min="1"
+                        fluid
+                        id="prezzoBase"
+                        class="rounded bg-inherit"
+                    />
+                    <label for="prezzoBase">Prezzo di Partenza (valore in €)</label>
+                </FloatLabel>
+                <p class="text-sm text-gray-500 mt-2">
+                    Il prezzo di partenza è la base d'asta da cui iniziare.
+                </p>
+            </div>
+
             <!-- Incremento (solo per asta inglese) -->
             <div v-if="tipoAsta === 'asta_inglese'" class="w-full pt-5">
                 <FloatLabel variant="on">
@@ -85,11 +104,6 @@
             </Button>
         </div>
     </form>
-    storevalue <br>
-    tipo asta: {{ storeInstance.asta.tipoAsta }} <br>
-    incremento inglese:{{ storeInstance.asta.incremento }} <br>
-    estensione inglese:{{ storeInstance.asta.durataEstensione }} <br>
-    data scadenza:{{ storeInstance.asta.scadenzaAsta }}
 </template>
 
 <script setup>
@@ -98,24 +112,56 @@ import InputNumber from 'primevue/inputnumber';
 import FloatLabel from 'primevue/floatlabel';
 import Button from 'primevue/button';
 import DatePicker from 'primevue/datepicker';
-import { ref, computed, watch, onMounted } from 'vue';
+import { computed, defineEmits} from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
 
+const emit = defineEmits(['decrease-page', 'increase-page']);
 const tipiAsta = {
     asta_inglese: 'Asta Inglese',
     asta_inversa: 'Asta Inversa',
     asta_silenziosa: 'Asta Silenziosa',
 };
 
-const tipoAsta = ref('');
-const incremento = ref(10); // Valore predefinito: 10€
-const durataEstensione = ref(1); // Valore predefinito: 1 ora
-const scadenzaAsta = ref(null); // Scadenza inizialmente nulla
-const minDate = ref(new Date());
-//add one day to the min date
-minDate.value.setDate(minDate.value.getDate() + 1);
-
 const storeInstance = useAstaStore();
+
+const tipoAsta = computed({
+    get: () => storeInstance.asta.tipoAsta,
+    set: (valore) => storeInstance.updateAsta({ tipoAsta: valore }),
+});
+
+const prezzoBase = computed({
+    get: () => storeInstance.asta.prezzoBase || 1,
+    set: (valore) => storeInstance.updateAsta({ prezzoBase: valore }),
+});
+
+const incremento = computed({
+    get: () => storeInstance.asta.incremento || 10,
+    set: (valore) => storeInstance.updateAsta({ incremento: valore }),
+});
+
+const durataEstensione = computed({
+    get: () => storeInstance.asta.durataEstensione || 1,
+    set: (valore) => storeInstance.updateAsta({ durataEstensione: valore }),
+});
+
+const scadenzaAsta = computed({
+    get: () => {
+        const scadenza = storeInstance.asta.scadenzaAsta;
+        return scadenza ? new Date(scadenza) : minDate.value;
+    },
+    set: (valore) => {
+        if (valore) {
+            valore.setHours(23, 59, 59); // Imposta l'orario alle 23:59:59
+            storeInstance.updateAsta({ scadenzaAsta: valore.getTime() });
+        }
+    },
+});
+
+const minDate = computed(() => {
+    const dataMinima = new Date();
+    dataMinima.setDate(dataMinima.getDate() + 1); // Data minima: domani
+    return dataMinima;
+});
 
 // Descrizione del tipo di asta
 const descrizioneTipoAsta = computed(() => {
@@ -137,72 +183,30 @@ const labelTipoAsta = computed(() => tipiAsta[tipoAsta.value] || 'Tipo di Asta')
 // Testo per la scadenza dell'asta
 const testoScadenza = computed(() => {
     if (!scadenzaAsta.value) return null;
-    const opzioni = { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric', 
-        hour: '2-digit', 
-        minute: '2-digit' 
+    const opzioni = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
     };
     return `L'asta scadrà il ${scadenzaAsta.value.toLocaleDateString('it-IT', opzioni)}.`;
 });
 
-
-onMounted(() => {
-    const oggi = new Date();
-    minDate.value.setFullYear(oggi.getFullYear());
-    minDate.value.setMonth(oggi.getMonth());
-
-    // Sincronizzazione iniziale dallo store con conversione da unix time
-    tipoAsta.value = storeInstance.asta.tipoAsta || '';
-    incremento.value = storeInstance.asta.incremento || 10;
-    durataEstensione.value = storeInstance.asta.durataEstensione || 1;
-
-    // Converte il valore unix time (in millisecondi) in un oggetto Date
-    if (storeInstance.asta.scadenzaAsta) {
-        scadenzaAsta.value = new Date(storeInstance.asta.scadenzaAsta);
-    }
-});
-
-// Osserva i cambiamenti e aggiorna lo store
-watch(tipoAsta, (nuovoValore) => {
-    storeInstance.updateAsta({ tipoAsta: nuovoValore });
-});
-
-watch(incremento, (nuovoValore) => {
-    if (tipoAsta.value === 'asta_inglese') {
-        storeInstance.updateAsta({ incremento: nuovoValore });
-    }
-});
-
-watch(durataEstensione, (nuovoValore) => {
-    if (tipoAsta.value === 'asta_inglese') {
-        storeInstance.updateAsta({ durataEstensione: nuovoValore });
-    }
-});
-
-watch(scadenzaAsta, (nuovoValore) => {
-    if (nuovoValore) {
-        // Imposta l'ora alle 23:59:59
-        nuovoValore.setHours(23, 59, 59);
-        // Converte l'oggetto Date in unix time (millisecondi)
-        storeInstance.updateAsta({ scadenzaAsta: nuovoValore.getTime() });
-    }
-});
-
-
 const gestioneInvio = () => {
-    if (!scadenzaAsta.value) {
+    if (!prezzoBase || !scadenzaAsta) {
+       if(tipoAsta.value === 'asta_inglese' && !incremento && !durataEstensione) {
+            alert('Compila tutti i campi obbligatori.');
+            return;
+        }
         alert('Compila tutti i campi obbligatori.');
         return;
     }
-    console.log('Dati sincronizzati con lo store');
+    emit('increase-page');
 };
 
 const goToPreviousForm = () => {
     emit('decrease-page');
 };
 </script>
-
-

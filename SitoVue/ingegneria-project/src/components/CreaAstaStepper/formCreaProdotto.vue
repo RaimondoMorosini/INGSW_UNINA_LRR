@@ -25,20 +25,6 @@
                                 <label for="descrizione">Descrizione Prodotto</label>
                             </FloatLabel>
                         </div>
-                        <div class="formSpace pt-6">
-                            <FloatLabel variant="on">
-                                <InputNumber
-                                    mode="currency"
-                                    currency="EUR"
-                                    :min="0"
-                                    fluid
-                                    class="rounded"
-                                    id="prezzoBase"
-                                    v-model="prezzoBase"
-                                />
-                                <label for="prezzoBase">Prezzo Base</label>
-                            </FloatLabel>
-                        </div>
 
                         <InputGroup class="categoriaSelector pt-6">
                             <InputGroupAddon>
@@ -98,13 +84,6 @@ const emit = defineEmits('increase-page');
 // Store
 const astaStoreInstance = useAstaStore();
 
-// Valori iniziali centralizzati
-const initialValues = {
-    nomeProdotto: astaStoreInstance.asta.nomeProdotto || '',
-    descrizione: astaStoreInstance.asta.descrizione || '',
-    prezzoBase: astaStoreInstance.asta.prezzoBase || 0,
-    categoria: astaStoreInstance.asta.categoria || null,
-};
 
 // Computed properties per sincronizzare i dati con lo store
 const nomeProdotto = computed({
@@ -117,10 +96,6 @@ const descrizione = computed({
     set: (value) => astaStoreInstance.updateAsta({ descrizione: value }),
 });
 
-const prezzoBase = computed({
-    get: () => astaStoreInstance.asta.prezzoBase,
-    set: (value) => astaStoreInstance.updateAsta({ prezzoBase: value }),
-});
 
 const categoria = computed({
     get: () => {
@@ -152,7 +127,7 @@ onMounted(() => {
 
 // Gestione invio
 const gestioneInvio = () => {
-    if (!nomeProdotto || !descrizione || !prezzoBase || !categoria) {
+    if (!nomeProdotto || !descrizione  || !categoria) {
         alert('Compila tutti i campi.');
         return;
     }
