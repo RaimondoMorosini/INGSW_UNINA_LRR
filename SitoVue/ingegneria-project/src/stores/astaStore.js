@@ -1,20 +1,20 @@
 import { defineStore } from 'pinia';
 import { getImageInFormData } from '../service/astaService.js';
 import { getInfoAstaProdotto } from '../service/PaginaProdottoAstaService.js';
-
+const dataMinima = new Date();
+dataMinima.setDate(dataMinima.getDate() + 1); // Data minima: domani
 export const useAstaStore = defineStore('asta', {
     state: () => ({
         asta: {
-            step: 0,
-            tipoAsta: 'asta_inglese',
+            tipoAsta: 'asta_inversa',
             nomeProdotto: '',
             descrizione: '',
-            prezzoBase: '',
             categoria: '',
             filtri: [],
-            incrementoMinimo: '',
+            prezzoBase: '',
+            incremento: '',
             durataEstensione: '',
-            scadenzaAsta: '',
+            scadenzaAsta: dataMinima.getTime(),
             dataInizio: '',
             immaginiSalvate: [],
             caratteristiche: {},
@@ -38,7 +38,7 @@ export const useAstaStore = defineStore('asta', {
                 prezzoBase: '',
                 categoria: '',
                 filtri: [],
-                incrementoMinimo: '',
+                incremento: '',
                 durataEstensione: '',
                 scadenzaAsta: '',
                 dataInizio: '',
@@ -48,20 +48,14 @@ export const useAstaStore = defineStore('asta', {
         },
         async getFormattedData() {
             const formData = await getImageInFormData();
-            const categoriaSalvata = Object.keys(this.asta.categoria)[0];
             const file = this.asta.immaginiSalvate;
-            /**
-             * file.forEach((f) => {
-                formData.append('file', srcToFile(f.src, f.name));
-            });
-             */
 
             return {
                 datiProdotto: {
                     nomeProdotto: this.asta.nomeProdotto,
                     descrizioneProdotto: this.asta.descrizione,
                     immagini: formData,
-                    categoriaProdotto: categoriaSalvata,
+                    categoriaProdotto: this.asta.categoria,
                     caratteristicheProdotto: Object.entries(this.asta.caratteristiche).map(
                         ([idCaratteristica, valore]) => ({ idCaratteristica, valore })
                     ),
@@ -69,11 +63,11 @@ export const useAstaStore = defineStore('asta', {
                 datiAsta: {
                     baseAsta: parseFloat(this.asta.prezzoBase),
                     dataScadenza: Date.parse(this.asta.scadenzaAsta),
-                    dataInizio: 0,
+                    dataInizio: new Date(this.asta.dataInizio).getTime(),
                     tipoAsta: this.asta.tipoAsta,
                     datiExtraJson: JSON.stringify({
                         tempoEstensione: parseFloat(this.asta.durataEstensione),
-                        quotaFissaPerLaPuntata: parseFloat(this.asta.incrementoMinimo),
+                        quotaFissaPerLaPuntata: parseFloat(this.asta.incremento),
                         astaId: 8,
                     }),
                 },
