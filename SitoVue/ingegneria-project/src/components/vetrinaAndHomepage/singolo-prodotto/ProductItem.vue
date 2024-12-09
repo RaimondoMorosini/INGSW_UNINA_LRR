@@ -15,15 +15,13 @@
                 :baseAsta="item.baseAsta"
             />
 
-            <Button v-if="!isScaduta(item.dataScadenza)"
+            <Button
                 @click.stop="apriUnNuovoTab(item)"
                 icon="pi pi-shopping-cart"
                 label="Partecipa all'asta"
                 :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
                 class="w-full bg-primario-400 hover:bg-primario-300 focus:ring focus:ring-primario-400 md:w-auto"
             />
-            <Button v-else :disabled="true" class="w-full bg-primario-400 hover:bg-primario-300 focus:ring focus:ring-primario-400 md:w-auto">
-                Asta scaduta </Button>
         </div>
     </div>
 </template>
@@ -38,12 +36,6 @@ const props = defineProps({
     item: Object,
     index: Number,
 });
-
-const isScaduta = (dataScadenza) => {
-
-const dataOggi = Date.now();
-return dataScadenza < dataOggi;
-}
 
 function apriUnNuovoTab(item) {
     const newWindow = window.open(`/asta/${item.idAsta}`, '_blank');
