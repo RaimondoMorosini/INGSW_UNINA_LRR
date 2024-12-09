@@ -3,8 +3,6 @@ import { RouterView } from "vue-router";
 import Navbar from "./components/Navbar/Navbar.vue";
 import Footer from "./components/Navbar/FooterApp.vue"
 import LogicaSessionDialog from "./components/logicaSessionDialog.vue";
-import DialogDiventaVenditore from "./components/DialogDiventaVenditore.vue";
-
 </script>
 
 <template>
@@ -14,7 +12,7 @@ import DialogDiventaVenditore from "./components/DialogDiventaVenditore.vue";
     </header>
         
     <body class="relative h-[100%]">
-        <DialogDiventaVenditore/>
+        
         <LogicaSessionDialog/>
         <router-view class="z-0"/> 
         <Footer class="z-10 absolute bottom-[-100vh] left-0 right-0 "/>       

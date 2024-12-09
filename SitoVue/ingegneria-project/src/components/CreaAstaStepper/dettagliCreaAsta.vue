@@ -1,107 +1,132 @@
 <template>
     <form @submit.prevent="gestioneInvio">
-        <!-- Selezione tipo di asta -->
         <div class="flex flex-col items-center justify-center">
-            <h2 class="text-xl font-bold text-primario-500">Seleziona tipo asta</h2>
+            <h2>Seleziona tipo asta</h2>
             <div class="flex flex-col">
-                <div 
-                    v-for="(label, id) in tipiAsta" 
-                    :key="id" 
-                    class="flex items-center gap-2"
-                >
-                    <RadioButton v-model="tipoAsta" :inputId="id" :value="id" />
-                    <label :for="id" class="ml-2">{{ label }}</label>
+                <div class="flex items-center gap-2">
+                    <RadioButton v-model="tipoAsta" inputId="Inglese" value="asta_inglese"/>
+                    <label for="Inglese" class="ml-2">Asta Inglese</label>
+                </div>
+                <div class="flex items-center gap-2">
+                    <RadioButton v-model="tipoAsta" inputId="Inversa" value="asta_inversa"/>
+                    <label for="Inversa" class="ml-2">Asta Inversa</label>
+                </div>
+                <div class="flex items-center gap-2">
+                    <RadioButton v-model="tipoAsta" inputId="Silenziosa" value="asta_silenziosa"/>
+                    <label for="Silenziosa" class="ml-2">Asta Silenziosa</label>
                 </div>
             </div>
-            <!-- Descrizione tipo di asta -->
-            <p class="mt-3 text-gray-600">{{ descrizioneTipoAsta }}</p>
         </div>
 
-        <!-- Input dinamici -->
-        <div class="sezione-asta flex flex-col gap-2 rounded px-2 pt-2 pb-4 ring-2 ring-primario-600 mt-5 mb-5 ">
-            <h2 class="text-xl font-bold text-[#cc85f5]">{{ labelTipoAsta }}</h2>
-
-            <!-- Prezzo di Partenza -->
-            <div class="bg-inherit pt-5">
+        <!--v-if="tipoAsta === 'asta_inglese'"-->
+        <div
+            v-if="checkInglese"
+            class="mx-2 my-2 flex flex-col gap-2 rounded px-2 py-2 ring-2 ring-[#cc85f5]"
+        >
+            <h2>ASTA INGLESE</h2>
+            <div class="w-[100%] pt-5 lg:pr-9">
                 <FloatLabel variant="on">
                     <InputNumber
-                        mode="currency"
-                        currency="EUR"        
-                        v-model="prezzoBase"
-                        :min="1"
+                        v-model="incrementoMinimo"
                         fluid
-                        id="prezzoBase"
-                        class="rounded bg-inherit"
-                    />
-                    <label for="prezzoBase">Prezzo di Partenza (valore in €)</label>
-                </FloatLabel>
-                <p class="text-sm text-gray-500 mt-2">
-                    Il prezzo di partenza è la base d'asta da cui iniziare.
-                </p>
-            </div>
-
-            <!-- Incremento (solo per asta inglese) -->
-            <div v-if="tipoAsta === 'asta_inglese'" class="w-full pt-5">
-                <FloatLabel variant="on">
-                    <InputNumber
-                        v-model="incremento"
-                        :min="10"
-                        fluid
-                        id="incremento"
+                        inputId="integeronly"
+                        id="incrementoMinimo"
                         class="rounded"
                     />
-                    <label for="incremento">Incremento(valore in €)</label>
+                    <label
+                        for="incrementoMinimo"
+                        :class="{
+                            'p-filled': incrementoMinimo !== null && incrementoMinimo !== '',
+                        }"
+                    >
+                        Incremento minimo
+                    </label>
                 </FloatLabel>
-                <p class="text-sm text-gray-500 mt-2">
-                    L'incremento è il valore fisso con cui aumentare un'offerta.
-                </p>
             </div>
-
-            <!-- Durata estensione (solo per asta inglese) -->
-            <div v-if="tipoAsta === 'asta_inglese'" class="pt-5">
+            <div class="pt-5 lg:pr-9">
                 <FloatLabel variant="on">
                     <InputNumber
-                        v-model="durataEstensione"
-                        :min="1"
+                        :min="0"
                         fluid
                         class="rounded"
                         id="durataEstensione"
+                        v-model="durataEstensione"
                     />
-                    <label for="durataEstensione">Durata estensione (ore)</label>
+                    <label for="durataEstensione">Lunghezza estensione asta</label>
                 </FloatLabel>
-                <p class="text-sm text-gray-500 mt-2">
-                    La durata estensione è il tempo aggiuntivo se arriva un'offerta poco prima della scadenza.
-                </p>
             </div>
-
-            <!-- Scadenza (comune per tutte le aste) -->
-<div class="bg-inherit pt-5">
-    <FloatLabel variant="on">
-        <DatePicker
-            v-model="scadenzaAsta"
-            :minDate="minDate"
-            dateFormat="dd/mm/yy"
-            showIcon
-            id="scadenzaAsta"
-            class="rounded bg-inherit"
-        />
-        <label for="scadenzaAsta">Data Scadenza</label>
-    </FloatLabel>
-    <p v-if="testoScadenza" class="mt-2 text-sm text-gray-600">
-        {{ testoScadenza }}
-    </p>
-</div>
-
+            <div class="bg-inherit pt-5 lg:pr-9">
+                <FloatLabel variant="on">
+                    <DatePicker
+                        fluid
+                        dateFormat="dd/mm/yy"
+                        :minDate="minDate"
+                        showIcon="true"
+                        v-model="scadenzaAsta"
+                        id="scadenzaAsta"
+                        inputId="birth_date"
+                        class="rounded bg-inherit"
+                    />
+                    <label for="scadenzaAsta">Data Scadenza</label>
+                </FloatLabel>
+            </div>
         </div>
 
-        <!-- Bottoni -->
+        <!--v-if="tipoAsta === 'asta_silenziosa'"-->
+        <div
+            v-if="checkSilenziosa"
+            class="mx-2 my-2 flex flex-col gap-2 rounded bg-slate-200/20 px-2 py-2 ring-2 ring-[#cc85f5]"
+        >
+            <h2>ASTA SILENZIOSA</h2>
+
+            <div class="px-2 lg:pr-9">
+                <FloatLabel variant="on">
+                    <DatePicker
+                        dateFormat="dd/mm/yy"
+                        :minDate="minDate"
+                        showIcon="true"
+                        fluid
+                        v-model="scadenzaAsta"
+                        id="scadenzaAsta"
+                        inputId="birth_date"
+                        class="rounded"
+                    />
+                    <label for="scadenzaAsta">Data Scadenza</label>
+                </FloatLabel>
+            </div>
+        </div>
+
+        <!--ASTA INVERSA-->
+        <div
+            v-if="checkInversa"
+            class="mx-2 my-2 flex flex-col gap-2 rounded bg-slate-200/20 px-2 py-2 ring-2 ring-[#cc85f5]"
+        >
+            <h2>ASTA INVERSA</h2>
+
+            <div class="px-2 lg:pr-9">
+                <FloatLabel variant="on">
+                    <DatePicker
+                        dateFormat="dd/mm/yy"
+                        :minDate="minDate"
+                        showIcon="true"
+                        fluid
+                        v-model="scadenzaAsta"
+                        id="scadenzaAsta"
+                        inputId="birth_date"
+                        class="rounded"
+                    />
+                    <label for="scadenzaAsta">Data Scadenza</label>
+                </FloatLabel>
+            </div>
+        </div>
+
         <div class="areaBottoni mx-4 flex justify-around gap-5 px-4">
-            <Button class="w-[45%]" size="large" @click="goToPreviousForm">
-                <span class="font-bold"><i class="pi pi-arrow-left"></i> Precedente</span>
-            </Button>
-            <Button class="w-[45%]" size="large" @click="gestioneInvio">
-                <span class="font-bold">Successivo <i class="pi pi-arrow-right"></i></span>
-            </Button>
+            <Button class="w-[45%]" size="large" @click="goToPreviousForm"
+                ><span class="font-bold"><i class="pi pi-arrow-left"></i> Precedente</span></Button
+            >
+            <Button class="w-[45%]" size="large" @click="gestioneInvio"
+                ><span class="font-bold">Successivo <i class="pi pi-arrow-right"></i></span
+            ></Button>
         </div>
     </form>
 </template>
@@ -112,101 +137,106 @@ import InputNumber from 'primevue/inputnumber';
 import FloatLabel from 'primevue/floatlabel';
 import Button from 'primevue/button';
 import DatePicker from 'primevue/datepicker';
-import { computed, defineEmits} from 'vue';
+
+import { defineEmits, ref, onMounted, onUnmounted, computed } from 'vue';
 import { useAstaStore } from '../../stores/astaStore.js';
 
-const emit = defineEmits(['decrease-page', 'increase-page']);
-const tipiAsta = {
-    asta_inglese: 'Asta Inglese',
-    asta_inversa: 'Asta Inversa',
-    asta_silenziosa: 'Asta Silenziosa',
-};
+let checkInglese = computed(() => {
+    if (tipoAsta.value === 'asta_inglese') return true; else return false;
+});
+
+let checkInversa = computed(() => {
+    if (tipoAsta.value === 'asta_inversa') return true; else return false;
+});
+
+let checkSilenziosa = computed(() => {
+    if (tipoAsta.value === 'asta_silenziosa') return true; else return false;
+});
+
+let today = new Date();
+let nowMonth = today.getMonth();
+let nowYear = today.getFullYear();
+
+const minDate = ref(new Date());
+
+minDate.value.setMonth(nowMonth);
+minDate.value.setFullYear(nowYear);
 
 const storeInstance = useAstaStore();
 
-const tipoAsta = computed({
-    get: () => storeInstance.asta.tipoAsta,
-    set: (valore) => storeInstance.updateAsta({ tipoAsta: valore }),
+const tipoAsta = ref(storeInstance.asta.tipoAsta);
+
+const incrementoMinimo = ref('');
+const durataEstensione = ref('');
+const scadenzaAsta = ref('');
+
+onMounted(() => {
+    storeInstance.updateAsta({ step: 2 });
+    incrementoMinimo.value = storeInstance.asta.incrementoMinimo;
+    durataEstensione.value = storeInstance.asta.durataEstensione;
+    scadenzaAsta.value = storeInstance.asta.scadenzaAsta;
+    scadenzaAsta.value = scadenzaAsta.value.split('T')[0];
+    tipoAsta.value = storeInstance.asta.tipoAsta;
 });
 
-const prezzoBase = computed({
-    get: () => storeInstance.asta.prezzoBase || 1,
-    set: (valore) => storeInstance.updateAsta({ prezzoBase: valore }),
+onUnmounted(() => {
+    console.log('Unmounted');
 });
 
-const incremento = computed({
-    get: () => storeInstance.asta.incremento || 10,
-    set: (valore) => storeInstance.updateAsta({ incremento: valore }),
-});
-
-const durataEstensione = computed({
-    get: () => storeInstance.asta.durataEstensione || 1,
-    set: (valore) => storeInstance.updateAsta({ durataEstensione: valore }),
-});
-
-const scadenzaAsta = computed({
-    get: () => {
-        const scadenza = storeInstance.asta.scadenzaAsta;
-        return scadenza ? new Date(scadenza) : minDate.value;
-    },
-    set: (valore) => {
-        if (valore) {
-            valore.setHours(23, 59, 59); // Imposta l'orario alle 23:59:59
-            storeInstance.updateAsta({ scadenzaAsta: valore.getTime() });
-        }
-    },
-});
-
-const minDate = computed(() => {
-    const dataMinima = new Date();
-    dataMinima.setDate(dataMinima.getDate() + 1); // Data minima: domani
-    return dataMinima;
-});
-
-// Descrizione del tipo di asta
-const descrizioneTipoAsta = computed(() => {
-    switch (tipoAsta.value) {
-        case 'asta_inglese':
-            return 'L\'asta inglese consente di fare offerte incrementali. Ogni offerta deve aumentare il prezzo corrente di un valore fisso.';
-        case 'asta_inversa':
-            return 'L\'asta inversa premia il miglior prezzo più basso. Gli acquirenti propongono offerte decrescenti.';
-        case 'asta_silenziosa':
-            return 'Nell\'asta silenziosa, gli offerenti non vedono le offerte degli altri. Vince chi offre il prezzo più alto.';
-        default:
-            return 'Seleziona un tipo di asta per vedere i dettagli.';
-    }
-});
-
-// Etichetta dinamica per il titolo della sezione
-const labelTipoAsta = computed(() => tipiAsta[tipoAsta.value] || 'Tipo di Asta');
-
-// Testo per la scadenza dell'asta
-const testoScadenza = computed(() => {
-    if (!scadenzaAsta.value) return null;
-    const opzioni = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-    };
-    return `L'asta scadrà il ${scadenzaAsta.value.toLocaleDateString('it-IT', opzioni)}.`;
-});
+const emit = defineEmits('increase-page', 'decrease-page');
 
 const gestioneInvio = () => {
-    if (!prezzoBase || !scadenzaAsta) {
-       if(tipoAsta.value === 'asta_inglese' && !incremento && !durataEstensione) {
-            alert('Compila tutti i campi obbligatori.');
+    if (tipoAsta == false) {
+        if (!incrementoMinimo.value || !durataEstensione.value || !scadenzaAsta.value) {
+            alert('Asta Inglese: Inserire tutti i campi');
             return;
         }
-        alert('Compila tutti i campi obbligatori.');
+    } else if (!scadenzaAsta.value) {
+        alert('Asta Silenziosa: Inserire tutti i campi');
         return;
+    }
+
+    // Emit event to notify parent component to move to the next form section
+    if (tipoAsta.value) {
+        storeInstance.updateAsta({
+            tipoAsta: 'asta_silenziosa',
+            scadenzaAsta: scadenzaAsta.value,
+            step: 2,
+        });
+    } else {
+        storeInstance.updateAsta({
+            tipoAsta: 'asta_inglese',
+            scadenzaAsta: scadenzaAsta.value,
+            incrementoMinimo: incrementoMinimo.value,
+            durataEstensione: durataEstensione.value,
+            step: 2,
+        });
     }
     emit('increase-page');
 };
-
 const goToPreviousForm = () => {
+    // Emit event to notify parent component to move to   the previous form section
     emit('decrease-page');
 };
 </script>
+
+<style scoped>
+h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #cc85f5;
+}
+.bottone {
+    background-color: #cc85f5;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    width: 50%;
+    margin: 10px;
+}
+.bottone:hover {
+    background-color: #7c3aed;
+}
+</style>

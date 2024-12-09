@@ -1,16 +1,12 @@
 import { mantieniAggiornamenti } from '../scripts/websocket/websocket.js';
 import { getRestWithtoken, postRestWithtoken } from '../scripts/RestUtils.js';
-import { getDato } from '../scripts/DatiUtils.js';
 
 function apriWebSocketNotifichePersonali(username, callback) {
-    getDato('token').then((token) => {
-        
     return mantieniAggiornamenti(
         'notifichePersonali/' + username,
         callback,
-        token
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtb3Jvc2luaS5yYWd1c2FAZ21haWwuY29tIiwicGVybWVzc2kiOlsiY3JlYV9hc3RhX2luZ2xlc2UiLCJjcmVhX2FzdGFfc2lsZW56aW9zYSIsImZhaV9vZmZlcnRhX2FzdGFfaW52ZXJzYSJdLCJleHAiOjE3MzA4MTI1MjcsImlhdCI6MTczMDcyNjEyN30.ewJM_ILJQ2DJLL_aZf-XGNRmdddw5krC0h6kSbwJdAg'
     );
-});
 }
 
 async function getNumeroDiNotificheNonLette() {

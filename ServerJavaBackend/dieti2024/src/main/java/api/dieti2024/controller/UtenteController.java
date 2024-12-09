@@ -1,13 +1,12 @@
 package api.dieti2024.controller;
 
-import api.dieti2024.dto.DatiVenditoreDTO;
 import api.dieti2024.dto.ModificaProfiloDTO;
 import api.dieti2024.dto.utente.ProfiloUtentePublicoDTO;
 import api.dieti2024.exceptions.ApiException;
-import api.dieti2024.model.DatiVenditori;
 import api.dieti2024.service.UtenteService;
 import api.dieti2024.util.ControllerRestUtil;
 import api.dieti2024.util.ImageContainerUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +27,6 @@ public class UtenteController {
     @GetMapping("public/utente/datiProfilo/{email}")
     public ProfiloUtentePublicoDTO getDatiProfilo(@PathVariable String email) {
         return utenteService.getDatiProfilo(email);
-    }
-    @PostMapping("utente/diventaVenditore")
-    DatiVenditori diventaVenditore(DatiVenditoreDTO datiVenditore){
-        String email = ControllerRestUtil.getEmailOfUtenteCorrente();
-        return utenteService.diventaVenditore(email, datiVenditore);
     }
 
     @PutMapping("utente/datiProfilo")

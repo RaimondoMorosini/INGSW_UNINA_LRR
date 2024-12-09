@@ -1,6 +1,6 @@
         <template>
     <div class="flex flex-col items-center justify-center align-middle">
-        <Form @keydown="onKeyDown"
+        <Form @submit="onFormSubmit" @keydown="onKeyDown"
         v-slot="$form" :initialValues="initialValues" :resolver="resolver"        
         class="mb-5 w-screen px-3">
             <div
@@ -26,6 +26,7 @@
                             <div class="icon-wrapper">
                                 <input
                                     type="file"
+                                    name="imgProfilo"
                                     id="avatar-input-file"
                                     accept="image/*"
                                     @change="handleImageUpload"
@@ -33,8 +34,6 @@
                                 <i class="pi pi-camera"></i>
                             </div>
                         </label>
-                        <Message v-if="true" severity="error" size="small" variant="simple">n:{{ fileError.code}}{{ fileError.message}}</Message>
-
                     </div>
                 </div>
 
@@ -52,6 +51,7 @@
                                     name="nome"
                                     id="nome"
                                     fluid
+                                    @keyup.prevent="onFormSubmit"
                                     class="focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                                     />
                             </FloatLabel>
@@ -72,10 +72,7 @@
                                     />
                             </FloatLabel>
                             <Message v-if="$form.cognome?.invalid" severity="error" size="small" variant="simple">{{ $form.cognome.error.message }}</Message>
-                            <br>
-                            form cognome invalid{{$form.cognome?.invalid}} <br>
-                            form cognome error message{{$form.cognome?.error?.message}} <br>
-                            <Button @click="TestModificaErrorMessaggeCognome($form)" label="TestModificaErrorMessaggeCognome" />
+                            
                         </div>
 
                         <div class="my-3">
@@ -102,7 +99,7 @@
                                     v-model="newAddress"
                                     type="text"
                                     id="adress"
-                                    name="area_geografica"
+                                    name="areageografica"
                                     filter
                                     :options="ComuniItalia"
                                     fluid
@@ -174,8 +171,7 @@
 
             <Button
                 size="large"
-                @click="onFormSubmit($form)"
-                 label="Submit"
+                type="submit" label="Submit"
                 class="w-[50%] rounded bg-primario-500 font-bold text-white hover:bg-primario-600"
                 >Invia Dati</Button
             >
@@ -192,7 +188,7 @@ import Message from 'primevue/message';
 import InputGroup from 'primevue/inputgroup';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
-import { ref, onMounted, computed , watch, onBeforeMount} from 'vue';
+import { ref, onMounted, computed , watch} from 'vue';
 import FloatLabel from 'primevue/floatlabel';
 import { useProfiloStore } from '../../stores/profiloStore.js';
 import { modificaProfiloPublico } from '../../service/profiloService';
@@ -220,150 +216,63 @@ const initialValues = {
     area_geografica: newAddress.value,
 
 };
-onBeforeMount(() => {
-    profiloStoreInstance.profilo.siti_social.forEach((social,index) => {
-        initialValues['link' + index] = social;
-    });
-});
-const TestModificaErrorMessaggeCognome = ($form) => {
-    // Utilizzo della funzione
-    const nameFIELD = 'cognome';
-setNestedValue($form, 'cognome.error.message', 'Cognome deve contenere almeno 4 caratteri');
-setNestedValue($form, `${nameFIELD}.invalid`, true);
-
-}
-
-function setNestedValue(obj, path, value) {
-    const keys = path.split('.');
-    let current = obj;
-
-    keys.forEach((key, index) => {
-        current[key] = current[key] || (index === keys.length - 1 ? value : {});
-        current = current[key];
-    });
-    console.log('setNestedValue:', obj);
-}
-
-
- 
-function getValueForResolver($form) {
-    //per ogni key in form retunr un oggetto con key e value
-    return Object.keys($form).reduce((acc, key) => {
-        acc[key] = $form[key].value;
-        return acc;
-    }, {});
-}
-
-function onFormSubmit($form) {
-    alert('start form submit');
-    console.log('Form Submitted', $form);
-    console.log('json stringify', JSON.stringify($form));
-    console.log('convettito in oggetto', getValueForResolver($form));
-    //$form['link' + index].error.message
-    //check with resolver
-    let errors = {};
-        
-        errors=resolver({ values: getValueForResolver($form) }).errors;
-    
-
-
-    for (const field in errors) {
-        console.log('field:', field);
-        try {
-               try {
-                // Imposta invalid su true se ci sono errori
-                setNestedValue($form, `${field}.invalid`, true);
-            } catch (error) {
-                console.error(`Errore nell'impostare invalid per il campo ${field}:`, error);
-            }        // Imposta gli errori nel campo corrispondente
-            $form[field].errors = errors[field]; 
-        
-    } catch (error) {
-        console.log('error: field:', field, ' ', error);
-    }
-}
-    console.log('form modified:', $form);
-    
-    console.log('errors:',JSON.stringify(errors));
-    console.info('form is valid:', $form.valid);
-    alert('Form Submitted' ,JSON.stringify($form));
-}
 
 
 const resolver = ({ values }) => {
-    const errors = {};
+const errors = {};
+if (!values.nome) {
+    errors.nome= [{ message: 'Il campo Nome è obligatorio.' }];
+} else if (values.nome.length < 3) {
+    errors.nome = [{ message: 'Il campo Nome deve contenere almeno 3 caratteri.' }];
+}
 
-    try {
-        if (!values.nome) {
-            errors.nome = [{ message: 'Il campo Nome è obligatorio.' }];
-        } else if (values.nome.length < 3) {
-            errors.nome = [{ message: 'Il campo Nome deve contenere almeno 3 caratteri.' }];
-            
-        }
-        if (!values.cognome) {
-            errors.cognome = [{ message: 'Il campo Cognome è obligatorio.' }];
-        } else if (values.cognome.length < 3) {
-            errors.cognome = [{ message: 'Il campo Cognome deve contenere almeno 3 caratteri.' }];
-        }
-        if (!values.bio) {
-            errors.bio = [{ message: 'Il campo Biografia è obligatorio.' }];
-        } else if (values.bio.length < 10) {
-            errors.bio = [{ message: 'Il campo Biografia deve contenere almeno 10 caratteri.' }];
-        }
-        if (!values.area_geografica) {
-            errors.area_geografica = [{ message: 'Il campo Area Geografica è obligatorio.' }];
-        }
+if (!values.cognome) {
+    errors.cognome = [{ message: 'Il campo Cognome è obligatorio.' }];
+} else if (values.cognome.length < 3) {
+    errors.cognome = [{ message: 'Il campo Cognome deve contenere almeno 3 caratteri.' }];
+}
+if (!values.bio) {
+    errors.bio = [{ message: 'Il campo Biografia è obligatorio.' }];
+} else if (values.bio.length < 10) {
+    errors.bio = [{ message: 'Il campo Biografia deve contenere almeno 10 caratteri.' }];
+}
+if (!values.area_geografica) {
+    errors.area_geografica = [{ message: 'Il campo Area Geografica è obligatorio.' }];
+}
+if (!values.imgProfilo) {
+    errors.imageURL = [{ message: 'Inserisci un immagine per il tuo profilo' }];
+}
+console.info('errors',errors);
 
-        
-    } catch (error) {
-        alert('blocco try catch del resolver');
+// Check if the URL is valid
+
+newSitiSocialArray.value.forEach((input, index) => {
+    const fieldName = 'link' + index;
+
+    if (newSitiSocialArray.value.length > 1) {
+        if(!isValidUrl(input.value)){
+        errors[fieldName] = [{ message: 'Deve essere un URL valido.' }];    
         }
-
-    return {
-        errors
-    };
-};
-
-const fileError = ref({
-  code: 0,
-  message: 'Nessun errore'
+    }else if(!isValidUrl(input.value)){
+        if (input.value === '') {
+            errors[fieldName] = [{ message: 'Inserisci almeno un link Social' }];
+        } else if (!isValidUrl(input.value)) {
+            errors[fieldName] = [{ message: 'Deve essere un URL valido.' }];
+        }
+    }
 });
-const allowedFormats = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-const validateFile = (file) => {
-  try{
-    // Reset error
-  fileError.value = { code: 0, message: '' };
+console.log('errorsPostSiti:',errors);
 
-if (!file) {
-  fileError.value = { code: 2, message: 'Nessun file selezionato.' };
-  return;
-}
-if (!allowedFormats.includes(file.type)) {
-  fileError.value = { code: 3, message: 'Formato file non valido. Sono consentiti solo JPEG, JPG, PNG e GIF.' };
-  return;
-}
-
-if (file.size > 5 * 1024 * 1024) { // 5 MB
-  fileError.value = { code: 4, message: 'Il file supera il limite di dimensione di 5 MB.' };
-  return;
-}
-  }catch(e){
-    console.log('error in validateFile:', e);
-    fileError.value = { code: 1, message: 'Errore Anomalo durante la validazione del file. Riprova con un altro file' };
-  }
-
-  // Se tutto va bene, il codice rimane 0
+return {
+    errors
+};
 };
 
 function handleImageUpload(event) {
-    
     const file = event.target.files[0];
-    validateFile(file);
-    if(fileError.value.code !== 0){
-        alert('Errore nel carimento del immagine profilo riprova');
-        return;
-    }
-    // Create a blob URL for the image preview
+
+    if (file && file.type.startsWith('image/')) {
+        // Create a blob URL for the image preview
         newImageURL.value = URL.createObjectURL(file);
 
         // Convert image to base64 URL (for storage in a database)
@@ -371,10 +280,11 @@ function handleImageUpload(event) {
         reader.onload = () => {
             newImageURL.value = reader.result; // Use reader.result to save to the database
             newImageName.value = file.name;
-            console.log('newImageURL:', newImageURL.value);
         };
         reader.readAsDataURL(file);
-    
+    } else {
+        alert('Please upload a valid image file.');
+    }
 }
 
 const isValidUrlSiti = computed(() => {
@@ -395,6 +305,7 @@ const removeInputField = () => {
     const lastValue = newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value;
     const newLenght = newSitiSocialArray.value.length - 1;
     if (isRemoveButtonVisible && lastValue === '' && newLenght > 0) {
+        console.log('Remove Input Field');
         newSitiSocialArray.value.pop();
     }
 };
@@ -403,9 +314,19 @@ function removeInputFieldIndex(index) {
     const lastValue = newSitiSocialArray.value[newSitiSocialArray.value.length - 1].value;
     const newLenght = newSitiSocialArray.value.length - 1;
     if (isRemoveButtonVisible && newLenght > 0) {
+        console.log('Remove Input Field');
         //remove the index element from the array
         newSitiSocialArray.value.splice(index, 1);
     }
+}
+
+function onFormSubmit({ valid }) {
+  if (valid) {
+    alert('Form is valid');
+    handleSubmitV0(); // Qui puoi gestire il submit
+  } else {
+    alert('Form is invalid'); 
+  }
 }
 
 const onKeyDown = (event) => {
@@ -467,6 +388,7 @@ watch(
 );
 
 onMounted(() => {
+    console.log('Profilo Store: ', profiloStoreInstance.profilo.siti_social);
 
     try{
         newSitiSocialArray.value = profiloStoreInstance.profilo.siti_social.map((social) => {
@@ -483,6 +405,7 @@ function isValidUrl(url) {
     const urlPattern =
         /^(https?:\/\/)?(www\.)?(facebook\.com|twitter\.com|x\.com|bsky\.app|instagram\.com|linkedin\.com|tiktok\.com|youtube\.com|pinterest\.com)\/[A-Za-z0-9_.-]+\/?$/;
     const test = urlPattern.test(url);
+    console.log('Test: ' + test);
     return test;
 }
 </script>

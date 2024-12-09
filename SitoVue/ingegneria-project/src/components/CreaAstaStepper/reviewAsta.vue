@@ -20,7 +20,7 @@
                     </div>
                     <div class="flex flex-row gap-2">
                         <span class="label">Categoria</span>
-                        <span class="campo">{{ storeInstance.asta.categoria }}</span>
+                        <span class="campo">{{ categoriaInviata }}</span>
                     </div>
                     <div class="flex flex-row gap-2">
                         <span class="label">Tipo Asta</span>
@@ -36,7 +36,7 @@
                     </div>
                     <div v-if="tipoAsta == asta_inglese" class="flex flex-row gap-2">
                         <span class="label">Incremento Minimo</span>
-                        <span class="campo">{{ storeInstance.asta.incremento }} €</span>
+                        <span class="campo">{{ storeInstance.asta.incrementoMinimo }} €</span>
                     </div>
                 </div>
             </template>
@@ -104,6 +104,7 @@ import Button from 'primevue/button';
 import { defineEmits, ref } from 'vue';
 import { creaAsta } from '../../service/astaService.js';
 import { useAstaStore } from '../../stores/astaStore.js';
+import { onMounted } from 'vue';
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -111,6 +112,14 @@ function capitalizeFirstLetter(string) {
 
 const storeInstance = useAstaStore();
 
+//IMPORTANTE: se in futuro le categorie diverranno multiple, sostituire questo con Object.keys(storeInstance.asta.categoria)
+const categoriaSelezionata = function (obj) {
+    let keys = '';
+    for (let key in obj) {
+        keys = key;
+    }
+    return keys;
+};
 
 const tipoAsta = storeInstance.asta.tipoAsta;
 let tipoAstaSplit = tipoAsta.split('_');
@@ -119,6 +128,8 @@ let tipoAstaNew =
 
 const scadenzaAsta = ref(storeInstance.asta.scadenzaAsta);
 let dateScadenza = new Date(scadenzaAsta.value);
+
+const categoriaInviata = categoriaSelezionata(storeInstance.asta.categoria);
 
 const datiExtra = JSON.stringify({
     tempoEstensione: storeInstance.asta.durataEstensione,
@@ -135,6 +146,9 @@ const goToPreviousForm = () => {
     emit('decrease-page');
 };
 
+onMounted(() => {
+    storeInstance.updateAsta({ step: 3 });
+});
 
 const gestioneInvio = () => {
     //path = asta/creaAsta

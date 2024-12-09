@@ -93,28 +93,4 @@ export async function aggiornaProfilo() {
     const email = useProfiloStore().profilo.email;
     const datiProfiloAggiornato = getDatiProfiloPublici(email);
     useProfiloStore().updateProfilo(datiProfiloAggiornato);
-    useProfiloStore().profilo.imageURL=useProfiloStore().profilo.immagine;
-}
-
-export async function DiventaVenditore(partitaIva,codiceFiscale,numeroTelefono,nomeAzienda) {
-    console.log('partitaIva: ', partitaIva);
-    const email = useProfiloStore().profilo.email;
-    const payload = {
-        email: email,
-        partitaIva: partitaIva,
-        CodiceFiscale: codiceFiscale,
-        nomeAzienda: nomeAzienda,
-        numeroTelefono: numeroTelefono,
-    };
-    try {
-        const response = await postRestWithtoken('utente/diventaVenditore', payload);
-        if (response) {
-            console.log('utente diventato venditore: ', response);
-            useProfiloStore().profilo.isVenditore = true;
-            return response;
-        }
-        console.log('Errore nella modifica del profilo');
-    } catch (error) {
-        console.error('Errore:', error);
-    }
 }
