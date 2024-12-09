@@ -1,10 +1,13 @@
 package api.dieti2024.service;
 
+import api.dieti2024.dto.DatiVenditoreDTO;
 import api.dieti2024.dto.ModificaProfiloDTO;
 import api.dieti2024.dto.auth.UserDetailsDto;
 import api.dieti2024.dto.utente.ProfiloUtentePublicoDTO;
 import api.dieti2024.exceptions.ApiException;
+import api.dieti2024.model.DatiVenditori;
 import api.dieti2024.model.Utente;
+import api.dieti2024.repository.DatiVenditoreRepository;
 import api.dieti2024.repository.UserRepository;
 import api.dieti2024.util.ImageContainerUtil;
 import org.springframework.http.HttpStatus;
@@ -19,8 +22,10 @@ public class UtenteService {
 
     private final UserRepository utenteRepository;
 
-    public UtenteService(UserRepository utenteRepository, ImageContainerUtil imageContainerUtil) {
+    private  final DatiVenditoreRepository datiVenditoreRepository;
+    public UtenteService(UserRepository utenteRepository,DatiVenditoreRepository datiVenditoreRepository, ImageContainerUtil imageContainerUtil) {
         this.utenteRepository = utenteRepository;
+        this.datiVenditoreRepository = datiVenditoreRepository;
         this.imageContainerUtil = imageContainerUtil;
     }
 
@@ -83,5 +88,33 @@ public class UtenteService {
         utenteRepository.save(utente);
 
 
+    }
+
+    public DatiVenditori diventaVenditore(String email, DatiVenditoreDTO datiVenditoreDTO) {
+        if (!email.equalsIgnoreCase(datiVenditoreDTO.email()))
+            throw new ApiException("Email non corrispondenti", HttpStatus.BAD_REQUEST);
+        getUtenteByEmail(email);
+        checkIsValidDatiVenditore(datiVenditoreDTO);
+        DatiVenditori datiVenditore = new DatiVenditori();
+        datiVenditore.setNomeUtente(email);
+        datiVenditore.setPartitaIva(datiVenditoreDTO.partitaIva());
+        datiVenditore.setCodiceFiscale(datiVenditoreDTO.CodiceFiscale());
+        datiVenditore.setNomeAzienda(datiVenditoreDTO.nomeAzienda());
+        datiVenditoreRepository.save(datiVenditore);
+        return datiVenditore;
+    }
+
+    private boolean checkIsValidDatiVenditore(DatiVenditoreDTO datiVenditore) {
+
+            if(datiVenditore.partitaIva().length()!=11)
+              throw new ApiException("Partita Iva non valida", HttpStatus.BAD_REQUEST);
+            if (datiVenditore.nomeAzienda().length()<3)
+                throw new ApiException("Nome azienda non valido", HttpStatus.BAD_REQUEST);
+            if(datiVenditore.CodiceFiscale().length()!=16)
+                throw new ApiException("Codice fiscale non valido", HttpStatus.BAD_REQUEST);
+            if(datiVenditore.numeroTelefono().length()<10)
+                throw new ApiException("Numero di telefono non valido", HttpStatus.BAD_REQUEST);
+
+        return true;
     }
 }
