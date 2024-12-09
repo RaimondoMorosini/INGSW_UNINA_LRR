@@ -38,7 +38,7 @@ watch(pinia.state, (state) => {
 app.use(pinia);
 
 // inizializzazione axios
-axios.defaults.baseURL = 'localhost:8081/';
+axios.defaults.baseURL = 'http://localhost:8081/';
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
 
 // inizializzazione auth0
