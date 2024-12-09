@@ -1,5 +1,5 @@
 <template>
-    <Card style="width: 25rem; overflow: hidden" class="relative">
+    <Card  class="relative">
       <template #content>
         <div>
           <h1 class="text-xl font-bold">Scadenza asta</h1>
