@@ -1,5 +1,5 @@
 <template>
-    <header class="navbar sticky top-0 z-50 min-h-1col min-w-full shadow-lg">
+    <header class="navbar sticky top-0 z-50 min-h-1col w-full shadow-lg">
         <nav
             class="w-fill flex justify-between gap-5 bg-gradient-to-tl from-danger-300 via-primario-400 to-secondario-300 py-1"
         >
