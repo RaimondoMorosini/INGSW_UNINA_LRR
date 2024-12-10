@@ -35,9 +35,19 @@ export async function getDatiProfiloPublici(email) {
             datiPublichi.siti = dati.siti;
             datiPublichi.area_geografica = dati.areaGeografica;
             datiPublichi.bio = dati.bio;
-            datiPublichi.isVenditore = dati.isVenditore;
             datiPublichi.immagine = dati.foto_profilo;
-            console.log('dati profilo reucuperati dalla rest: ', datiPublichi);
+            datiPublichi.isVenditore = dati.isVenditore;
+            console.info('dati.isVenditore', dati.isVenditore);
+            if (dati.isVenditore) {
+                console.info('sono dentro if', dati.datiVenditore);
+                datiVenditore.nomeUtente = dati.datiVenditore.nomeUtente;
+                datiVenditore.partitaIva = dati.datiVenditore.partitaIva;
+                datiVenditore.codiceFiscale = dati.datiVenditore.codiceFiscale;
+                datiVenditore.nomeAzienda = dati.datiVenditore.nomeAzienda;
+                datiVenditore.numeroTelefono = dati.datiVenditore.numeroTelefono;
+                datiPublichi.datiVenditore = datiVenditore;
+            }
+            console.log('dati profilo reucuperati dalla rest: ', JSON.stringify());
             return datiPublichi;
         } else {
             throw new Error('Errore nel recupero dei dati publichi');
@@ -97,17 +107,17 @@ export async function aggiornaProfilo() {
 }
 
 export async function DiventaVenditore(partitaIva,codiceFiscale,numeroTelefono,nomeAzienda) {
-    console.log('partitaIva: ', partitaIva);
+    
     const email = useProfiloStore().profilo.email;
-    const payload = {
-        email: email,
-        partitaIva: partitaIva,
-        CodiceFiscale: codiceFiscale,
-        nomeAzienda: nomeAzienda,
-        numeroTelefono: numeroTelefono,
-    };
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('partitaIva', partitaIva);
+    formData.append('CodiceFiscale', codiceFiscale);
+    formData.append('numeroTelefono', numeroTelefono);
+    formData.append('nomeAzienda', nomeAzienda);
+    
     try {
-        const response = await postRestWithtoken('utente/diventaVenditore', payload);
+        const response = await postRestWithtoken('utente/diventaVenditore', formData);
         if (response) {
             console.log('utente diventato venditore: ', response);
             useProfiloStore().profilo.isVenditore = true;
@@ -117,4 +127,10 @@ export async function DiventaVenditore(partitaIva,codiceFiscale,numeroTelefono,n
     } catch (error) {
         console.error('Errore:', error);
     }
+}
+export async function refreshDatiprofilo() {
+    getDatiProfiloPublici(useProfiloStore().profilo.email).then((dati) => {
+        useProfiloStore().updateProfilo(dati);
+    });
+
 }

@@ -29,6 +29,10 @@ public class UtenteController {
     public ProfiloUtentePublicoDTO getDatiProfilo(@PathVariable String email) {
         return utenteService.getDatiProfilo(email);
     }
+    @GetMapping("public/utente/datiProfilo/{email}/datiVenditore")
+    public DatiVenditori getDatiVenditore(@PathVariable String email) {
+        return utenteService.getDatiVenditore(email);
+    }
     @PostMapping("utente/diventaVenditore")
     DatiVenditori diventaVenditore(DatiVenditoreDTO datiVenditore){
         String email = ControllerRestUtil.getEmailOfUtenteCorrente();

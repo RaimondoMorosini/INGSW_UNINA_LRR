@@ -1,67 +1,62 @@
 <template>
   <div class="p-4 md:p-8 bg-gray-100 min-h-screen">
     <div class="bg-white shadow rounded-lg p-6">
-      <!-- Sezione immagine profilo e nome -->
       <div class="flex flex-col md:flex-row items-center md:items-start">
-        
         <img v-if="utente.immagine"
           :src="utente.immagine"
           alt="Foto profilo"
           class="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover shadow-md"
         />
         <img v-else src="https://via.placeholder.com/150" alt="Foto profilo"
-         class="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover shadow-md" />
-
+          class="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover shadow-md" />
 
         <div class="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
           <h1 class="text-2xl font-bold text-gray-800">{{ utente.nome }} {{ utente.cognome }}</h1>
+           <template v-if="utente.datiVenditore">
+            <span class="text-sm bg-primario-200 text-primario-600 font-medium px-2 py-1 rounded mt-2">Account Venditore</span>
+          </template>
+          <p class="text-sm text-gray-600 mt-2">{{ emailInput}}</p>
           <p class="text-sm text-gray-600 mt-2">{{ utente.area_geografica }}</p>
           <p class="text-sm text-gray-600 mt-1">{{ utente.bio }}</p>
+
+         
         </div>
       </div>
 
-      <!-- Sezione dettagli -->
       <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <h2 class="text-lg font-semibold text-gray-800">Informazioni di Contatto</h2>
-          <ul class="mt-2 text-gray-600">
-            <li><strong>Email:</strong> {{ utente.datiVenditore.nomeUtente }}</li>
-            <li><strong>Telefono:</strong> {{ utente.datiVenditore.numeroTelefono }}</li>
-          </ul>
-        </div>
-        <div>
-          <h2 class="text-lg font-semibold text-gray-800">Dati Aziendali</h2>
-          <ul class="mt-2 text-gray-600">
-            <li><strong>Partita IVA:</strong> {{ utente.datiVenditore.partitaIva }}</li>
-            <li><strong>Codice Fiscale:</strong> {{ utente.datiVenditore.codiceFiscale }}</li>
-            <li><strong>Nome Azienda:</strong> {{ utente.datiVenditore.nomeAzienda }}</li>
+        <template v-if="utente.datiVenditore">
+          <div>
+            <h2 class="text-lg font-semibold text-gray-800">Informazioni di Contatto</h2>
+            <ul class="mt-2 text-gray-600">
+              <li><strong>Telefono:</strong> {{ utente.datiVenditore.numeroTelefono }}</li>
+              <li><strong>Email:</strong> {{ utente.datiVenditore.nomeUtente }}</li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="text-lg font-semibold text-gray-800">Dati Aziendali</h2>
+            <ul class="mt-2 text-gray-600">
+              <li><strong>Partita IVA:</strong> {{ utente.datiVenditore.partitaIva }}</li>
+              <li><strong>Codice Fiscale:</strong> {{ utente.datiVenditore.codiceFiscale }}</li>
+              <li><strong>Nome Azienda:</strong> {{ utente.datiVenditore.nomeAzienda }}</li>
+            </ul>
+          </div>
+        </template>
+      </div>
+
+      <div class="mt-6">
+        <h2 class="text-lg font-semibold text-gray-800">Link Social</h2>
+        <div v-if="utente.siti" class="mt-2">
+          <ul class="flex flex-wrap gap-4">
+            <li v-for="sito in sitiWeb" :key="sito.url"
+              class="flex items-center space-x-2 bg-primario-50/50 p-2 rounded shadow hover:shadow-lg transition">
+              <i :class="sito.icona" class="text-blue-600 text-xl"></i>
+              <a :href="sito.url" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">
+                {{ sito.nome }}
+              </a>
+            </li>
           </ul>
         </div>
       </div>
-
-      
-      <div class="mt-6">
-  <h2 class="text-lg font-semibold text-gray-800">Link Social</h2>
-  <div v-if="utente.siti" class="mt-2">
-    <ul class="flex flex-wrap gap-4">
-      <li
-        v-for="sito in sitiWeb"
-        :key="sito.url"
-        class="flex items-center space-x-2 bg-primario-50/50 p-2 rounded shadow hover:shadow-lg transition"
-      >
-        <i :class="sito.icona" class="text-blue-600 text-xl"></i>
-        <a
-          :href="sito.url"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-blue-600 hover:underline"
-        >
-          {{ sito.nome }}
-        </a>
-      </li>
-    </ul>
-  </div>
-</div>
     </div>
   </div>
 </template>
@@ -69,13 +64,13 @@
 <script setup>
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-import { ref } from "vue";
+import { ref,computed } from "vue";
 import { getDatiProfiloPublici } from "../service/profiloService";
 // Dati statici per l'utente (puoi sostituirli con dati dinamici)
 const utente = ref({
   nome: "Nome",
   cognome: "Cognome",
-  siti: "[https://x.com/elonmusk]",
+  siti: "[]",
   area_geografica: "Citta, Provincia",
   bio: "Bio dell'utente",
   immagine:
@@ -94,7 +89,6 @@ getDatiProfiloPublici(emailInput.value).then((response) => {
   utente.value = response;
   console.log("dati profilo...", response); // Mostra i dati ricevuti
 });
-
 // Associazioni sito -> icona
 const iconeSiti = {
   "x.com": "fab fa-twitter",
@@ -176,18 +170,28 @@ const iconeSiti = {
 
 
 // Funzione per trasformare i siti in oggetti con nome, url e icona
-const sitiWeb = utente.value.siti
-  .replace(/\[|\]/g, "") // Rimuove parentesi quadre
-  .split(",") // Divide i siti in un array
-  .map((sito) => {
-    const url = sito.trim();
-    const dominio = new URL(url).hostname.replace("www.", "");
-    return {
-      url,
-      nome: dominio+new URL(url).pathname,
-      icona: iconeSiti[dominio] || "fas fa-globe", // Icona predefinita
-    };
-  });
+console.log("siti del utente",utente.value.siti);
+
+const sitiWeb = computed(() => {
+  if (!utente.value.siti) return [];
+  try {
+    return utente.value.siti
+      .replace(/\[|\]/g, "") // Rimuove parentesi quadre
+      .split(",") // Divide i siti in un array
+      .map((sito) => {
+        const url = sito.trim();
+        const dominio = new URL(url).hostname.replace("www.", "");
+        return {
+          url,
+          nome: dominio + new URL(url).pathname,
+          icona: iconeSiti[dominio] || "fas fa-globe", // Icona predefinita
+        };
+      });
+  } catch (error) {
+    console.error("Errore nel parsing dei siti", error);
+    return [];
+  }
+});
 </script>
 
 <style>
