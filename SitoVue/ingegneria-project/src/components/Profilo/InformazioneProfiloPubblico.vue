@@ -64,7 +64,7 @@
   <script setup>
   import '@fortawesome/fontawesome-free/css/all.min.css';
   
-  import { ref,computed ,defineProps} from "vue";
+  import { ref,computed ,defineProps,onMounted} from "vue";
   import { getDatiProfiloPublici } from "../../service/profiloService";
   // Dati statici per l'utente (puoi sostituirli con dati dinamici)
   const utente = ref({
@@ -86,9 +86,18 @@
   });
   const props = defineProps(['email']);
   const emailInput= ref(props.email);
-  getDatiProfiloPublici(emailInput.value).then((response) => {
-    utente.value = response;
-    console.log("dati profilo...", response); // Mostra i dati ricevuti
+  onMounted(() => {
+    getDatiProfiloPublici(emailInput.value).then((response) => {
+      if(response){
+        utente.value = response;
+      }
+      else{
+        console.log("Errore nel caricamento del profilo");
+      }
+      console.log("dati profilo...", response); // Mostra i dati ricevuti
+    }).catch((error) => {
+      console.log("Errore nel caricamento del profilo", error);
+    });
   });
   // Associazioni sito -> icona
   const iconeSiti = {
@@ -170,9 +179,7 @@
   };
   
   
-  // Funzione per trasformare i siti in oggetti con nome, url e icona
-  console.log("siti del utente",utente.value.siti);
-  
+
   const sitiWeb = computed(() => {
     if (!utente.value.siti) return [];
     try {
@@ -189,7 +196,7 @@
           };
         });
     } catch (error) {
-      console.error("Errore nel parsing dei siti", error);
+      console.info("Errore nel parsing dei siti", error);
       return [];
     }
   });
