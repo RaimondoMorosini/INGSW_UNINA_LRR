@@ -30,6 +30,12 @@ const routes = [
     },
 
     {
+        path: '/public/profilo/:utente',
+        name: 'profiloPubblico',
+        component: () => import('@/views/ProfiloPubblicoView.vue'),
+    },
+
+    {
         path: '/callback',
         name: 'callback',
         component: () => import('@/views/CallbackView.vue'),

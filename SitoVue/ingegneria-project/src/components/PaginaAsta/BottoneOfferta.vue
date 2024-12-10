@@ -1,30 +1,30 @@
 <template>
     <div class="card">
         <h2 class="title">{{ titoloAsta }}
-            <Button icon="pi pi-question-circle"  severity="contrast"  v-tooltip.bottom="descrizioneAsta" variant="text" rounded aria-label="Filter" />   
+            <Button icon="pi pi-question-circle" severity="contrast" v-tooltip.bottom="descrizioneAsta" variant="text"
+                rounded aria-label="Filter" />
         </h2>
         <p v-if="isOwner">Sei il creatore dell'asta</p>
         <div v-if="tipoAsta === TipoAsta.INGLESE" class="content">
             <p class="info text-base">
                 {{ testoPrezzo }}
-                <span :style="{ color: colorePrezzo, fontSize: sizePrezzo }" class="font-bold"
-                    >{{ prezzoAttuale }}€</span
-                >
-           
+                <span :style="{ color: colorePrezzo, fontSize: sizePrezzo }" class="font-bold">{{ prezzoAttuale
+                    }}€</span>
 
-                <br>ultima offerta di: 
-                <span v-if="utenteUltimaOfferta" :style="{ color: coloreUltimaOfferta }">
+
+                <br>ultima offerta di:
+                <span v-if="utenteUltimaOfferta" :style="{ color: coloreUltimaOfferta }" class="text-blue-500 underline cursor-pointer" @click="clickEmail(utenteUltimaOfferta)">
                     {{ utenteUltimaOfferta }}</span>
-                    <span v-else> nessuno ha fatto un'offerta </span>
-                    
+                <span v-else> nessuno ha fatto un'offerta </span>
+
             </p>
             <br>
-            
+
             <p class="info text-base">
                 Incremento per ogni puntata:
                 <span class="font-bold">{{ incrementoOfferta }}€</span>
             </p>
-            <Button @click="aumentaOfferta" :disabled="isOwner" class="w-full" >
+            <Button @click="aumentaOfferta" :disabled="isOwner" class="w-full">
                 <span class="text-2xl font-semibold font-sans">PUNTA</span>
             </Button>
         </div>
@@ -32,62 +32,48 @@
         <div v-else-if="tipoAsta === TipoAsta.INVERSA" class="content">
             <p class="info text-base">
                 {{ testoPrezzo }}
-                <span :style="{ color: colorePrezzo, fontSize: sizePrezzo }" class="font-bold"
-                    >{{ prezzoAttuale }}€</span
-                >
-                
-                    <br>ultima offerta di: 
-                    <span v-if="utenteUltimaOfferta" :style="{ color: coloreUltimaOfferta }">
+                <span :style="{ color: colorePrezzo, fontSize: sizePrezzo }" class="font-bold">{{ prezzoAttuale
+                    }}€</span>
+
+                <br>ultima offerta di:
+                <span v-if="utenteUltimaOfferta" :style="{ color: coloreUltimaOfferta }" class="text-blue-500 underline cursor-pointer" @click="clickEmail(utenteUltimaOfferta)">
                     {{ utenteUltimaOfferta }}</span>
-                    <span v-else> nessuno ha fatto un'offerta </span>
-            
+                <span v-else> nessuno ha fatto un'offerta </span>
+
 
             </p>
             <p class="info"><br>Inserisci un'offerta inferiore al prezzo attuale:</p>
-            <input
-                v-model="nuovaOfferta"
-                type="number"
-                class="input"
-                placeholder="Inserisci la tua offerta"
-            />
+            <input v-model="nuovaOfferta" type="number" class="input" placeholder="Inserisci la tua offerta" />
 
             <Button @click="inviaOffertaInversa" :disabled="isOwner">Invia Offerta</Button>
         </div>
 
         <div v-else-if="tipoAsta === TipoAsta.SILENZIOSA" class="content">
-            
-                <p class="info text-left">
-                    La base d'asta è: <span class="highlight">{{ baseAsta }}€</span>
-                    <br>ultima offerta di: 
-                    <span v-if="utenteUltimaOfferta" :style="{ color: coloreUltimaOfferta }">
-                    {{ utenteUltimaOfferta }}</span>
-                    <span v-else> nessuno ha fatto un'offerta </span>
-                </p>
-                <span v-if="!isOwner">
 
-                    <p class="info text-left"><br>Offri quanto vuoi, purché sia superiore alla base d'asta</p>
-                    <p v-if="maxOffertaEffettuata>0" class="info text-left">La tua ultima offerta è: {{maxOffertaEffettuata  }}€</p>
-                    <input
-                    v-model="nuovaOfferta"
-                    type="number"
-                    class="input"
-                    placeholder="Inserisci la tua offerta"
-                    />
-                    <Button 
-                    @click="inviaOffertaSilenziosa" 
-                    :disabled="isOwner" 
+            <p class="info text-left">
+                La base d'asta è: <span class="highlight">{{ baseAsta }}€</span>
+                <br>ultima offerta di:
+                <span v-if="utenteUltimaOfferta" :style="{ color: coloreUltimaOfferta }" class="text-blue-500 underline cursor-pointer" @click="clickEmail(utenteUltimaOfferta)">
+                    {{ utenteUltimaOfferta }}</span>
+                <span v-else> nessuno ha fatto un'offerta </span>
+            </p>
+            <span v-if="!isOwner">
+
+                <p class="info text-left"><br>Offri quanto vuoi, purché sia superiore alla base d'asta</p>
+                <p v-if="maxOffertaEffettuata > 0" class="info text-left">La tua ultima offerta è: {{ maxOffertaEffettuata
+                    }}€</p>
+                <input v-model="nuovaOfferta" type="number" class="input" placeholder="Inserisci la tua offerta" />
+                <Button @click="inviaOffertaSilenziosa" :disabled="isOwner"
                     v-tooltip.bottom="{ value: 'non puoi fare un offerta su una tua asta', disabled: !isOwner }">
                     Invia Offerta
-                    </Button>   
-                </span>
-                <span v-else>
-                    <p class="info text-left"><br>Visulizza le offerte e seleziona un vincitore</p>    
-                    <Button label="Visualizza offerte" icon="pi pi-eye"  @click="showDialog = true" />
-          
-        <TabellaSelezionaVincitore
-            :astaId="idAsta" 
-        />
-                </span>
+                </Button>
+            </span>
+            <span v-else>
+                <p class="info text-left"><br>Visulizza le offerte e seleziona un vincitore</p>
+                <Button label="Visualizza offerte" icon="pi pi-eye" @click="showDialog = true" />
+
+                <TabellaSelezionaVincitore :astaId="idAsta" />
+            </span>
 
         </div>
 
@@ -102,8 +88,12 @@ import { defineProps } from 'vue';
 import { TipoAsta } from '../../service/astaService.js';
 import { getOfferteEffettuate } from '../../service/offertaService.js';
 import { useAstaChacheStore } from '../../stores/astaStore.js';
-import{useProfiloStore} from '../../stores/profiloStore.js';
+import { useProfiloStore } from '../../stores/profiloStore.js';
 import TabellaSelezionaVincitore from './TabellaSelezionaVincitore.vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
 const props = defineProps({
     tipoAsta: {
         type: String,
@@ -130,7 +120,7 @@ const props = defineProps({
         type: String,
         required: false,
     },
-    idAsta:{
+    idAsta: {
         type: Number,
         required: false,
     }
@@ -155,7 +145,7 @@ const titoliAsta = {
 const titoloAsta = computed(() => {
     return titoliAsta[props.tipoAsta] || 'Asta';
 });
-const descrizioniAsta ={
+const descrizioniAsta = {
     [TipoAsta.INGLESE]: 'Nell\'asta inglese, ogni partecipante può fare offerte più alte. L\'offerta più alta al termine dell\'asta vince.',
     [TipoAsta.INVERSA]: 'Nell\'asta inversa, l\'offerta più bassa vince. I partecipanti devono fare offerte inferiori al prezzo corrente.',
     [TipoAsta.SILENZIOSA]: 'Nell\'asta silenziosa, tutte le offerte sono nascoste. Il creatore dell\'asta seleziona il vincitore in base alle offerte ricevute.',
@@ -187,7 +177,7 @@ const inviaOffertaSilenziosa = () => {
     if (nuovaOfferta.value > props.baseAsta) {
         if (nuovaOfferta.value <= maxOffertaEffettuata.value) {
             errore.value = "Non puoi offrire un valore inferiore alla tua offerta.";
-            
+
             return;
         }
         errore.value = '';
@@ -201,19 +191,19 @@ const inviaOffertaSilenziosa = () => {
     }
 };
 
-const maxOffertaEffettuata= ref(0);
+const maxOffertaEffettuata = ref(0);
 const isSilentAuction = props.tipoAsta === TipoAsta.SILENZIOSA;
 const isOwner = ref(false);
 onMounted(() => {
     if (props.tipoAsta === TipoAsta.SILENZIOSA) {
-    
-        if(props.idAsta)
-        getOfferteEffettuate(props.idAsta).then((offerteEffettuate) => {
-            maxOffertaEffettuata.value = Math.max(...offerteEffettuate.map((offerta) => offerta.prezzoProposto));
-        });
+
+        if (props.idAsta)
+            getOfferteEffettuate(props.idAsta).then((offerteEffettuate) => {
+                maxOffertaEffettuata.value = Math.max(...offerteEffettuate.map((offerta) => offerta.prezzoProposto));
+            });
     }
     useAstaChacheStore().getAstaById(props.idAsta).then((asta) => {
-        if(asta.emailUtenteCreatore == useProfiloStore().profilo.email){
+        if (asta.emailUtenteCreatore == useProfiloStore().profilo.email) {
             isOwner.value = true;
         }
     }).catch((err) => {
@@ -243,6 +233,16 @@ const changeStyle = () => {
         coloreUltimaOfferta.value = 'black';
     }, 2000); // Pausa di 2000 millisecondi (2 secondi)
 };
+
+const clickEmail = (utente) => {
+
+router.push({
+
+    path: '/public/profilo/'+utente,
+})
+
+}
+
 </script>
 
 <style scoped>
