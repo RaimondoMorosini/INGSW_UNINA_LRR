@@ -72,7 +72,6 @@ onMounted(async () => {
 
     aste.value = await postRest("public/asta/getAllAste", bodyPerLaPost);
     nunmeroAste.value = await postRest("public/asta/getNumeroAste", bodyPerLaPost);
-    console.log("asteeeeeeeeeee: ", aste.value);
 });
 
 const onPage = async (event) => {
