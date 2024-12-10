@@ -1,80 +1,199 @@
 <template>
-    <div>
-        <h1>Questo è la pagine per modoficare la tua immagine profilo</h1>
-        <p>Dati Personali</p>
+  <div class="p-4 md:p-8 bg-gray-100 min-h-screen">
+    <div class="bg-white shadow rounded-lg p-6">
+      <div class="flex flex-col md:flex-row items-center md:items-start">
+        <img v-if="utente.immagine"
+          :src="utente.immagine"
+          alt="Foto profilo"
+          class="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover shadow-md"
+        />
+        <img v-else src="https://via.placeholder.com/150" alt="Foto profilo"
+          class="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover shadow-md" />
 
-        <ul>
-            <li><strong>Nome:</strong> {{ nome }}</li>
-            <li><strong>Cognome:</strong> {{ cognome }}</li>
-            <li><strong>Indirizzo:</strong> {{ indirizzo }}</li>
-            <li><strong>Bio:</strong> {{ bio }}</li>
-            <li>
-                <strong>Siti Social:</strong>
-                <a :href="sitiSocial" target="_blank">{{ sitiSocial }}</a>
-            </li>
-        </ul>
+        <div class="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
+          <h1 class="text-2xl font-bold text-gray-800">{{ utente.nome }} {{ utente.cognome }}</h1>
+           <template v-if="utente.datiVenditore">
+            <span class="text-sm bg-primario-200 text-primario-600 font-medium px-2 py-1 rounded mt-2">Account Venditore</span>
+          </template>
+          <p class="text-sm text-gray-600 mt-2">{{ emailInput}}</p>
+          <p class="text-sm text-gray-600 mt-2">{{ utente.area_geografica }}</p>
+          <p class="text-sm text-gray-600 mt-1">{{ utente.bio }}</p>
 
-        <button @click="ModificaProfilo">Modifica Profilo !!!</button>
-        <input type="file" @change="onFileChange" />
-        <div v-if="image">
-            <h2>Anteprima Immagine</h2>
-            <img :src="image" alt="Immagine Profilo" />
+         
         </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <template v-if="utente.datiVenditore">
+          <div>
+            <h2 class="text-lg font-semibold text-gray-800">Informazioni di Contatto</h2>
+            <ul class="mt-2 text-gray-600">
+              <li><strong>Telefono:</strong> {{ utente.datiVenditore.numeroTelefono }}</li>
+              <li><strong>Email:</strong> {{ utente.datiVenditore.nomeUtente }}</li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="text-lg font-semibold text-gray-800">Dati Aziendali</h2>
+            <ul class="mt-2 text-gray-600">
+              <li><strong>Partita IVA:</strong> {{ utente.datiVenditore.partitaIva }}</li>
+              <li><strong>Codice Fiscale:</strong> {{ utente.datiVenditore.codiceFiscale }}</li>
+              <li><strong>Nome Azienda:</strong> {{ utente.datiVenditore.nomeAzienda }}</li>
+            </ul>
+          </div>
+        </template>
+      </div>
+
+      <div class="mt-6">
+        <h2 class="text-lg font-semibold text-gray-800">Link Social</h2>
+        <div v-if="utente.siti" class="mt-2">
+          <ul class="flex flex-wrap gap-4">
+            <li v-for="sito in sitiWeb" :key="sito.url"
+              class="flex items-center space-x-2 bg-primario-50/50 p-2 rounded shadow hover:shadow-lg transition">
+              <i :class="sito.icona" class="text-blue-600 text-xl"></i>
+              <a :href="sito.url" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">
+                {{ sito.nome }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { modificaProfiloPublico } from '../service/profiloService';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
-const image = ref(null);
-const nomeImage = ref('');
-const nome = 'Raimondosss';
-const cognome = 'EL Morosss';
-const indirizzo = 'Italiasss';
-const bio = 'La Biossss';
-const sitiSocial = 'WWW.sitoss.comss';
+import { ref,computed } from "vue";
+import { getDatiProfiloPublici } from "../service/profiloService";
+// Dati statici per l'utente (puoi sostituirli con dati dinamici)
+const utente = ref({
+  nome: "Nome",
+  cognome: "Cognome",
+  siti: "[]",
+  area_geografica: "Citta, Provincia",
+  bio: "Bio dell'utente",
+  immagine:
+    "https://via.placeholder.com/150",
+  isVenditore: true,
+  datiVenditore: {
+    nomeUtente: "morosini.ragusa@gmail.com",
+    partitaIva: "partita iva",
+    codiceFiscale: "codice fiscale",
+    nomeAzienda: "nome azienda",
+    numeroTelefono: "numero telefono",
+  },
+});
+const emailInput= ref("morosini.ragusa@gmail.com");
+getDatiProfiloPublici(emailInput.value).then((response) => {
+  utente.value = response;
+  console.log("dati profilo...", response); // Mostra i dati ricevuti
+});
+// Associazioni sito -> icona
+const iconeSiti = {
+  "x.com": "fab fa-twitter",
+  "twitter.com": "fab fa-twitter",
+  "facebook.com": "fab fa-facebook",
+  "instagram.com": "fab fa-instagram",
+  "linkedin.com": "fab fa-linkedin",
+  "youtube.com": "fab fa-youtube",
+  "tiktok.com": "fab fa-tiktok",
+  "github.com": "fab fa-github",
+  "gitlab.com": "fab fa-gitlab",
+  "bitbucket.org": "fab fa-bitbucket",
+  "stackoverflow.com": "fab fa-stack-overflow",
+  "reddit.com": "fab fa-reddit",
+  "pinterest.com": "fab fa-pinterest",
+  "snapchat.com": "fab fa-snapchat",
+  "spotify.com": "fab fa-spotify",
+  "amazon.com": "fab fa-amazon",
+  "google.com": "fab fa-google",
+  "microsoft.com": "fab fa-microsoft",
+  "apple.com": "fab fa-apple",
+  "dropbox.com": "fab fa-dropbox",
+  "slack.com": "fab fa-slack",
+  "dribbble.com": "fab fa-dribbble",
+  "behance.net": "fab fa-behance",
+  "medium.com": "fab fa-medium",
+  "vimeo.com": "fab fa-vimeo",
+  "paypal.com": "fab fa-paypal",
 
-function ModificaProfilo() {
-    console.log('Modifica Profilo in corso');
-    console.log('IMG VALUE ' + image.value);
-    modificaProfiloPublico(nome, cognome, indirizzo, bio, sitiSocial, image.value, nomeImage)
-        .then((response) => {
-            console.log('Modifica avvenuta con successo!!!: ' + response);
-        })
-        .catch((error) => {
-            console.error('Errore durante la modifica del profilo: ', error);
-        });
-}
+  // Piattaforme di messaggistica
+  "whatsapp.com": "fab fa-whatsapp",
+  "telegram.com": "fab fa-telegram",
+  "discord.com": "fab fa-discord",
+  "signal.org": "fab fa-signal",
 
-function onFileChange(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            image.value = e.target.result;
-            nomeImage.value = file.name;
-            console.log('Nome del file: ' + nomeImage.value);
+  // Piattaforme di streaming
+  "twitch.tv": "fab fa-twitch",
+  "mixer.com": "fab fa-mixer",
+
+  // Piattaforme di blogging
+  "tumblr.com": "fab fa-tumblr",
+  "blogger.com": "fab fa-blogger",
+
+  // Piattaforme di e-commerce
+  "etsy.com": "fab fa-etsy",
+  "shopify.com": "fab fa-shopify",
+
+  // Piattaforme di recensioni
+  "yelp.com": "fab fa-yelp",
+  "tripadvisor.com": "fab fa-tripadvisor",
+
+  // Piattaforme di cloud storage
+  "onedrive.com": "fab fa-onedrive",
+  "googledrive.com": "fab fa-google-drive",
+
+  // Piattaforme di sviluppo
+  "stack-overflow.com": "fab fa-stack-overflow",
+  "github.com": "fab fa-github",
+  "gitlab.com": "fab fa-gitlab",
+  "bitbucket.org": "fab fa-bitbucket",
+
+  // Piattaforme di design
+  "figma.com": "fab fa-figma",
+  "sketch.com": "fab fa-sketch",
+
+  // Altre piattaforme popolari
+  "reddit.com": "fab fa-reddit",
+  "pinterest.com": "fab fa-pinterest",
+  "snapchat.com": "fab fa-snapchat",
+  "spotify.com": "fab fa-spotify",
+  "amazon.com": "fab fa-amazon",
+  "google.com": "fab fa-google",
+  "microsoft.com": "fab fa-microsoft",
+  "apple.com": "fab fa-apple",
+  "dropbox.com": "fab fa-dropbox",
+  "slack.com": "fab fa-slack",
+  // ... (aggiungi altre icone a piacere)
+};
+
+
+// Funzione per trasformare i siti in oggetti con nome, url e icona
+console.log("siti del utente",utente.value.siti);
+
+const sitiWeb = computed(() => {
+  if (!utente.value.siti) return [];
+  try {
+    return utente.value.siti
+      .replace(/\[|\]/g, "") // Rimuove parentesi quadre
+      .split(",") // Divide i siti in un array
+      .map((sito) => {
+        const url = sito.trim();
+        const dominio = new URL(url).hostname.replace("www.", "");
+        return {
+          url,
+          nome: dominio + new URL(url).pathname,
+          icona: iconeSiti[dominio] || "fas fa-globe", // Icona predefinita
         };
-        reader.readAsDataURL(file);
-    }
-}
+      });
+  } catch (error) {
+    console.error("Errore nel parsing dei siti", error);
+    return [];
+  }
+});
 </script>
 
-<style scoped>
-h1 {
-    color: #42b983;
-}
-
-button {
-    background-color: #425eb9;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #358a6b;
-}
+<style>
+/* Lo stile viene gestito principalmente da Tailwind CSS */
 </style>

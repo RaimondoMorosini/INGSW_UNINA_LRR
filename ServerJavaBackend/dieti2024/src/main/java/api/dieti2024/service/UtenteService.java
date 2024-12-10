@@ -21,12 +21,12 @@ public class UtenteService {
     private    final ImageContainerUtil imageContainerUtil;
 
     private final UserRepository utenteRepository;
+    private final DatiVenditoreRepository datiVenditoreRepository;
 
-    private  final DatiVenditoreRepository datiVenditoreRepository;
-    public UtenteService(UserRepository utenteRepository,DatiVenditoreRepository datiVenditoreRepository, ImageContainerUtil imageContainerUtil) {
+    public UtenteService(UserRepository utenteRepository, ImageContainerUtil imageContainerUtil, DatiVenditoreRepository datiVenditoreRepository) {
         this.utenteRepository = utenteRepository;
-        this.datiVenditoreRepository = datiVenditoreRepository;
         this.imageContainerUtil = imageContainerUtil;
+        this.datiVenditoreRepository = datiVenditoreRepository;
     }
 
     public UserDetailsDto getUserDetails(String email) {
@@ -47,7 +47,14 @@ public class UtenteService {
 
     public ProfiloUtentePublicoDTO getDatiProfilo(String email){
         Utente utente = getUtenteByEmail(email);
-        return ProfiloUtentePublicoDTO.fromUserModel(utente,utenteRepository.isVenditore(email));
+        if(utenteRepository.isVenditore(email)){
+            try {
+                return ProfiloUtentePublicoDTO.fromUserModel(utente,true,getDatiVenditore(email));
+            }catch (ApiException e) {
+                return ProfiloUtentePublicoDTO.fromUserModel(utente,true);
+            }
+        }
+        return ProfiloUtentePublicoDTO.fromUserModel(utente,false);
     }
     public void updateDatiProfilo(String email,  ProfiloUtentePublicoDTO profiloUtentePublicoDTO){
         try {
@@ -100,6 +107,7 @@ public class UtenteService {
         datiVenditore.setPartitaIva(datiVenditoreDTO.partitaIva());
         datiVenditore.setCodiceFiscale(datiVenditoreDTO.CodiceFiscale());
         datiVenditore.setNomeAzienda(datiVenditoreDTO.nomeAzienda());
+        datiVenditore.setNumeroTelefono(datiVenditoreDTO.numeroTelefono());
         datiVenditoreRepository.save(datiVenditore);
         return datiVenditore;
     }
@@ -116,5 +124,9 @@ public class UtenteService {
                 throw new ApiException("Numero di telefono non valido", HttpStatus.BAD_REQUEST);
 
         return true;
+    }
+
+    public DatiVenditori getDatiVenditore(String email) {
+        return datiVenditoreRepository.findById(email).orElseThrow(() -> new ApiException("Dati venditore non trovati", HttpStatus.NOT_FOUND));
     }
 }

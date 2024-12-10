@@ -13,6 +13,14 @@ export const useProfiloStore = defineStore('profilo', {
             area_geografica: '',
             bio: '',
             metodo_di_registrazione: '',
+            dati_venditore: {
+                nomeUtente: '',
+                partitaIva: '',
+                codiceFiscale: '',
+                nomeAzienda: '',
+                numeroTelefono: '',
+            }
+
         },
 
     }),
