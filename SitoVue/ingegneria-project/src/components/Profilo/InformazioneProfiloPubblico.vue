@@ -86,6 +86,7 @@
   });
   const props = defineProps(['email']);
   const emailInput= ref(props.email);
+
   onMounted(() => {
     getDatiProfiloPublici(emailInput.value).then((response) => {
       if(response){
@@ -200,6 +201,7 @@
       return [];
     }
   });
+  
   </script>
   
   <style>

@@ -86,7 +86,8 @@ watch(
                         storeinstance.profilo.cognome = response.cognome;
                         storeinstance.profilo.nome = response.nome;
                         storeinstance.profilo.imageURL= response.immagine;
-                        storeinstance.profilo.dati_venditore = response.datiVenditore;                        ;
+                        storeinstance.profilo.dati_venditore = response.datiVenditore;  
+                        storeinstance.profilo.isVenditore = response.isVenditore;                    ;
                         //response.siti is a string like this : [, , https://x.com/elonmusk, https://x.com/elonmusk, sdsfsdff]
                         //we need to remove the empty strings and make a list of strings
                         //remove [ ]

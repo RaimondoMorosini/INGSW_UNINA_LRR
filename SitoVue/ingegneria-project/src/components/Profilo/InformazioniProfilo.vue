@@ -1,46 +1,74 @@
 <template>
-    <div class="flex flex-col gap-3 px-2 py-3">
-        <div
-            class="user-info-photo flex w-full flex-row items-center justify-between space-x-5 rounded bg-slate-200/20 px-2 py-3 ring-1 ring-[#cbd5e1]"
-        >
-            <div class="flex flex-row space-x-1">
-                <img
-                    :src="instanceStoreProfilo.profilo.imageURL"
-                    alt="Immagine Profilo impostata"
-                    class="h-20 w-20 rounded-full border-primario-400"
-                />
-                <div class="User info">
-                    <h2 class="mt-4 text-2xl font-semibold">
-                        {{ instanceStoreProfilo.profilo.nome }}
-                        {{ instanceStoreProfilo.profilo.cognome }}
-                    </h2>
-                    <h2 class="text-sm text-gray-500">{{ instanceStoreProfilo.profilo.email }}</h2>
+    <div class="p-4 md:p-8 bg-gray-100 min-h-screen">
+        <div class="bg-white shadow rounded-lg p-6">
+            <div class="flex flex-col md:flex-row items-center md:items-start">
+                <img v-if="instanceStoreProfilo.profilo.imageURL" :src="instanceStoreProfilo.profilo.imageURL"
+                    alt="Foto profilo" class="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover shadow-md" />
+                <img v-else src="https://via.placeholder.com/150" alt="Foto profilo"
+                    class="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover shadow-md" />
+
+                <div class="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
+                    <h1 class="text-2xl font-bold text-gray-800">{{ instanceStoreProfilo.profilo.nome }} {{
+                        instanceStoreProfilo.profilo.cognome }}</h1>
+                    <template v-if="instanceStoreProfilo.profilo.dati_venditore">
+                        <span
+                            class="text-sm bg-primario-200 text-primario-600 font-medium px-2 py-1 rounded mt-2">Account
+                            Venditore</span>
+                    </template>
+                    <p class="text-sm text-gray-600 mt-2">{{ emailInput }}</p>
+                    <p class="text-sm text-gray-600 mt-2">{{ instanceStoreProfilo.profilo.area_geografica }}</p>
+                    <p class="text-sm text-gray-600 mt-1">{{ instanceStoreProfilo.profilo.bio }}</p>
+
+                    <div class="my-4">
+                        <RouterLink :to="{ name: 'datiPersonali' }">
+                            <Button><span class="font-bold">Modifica Profilo</span> </Button>
+                        </RouterLink>
+                    </div>
+
                 </div>
             </div>
-            <RouterLink :to="{ name: 'datiPersonali' }">
-                <Button><span class="font-bold">Modifica Profilo</span> </Button>
-            </RouterLink>
-        </div>
 
-        <div class="Bio rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
-            <h1 class="text-xl">Bio:</h1>
-            <p>{{ instanceStoreProfilo.profilo.bio }}</p>
-        </div>
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <template v-if="instanceStoreProfilo.profilo.isVenditore">
+                    <div>
+                        <h2 class="text-lg font-semibold text-gray-800">Informazioni di Contatto</h2>
+                        <ul class="mt-2 text-gray-600">
+                            <li><strong>Telefono:</strong> {{ instanceStoreProfilo.profilo.dati_venditore.numeroTelefono
+                                }}</li>
+                            <li><strong>Email:</strong> {{ instanceStoreProfilo.profilo.dati_venditore.nomeUtente }}
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-semibold text-gray-800">Dati Aziendali</h2>
+                        <ul class="mt-2 text-gray-600">
+                            <li><strong>Partita IVA:</strong> {{ instanceStoreProfilo.profilo.dati_venditore.partitaIva
+                                }}</li>
+                            <li><strong>Codice Fiscale:</strong> {{
+                                instanceStoreProfilo.profilo.dati_venditore.codiceFiscale }}</li>
+                            <li><strong>Nome Azienda:</strong> {{ instanceStoreProfilo.profilo.dati_venditore.nomeAzienda
+                                }}</li>
+                        </ul>
+                    </div>
+                </template>
+            </div>
 
-        <div class="Indirizzo rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
-            <h1 class="text-xl">Indirizzo:</h1>
-            {{ instanceStoreProfilo.profilo.area_geografica }}
+            <div class="mt-6">
+                <h2 class="text-lg font-semibold text-gray-800">Link Social</h2>
+                <div v-if="instanceStoreProfilo.profilo.siti_social" class="mt-2">
+                    <ul class="flex flex-wrap gap-4">
+                        <li v-for="sito in sitiWeb" :key="sito.url"
+                            class="flex items-center space-x-2 bg-primario-50/50 p-2 rounded shadow hover:shadow-lg transition">
+                            <i :class="sito.icona" class="text-blue-600 text-xl"></i>
+                            <a :href="sito.url" target="_blank" rel="noopener noreferrer"
+                                class="text-blue-600 hover:underline">
+                                {{ sito.nome }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-
-        <ul class="LinkAssociati rounded bg-slate-200/20 px-2 ring-1 ring-[#cbd5e1]">
-            <h1 class="text-xl">Collegamenti</h1>
-            <li v-for="(link, index) in linksSocial" v-bind:key="index" >
-                <a :href="link.value" class="flex justify-between" target="_blank" rel="noopener noreferrer"
-                    ><h2>{{ linkNomi[index] }} </h2><i class="pi pi-external-link"></i></a
-                >
-                
-            </li>
-        </ul>
     </div>
 </template>
 
@@ -69,4 +97,26 @@ onMounted(() => {
         linkNomi.value.push(domain);
     }
 });
+
+const sitiWeb = computed(() => {
+    if (!instanceStoreProfilo.profilo.siti) return [];
+    try {
+        return instanceStoreProfilo.profilo.siti
+            .replace(/\[|\]/g, "") // Rimuove parentesi quadre
+            .split(",") // Divide i siti in un array
+            .map((sito) => {
+                const url = sito.trim();
+                const dominio = new URL(url).hostname.replace("www.", "");
+                return {
+                    url,
+                    nome: dominio + new URL(url).pathname,
+                    icona: iconeSiti[dominio] || "fas fa-globe", // Icona predefinita
+                };
+            });
+    } catch (error) {
+        console.info("Errore nel parsing dei siti", error);
+        return [];
+    }
+});
+
 </script>
