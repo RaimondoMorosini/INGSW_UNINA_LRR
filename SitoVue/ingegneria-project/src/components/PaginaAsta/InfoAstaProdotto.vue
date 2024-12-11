@@ -3,10 +3,10 @@
       <template #content>
         <div>
 
-          <div v-if="tempoInSecondi<=0" class="content">
-    <h3 class="text-lg font-bold">ASTA CONCLUSA </h3>
-    <p>Il vincitore è: <span class="font-bold"> vincitore </span></p>
-    <p>Prezzo finale: <span class="font-bold"> prezzoFinale €</span></p>
+          <div v-if="tempoInSecondi <= 0" class="content flex flex-col justify-center items-center">
+    <h3 class="text-lg font-bold text-center">ASTA CONCLUSA</h3>
+    <p class="text-center">Il vincitore è: <span class="font-bold">morosini.ragusa@gmail.com</span></p>
+    <p class="text-center">Prezzo finale: <span class="font-bold"> 120430.00€</span></p>
 </div>
        
           <div v-else >
@@ -56,11 +56,11 @@
   
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch} from 'vue';
 import Card from 'primevue/card';
 import Countdown from '../PaginaAsta/countdown.vue';
 import BottoneOfferta from '../PaginaAsta/BottoneOfferta.vue';
-import { faiOfferta } from '../../service/offertaService.js';
+import { faiOfferta ,getOffertaVincente} from '../../service/offertaService.js';
 import { getDatiastaInglese } from '../../service/PaginaProdottoAstaService';
 import { useProfiloStore } from '../../stores/profiloStore';
 const props = defineProps(['prodotto', 'utenteUltimaOfferta']);
@@ -75,8 +75,21 @@ let secondirimaneti = Math.floor((props.prodotto.dataScadenza - currentTime) / 1
 if (secondirimaneti <= 0) {
     secondirimaneti = 0;
 }
-const tempoInSecondi = ref(secondirimaneti);
 
+const tempoInSecondi = ref(secondirimaneti);
+const isVincitorePresente = ref(false);
+const nomeVincitore = ref('');
+const prezzoFinale = ref(0);
+function recuperaOffertaVincente() {
+    console.log('recuperaOffertaVincente');
+   getOffertaVincente(props.prodotto.idAsta)
+
+} 
+watch (tempoInSecondi, (newVal) => {
+    if (newVal === 0) {
+      recuperaOffertaVincente();
+    }
+});
 onMounted(async () => {
     tipoAsta.value = props.prodotto.tipoAsta;
 

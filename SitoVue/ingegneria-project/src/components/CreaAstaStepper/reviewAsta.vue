@@ -29,6 +29,7 @@
                     <div class="flex flex-row gap-2">
                         <span class="label">Scadenza Asta</span>
                         <span class="campo">{{ dateScadenza.toLocaleString().split(',')[0] }}</span>
+                        <span class="campo">{{ storeInstance.asta.scadenzaAsta }}</span>
                     </div>
                     <div v-if="tipoAsta == asta_inglese" class="flex flex-row gap-2">
                         <span class="label">Durata Estensione</span>
