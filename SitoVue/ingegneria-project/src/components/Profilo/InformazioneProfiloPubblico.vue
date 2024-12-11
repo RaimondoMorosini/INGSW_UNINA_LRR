@@ -59,7 +59,6 @@
         </div>
       </div>
     </div>
-    utente immagine: {{utente.immagine}}
   </template>
 
   <script setup>
