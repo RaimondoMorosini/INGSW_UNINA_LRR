@@ -37,15 +37,21 @@ export async function getDatiProfiloPublici(email) {
             datiPublichi.bio = dati.bio;
             datiPublichi.immagine = dati.foto_profilo;
             datiPublichi.isVenditore = dati.isVenditore;
-            console.info('dati.isVenditore', dati.isVenditore);
-            if (dati.isVenditore) {
-                console.info('sono dentro if', dati.datiVenditore);
-                datiVenditore.nomeUtente = dati.datiVenditore.nomeUtente;
-                datiVenditore.partitaIva = dati.datiVenditore.partitaIva;
-                datiVenditore.codiceFiscale = dati.datiVenditore.codiceFiscale;
-                datiVenditore.nomeAzienda = dati.datiVenditore.nomeAzienda;
-                datiVenditore.numeroTelefono = dati.datiVenditore.numeroTelefono;
-                datiPublichi.datiVenditore = datiVenditore;
+            try{
+
+                console.info('dati.isVenditore', dati.isVenditore);
+                if (dati.isVenditore) {
+                    console.info('sono dentro if', dati.datiVenditore);
+                    datiVenditore.nomeUtente = dati.datiVenditore.nomeUtente;
+                    datiVenditore.partitaIva = dati.datiVenditore.partitaIva;
+                    datiVenditore.codiceFiscale = dati.datiVenditore.codiceFiscale;
+                    datiVenditore.nomeAzienda = dati.datiVenditore.nomeAzienda;
+                    datiVenditore.numeroTelefono = dati.datiVenditore.numeroTelefono;
+                    datiPublichi.datiVenditore = datiVenditore;
+                }
+            }catch (error) {
+                console.info('errore nel settaggio dei dati venditore:', error);
+                datiVenditore=null;
             }
             console.log('dati profilo reucuperati dalla rest: ', JSON.stringify());
             return datiPublichi;
