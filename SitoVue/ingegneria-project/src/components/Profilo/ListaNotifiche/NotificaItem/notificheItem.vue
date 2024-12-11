@@ -7,6 +7,7 @@
                 :message="message"
                 :isMessageVisible="isMessageVisible"
                 :toggleMessage="toggleMessage"
+                :astaId="astaId"
             />
         </div>
     </div>

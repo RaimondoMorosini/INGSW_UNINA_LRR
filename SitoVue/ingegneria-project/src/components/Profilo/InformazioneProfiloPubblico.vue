@@ -88,6 +88,7 @@
   const utenteTimestamp= ref ({})
   const props = defineProps(['email']);
   const emailInput= ref(props.email);
+
   onMounted(() => {
     getDatiProfiloPublici(emailInput.value).then((response) => {
       
@@ -201,6 +202,7 @@
       return [];
     }
   });
+  
   </script>
   
   <style>

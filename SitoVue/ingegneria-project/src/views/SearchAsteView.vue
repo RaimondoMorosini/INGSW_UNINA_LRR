@@ -72,6 +72,7 @@
         :propCategoriaCercata="categoriaCercata"
         :propRicaricaComponenteCaratteristiche="ricaraComponenteCaratteristiche"
         :propCaratteristicheselezionate="caratteristicheSelezionate"
+        :propMostraRisultati="onClickCerca"
         @numeroDiPaginaSelezionato="setPagina($event)"
         @caratteristicheSelezionate="setCaratteristiche($event)"
         @ordineSelezionato="setCampiOrdinamento($event)"
@@ -231,7 +232,7 @@ const setPrezzoMax = (prezzoMaxSelezionato) => {
     prezzoMax.value = prezzoMaxSelezionato;
 };
 
-const onClickCerca = () => {
+function onClickCerca() {
     if (ultimaCategoriaCercata.value !== categoriaCercata.value) {
         listaDiCaratteristicheSelezionate.value = [];
     }

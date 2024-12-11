@@ -52,6 +52,7 @@ import {
     getNotifiche,
     getNumeroDiNotificheNonLette,
     getNumeroNotifiche,
+    setNotificaVisualizzata,
 } from '../../service/notificheService';
 import notificheItem from './ListaNotifiche/NotificaItem/notificheItem.vue';
 import Button from 'primevue/button';
@@ -86,8 +87,10 @@ const loadMore = async () => {
 function segnaNotificaComeLetta(id) {
     const notification = notifications.value.find((n) => n.id === id);
     if (notification) {
-        notification.visualizzato = true;
-        alert(`Segna come letta la notifica ${notification.id}`);
+        setNotificaVisualizzata([id]).then(() => {
+            notification.visualizzato = true;
+            alert(`Segna come letta la notifica ${notification.id}`);
+        });
     }
 }
 

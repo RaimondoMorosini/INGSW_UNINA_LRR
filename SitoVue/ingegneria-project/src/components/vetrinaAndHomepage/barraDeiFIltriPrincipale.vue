@@ -1,33 +1,17 @@
 <template>
-    <div 
-    class="flex h-auto flex-col lg:flex-row justify-center rounded bg-slate-200/20 p-2 m-4
+    <div class="flex h-auto flex-col lg:flex-row justify-center rounded bg-slate-200/20 p-2 m-4
     lg:mr-4 mb-4 lg:mb-0 lg:space-x-4
     ">
         <div class="flex flex-col">
             <label for="currency-germany" class="mb-2 block font-bold"> Ordina per </label>
-            <Dropdown
-                @change="setCampiOrdinamento"
-                v-model="opzioneSelezionata"
-                :options="opzioniDiOrdinazione"
-                optionLabel="name"
-                placeholder="Ordina per"
-                class="dimensione font-bold"
-            />
+            <Dropdown @change="setCampiOrdinamento" v-model="opzioneSelezionata" :options="opzioniDiOrdinazione"
+                optionLabel="name" placeholder="Ordina per" class="dimensione font-bold" />
         </div>
 
         <div class="flex flex-col">
             <label for="currency-germany" class="mb-2 block font-bold"> Prezzo minimo </label>
-            <InputNumber
-                @input="setPrezzoMin($event)"
-                v-model="prezzoMin"
-                inputId="horizontal-buttons"
-                showButtons
-                buttonLayout="horizontal"
-                :step="0.25"
-                mode="currency"
-                currency="EUR"
-                :min="0"
-            >
+            <InputNumber @input="setPrezzoMin($event)" v-model="prezzoMin" inputId="horizontal-buttons" showButtons
+                buttonLayout="horizontal" :step="0.25" mode="currency" currency="EUR" :min="0">
                 <template #incrementbuttonicon>
                     <span class="pi pi-plus" />
                 </template>
@@ -39,17 +23,8 @@
 
         <div class="flex flex-col">
             <label for="currency-germany" class="mb-2 block font-bold"> Prezzo massimo </label>
-            <InputNumber
-                @input="setPrezzoMax($event)"
-                v-model="prezzoMax"
-                inputId="horizontal-buttons"
-                showButtons
-                buttonLayout="horizontal"
-                :step="0.25"
-                mode="currency"
-                currency="EUR"
-                :min="0"
-            >
+            <InputNumber @input="setPrezzoMax($event)" v-model="prezzoMax" inputId="horizontal-buttons" showButtons
+                buttonLayout="horizontal" :step="0.25" mode="currency" currency="EUR" :min="0">
                 <template #incrementbuttonicon>
                     <span class="pi pi-plus" />
                 </template>
