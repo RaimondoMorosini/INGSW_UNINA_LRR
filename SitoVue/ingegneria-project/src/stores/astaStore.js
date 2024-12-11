@@ -48,8 +48,8 @@ export const useAstaStore = defineStore('asta', {
         },
         async getFormattedData() {
             const formData = await getImageInFormData();
-            const file = this.asta.immaginiSalvate;
-
+            const currentData = new Date();
+            const timeunixmilliseoncdCurrent = currentData.getTime();
             return {
                 datiProdotto: {
                     nomeProdotto: this.asta.nomeProdotto,
@@ -62,8 +62,8 @@ export const useAstaStore = defineStore('asta', {
                 },
                 datiAsta: {
                     baseAsta: parseFloat(this.asta.prezzoBase),
-                    dataScadenza: Date.parse(this.asta.scadenzaAsta),
-                    dataInizio: new Date(this.asta.dataInizio).getTime(),
+                    dataScadenza: this.asta.scadenzaAsta,
+                    dataInizio: timeunixmilliseoncdCurrent,
                     tipoAsta: this.asta.tipoAsta,
                     datiExtraJson: JSON.stringify({
                         tempoEstensione: parseFloat(this.asta.durataEstensione),

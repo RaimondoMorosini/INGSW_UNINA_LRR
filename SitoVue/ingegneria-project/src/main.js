@@ -14,6 +14,7 @@ import ToastService from 'primevue/toastservice';
 import { createApp, watch } from 'vue'; // Vue 3
 import App from './App.vue'; // App.vue
 import './assets/css/tailwind.css'; // tailwindcss
+//import './assets/css/style.css'; // style.css
 import router from './router'; // router
 import { useTokenStore } from './stores/tokenStore';
 import AppState from './plugin/appState';
