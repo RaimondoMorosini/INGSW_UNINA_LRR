@@ -24,7 +24,9 @@
                 Incremento per ogni puntata:
                 <span class="font-bold">{{ incrementoOfferta }}€</span>
             </p>
-            <Button @click="aumentaOfferta" :disabled="isOwner" class="w-full">
+            <Button @click="aumentaOfferta" :disabled="isOwner || tempoRimanente<=0" class="w-full"
+            v-tooltip.bottom="{ value: isOwner ? 'non puoi fare un offerta su una tua asta' : 'non puoi fare un offerta a un asta conclusa', disabled: !(isOwner || tempoRimanente<=0) }">
+
                 <span class="text-2xl font-semibold font-sans">PUNTA</span>
             </Button>
         </div>
@@ -45,7 +47,10 @@
             <p class="info"><br>Inserisci un'offerta inferiore al prezzo attuale:</p>
             <input v-model="nuovaOfferta" type="number" class="input" placeholder="Inserisci la tua offerta" />
 
-            <Button @click="inviaOffertaInversa" :disabled="isOwner">Invia Offerta</Button>
+            <Button @click="inviaOffertaInversa" :disabled="isOwner || tempoRimanente<=0"
+            v-tooltip.bottom="{ value: isOwner ? 'non puoi fare un offerta su una tua asta' : 'non puoi fare un offerta a un asta conclusa', disabled: !(isOwner || tempoRimanente<=0) }">
+            
+            Invia Offerta</Button>
         </div>
 
         <div v-else-if="tipoAsta === TipoAsta.SILENZIOSA" class="content">
@@ -63,8 +68,9 @@
                 <p v-if="maxOffertaEffettuata > 0" class="info text-left">La tua ultima offerta è: {{ maxOffertaEffettuata
                     }}€</p>
                 <input v-model="nuovaOfferta" type="number" class="input" placeholder="Inserisci la tua offerta" />
-                <Button @click="inviaOffertaSilenziosa" :disabled="isOwner"
-                    v-tooltip.bottom="{ value: 'non puoi fare un offerta su una tua asta', disabled: !isOwner }">
+                <Button @click="inviaOffertaSilenziosa" :disabled="isOwner || tempoRimanente<=0"
+                v-tooltip.bottom="{ value: isOwner ? 'non puoi fare un offerta su una tua asta' : 'non puoi fare un offerta a un asta conclusa', disabled: !(isOwner || tempoRimanente<=0) }">
+
                     Invia Offerta
                 </Button>
             </span>
@@ -79,6 +85,8 @@
 
         <div v-if="errore" class="error">{{ errore }}</div>
     </div>
+
+    
 </template>
 
 <script setup>
@@ -91,7 +99,7 @@ import { useAstaChacheStore } from '../../stores/astaStore.js';
 import { useProfiloStore } from '../../stores/profiloStore.js';
 import TabellaSelezionaVincitore from './TabellaSelezionaVincitore.vue';
 import { useRouter } from 'vue-router';
-
+import eventBus from '../../scripts/eventBus.js';
 const router = useRouter();
 
 const props = defineProps({
@@ -121,6 +129,10 @@ const props = defineProps({
         required: false,
     },
     idAsta: {
+        type: Number,
+        required: false,
+    },
+    tempoRimanente: {
         type: Number,
         required: false,
     }
@@ -156,6 +168,10 @@ const descrizioneAsta = computed(() => {
 
 
 const aumentaOfferta = () => {
+    if(!useProfiloStore().profilo.isVenditore){
+        alert('non puoi fare un offerta a quest\' asta\n Sei vuoi fare un offerta a un asta inglese compila il modulo per abilitare la account alle funzioni venditori');
+        eventBus.emit('open-dialog');
+    }   
     nuovaOfferta.value = props.prezzoAttuale + props.incrementoOfferta;
     props.faiOfferta(nuovaOfferta.value).catch((err) => {
         errore.value = "Errore durante l'invio dell'offerta." + err;
@@ -174,6 +190,11 @@ const inviaOffertaInversa = () => {
 };
 
 const inviaOffertaSilenziosa = () => {
+    if(!useProfiloStore().profilo.isVenditore){
+        alert('non puoi fare un offerta a quest\' asta\n Sei vuoi fare un offerta a un asta silenziosa compila il modulo per abilitare la account alle funzioni venditori');
+        eventBus.emit('open-dialog');
+    }   
+
     if (nuovaOfferta.value > props.baseAsta) {
         if (nuovaOfferta.value <= maxOffertaEffettuata.value) {
             errore.value = "Non puoi offrire un valore inferiore alla tua offerta.";

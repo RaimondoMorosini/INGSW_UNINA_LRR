@@ -58,5 +58,16 @@ export async function getOfferteSilenziose(idAsta) {
         console.error('Errore:', error);
         throw error; // Propaga l'errore per gestirlo nel componente chiamante
     }
+}
+
+export async function getOffertaVincente(idAsta) {
+    try {
+        const url = 'public/offertaVincente' + JSON.stringify(idAsta);
+        const response = await getRestWithtoken(url);
+        return response;
+    } catch (error) {
+        console.error('Errore offerta non recuperata:', error);
+        throw error; // Propaga l'errore per gestirlo nel componente chiamante
+    }
 
 }

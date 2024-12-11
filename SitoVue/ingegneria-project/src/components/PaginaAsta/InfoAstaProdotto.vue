@@ -2,12 +2,21 @@
     <Card  class="relative">
       <template #content>
         <div>
-          <h1 class="text-xl font-bold">Scadenza asta</h1>
-          <Countdown
+
+          <div v-if="tempoInSecondi<=0" class="content">
+    <h3 class="text-lg font-bold">ASTA CONCLUSA </h3>
+    <p>Il vincitore è: <span class="font-bold"> vincitore </span></p>
+    <p>Prezzo finale: <span class="font-bold"> prezzoFinale €</span></p>
+</div>
+       
+          <div v-else >
+            <h1 class="text-xl font-bold">Scadenza asta</h1>
+            <Countdown
             :unixTimestamp="props.prodotto.dataScadenza"
             @update:remainingTime="tempoInSecondi = $event"
-          />
-  
+            />
+          </div>
+    
           <BottoneOfferta
             v-if="tipoAsta === 'asta_inglese'"
             :tipoAsta="tipoAsta"
@@ -16,6 +25,7 @@
             :faiOfferta="faiOffertaParziale"
             :utenteUltimaOfferta="props.utenteUltimaOfferta"
             :idAsta="'provaInglese'"
+            :tempoRimanente="tempoInSecondi"
           />
   
           <BottoneOfferta
@@ -25,6 +35,7 @@
             :faiOfferta="faiOffertaParziale"
             :utenteUltimaOfferta="props.utenteUltimaOfferta"
             :idAsta="props.prodotto.idAsta"
+            :tempoRimanente="tempoInSecondi"
           />
   
           <BottoneOfferta
@@ -34,19 +45,13 @@
             :faiOfferta="faiOffertaParziale"
             :utenteUltimaOfferta="props.utenteUltimaOfferta"
             :idAsta="'astaInversa'"
+            :tempoRimanente="tempoInSecondi"
           />
         </div>
-  
-        <!-- Overlay -->
-<div
-  class="absolute top-1/2 left-[-25%] w-[150%] h-10 bg-red-500/70 flex items-center justify-center rotate-[-45deg]">
-  <span class="text-white text-xl font-bold tracking-widest uppercase rotate-[45deg]">
-    Asta Scaduta
-  </span>
-</div>
-
+    
       </template>
     </Card>
+    
   </template>
   
 
@@ -65,7 +70,12 @@ const datiExtra = ref(null);
 const incrementoOfferta = ref();
 const isOwner = ref(false);
 const isSilentAuction = ref(false);
-
+const currentTime = Math.floor(Date.now()); // Ottieni il tempo corrente in secondi
+let secondirimaneti = Math.floor((props.prodotto.dataScadenza - currentTime) / 1000);
+if (secondirimaneti <= 0) {
+    secondirimaneti = 0;
+}
+const tempoInSecondi = ref(secondirimaneti);
 
 onMounted(async () => {
     tipoAsta.value = props.prodotto.tipoAsta;

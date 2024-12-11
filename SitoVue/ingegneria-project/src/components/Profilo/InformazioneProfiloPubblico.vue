@@ -59,8 +59,9 @@
         </div>
       </div>
     </div>
+    utente immagine: {{utente.immagine}}
   </template>
-  
+
   <script setup>
   import '@fortawesome/fontawesome-free/css/all.min.css';
   
@@ -68,32 +69,32 @@
   import { getDatiProfiloPublici } from "../../service/profiloService";
   // Dati statici per l'utente (puoi sostituirli con dati dinamici)
   const utente = ref({
-    nome: "Nome",
-    cognome: "Cognome",
+    nome: "",
+    cognome: "",
     siti: "[]",
-    area_geografica: "Citta, Provincia",
-    bio: "Bio dell'utente",
+    area_geografica: "",
+    bio: "",
     immagine:
       "https://via.placeholder.com/150",
     isVenditore: true,
     datiVenditore: {
-      nomeUtente: "morosini.ragusa@gmail.com",
-      partitaIva: "partita iva",
-      codiceFiscale: "codice fiscale",
-      nomeAzienda: "nome azienda",
-      numeroTelefono: "numero telefono",
+      nomeUtente: "",
+      partitaIva: "",
+      codiceFiscale: "",
+      nomeAzienda: "",
+      numeroTelefono: "",
     },
   });
+  const utenteTimestamp= ref ({})
   const props = defineProps(['email']);
   const emailInput= ref(props.email);
   onMounted(() => {
     getDatiProfiloPublici(emailInput.value).then((response) => {
-      if(response){
+      
         utente.value = response;
-      }
-      else{
-        console.log("Errore nel caricamento del profilo");
-      }
+        console.log("utente...", utente.value);
+        utenteTimestamp.value = response;; 
+      
       console.log("dati profilo...", response); // Mostra i dati ricevuti
     }).catch((error) => {
       console.log("Errore nel caricamento del profilo", error);
