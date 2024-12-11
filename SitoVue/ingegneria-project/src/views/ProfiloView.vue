@@ -7,7 +7,7 @@
     <ul class="flex flex-row justify-between border-b-2 border-slate-300 bg-slate-200/20 px-3 py-2">
         <li
             @click="pagina = 1"
-            class="hover: flex rounded px-2 py-1 font-bold hover:bg-primario-400 hover:ring-2 hover:ring-slate-200/50"
+            class="hover: flex cursor-pointer rounded px-2 py-1 font-bold hover:bg-primario-400 hover:ring-2 hover:ring-slate-200/50"
         >
             <span>
                 <i class="pi pi-user" style="font-size: 1.5rem; padding-right: 0.8rem"></i>
