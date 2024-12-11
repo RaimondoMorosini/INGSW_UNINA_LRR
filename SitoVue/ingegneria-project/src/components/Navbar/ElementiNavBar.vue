@@ -23,13 +23,6 @@
                     </RouterLink>
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
-                    <RouterLink :to="{ name: 'about' }">
-                        <Button severity="secondary" class="w-[100%]"
-                            ><span class="font-bold">Le Tue Aste</span></Button
-                        >
-                    </RouterLink>
-                </li>
-                <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
                     <LogoutButton class="w-[100%]" />
                 </li>
                 <li class="my-6 lg:mx-4 lg:my-0" @click="MenuClose()">
