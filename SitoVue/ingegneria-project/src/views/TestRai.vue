@@ -69,7 +69,7 @@ import { ref, reactive, computed } from 'vue';
 import { Textarea, InputText, Button, Select } from 'primevue';
 import ComuniItalia from '../assets/json/ComuniItalia.json'
 import ModificaImmagineProfilo from './ModificaImmagineProfilo.vue';
-
+import { modificaProfiloPublico } from '../service/profiloService';
 // Dati iniziali
 const datiOriginali = reactive({
   immagine: 'https://via.placeholder.com/150',
@@ -124,6 +124,13 @@ function salvaProfilo() {
   const valido = !errori.value.nome && !errori.value.cognome && !errori.value.bio && errori.value.linksSocial.every((e) => !e);
   if (valido) {
     console.log('Profilo salvato:', dati);
+    if(immagineAnteprima.value != null){
+      dati.immagine = immagineAnteprima.value;
+    }else{
+      dati.immagine = null;
+    }
+    
+    modificaProfiloPublico(dati.nome,dati.cognome,dati.citta,dati.bio,dati.linksSocial,dati.immagine)
     alert('Profilo aggiornato con successo!');
     // Copiare i dati aggiornati come originali
     Object.assign(datiOriginali, dati);
