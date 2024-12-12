@@ -66,11 +66,12 @@ public class UtenteController {
         String linkOut="";
         try {
             utenteService.modificaProfilo(email, modificaProfiloDTO);
+            if(imgFIle==null){
+                return ResponseEntity.ok("Dati aggiornati\n"+modificaProfiloDTO.toString());
+            }
             String path = "imgProfilo-" + email+".jpg" ;
             linkOut=imageContainerUtil.uploadImage(imgFIle,path) ;
             return ResponseEntity.ok("Immagine salvata con successo: "+linkOut+"\n"+modificaProfiloDTO.toString());
-
-
 
         } catch (ApiException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
