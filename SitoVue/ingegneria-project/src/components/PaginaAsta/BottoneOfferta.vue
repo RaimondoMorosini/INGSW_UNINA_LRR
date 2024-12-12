@@ -170,7 +170,7 @@ const descrizioneAsta = computed(() => {
 const aumentaOfferta = () => {
     if(!useProfiloStore().profilo.isVenditore){
         alert('non puoi fare un offerta a quest\' asta\n Sei vuoi fare un offerta a un asta inglese compila il modulo per abilitare la account alle funzioni venditori');
-        eventBus.emit('open-dialog');
+        eventBus.emit('open-FormDiventaVenditore');
     }   
     nuovaOfferta.value = props.prezzoAttuale + props.incrementoOfferta;
     props.faiOfferta(nuovaOfferta.value).catch((err) => {
@@ -192,7 +192,7 @@ const inviaOffertaInversa = () => {
 const inviaOffertaSilenziosa = () => {
     if(!useProfiloStore().profilo.isVenditore){
         alert('non puoi fare un offerta a quest\' asta\n Sei vuoi fare un offerta a un asta silenziosa compila il modulo per abilitare la account alle funzioni venditori');
-        eventBus.emit('open-dialog');
+        eventBus.emit('open-FormDiventaVenditore');
     }   
 
     if (nuovaOfferta.value > props.baseAsta) {

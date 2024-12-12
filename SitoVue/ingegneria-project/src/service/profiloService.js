@@ -107,9 +107,19 @@ export async function modificaProfiloPublico(
 
 export async function aggiornaProfilo() {
     const email = useProfiloStore().profilo.email;
-    const datiProfiloAggiornato = getDatiProfiloPublici(email);
-    useProfiloStore().updateProfilo(datiProfiloAggiornato);
-    useProfiloStore().profilo.imageURL=useProfiloStore().profilo.immagine;
+    getDatiProfiloPublici(email).then((datiProfiloAggiornato ) => {
+        useProfiloStore().profilo.area_geografica = datiProfiloAggiornato.area_geografica;
+        useProfiloStore().profilo.bio = datiProfiloAggiornato.bio;
+        useProfiloStore().profilo.cognome = datiProfiloAggiornato.cognome;
+        useProfiloStore().profilo.nome = datiProfiloAggiornato.nome;
+        useProfiloStore().profilo.siti_social = datiProfiloAggiornato.siti;
+        useProfiloStore().profilo.imageURL = datiProfiloAggiornato.immagine;
+        useProfiloStore().profilo.isVenditore = datiProfiloAggiornato.isVenditore;
+        useProfiloStore().profilo.datiVenditore = datiProfiloAggiornato.datiVenditore;
+        useProfiloStore().profilo.imageURL=useProfiloStore().profilo.immagine;
+    }).catch((error) => {
+        console.error('Errore nell\'aggionare i dait :', error);
+    });
 }
 
 export async function DiventaVenditore(partitaIva,codiceFiscale,numeroTelefono,nomeAzienda) {
@@ -133,10 +143,11 @@ export async function DiventaVenditore(partitaIva,codiceFiscale,numeroTelefono,n
     } catch (error) {
         console.error('Errore:', error);
     }
-}
-export async function refreshDatiprofilo() {
-    getDatiProfiloPublici(useProfiloStore().profilo.email).then((dati) => {
-        useProfiloStore().updateProfilo(dati);
-    });
 
+    aggiornaProfilo().then((response) => {
+        console.log('Profilo aggiornato con successo', response);
+      }).catch((error) => {
+        console.error('Errore aggiornamento profilo', error);
+      });
 }
+
