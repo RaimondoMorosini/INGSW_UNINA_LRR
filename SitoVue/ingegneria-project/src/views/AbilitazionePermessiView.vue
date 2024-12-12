@@ -56,6 +56,7 @@ import { ref, computed } from 'vue';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import { DiventaVenditore } from '../service/profiloService';
+import eventBus from '../scripts/eventBus';
 
 // Dati del modulo
 const formData = ref({
@@ -122,6 +123,7 @@ const submitForm = () => {
   if (Object.keys(computedErrors.value).length === 0) {
     DiventaVenditore(formData.value.partitaIva, formData.value.codiceFiscale, formData.value.telefono, formData.value.nomeAzienda);
     console.log('Dati inviati:', formData.value);
+    eventBus.emit('close-open-FormDiventaVenditore');
   }
 };
 </script>
