@@ -77,11 +77,90 @@ import { onMounted, ref, computed } from 'vue';
 import { useAuth0 } from '@auth0/auth0-vue';
 import { useProfiloStore } from '../../stores/profiloStore';
 import Button from 'primevue/button';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 const { idTokenClaims, isAuthenticated, user } = useAuth0();
 
 //const linkUtili = ['GitHub', 'LinkedIn', 'Twitter', 'Facebook'];
+// Associazioni sito -> icona
+const iconeSiti = {
+    "x.com": "fab fa-twitter",
+    "twitter.com": "fab fa-twitter",
+    "facebook.com": "fab fa-facebook",
+    "instagram.com": "fab fa-instagram",
+    "linkedin.com": "fab fa-linkedin",
+    "youtube.com": "fab fa-youtube",
+    "tiktok.com": "fab fa-tiktok",
+    "github.com": "fab fa-github",
+    "gitlab.com": "fab fa-gitlab",
+    "bitbucket.org": "fab fa-bitbucket",
+    "stackoverflow.com": "fab fa-stack-overflow",
+    "reddit.com": "fab fa-reddit",
+    "pinterest.com": "fab fa-pinterest",
+    "snapchat.com": "fab fa-snapchat",
+    "spotify.com": "fab fa-spotify",
+    "amazon.com": "fab fa-amazon",
+    "google.com": "fab fa-google",
+    "microsoft.com": "fab fa-microsoft",
+    "apple.com": "fab fa-apple",
+    "dropbox.com": "fab fa-dropbox",
+    "slack.com": "fab fa-slack",
+    "dribbble.com": "fab fa-dribbble",
+    "behance.net": "fab fa-behance",
+    "medium.com": "fab fa-medium",
+    "vimeo.com": "fab fa-vimeo",
+    "paypal.com": "fab fa-paypal",
+  
+    // Piattaforme di messaggistica
+    "whatsapp.com": "fab fa-whatsapp",
+    "telegram.com": "fab fa-telegram",
+    "discord.com": "fab fa-discord",
+    "signal.org": "fab fa-signal",
+  
+    // Piattaforme di streaming
+    "twitch.tv": "fab fa-twitch",
+    "mixer.com": "fab fa-mixer",
+  
+    // Piattaforme di blogging
+    "tumblr.com": "fab fa-tumblr",
+    "blogger.com": "fab fa-blogger",
+  
+    // Piattaforme di e-commerce
+    "etsy.com": "fab fa-etsy",
+    "shopify.com": "fab fa-shopify",
+  
+    // Piattaforme di recensioni
+    "yelp.com": "fab fa-yelp",
+    "tripadvisor.com": "fab fa-tripadvisor",
+  
+    // Piattaforme di cloud storage
+    "onedrive.com": "fab fa-onedrive",
+    "googledrive.com": "fab fa-google-drive",
+  
+    // Piattaforme di sviluppo
+    "stack-overflow.com": "fab fa-stack-overflow",
+    "github.com": "fab fa-github",
+    "gitlab.com": "fab fa-gitlab",
+    "bitbucket.org": "fab fa-bitbucket",
+  
+    // Piattaforme di design
+    "figma.com": "fab fa-figma",
+    "sketch.com": "fab fa-sketch",
+  
+    // Altre piattaforme popolari
+    "reddit.com": "fab fa-reddit",
+    "pinterest.com": "fab fa-pinterest",
+    "snapchat.com": "fab fa-snapchat",
+    "spotify.com": "fab fa-spotify",
+    "amazon.com": "fab fa-amazon",
+    "google.com": "fab fa-google",
+    "microsoft.com": "fab fa-microsoft",
+    "apple.com": "fab fa-apple",
+    "dropbox.com": "fab fa-dropbox",
+    "slack.com": "fab fa-slack",
+    // ... (aggiungi altre icone a piacere)
+  };
 
 const instanceStoreProfilo = useProfiloStore();
 const linksSocial = ref([]);
@@ -99,24 +178,23 @@ onMounted(() => {
 });
 
 const sitiWeb = computed(() => {
-    if (!instanceStoreProfilo.profilo.siti) return [];
+    if (!instanceStoreProfilo.profilo.siti_social) return [];
     try {
-        return instanceStoreProfilo.profilo.siti
-            .replace(/\[|\]/g, "") // Rimuove parentesi quadre
-            .split(",") // Divide i siti in un array
-            .map((sito) => {
-                const url = sito.trim();
-                const dominio = new URL(url).hostname.replace("www.", "");
-                return {
-                    url,
-                    nome: dominio + new URL(url).pathname,
-                    icona: iconeSiti[dominio] || "fas fa-globe", // Icona predefinita
-                };
-            });
+      return instanceStoreProfilo.profilo.siti_social
+        .map((sito) => {
+          const url = sito.trim();
+          const dominio = new URL(url).hostname.replace("www.", "");
+          return {
+            url,
+            nome: dominio + new URL(url).pathname,
+            icona: iconeSiti[dominio] || "fas fa-globe", // Icona predefinita
+          };
+        });
     } catch (error) {
-        console.info("Errore nel parsing dei siti", error);
-        return [];
+      console.info("Errore nel parsing dei siti", error);
+      return [];
     }
-});
+  });
+
 
 </script>
